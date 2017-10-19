@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<link href="../css/mui.min.css" rel="stylesheet" />	    
+	    <style>
+	        ul{padding: 0;list-style: none;font-size: 20px;}
+	        #date-box{
+	            background: #333;
+	            color: white;
+	            font-family: 微软雅黑;
+	            width: 500px;
+	        }
+	        #week-list:after,#date-list:after{
+	            display: table;
+	            content: '';
+	            clear: both;
+	        }
+	        #week-list li,#date-list li{
+	            width: 14.2857%;
+	            text-align: center;
+	            float: left;
+	            padding: 10px 0;
+	        }
+	        #prev,#next{cursor: pointer}
+	        #time{font-size: 40px;font-weight: normal;margin: 50px 0 20px 25px;}
+	        .but{margin-left: 400px;font-size: 40px;}
+	
+	        #year{font-size: 20px;color: #3F74F4;margin: -10px 0 0 25px;}
+	        #now{font-size: 20px;color: white;margin: 10px 0 0 25px;}
+	
+	    </style>
+</head>
+<body>
+<div id="date-box">
+    <div id="time">
+
+    </div>
+    <div id="year">
+
+    </div>
+    <div id="now">
+
+    </div>
+
+    <div class="but">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+    <ul id="week-list">
+        <li>一</li>
+        <li>二</li>
+        <li>三</li>
+        <li>四</li>
+        <li>五</li>
+        <li>六</li>
+        <li>日</li>
+    </ul>
+    <ul id="date-list">
+
+    </ul>
+</div>
+
+<script>
+    //将单位数前加0
+    function todu(n) {
+        if(n<10){
+            return '0'+n;
+        }
+        else{
+            return ''+n;
+        }
+    }
+    //自动获取当前时间
+//    var oDate=new Date();
+    setInterval(function () {
+        var oDate=new Date();
+        document.getElementById('time').innerHTML=todu(oDate.getHours())+':'+todu(oDate.getMinutes())+':'+todu(oDate.getSeconds());
+        document.getElementById('year').innerHTML=todu(oDate.getFullYear())+'年'+todu(oDate.getMonth()+1)+'月'+todu(oDate.getDate())+'日,星期'+oDate.getDay();
+    },1000);
+
+
+    //显示当前时间
+    var date=new Date();
+    showdate(date);
+
+    //封装获取日期列表的函数
+    function showdate(date) {
+
+        //当前年月
+        document.getElementById('now').innerHTML=todu(date.getFullYear())+'年'+todu(date.getMonth()+1)+'月';
+
+        //当前是周几
+        date.setDate(1);
+        var week=date.getDay();
+        week=week==0?7:week;
+
+
+        //当前月的最大天数
+        date.setMonth(date.getMonth()+1);
+        date.setDate(0);
+        var maxdate=date.getDate();
+//        date.setDate(1);
+
+
+        //获取日期列表内容
+
+        //当前月第一天是周几，并在前面空上相应的li
+        var html='';
+        for(var i=1;i<week;i++){
+            html+='<li></li>';
+        }
+
+        //输出每天的li
+        for(var j=1;j<=maxdate;j++){
+            html+='<li>'+j+'</li>'
+        }
+
+        //讲内容写到ul中
+        document.getElementById('date-list').innerHTML=html;
+    }
+
+    //前一个月
+    document.getElementById('prev').onclick=function () {
+        date.setDate(0);
+//        var nowMonth=date.getMonth();
+        showdate(date);
+    }
+
+    //后一个月
+    document.getElementById('next').onclick=function () {
+//        date.setMonth(date.getMonth() + 1);
+        date.setDate(32);
+
+        showdate(date);
+    }
+
+
+		</script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

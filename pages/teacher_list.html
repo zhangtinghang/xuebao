@@ -1,0 +1,464 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			/*顶部选择*/
+			.content{
+				width: 100%;
+			}
+			.head_ul{
+				display: flex;
+				align-items: center;
+				width: 100%;
+				border-bottom:1px solid rgba(220,220,220,0.5);
+				background: rgba(255,255,255,1);
+			}
+			.head_ul li{
+				width: 50%;
+				text-align: center;
+				padding: 11px 0;
+			}
+			.head_ul img{
+				padding-left: 0.111111rem;
+				width: 12px;
+				height: 9px;
+			}
+			/*教师列表*/
+			.content_list{
+				width: 100%;
+			}
+			.content_list_li{
+				position: relative;
+			}
+			.recommend{
+				position: absolute;
+				width: 0.583333rem;
+				height: 0.583333rem;
+				top: 0;
+				right: 0;
+				
+			}
+			.recommend img{
+				width: 100%;
+				height: 100%;
+			}
+			.list_header{
+				width: 100%;
+				display: flex;
+				flex-wrap:wrap;
+				background-color: rgb(255,255,255);
+			}
+			.list_avatar{
+				width: 20%;
+				padding: 0.388888rem;
+			}
+			.list_avatar img{
+				width: 1.111111rem;
+				height: 1.111111rem;
+			}
+			.list_title{
+				position: relative;
+				display: flex;
+				padding-top: 0.477777rem;
+				position: relative;
+				width: 80%;
+			}
+			.list_title_img{
+				width: 0.263888rem;
+				height: 0.263888rem;
+				margin-left: 0.111111rem;
+			}
+			.list_title_img img{
+				width: 100%;
+				height: 100%;
+			}
+			.list_title_ul{
+				display: flex;
+				margin-left: 0.111111rem;
+			}
+			.list_title_li img{
+				width: 0.277777rem;
+				height: 0.277777rem;
+			}
+			.list_title_right{
+				position: absolute;
+				right: 5%;
+				color: #fe7136;
+				font-size: 0.444444rem;
+			}
+			
+			.list_label{
+				width: 100%;
+				position: absolute;
+				top: 1.1977777rem;
+				left: 0;
+			}
+			.list_label_ul{
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.list_label_li{
+				background-color: rgb(166,194,77);
+				padding: 0 0.169444rem;
+				text-align: center;
+				border-radius: 5px;
+				color: rgb(255,255,255);
+				margin-right:0.222222rem;
+				margin-bottom: 0.138888rem;
+			}
+			.list_label_li:nth-child(1){
+				background-color: rgb(166,194,77);
+			}
+			.list_label_li:nth-child(2){
+				background-color: rgb(221,96,91);
+			}
+			.list_label_li:nth-child(3){
+				background-color: rgb(100,195,249);
+			}
+			.list_label_li:nth-child(4){
+				background-color: rgb(166,194,77);
+			}
+			.list_label_li:nth-child(5){
+				background-color: rgb(221,96,91);
+			}
+			.list_label_li:nth-child(6){
+				background-color: rgb(100,195,249);
+			}
+			
+			.list_item{
+				width: 100%;
+				background-color: rgb(255,255,255);
+				padding: 0.377777rem;
+				margin-bottom: 0.111111rem;
+			}
+			.list_item_ul{
+				display: flex;
+				align-items: center;
+			}.list_item_ul li{
+				width: 33.33%;
+				text-align: center;
+				border-right: 2px solid rgba(220,220,220,0.8) ;
+			}
+			.list_item_ul li:last-child{
+				border: none;
+			}
+			.list_item_num{
+				font-size: 0.416666rem;
+			}
+			.list_item_text{
+				color: rgb(198,198,198);
+				font-size: 0.333333rem;
+			}
+			.list_item_btn{
+				color: rgba(100,195,249,1);
+				font-size: 0.444444rem;
+				font-weight: bolder;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<!--顶部选择-->
+			<ul class="head_ul">
+				<li>默认排序<img src="../images/teacher_list/plug_down.png" /></li>
+				<li>全部星级<img src="../images/teacher_list/plug_down.png" /></li>
+			</ul>
+			
+			<!--教师列表-->
+			<div class="content_list">
+				<ul class="content_list_ul">
+					<li class="content_list_li">
+						<div class="recommend"><img src="../images/teacher_list/recommand_teacher.png" /></div>
+						<div class="list_header">
+							
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							
+							<div class="list_title">
+								<div class="list_title_text">周老师</div>
+								<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+								
+								<ul class="list_title_ul">
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+								</ul>
+								<div class="list_title_right">
+									￥5元/分钟
+								</div>
+								<!--标签-->
+								<div class="list_label">
+									<ul class="list_label_ul">
+										<li class="list_label_li">8年教龄</li>
+										<li class="list_label_li">名师</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+									</ul>
+								</div>
+							</div>	
+							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+								<li>
+									<div class="list_item_btn">可排课</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li class="content_list_li">
+						<div class="list_header">
+							
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							
+							<div class="list_title">
+								<div class="list_title_text">周老师</div>
+								<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+								
+								<ul class="list_title_ul">
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+								</ul>
+								<div class="list_title_right">
+									￥5元/分钟
+								</div>
+								<!--标签-->
+								<div class="list_label">
+									<ul class="list_label_ul">
+										<li class="list_label_li">8年教龄</li>
+										<li class="list_label_li">名师</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+									</ul>
+								</div>
+							</div>	
+							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+								<li>
+									<div class="list_item_btn">可排课</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li class="content_list_li">
+						<div class="list_header">
+							
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							
+							<div class="list_title">
+								<div class="list_title_text">周老师</div>
+								<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+								
+								<ul class="list_title_ul">
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+								</ul>
+								<div class="list_title_right">
+									￥5元/分钟
+								</div>
+								<!--标签-->
+								<div class="list_label">
+									<ul class="list_label_ul">
+										<li class="list_label_li">8年教龄</li>
+										<li class="list_label_li">名师</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+									</ul>
+								</div>
+							</div>	
+							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+								<li>
+									<div class="list_item_btn">可排课</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li class="content_list_li">
+						<div class="list_header">
+							
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							
+							<div class="list_title">
+								<div class="list_title_text">周老师</div>
+								<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+								
+								<ul class="list_title_ul">
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+								</ul>
+								<div class="list_title_right">
+									￥5元/分钟
+								</div>
+								<!--标签-->
+								<div class="list_label">
+									<ul class="list_label_ul">
+										<li class="list_label_li">8年教龄</li>
+										<li class="list_label_li">名师</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+									</ul>
+								</div>
+							</div>	
+							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+								<li>
+									<div class="list_item_btn">可排课</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					
+					<li class="content_list_li">
+						<div class="list_header">
+							
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							
+							<div class="list_title">
+								<div class="list_title_text">周老师</div>
+								<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+								
+								<ul class="list_title_ul">
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
+									<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+								</ul>
+								<div class="list_title_right">
+									￥5元/分钟
+								</div>
+								<!--标签-->
+								<div class="list_label">
+									<ul class="list_label_ul">
+										<li class="list_label_li">8年教龄</li>
+										<li class="list_label_li">名师</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+										<li class="list_label_li">负责</li>
+									</ul>
+								</div>
+							</div>	
+							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+								<li>
+									<div class="list_item_btn">可排课</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>首页</title>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/zoom/flexible.js" ></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			ul,li{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			/*顶部导航条*/
+			.mui-bar .mui-pull-left .mui-icon {
+				padding-right: 5px;
+				font-size: 28px;
+			}
+			
+			.mui-bar .mui-btn {
+				font-weight: normal;
+				font-size: 17px;
+			}
+			
+			.mui-bar .mui-btn-link {
+				top: 1px;
+			}
+			.mui-content{
+				margin-bottom: 50px;
+			}
+			.mui-content img {
+				width: 100%;
+			}
+			#img1{
+				height: 5.833333rem;
+			}
+			.hm-description {
+				margin: 15px;
+			}
+			
+			.hm-description>li {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			/*头部样式修改*/
+			.mui-bar{
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				background-color: rgba(77,169,239,0);
+			}
+			.mui-bar img{
+				width: 100%;
+				height: 100%;
+			}
+			.head_location{
+				width: 0.491666rem;
+				height: 0.581111rem;
+			}
+			.head_location img{
+				width: 100%;
+				height: 100%;
+			}
+			.search_btn{
+				position: absolute;
+				top: 50%;
+				margin-top: -8px;
+				left: 17%;
+			}
+			.search_input{
+				width: 75%;
+				border-radius:24px;
+				color: #FFFFFF;
+				font: "microsoft yahei";
+				text-align: left;
+				padding: 5px 0;
+				padding-left: 10%;
+				background-color: rgba(255,255,255,0.4);
+				
+			}
+			.receive_infor_btn{
+				width: 0.575rem;
+				height: 0.575rem;
+			}
+			.receive_infor_btn img{
+				width: 100%;
+				height: 100%;
+			}
+			/*轮播图*/
+			.mui-slider{
+				width: 100%;
+				height: 5.833333rem;
+			}
+			.mui-slider-indicator{
+				bottom: 24px;
+			}
+			/*课程表*/
+			.course_box{
+				display: flex;
+				position: relative;
+				width: 98%;
+				margin: 0 auto;
+				margin-top: -13px;
+				padding: 0;
+				height: 3.333333rem;
+				justify-content: space-around;
+				z-index: 9;
+			}
+			.course{
+				background-color: #000000;
+				width: 49.5%;
+				height:3.333333rem;
+			}
+			.course img{
+				width: 100%;
+				height: 100%;
+			}
+			.recommend{
+				width: 49.5%;
+			}
+			.recommend_top{
+				width: 100%;
+				height: 1.652777rem;
+				margin-bottom: 0.027777rem;
+			}
+			.recommend_top img{
+				width: 100%;
+				height: 100%;
+			}
+			.recommend_bottom{
+				width: 100%;
+				height: 1.652777rem;
+			}
+			.recommend_bottom img{
+				width: 100%;
+				height: 100%;
+			}
+			/*服务消息*/
+			.serve_nav{
+				width: 100%;
+				height:0.763888rem;
+				border-bottom: 1px solid rgba(220,220,220,.5);
+				display: flex;
+				align-items: center;
+				background-color: rgba(255,255,255,1);
+				margin-top: 0.222222rem;
+			}
+			.nav_line{
+				width: 4px;
+				background-color: #007AFF;
+				height: 0.436666rem;
+				margin-left: 5%;
+			}
+			.nav_serve{
+				width: 70%;
+				margin-left: 0.222222rem;
+				color: rgba(136,136,136,1);
+			}
+			.nav_more{
+				width: 30%;
+				text-align: right;
+				padding-right: 5%;
+				color: rgba(136,136,136,1);
+			}
+			.class_message{
+				width: 100%;
+				background-color: rgba(255,255,255,1);
+				margin-bottom: 0.111111rem;
+			}
+			.message_title{
+				display: flex;
+				padding: 0.222222rem 5%;
+				align-items: center;
+			}
+			.title_img{
+				width: 0.5rem;
+				height: 0.5rem;
+			}.title_img img{
+				width: 100%;
+				height: 100%;
+			}
+			.title_text{
+				padding-left: 0.388888rem;
+				font-size: 0.416666rem;
+				color: rgb(51,51,51);
+				
+			}
+			.title_time{
+				color: rgba(136,136,136,1);
+				padding-left: 0.222222rem;
+				font-size: 0.277777rem;
+			}
+			.message_body{
+				width: 100%;
+				padding: 0.388888rem 0;
+				display: flex;
+				justify-content: space-between;
+				color: rgba(136,136,136,1);
+			}
+			.body_choose{
+				color: rgba(85,85,85,1);
+				font-size: 0.333333rem;
+				margin-left:5%;
+				padding-left: 0.888888rem;
+			}
+			.body_detail{
+				color: rgb(136,136,136);
+				font-size: 0.277777rem;
+				padding-right: 5%;
+				display: inline-flex;
+			}
+			.detail_right{
+				width: 0.111111rem;
+				height: 0.097222rem;
+			}
+			.detail_right img{
+				width: 100%;
+				height: 100%;
+			}
+			
+			/*老师动态*/
+			.teacher_box{
+				background-color: rgba(255,255,255,1);
+				padding: 3%;
+			}
+			.teacher_ul{
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+			}
+			.teacher_ul li{
+				width: 46%;
+				
+			}
+			.teacher_cover{
+				width: 100%;
+				height: 3.333333rem;
+			}
+			.teacher_cover img{
+				width: 100%;
+				height: 100%;
+			}
+			.teacher_list{
+				display: flex;
+				align-items: center;
+				width: 100%;
+			}
+			.teacher_img{	
+				width: 8%;
+			}
+			.teacher_img img{
+				width: 0.222222rem;
+				width: 0.222222rem;
+			}
+			.teacher_name{
+				padding-left: 0.111111rem;
+				width: 60%;
+				font-size: 0.277777rem;
+				color: rgba(136,136,136,1);
+			}
+			.teacher_message{
+				width: 40%;
+				text-align: right;
+			}
+			.teacher_message img{
+				width: 0.180555rem;
+				height: 0.180555rem;
+			}
+			.teacher_message span{
+				font-size: 0.277777rem;
+				color: rgba(136,136,136,1);
+			}		
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-transparent">
+			<div class="head_location"><img src="images/index/location.png"/></div>
+			<div class="search_btn"><img src="images/index/search_btn.png"/></div>
+			<div class="search_input">请输入老师的名字或手机号</div>
+			<div class="receive_infor_btn"><img src="images/index/receive_infor_btn.png" /></div>
+		</header>
+
+		<div class="mui-content">
+			<!--静态图片-->
+			<img id="img1" src="images/yuantiao.jpg"/>
+			<!--轮播图片-->
+			<div id="slider" class="mui-slider mui-hidden" >
+			  <div class="mui-slider-group">
+			    <!-- 第一张 -->
+			     <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="images/shuijiao.jpg">
+			      </a>
+			    </div>
+			    <!-- 第二张 -->
+			    <div class="mui-slider-item">
+			      <a href="#">
+			        <img src="images/yuantiao.jpg">
+			      </a>
+			    </div>
+			  </div>
+			  <div class="mui-slider-indicator">
+			    <div class="mui-indicator mui-active"></div>
+			    <div class="mui-indicator"></div>
+			  </div>
+			</div>
+			
+			<!--课程表-->
+			<div class="course_box">
+				<div class="course"><img src="images/index/arrangement.png" /></div>
+				<div class="recommend">
+					<div class="recommend_top">
+						<img src="images/index/recommand_1.png" />
+					</div>
+					<div class="recommend_bottom">
+						<img  src="images/index/recommand_2.png" />
+					</div>
+				</div>				
+			</div>
+			
+			<!--服务消息-->
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">服务消息</span>
+				<div class="nav_more">更多</div>
+			</div>
+			<div class="class_message_box">
+				<div class="class_message">
+					<div class="message_title">
+						<div class="title_img"><img src="images/index/in_class_icon.png" /></div>
+						<div class="title_text">上课中</div>
+						<div class="title_time">16:54</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">【语文】</div>
+						<div class="body_detail">查看详情 >></div></div>
+					</div>
+				</div>
+				
+				<div class="class_message">
+					<div class="message_title">
+						<div class="title_img"><img src="images/index/recharge_record_icon.png" /></div>
+						<div class="title_text">充值记录</div>
+						<div class="title_time">10:04</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">1000学保币充值成功</div>
+						<div class="body_detail">查看详情 >></div>
+					</div>
+				</div>
+				
+				<div class="class_message">
+					<div class="message_title">
+						<div class="title_img"><img src="images/index/class_feedback_icon.png" /></div>
+						<div class="title_text">课堂反馈</div>
+						<div class="title_time">昨天 9:40</div>
+					</div>
+					<div class="message_body">
+						<div class="body_choose">【数学课堂反馈】</div>
+						<div class="body_detail">查看详情 >></div>
+					</div>
+				</div>
+			
+			<!--老师动态-->
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">老师动态</span>
+				<div class="nav_more">更多</div>
+			</div>
+			
+			<div class="teacher_box">
+				<ul class="teacher_ul">
+					<li class="teacher_li">
+						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_list">
+							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_name">黄代富</div>
+							<div class="teacher_message">
+								<img src="images/index/chat_num.png" />
+								<span>102</span>
+							</div>		
+						</div>
+					</li>
+					<li class="teacher_li">
+						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_list">
+							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_name">黄代富</div>
+							<div class="teacher_message">
+								<img src="images/index/chat_num.png" />
+								<span>102</span>
+							</div>		
+						</div>
+					</li>
+				</ul>
+				<ul class="teacher_ul">
+					<li class="teacher_li">
+						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_list">
+							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_name">黄代富</div>
+							<div class="teacher_message">
+								<img src="images/index/chat_num.png" />
+								<span>102</span>
+							</div>		
+						</div>
+					</li>
+					<li class="teacher_li">
+						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_list">
+							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_name">黄代富</div>
+							<div class="teacher_message">
+								<img src="images/index/chat_num.png" />
+								<span>102</span>
+							</div>		
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!--<p id="kecheng" style="margin: 30px 15px 20px;">课程安排</p>
+			
+			<form class="mui-input-group" style="margin-bottom: 300px;">
+				<div class="mui-input-row mui-radio">
+					<label>静态图片</label>
+					<input name="style" type="radio" checked value="static">
+				</div>
+				<div class="mui-input-row mui-radio">
+					<label>轮播图</label>
+					<input name="style" type="radio" value="slider">
+				</div>
+			</form>-->
+			
+		</div>
+		
+		<script src="js/util.js"></script>
+		<script type="text/javascript">
+			var aniShow = {};
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			
+			//图片轮播控制
+			var slider = document.getElementById("slider");
+			mui('.mui-input-group').on('change', 'input', function() {
+				if(this.checked) {
+					switch(this.value) {
+						case 'static':
+							document.getElementById("img1").className = "";
+							document.getElementById("slider").classList.add("mui-hidden");
+							break;
+						case 'slider':
+							document.getElementById("img1").className = "mui-hidden";
+							if(slider.classList.contains("mui-hidden")) {
+								document.getElementById("slider").classList.remove("mui-hidden");
+							}
+							break;
+					}
+				}
+			});
+			
+			//课程
+//			document.getElementById("kecheng").addEventListener('tap',function(){
+//				mui.openWindowWithTitle({
+//				    url:'pages/calendar.html',
+//				    id:'calendar'
+//				},{
+//				    title:{//标题配置
+//				        text:"日历",//标题文字
+//				    },
+//				    back:{//左上角返回箭头
+//				        image:{
+//				            base64Data:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAb1BMVEUAAAAAev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8Aev8AAACubimgAAAAI3RSTlMAGfUTGfQTGPMSGPIYGhgaGBsXGxcbFxwXHBccFhwWHRYdHWufDPQAAAABYktHRACIBR1IAAAAB3RJTUUH4QETEBwooeTlkQAAAJVJREFUSMft1EkSgkAQRNFGUXFWHBDBibr/HTUwD5B/48Ig1y+io7u6MqUhf5hsNEY+j5hMgZ/FJ8Xc9ovos3T96utjbfqN/Nb0O/m96Uv5g+mP8ifTn+Ur01/ka9Nf5RvTt/I309/lH6Z/yr9Mn+Q71/MT8B34K/E58Enzv8R/K98HvnF8p3lr8F7izce7lbf3kJ/lDQp9HdBhgg3PAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE3LTAxLTE5VDE2OjI4OjQwKzA4OjAwpTDFwQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNy0wMS0xOVQxNjoyODo0MCswODowMNRtfX0AAAAASUVORK5CYII='
+//				        }
+//				    }
+//				})
+//			})
+			
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview(),
+					nviews = self.getSubNViews(),
+					subpages = util.options.subpages;
+				
+				//创建子webview窗口 并初始化
+				util.initSubpage();
+				var activePage = plus.webview.currentWebview();
+
+				//给每个view 添加监听点击切换
+				for(var i = 0; i < 3; i++) {
+					nviews[i].addEventListener('click', clickEvent, false);
+				}
+
+				// 自定义 tab 点击事件
+				function clickEvent(e) {
+					var currId = e.target.id,
+					//substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符。
+						currIndex = parseInt(currId.substr(currId.length - 1, 1) - 1),
+						currView = self.getStyle().subNViews[currIndex];
+					// 匹配对应tab窗口	
+					if(currIndex > 0){
+						targetPage = plus.webview.getWebviewById(subpages[currIndex-1]);						
+					}else {
+						targetPage = plus.webview.currentWebview();
+					}
+
+					if(targetPage == activePage) {
+						return;
+					}
+
+					if(currIndex == 1){
+						//第四个tab 打开新窗口
+						var newWV = plus.webview.create('html/tab-webview-subpage-local.html', 'local',{'titleNView':{'backgroundColor':'rgba(77,169,239,1)','titleText':'地点','titleColor':'#FFFFFF',autoBackButton:true}});
+						newWV.show('slide-in-right', 200);
+					} else {	
+						//底部选项卡切换
+						util.toggleNview(currView, currIndex);
+						// 子页面切换
+						util.changeSubpage(targetPage, activePage);
+						//更改当前活跃的页面
+						activePage = targetPage;
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>
