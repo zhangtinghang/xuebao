@@ -11,3 +11,6 @@
 .clear{
 	clear: both;
 }
+body,html{
+	font-family: "microsoft yahei";
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background: rgba(255,255,255,1);
+			}
+			.content{
+				width: 80%;
+				margin: 0 auto;
+				background: rgba(255,255,255,1);
+				margin-top: 1.416666rem;
+			}
+			.input{
+				display: flex;
+				justify-content:space-around;
+				align-items: center;
+				margin-bottom: 0.138888rem;
+				position: relative;
+			}
+			.login_img{
+				padding: 0 !important;
+				width: 30%;
+				padding-bottom: 15px !important;
+				color: rgb(51,51,51);
+				font-size: 0.444444rem;
+			}
+			.input_choose{
+				width: 70% !important;
+				border: none !important;
+				padding:0 10px !important;
+				border-bottom: 1px solid rgba(240,240,240,1) !important;
+				font-size: 0.444444rem !important;
+				color: rgb(136,136,136) !important;
+			}
+			.mui-input-password{
+				padding: 0 !important;
+				margin-bottom: 15px !important;
+			}
+			#auth_code{
+				padding-right: 30% !important;
+			}
+			.auth_code{
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 30%;
+				background-color: rgb(27,130,209);
+				text-align: center;
+				margin-bottom: 20px;
+				font-size: 0.344444rem;
+				color: rgba(255,255,255,1);
+				padding: 6px 0;
+				border-radius:28px;
+			}
+			
+			.mui-btn{
+				background-color: rgb(76,168,238);
+				border-radius:42px;
+				box-shadow: 0 10px 10px rgba(27,130,209,0.15);
+				color: rgb(255,255,255);
+				font-size: 0.5rem;
+				line-height: 22px;
+			}
+			.mui-btn-block{
+				padding: 12px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div class="input phone">
+				<label class="login_img">手机号</label>
+				<input type="text" class="input_choose" id="phone" placeholder="请输入手机号" />
+			</div>
+			<div class="input password">
+				<label class="login_img">验证码</label>
+				<input type="text" class="input_choose" id="auth_code" placeholder="获取验证码" />
+				<div class="auth_code">获取验证码</div>
+			</div>
+			<div class="input password mui-input-row mui-password">
+				<label class="login_img">输入密码</label>
+				<input type="password" class="input_choose mui-input-password" id="password" placeholder="请输入密码" />
+			</div>
+			<div class="input password mui-input-row mui-password">
+				<label class="login_img">确认密码</label>
+				<input type="password" class="input_choose mui-input-password" id="confirm_password" placeholder="请再次输入密码" />
+			</div>
+			
+			<button type="button" id="login" class="mui-btn mui-btn-block">确定</button>
+		</div>
+		
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+	</body>
+</html>

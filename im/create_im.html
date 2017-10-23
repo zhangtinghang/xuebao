@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_ul{
+				width: 100%;
+			}
+			.content_ul li{
+				display: flex;
+				flex-wrap:wrap;
+				align-items: center;
+				border-bottom: 1px solid rgba(220,220,220,.3);
+				padding: 0.222222rem 0;
+				background-color: #FFFFFF;
+			}
+			.list_avatar{
+				width: 12%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_avatar img{
+				width: 1rem;
+				height: 1rem;
+			}
+			.list_message{
+				width: 82%;
+				display: flex;
+				justify-content: space-between;
+				align-content: center;
+				padding-left: 2%;
+			}
+			
+			.message_title{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.list_word{
+				padding-left: 5%;
+				background-color: #EFEFF4;
+			}
+			.list_text{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+				position: relative;
+				top: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="content_ul">
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_1.png" />
+					</div>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_avatar">
+						<img src="../images/im/message_list.png" />
+					</div>
+					<div class="list_avatar list_text">搜索</div>
+				</li>
+			</ul>
+			
+			<ul class="content_ul">
+				<form class="mui-input-group">
+				<div class="list_word">W</div>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/message_list.png" />
+					</div>
+					<div class="list_message mui-checkbox">
+						<div class="message_title">王泽</div>
+						<input name="checkbox" value="Item 1" type="checkbox" >
+					</div>
+				</li>
+				<div class="list_word">Z</div>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_2.png" />
+					</div>
+					<div class="list_message mui-checkbox">
+						<div class="message_title">张振</div>
+						<input name="checkbox" value="Item 1" type="checkbox" >
+					</div>
+				</li>
+				<li>
+					<div class="list_avatar">
+						<img src="../images/im/avatar_1.png" />
+					</div>
+					<div class="list_message mui-checkbox">
+						<div class="message_title">张小华</div>
+						<input name="checkbox" value="Item 1" type="checkbox" >
+					</div>
+				</li>
+			</form>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>
