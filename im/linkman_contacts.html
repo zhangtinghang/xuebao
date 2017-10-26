@@ -96,8 +96,26 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function () {
+			    /**
+				 * 绘制右上角文字
+				 */
+				var view = plus.nativeObj.View.getViewById('title_linkman_contacts');
+				view.drawText('添加', {top:'0px',right:'18px',height:'44px',width:'44px'}, {size:'15px',color:'#fefefe'}, 'contacts');
+				 /**
+				 * 监听原生控件click事件
+				 * 当位置在联系人时，触发页面跳转事件
+				 */
+				view.addEventListener("click", function(e){
+					if(screen.width - e.clientX <= 60){
+						//打开联系人页面
+						openView.usuView('im_search.html','im_search');
+					}
+				}, false);
+			})
 		</script>
 	</body>
 

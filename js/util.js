@@ -2,7 +2,7 @@ var util = {
 	options: {
 		active_color:'#007aff',
 		normal_color:'#000',
-		subpages:['html/tab-webview-subpage-chat.html', 'html/tab-webview-subpage-me.html']
+		subpages:['html/tab-webview-subpage-me.html']
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法
@@ -27,10 +27,10 @@ var util = {
 			temp[self.id] = "true";
 			mui.extend(aniShow, temp);
 			// 初始化绘制首个tab按钮
-			console.log(JSON.stringify(self.getStyle()))
 			util.toggleNview(self.getStyle().subNViews[0], 0);
 			
 		for(var i = 0, len = subpages.length; i < len; i++) {
+			
 			if(!plus.webview.getWebviewById(subpages[i])) {
 				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
 				//初始化隐藏
@@ -83,7 +83,7 @@ var util = {
 		}])
 
 		// 重绘兄弟nview
-		for(var i = 0; i < 3; i++) {
+		for(var i = 0; i < 2; i++) {
 			var viewObj = self.getStyle().subNViews[i];
 
 			if(i !== currIndex) {

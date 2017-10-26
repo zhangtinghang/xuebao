@@ -85,7 +85,7 @@
 		<div class="content">
 			<div class="input phone">
 				<label class="login_img">手机号</label>
-				<input type="text" class="input_choose" id="phone" placeholder="请输入手机号" />
+				<input type="text" pattern="/^1[0-9]{10}$/" class="input_choose" id="phone" placeholder="请输入手机号" />
 			</div>
 			<div class="input password">
 				<label class="login_img">验证码</label>
@@ -102,12 +102,60 @@
 			</div>
 			<div class="input phone">
 				<label class="login_img">邀请码</label>
-				<input type="text" class="input_choose" id="phone" placeholder="请输入邀请码" />
+				<input type="text" class="input_choose" id="Invitation_code" placeholder="请输入邀请码（可选）" />
 			</div>
 			
-			<button type="button" id="login" class="mui-btn mui-btn-block">注册</button>
-			<div class="login">已有学保账号？去登陆</div>
+			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
+			<div class="login" id="login">已有学保账号？去登陆</div>
 		</div>		
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/jquery-2.1.0.js" ></script>
+		
+		<!--引入环信SDK-->
+		
+		<script type="text/javascript">
+			mui.plusReady(function () {
+			var dc = {
+				phone:document.querySelector('#phone'),
+				auth_code:document.querySelector('#auth_code'),
+				password:document.querySelector('#password'),
+				confirm_password:document.querySelector('#confirm_password'),
+				Invitation_code:document.querySelector('#Invitation_code'),
+				register:document.querySelector('#register'),
+				login:document.querySelector('#login')
+			} 
+			//点击注册
+			dc.register.addEventListener('tap',function(){
+	
+				//验证
+				app.reg(dc,function(data){
+					if(data){
+						plus.nativeUI.toast(data);
+					}else{
+						//注册
+						var ajaxData = {url:'public/users/register',
+						data: {
+								type:'student',
+								phone:dc.phone.value,
+								smsCode:dc.auth_code.value,
+								password:dc.password.value
+						},type: 'post'}
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+							if(data.code == 200){
+								plus.nativeUI.toast(data.msg);
+								mui.back();
+							}else{
+								
+							}
+						});
+					}
+				});
+			})			
+		})
+			
+		</script>
 	</body>
 </html>
