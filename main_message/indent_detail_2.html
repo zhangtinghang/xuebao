@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>订单详情2</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_show{
+				padding-top:0.805555rem;
+				background-color: #FEFEFE;
+			}
+			.remaining_sum{
+				text-align: center;
+				color: #333333;
+				font-size: 0.444444rem;
+			}
+			.money{
+				font-size: 0.666666rem;
+				color: #333333;
+				text-align: center;
+				margin:0.388888rem 0;
+			}
+			.pay_msg{
+				font-size: 0.333333rem;
+				color: #888888;
+				text-align: center;
+				padding-bottom: 0.506666rem;
+			}
+			/*充值列表*/
+			.pay_list_ul li{
+				display: flex;
+				justify-content: space-between;
+				padding:0 0.388888rem;
+				padding-bottom:0.388888rem;
+				background-color: #FEFEFE;
+			}
+			.pay_list_ul li >span{
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			.pay_list_right{
+				color: #333333 !important;
+			}
+			.create_time{
+				margin-top: 2px;
+			}
+			.create_time li{
+				border: none !important;
+			}
+			.create_time li:first-child{
+				padding-top: 0.388888rem;
+			}
+			
+			.course_detail{
+				border-top:1px solid rgba(220,220,220,.5);
+			}
+			.course_detail li:first-child{
+				padding-top: 0.388888rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_show">
+				<div class="remaining_sum">张老师</div>
+				<div class="money">-500.00</div>
+				<div class="pay_msg">交易成功</div>
+			</div>
+			<div class="pay_list">
+				<ul class="pay_list_ul">
+					<li><span>付款方式</span><span class="pay_list_right">冻结余额</span></li>
+					<li><span>对方账户</span><span class="pay_list_right">张老师</span></li>
+				</ul>
+			</div>
+			<div class="pay_list course_detail">
+				<ul class="pay_list_ul">
+					<li><span>课程类型</span><span class="pay_list_right">一对一</span></li>
+					<li><span>课程科目</span><span class="pay_list_right">语文</span></li>
+					<li><span>课程类型</span><span class="pay_list_right">基础</span></li>
+					<li><span>课程时长</span><span class="pay_list_right">60min</span></li>
+					<li><span>分钟单价</span><span class="pay_list_right">2学币/min</span></li>
+				</ul>
+			</div>
+			<div class="pay_list create_time">
+				<ul class="pay_list_ul create_time_ul">
+					<li><span>创建时间</span><span class="pay_list_right">2017-09-21 20:30</span></li>
+					<li><span>订单号</span><span class="pay_list_right">201709211891485159196</span></li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

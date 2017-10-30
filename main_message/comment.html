@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发表评论</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 4% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+			}
+			.content_comment{
+				padding: 4% 0;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.content_comment > span{
+				width: 20%;
+				text-align: center;
+			}
+			.comment_btn{
+				width: 80%;
+				text-align: right;
+				padding-right: 5%;
+			}
+			.evaluate_btn{
+				color: #1b82d1;
+				border: 1px solid #1b82d1;
+				padding: 0.061666rem 0.369444rem;
+				border-radius: 18px;
+				margin: 0 1%;
+			}
+			.content_textarea{
+				border: none;
+				height: 5.388888rem;
+			}
+			/*调整placeholder （兼容？）*/
+			.content_textarea::-webkit-input-placeholder{
+			    color: #888888;
+			    font-size: 0.333333rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">对本节课授课老师做个评价</div>
+			<div class="content_comment">
+				<span>满意度</span>
+				<div class="comment_btn">
+					<span class="evaluate_btn">非常满意</span>
+					<span class="evaluate_btn">满意</span>
+					<span class="evaluate_btn">不满意</span>					
+				</div>
+			</div>
+			<div class="comment_text">
+				<textarea class="content_textarea" placeholder="对老师做出文字评论，该评论会显示在老师详情页。"></textarea>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

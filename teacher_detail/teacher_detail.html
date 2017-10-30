@@ -1,0 +1,751 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>教师详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			/*背景*/
+			
+			body,
+			html {
+				background-color: #FEFEFE;
+			}
+			
+			.list_bg {
+				width: 100%;
+			}
+			
+			.list_bg img {
+				height: 100%;
+				width: 100%;
+			}
+			
+			.header_avatar {
+				height: 1.666666rem;
+				width: 100%;
+				text-align: center;
+				margin-top: -0.755555rem;
+			}
+			
+			.header_avatar img {
+				width: 1.666666rem;
+				height: 1.666666rem;
+			}
+			
+			.header_name {
+				font-size: 0.444444rem;
+				color: #333333;
+				text-align: center;
+				margin-top: 0.222222rem;
+			}
+			
+			.header_name>img {
+				height: 0.388888rem;
+				width: 0.388888rem;
+				margin-left: 0.138888rem;
+			}
+			
+			.signature {
+				text-align: center;
+				margin: 0.222222rem 0;
+				color: #888888;
+				font-size: 0.333333rem;
+			}
+			
+			.header_detail {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			
+			.header_detail div {
+				margin: 0 0.238888rem;
+			}
+			
+			.detail_subject img {
+				width: 0.25rem;
+				height: 0.305555rem;
+				margin-right: 0.111111rem;
+			}
+			
+			.detail_age img {
+				width: 0.277777rem;
+				height: 0.319444rem;
+				margin-right: 0.111111rem;
+			}
+			
+			.detail_perfect img {
+				width: 0.319444rem;
+				height: 0.291666rem;
+				margin-right: 0.111111rem;
+			}
+			
+			.list_item {
+				width: 100%;
+				background-color: rgb(255, 255, 255);
+				padding: 0.377777rem;
+				margin-bottom: 0.111111rem;
+			}
+			
+			.list_item_ul {
+				display: flex;
+				align-items: center;
+			}
+			
+			.list_item_ul li {
+				width: 33.33%;
+				text-align: center;
+				border-right: 2px solid rgba(220, 220, 220, 0.8);
+			}
+			
+			.list_item_ul li:last-child {
+				border: none;
+			}
+			
+			.list_item_num {
+				font-size: 0.416666rem;
+			}
+			
+			.list_item_text {
+				color: rgb(198, 198, 198);
+				font-size: 0.333333rem;
+			}
+			
+			.serve_nav {
+				width: 100%;
+				height: 0.763888rem;
+				border-bottom: 1px solid rgba(220, 220, 220, .5);
+				display: flex;
+				align-items: center;
+				background-color: rgba(255, 255, 255, 1);
+				margin-top: 0.222222rem;
+			}
+			.fist_nav{
+				border-top: 1px solid rgba(220, 220, 220, .5);
+			}
+			
+			.nav_line {
+				width: 4px;
+				background-color: #007AFF;
+				height: 0.436666rem;
+				margin-left: 5%;
+			}
+			
+			.nav_serve {
+				width: 70%;
+				margin-left: 0.222222rem;
+				color: rgba(136, 136, 136, 1);
+			}
+			
+			.nav_more {
+				width: 30%;
+				text-align: right;
+				padding-right: 5%;
+				color: rgba(136, 136, 136, 1);
+			}
+			/*个人标签*/
+			
+			.list_label_ul {
+				display: flex;
+				flex-wrap: wrap;
+				padding: 0.277777rem 5%;
+			}
+			
+			.list_label_li {
+				background-color: rgb(166, 194, 77);
+				padding: 0 0.259444rem;
+				text-align: center;
+				border-radius: 10px;
+				color: rgb(255, 255, 255);
+				margin-right: 0.222222rem;
+				margin-bottom: 0.138888rem;
+			}
+			
+			.list_label_li:nth-child(1) {
+				background-color: rgb(166, 194, 77);
+			}
+			
+			.list_label_li:nth-child(2) {
+				background-color: rgb(221, 96, 91);
+			}
+			
+			.list_label_li:nth-child(3) {
+				background-color: rgb(100, 195, 249);
+			}
+			
+			.list_label_li:nth-child(4) {
+				background-color: rgb(166, 194, 77);
+			}
+			
+			.list_label_li:nth-child(5) {
+				background-color: rgb(221, 96, 91);
+			}
+			
+			.list_label_li:nth-child(6) {
+				background-color: rgb(100, 195, 249);
+			}
+			
+			.line {
+				height: 0.222222rem;
+				width: 100%;
+				background-color: rgba(220, 220, 220, .5);
+			}
+			/*个人简历*/
+			
+			.my_resume {
+				padding: 0.388888rem 5%;
+				line-height: 28px;
+				font-size: 0.333333rem;
+				color: #333333;
+			}
+			/*课堂互动*/
+			
+			.dynamic_list {
+				display: flex;
+				background-color: #FEFEFE;
+				padding: 0.416666rem 0.388888rem;
+				border-bottom: 1px solid rgba(220, 220, 220, .5);
+			}
+			
+			.avatar {
+				width: 15%;
+			}
+			
+			.avatat_box {
+				width: 0.833333rem;
+				height: 0.833333rem;
+				border-radius: 1.25rem;
+				background-color: rgb(220, 220, 220);
+				overflow: hidden;
+			}
+			
+			.avatat_box img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.more_text {
+				width: 85%;
+			}
+			
+			.detail_list {
+				display: flex;
+				background-color: #FEFEFE;
+				padding-top: 0.138888rem;
+				padding-bottom: 0.305555rem;
+			}
+			
+			.detail_list:last-child {
+				padding-bottom: 0.138888rem;
+			}
+			
+			.list_left {
+				width: 20%;
+				text-align: center;
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			
+			.list_right {
+				width: 80%;
+				font-size: 0.333333rem;
+				color: #333333;
+				padding-top: 1%;
+				padding-right: 2%;
+			}
+			
+			.list_right img {
+				margin: 0 1%;
+				border-radius: 4px;
+				width: 1.666666rem;
+				height: 1.722222rem;
+			}
+			/*课堂互动评论*/
+			
+			.dynamic_list {
+				display: flex;
+				background-color: #FEFEFE;
+				padding: 0.416666rem 0.388888rem;
+			}
+			
+			.avatar {
+				width: 15%;
+			}
+			
+			.avatat_box {
+				width: 0.833333rem;
+				height: 0.833333rem;
+				border-radius: 1.25rem;
+				background-color: rgb(220, 220, 220);
+				overflow: hidden;
+			}
+			
+			.avatat_box img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.more_text {
+				width: 85%;
+			}
+			
+			.list_name {
+				font-size: 0.333333rem;
+				color: rgb(51, 51, 51);
+			}
+			
+			.list_name img {
+				margin-left: 0.222222rem;
+				width: 0.208333rem;
+				height: 0.194444rem;
+			}
+			
+			.list_signature {
+				font-size: 0.277777rem;
+				color: rgb(136, 136, 136);
+				margin-bottom: 0.222222rem;
+			}
+			
+			.list_cover {
+				width: 90%;
+				border-radius: 10px;
+				overflow: hidden;
+			}
+			
+			.list_cover img {
+				width: 100%;
+			}
+			
+			.list_title {
+				width: 90%;
+				margin-top: 0.222222rem;
+				margin-bottom: 0.25rem;
+			}
+			
+			.list_content {
+				font-size: 0.277777rem;
+				color: rgb(85, 85, 85);
+				margin-bottom: 0.416666rem;
+			}
+			
+			.show_more {
+				font-size: 0.277777rem;
+				color: rgb(86, 110, 148);
+				margin: 0.2328888rem 0;
+			}
+			
+			.list_footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			
+			.footer_time {
+				font-size: 0.277777rem;
+				color: rgb(85, 85, 85);
+			}
+			
+			.footer_comm {
+				font-size: 0.277777rem;
+				color: rgb(85, 85, 85);
+			}
+			
+			.footer_comm img {
+				width: 0.180555rem;
+				height: 0.180555rem;
+				color: rgb(136, 136, 136);
+			}
+			
+			.list_commit_ul {
+				background-color: rgb(240, 240, 240);
+				padding: 0.222222rem;
+				border-radius: 4px;
+				margin-top: 0.222222rem;
+				position: relative;
+				z-index: 9;
+			}
+			
+			.list_commit_ul:before {
+				content: "";
+				background-color: rgb(240, 240, 240);
+				transform: rotateZ(45deg);
+				-webkit-transform: rotateZ(45deg);
+				width: 0.277777rem;
+				height: 0.277777rem;
+				position: absolute;
+				right: 3%;
+				top: -5px;
+				z-index: 99;
+			}
+			
+			.list_commit_ul li>span {
+				font-size: 0.277777rem;
+				color: rgb(86, 110, 148);
+			}
+			/*课程介绍*/
+			.course_description_list{
+				display: flex;
+				padding: 0 5%;
+				padding-bottom: 0.388888rem;
+			}
+			.course_description_title{
+				font-size: 0.333333rem;
+				color: #333333;
+				display: inline-flex;
+				width: 23%;
+				position: relative;
+			}
+			.circle{
+				width: 0.138888rem;
+				height: 0.138888rem;
+				background-color: #007AFF;
+				border-radius:45px;
+				margin-right: 0.111111rem;
+				position: absolute;
+				top:0.2217777rem;
+				left: 0;
+			}
+			.course_title_detail{
+				width: 100%;
+				text-align: right;
+				margin-right: 15%;
+			}
+			.course_description_body{
+				width: 77%;
+			}
+			.course_description_body span{
+				padding-right: 0.222222rem;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			.course_description:last-child{
+				padding-bottom: 0.944444rem;
+			}
+			
+			.line_footer{
+				height: 1.666666rem;
+				width: 100%;
+				background-color: rgba(220, 220, 220, .5);
+				padding-bottom: 100px;
+			}
+			
+			/*底部按钮*/
+			.footer_btn{
+				display: flex;
+				z-index: 9999;
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+				height: 50px;
+				align-items: center;
+			}
+			#btn_consult{
+				width:40%;
+				height: 100%;
+				background-color: #1B82D1;
+				color: #FEFEFE;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.5rem;
+			}
+			#btn_apply{
+				width:60%;
+				height: 100%;
+				background-color: #FE7136;
+				color: #FEFEFE;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.5rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="footer_btn">
+			<div id="btn_consult">咨询</div>
+			<div id="btn_apply">报名</div>
+		</div>
+		
+		<div class="content">
+			<div class="list_bg">
+				<img src="../images/teacher_list/image_jsxq_dt.png" />
+			</div>
+
+			<!--头像-->
+			<div class="header_avatar">
+				<img src="../images/teacher_list/teacher_head.png" />
+			</div>
+
+			<div class="header_name">周老师<img align="center" src="../images/teacher_list/male.png" /></div>
+
+			<div class="signature">没有更好，只有最好！</div>
+
+			<div class="header_detail">
+				<div class="detail_subject"><img align="center" src="../images/teacher_list/teach_subj.png" />授课：英语</div>
+				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄：8年</div>
+				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />学生满满意度：99.99%</div>
+			</div>
+
+			<div class="list_item">
+				<ul class="list_item_ul">
+					<li>
+						<div class="list_item_num">5468</div>
+						<div class="list_item_text">授课时长/分</div>
+					</li>
+					<li>
+						<div class="list_item_num">686</div>
+						<div class="list_item_text">学生数/人</div>
+					</li>
+					<li>
+						<div class="list_item_num">A级</div>
+						<div class="list_item_text">平台等级</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="serve_nav fist_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">平台标签</span>
+			</div>
+			<!--标签-->
+			<div class="platform_label">
+				<ul class="list_label_ul">
+					<li class="list_label_li">8年教龄</li>
+					<li class="list_label_li">名师</li>
+					<li class="list_label_li">负责</li>
+					<li class="list_label_li">负责</li>
+					<li class="list_label_li">8年教龄</li>
+					<li class="list_label_li">名师</li>
+					<li class="list_label_li">负责</li>
+					<li class="list_label_li">负责</li>
+					<li class="list_label_li">8年教龄</li>
+					<li class="list_label_li">名师</li>
+					<li class="list_label_li">负责</li>
+					<li class="list_label_li">负责</li>
+				</ul>
+			</div>
+			<div class="line"></div>
+			<!--个人简历-->
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">个人简历</span>
+				<div class="nav_more">详情</div>
+			</div>
+			<div class="my_resume">
+				英语师范本科，留美硕士，美国持证培训师；<br /> 老托福650/677，GRE Verbal 740 (99%)
+			</div>
+			<div class="line"></div>
+			<!--课堂互动-->
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课堂互动</span>
+				<div class="nav_more">更多</div>
+			</div>
+			<div class="dynamic_list_box">
+				<div class="dynamic_list">
+					<div class="avatar">
+						<div class="avatat_box">
+							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+						</div>
+					</div>
+					<div class="more_text">
+						<div class="detail_box">
+							<div class="detail_list">
+								<div class="list_left">王小明</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">重点:</div>
+								<div class="list_right">本节课的重点在于对文言文的特殊语句的区分，注意语句的使用场景。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">难点:</div>
+								<div class="list_right">祈使句使用。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">问题:</div>
+								<div class="list_right">学生对于祈使句理解有难度。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">方案:</div>
+								<div class="list_right">多加练习。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">作业:</div>
+								<div class="list_right">文言文翻译。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left"></div>
+								<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"></div>
+							</div>
+							<!--课堂互动评论-->
+							<div class="list_footer">
+								<div class="footer_time">2016年10月21日</div>
+								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+							</div>
+							<div class="list_commit">
+								<ul class="list_commit_ul">
+									<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+									<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="dynamic_list">
+					<div class="avatar">
+						<div class="avatat_box">
+							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+						</div>
+					</div>
+					<div class="more_text">
+						<div class="detail_box">
+							<div class="detail_list">
+								<div class="list_left">王小明</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">重点:</div>
+								<div class="list_right">本节课的重点在于对文言文的特殊语句的区分，注意语句的使用场景。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">难点:</div>
+								<div class="list_right">祈使句使用。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">问题:</div>
+								<div class="list_right">学生对于祈使句理解有难度。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">方案:</div>
+								<div class="list_right">多加练习。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left">作业:</div>
+								<div class="list_right">文言文翻译。</div>
+							</div>
+							<div class="detail_list">
+								<div class="list_left"></div>
+								<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"></div>
+							</div>
+							<!--课堂互动评论-->
+							<div class="list_footer">
+								<div class="footer_time">2016年10月21日</div>
+								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+							</div>
+							<div class="list_commit">
+								<ul class="list_commit_ul">
+									<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+									<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--动态-->
+			<div class="line"></div>
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">他的动态</span>
+				<div class="nav_more">更多</div>
+			</div>
+			<div class="my_dynamic_list">
+				<div class="dynamic_list">
+					<div class="avatar">
+						<div class="avatat_box">
+							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+						</div>
+					</div>
+					<div class="more_text">
+						<div class="list_name">王老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+						<div class="list_signature">趁我们还没有老，多去走走看看!</div>
+						<div class="list_cover">
+							<img src="../images/teacher_list/pensonnel.png" />
+						</div>
+						<div class="list_title">
+							上月去香港看了看，发现偌大的世界真美妙！
+						</div>
+						<div class="list_content mui-ellipsis-1">
+							在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
+						</div>
+						<div class="list_footer">
+							<div class="footer_time">2016年10月21日</div>
+							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="dynamic_list">
+					<div class="avatar">
+						<div class="avatat_box">
+							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+						</div>
+					</div>
+					<div class="more_text">
+						<div class="list_name">周老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+						<div class="list_signature">没有更好，只有最好！</div>
+						<!--<div class="list_cover">
+						<img src="../images/teacher_list/pensonnel.png" />
+					</div>-->
+						<div class="list_title">
+							上月去香港看了看，发现偌大的世界真美妙！
+						</div>
+						<div class="list_content mui-ellipsis-1">
+							在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
+						</div>
+						<div class="show_more">全文</div>
+						<div class="list_footer">
+							<div class="footer_time">2016年10月21日</div>
+							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+						</div>
+
+						<div class="list_commit">
+							<ul class="list_commit_ul">
+								<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+								<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<!--课程介绍-->
+		<div class="line"></div>
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课程介绍</span>
+			</div>
+			<div class="course_description">
+				<div class="course_description_list">
+					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课年级 :</div></div>
+					<div class="course_description_body">
+						<span>一年级</span><span>二年级</span><span>三年级</span><span>四年级</span>
+						<span>五年级</span><span>六年级</span><span>初一</span><span>初二</span>
+					</div>
+				</div>
+				<div class="course_description_list">
+					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课范围 :</div></div>
+					<div class="course_description_body">
+						<span>5km以类</span>
+					</div>
+				</div>
+			</div>
+		<div class="line_footer"></div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+</html>

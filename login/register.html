@@ -107,16 +107,16 @@
 			
 			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
 			<div class="login" id="login">已有学保账号？去登陆</div>
-		</div>		
+		</div>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
-		<script type="text/javascript" src="../js/login_config.js" ></script>
-		<script type="text/javascript" src="../js/jquery-2.1.0.js" ></script>
-		
-		<!--引入环信SDK-->
-		
 		<script type="text/javascript">
-			mui.plusReady(function () {
+		mui.plusReady(function () {
 			var dc = {
 				phone:document.querySelector('#phone'),
 				auth_code:document.querySelector('#auth_code'),
@@ -128,27 +128,45 @@
 			} 
 			//点击注册
 			dc.register.addEventListener('tap',function(){
-	
 				//验证
 				app.reg(dc,function(data){
 					if(data){
 						plus.nativeUI.toast(data);
 					}else{
-						//注册
-						var ajaxData = {url:'public/users/register',
-						data: {
+						//APP后台注册
+						var ajaxData = {
+							url:'public/users/register',
+							data: {
 								type:'student',
 								phone:dc.phone.value,
 								smsCode:dc.auth_code.value,
 								password:dc.password.value
-						},type: 'post'}
+							},
+							type: 'post'
+						};
+						//环信注册
+						var options = {
+						    username: dc.phone.value,
+						    password: dc.password.value,
+						    nickname: '学保Stu',
+						    appKey: WebIM.config.appkey,
+						    success: function (data) {
+						    	mui.back();
+						    },
+						    error: function (data) {
+						    	plus.nativeUI.toast('注册失败，请稍后再试！');
+						    },
+						    apiUrl: WebIM.config.apiURL
+						}; 
+
 						ajax(ajaxData, function(data) {
-							console.log(JSON.stringify(data))
 							if(data.code == 200){
 								plus.nativeUI.toast(data.msg);
-								mui.back();
+								//注册环信
+								 conn.registerUser(options);
 							}else{
-								
+								//注册失败回调
+								plus.nativeUI.toast('注册失败，请稍后再试！');
 							}
 						});
 					}

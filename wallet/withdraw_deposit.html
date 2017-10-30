@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>余额明细</title>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.deposit_title{
+				background-color: #fefefe;
+				padding: 2% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.deposit_box{
+				background-color: #FEFEFE;
+				color: #333333;
+				font-size: 0.444444rem;
+				padding: 0 5%;
+				height: 1.166666rem;
+			}
+			.balance{
+				display: flex;
+				align-items: center;
+			}
+			.deposit_input{
+				border: none !important;
+				margin: 0 !important;
+				height: 1.166666rem !important;
+				color: #333333 !important;
+				padding-left: 0 !important;
+			}
+			.deposit_input::-webkit-input-placeholder{
+				color: #888888;
+				font-size: 0.333333rem;
+			}
+			.deposit{
+				margin-top: 0.388888rem;
+			}
+			.deposit_explain{
+				margin: 16px 5%;
+				color: #555555;
+				font-size: 0.333333rem;
+			}
+			.mui-btn{
+				width: 70% !important;
+				margin: 0.388888rem auto !important;
+				border-radius:28px;
+				height: 1.166666rem !important;
+				line-height:1;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="deposit_title">可提现余额</div>
+			<div class="deposit_box balance">500.4 (元)</div>
+			<div class="deposit_title deposit">提现余额(最少5元，精确到小数点后两位)</div>
+			<div class="deposit_box">
+				<input type="text" class="deposit_input" id="" value="" placeholder="请输入金额" />
+			</div>
+			<div class="deposit_explain">
+				提现金额将会在15个工作日左右返回原充值账户
+			</div>
+			<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

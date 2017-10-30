@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>充值</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.header{
+				margin-top: 1.166666rem;
+				text-align: center;
+				margin-bottom: 0.388888rem;
+				font-size: 0.444444rem;
+				color: #333333;
+			}
+			.header_input{
+				text-align: center;
+				height: 1.166666rem !important;
+				border: none !important;
+				margin: 0 !important;
+			}
+			.header_input::-webkit-input-placeholder{
+				font-size: 0.333333rem;
+				color: #888888;
+			}
+			.content_body{
+				margin-top: 0.388888rem;
+			}
+			.body_title{
+				background-color: #FEFEFE;
+				padding: 2% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.body_list_ul li{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.388888rem 0;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.list_left{
+				width: 50%;
+				padding-left: 5%;
+			}
+			.list_left span{
+				margin-left: 0.388888rem;
+			}
+			.list_left img{
+				width: 0.666666rem;
+				height: 0.666666rem;
+			}
+			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+				position: relative;
+				top: 0;
+			}
+			.agreement{
+				display: flex;
+				align-items: center;
+				margin-top: 0.222222rem;
+				padding-left: 0.388888rem;
+			}
+			
+			.agree{
+				right: 0 !important;
+			}
+			#agreement_text{
+				margin-left: 0.222222rem;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			
+			.mui-btn{
+				width: 70% !important;
+				margin: 0.388888rem auto !important;
+				border-radius:28px;
+				height: 1.166666rem !important;
+				line-height:1;
+				padding: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="header">请输入充值金额</div>
+			<input type="text" class="header_input" id="" value="" placeholder="请输入充值金额（1-9999999）元" />
+			<div class="content_body">
+				<div class="body_title">选择充值方式</div>
+				<form class="mui-input-group">
+				<ul class="body_list_ul">
+					<li>
+						<div class="list_left">
+							<img align="center" src="../images/wallet/icon_wx.png" />
+							<span>微信支付</span>
+						</div>
+						<div class="list_right mui-checkbox">
+							<input name="radio1" type="checkbox" checked>
+						</div>
+					</li>
+					<li>
+						<div class="list_left">
+							<img align="center" src="../images/wallet/icon_zfb.png"/>
+							<span>支付宝支付</span>
+						</div>
+						<div class="list_right mui-checkbox">
+							<input name="radio1" type="checkbox">
+						</div>
+					</li>
+				</ul>
+			</form>
+			</div>
+		<!--充值协议-->
+		<div class="mui-checkbox agreement">
+			<input class="agree" name="radio1" type="checkbox" checked>
+			<span id="agreement_text">同意充值协议</span>
+		</div>
+		
+		<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确认充值</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

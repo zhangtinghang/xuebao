@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>一对一教师列表</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			/*顶部选择*/
+			.content{
+				width: 100%;
+			}
+			.head_ul{
+				display: flex;
+				align-items: center;
+				width: 100%;
+				border-bottom:1px solid rgba(220,220,220,0.5);
+				background: rgba(255,255,255,1);
+			}
+			.head_ul li{
+				width: 50%;
+				text-align: center;
+				padding: 0.291666rem 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.head_ul img{
+				padding-left: 0.111111rem;
+				width: 12px;
+				height: 6px;
+			}
+			/*教师列表*/
+			.content_list{
+				width: 100%;
+			}
+			.content_list_box{
+				position: relative;
+				background-image:url(../images/teacher_list/class_teacher_bg2.png);
+				background-repeat: no-repeat;
+				background-size:100% 100%;
+			}
+			.list_header{
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.list_avatar{
+				margin: 0.388888rem;
+			}
+			.list_avatar img{
+				width: 1.666666rem;
+				height: 1.666666rem;
+			}
+			.list_title{
+				display: flex;
+				flex-wrap: wrap;
+				padding-top: 0.767777rem;
+				position: relative;
+				width: 7.5rem;
+			}
+			.list_title_box{
+				display: inline-flex;
+				width: 100%;
+			}
+			.list_title_text{
+				font-size: 0.444444rem;
+				color: #FEFEFE;
+			}
+			.list_title_img{
+				margin-left: 0.111111rem;
+				margin-right: 0.111111rem;
+			}
+			.list_title_img img{
+				width: 0.263888rem;
+				height: 0.263888rem;
+			}
+			/*个性签名*/
+			.signature{
+				margin-top: 0;
+				margin-bottom: 0.208333rem;
+				font-size: 0.333333rem;
+				color: #FEFEFE;
+			}
+			/*个人标签*/
+			.list_label_ul{
+				display: flex;
+				flex-wrap: wrap;
+			}
+			.list_label_li{
+				background-color: rgb(166,194,77);
+				padding: 0 0.259444rem;
+				text-align: center;
+				border-radius: 10px;
+				color: rgb(255,255,255);
+				margin-right:0.222222rem;
+				margin-bottom: 0.138888rem;
+			}
+			.list_label_li:nth-child(1){
+				background-color: rgb(166,194,77);
+			}
+			.list_label_li:nth-child(2){
+				background-color: rgb(221,96,91);
+			}
+			.list_label_li:nth-child(3){
+				background-color: rgb(100,195,249);
+			}
+			.list_label_li:nth-child(4){
+				background-color: rgb(166,194,77);
+			}
+			.list_label_li:nth-child(5){
+				background-color: rgb(221,96,91);
+			}
+			.list_label_li:nth-child(6){
+				background-color: rgb(100,195,249);
+			}
+			
+			.list_item{
+				width: 100%;
+				padding: 0.377777rem;
+				margin-bottom: 0.111111rem;
+			}
+			.list_item_ul{
+				display: flex;
+				align-items: center;
+			}
+			.list_item_ul li{
+				width: 33.33%;
+				text-align: center;
+				border-right: 2px solid rgba(220,220,220,0.8) ;
+			}
+			.list_item_ul li:last-child{
+				border: none;
+			}
+			.list_item_num{
+				font-size: 0.416666rem;
+				color: #FEFEFE;
+			}
+			.list_item_text{
+				color: #EEEEEE;
+				font-size: 0.333333rem;
+			}
+			.body_list_box{
+				display: flex;
+				flex-wrap: wrap;
+				background-color: #FEFEFE;
+				border-bottom: 1px solid rgba(220,220,220,.5);
+			}
+			.list_left_icon{
+				width: 20%;
+				text-align: center;
+			}
+			.list_left_label{
+				border-radius:10px;
+				background-color: #fec00d;
+				margin: 0 auto;
+				margin-top: 0.388888rem;
+				width: 70%;
+				color: #FEFEFE;
+				padding: 1% 0;
+			}
+			.list_right_content{
+				width: 80%;
+			}
+			.list_right_body{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.527777rem;
+			}
+			.right_body_first{
+				padding-top: 0.416666rem;
+			}
+			.right_content_title{
+				font-size: 0.444444rem;
+				color: #333333;
+			}
+			.right_content_title span{
+				font-size: 0.277777rem;
+				color: #888888;
+				margin-left: 0.222222rem;
+			}
+			.right_content_num{
+				margin-right: 5%;
+				font-size: 0.416666rem;
+				color: #fe7136;
+			}
+			.right_content_apply{
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			.right_content_apply span{
+				margin-left: 0.388888rem;
+			}
+			.right_content_date{
+				margin-right: 5%;
+				font-size: 0.277777rem;
+				color: #888888;
+			}
+			.more_course{
+				text-align: center;
+				background-color: #FEFEFE;
+				padding: 0.158888rem;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			
+			.content_list_li{
+				margin-top: 0.25rem;
+			}
+			.content_list_li:first-child{
+				margin-top: 0 !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<!--顶部选择-->
+			<ul class="head_ul">
+				<li>默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></li>
+				<li>全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></li>
+				<li>详细筛选<img align="center" src="../images/teacher_list/plug_down.png" /></li>
+			</ul>
+			
+			<!--教师列表-->
+			<div class="content_list">
+				<ul class="content_list_ul">
+					<li class="content_list_li">
+						<div class="content_list_box">					
+						<div class="list_header">
+							<!--头像-->
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							<!--右边文字-->
+							<div class="list_title">
+								<div class="list_title_box">
+									<div class="list_title_text">周老师</div>
+									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<!--标签-->
+									<div class="list_label">
+										<ul class="list_label_ul">
+											<li class="list_label_li">8年教龄</li>
+											<li class="list_label_li">名师</li>
+											<li class="list_label_li">负责</li>
+										</ul>
+									</div>
+								</div>	
+								<!--个性签名-->
+								<div class="signature">
+									没有更好，只有最好！
+								</div>
+								
+							</div>							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">10</div>
+									<div class="list_item_text">等级</div>
+								</li>
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="body_list">
+						<div class="body_list_box">
+							<div class="list_left_icon">
+								<div class="list_left_label">基础级</div>
+							</div>
+							<div class="list_right_content">
+								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
+								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
+							</div>
+						</div>
+						<div class="body_list_box">
+							<div class="list_left_icon">
+								<div class="list_left_label">基础级</div>
+							</div>
+							<div class="list_right_content">
+								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
+								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
+							</div>
+						</div>
+						<div class="more_course">更多课程>></div>
+					</div>
+					</li>
+					
+					<li class="content_list_li">
+						<div class="content_list_box">					
+						<div class="list_header">
+							<!--头像-->
+							<div class="list_avatar">
+								<img src="../images/teacher_list/teacher_head.png" />
+							</div>
+							<!--右边文字-->
+							<div class="list_title">
+								<div class="list_title_box">
+									<div class="list_title_text">周老师</div>
+									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<!--标签-->
+									<div class="list_label">
+										<ul class="list_label_ul">
+											<li class="list_label_li">8年教龄</li>
+											<li class="list_label_li">名师</li>
+											<li class="list_label_li">负责</li>
+										</ul>
+									</div>
+								</div>	
+								<!--个性签名-->
+								<div class="signature">
+									没有更好，只有最好！
+								</div>
+								
+							</div>							
+						</div>
+						
+						<div class="list_item">
+							<ul class="list_item_ul">
+								<li>
+									<div class="list_item_num">10</div>
+									<div class="list_item_text">等级</div>
+								</li>
+								<li>
+									<div class="list_item_num">5468</div>
+									<div class="list_item_text">授课时长/分</div>
+								</li>
+								<li>
+									<div class="list_item_num">686</div>
+									<div class="list_item_text">学生数/人</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="body_list">
+						<div class="body_list_box">
+							<div class="list_left_icon">
+								<div class="list_left_label">基础级</div>
+							</div>
+							<div class="list_right_content">
+								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
+								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
+							</div>
+						</div>
+						<div class="body_list_box">
+							<div class="list_left_icon">
+								<div class="list_left_label">基础级</div>
+							</div>
+							<div class="list_right_content">
+								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
+								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
+							</div>
+						</div>
+						<div class="more_course">更多课程>></div>
+					</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

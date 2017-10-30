@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>上课中</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 4px 0;
+			}
+			.list span{
+				font-size: 0.333333rem;
+				color: #333333;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #5555555;
+			}
+			.body_btn{
+				margin-top: 1.416666rem;
+			}
+			.mui-btn{
+				width: 80%;
+				margin: 0 auto;
+				margin-top: 0.777777rem;
+				border-radius:42px;
+				background-color: #4ea9ef;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+			}
+			.finish{
+				background-color: #bebebe;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
+				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">分钟单价</span><span>2学币/分钟</span></div>
+				<div class="list"><span class="list_left">开始时间</span><span>09：20</span></div>
+			</div>
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-block">继续</button>
+				<button type="button" class="mui-btn mui-btn-block finish">结束</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

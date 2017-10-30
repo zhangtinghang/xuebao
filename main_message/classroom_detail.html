@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>课堂反馈详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 4% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #333333;
+				background-color: #FEFEFE;
+			}
+			.detail_list{
+				display: flex;
+				background-color: #FEFEFE;
+				padding-top: 0.388888rem;
+			}
+			.detail_list:last-child{
+				padding-bottom: 0.138888rem;
+			}
+			.list_left{
+				width: 20%;
+				text-align: center;
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.list_right{
+				width: 80%;
+				font-size: 0.333333rem;
+				color: #333333;
+				padding-top: 1%;
+				padding-right: 2%;
+			}
+			.list_right img{
+				margin: 0 1%;
+				border-radius: 4px;
+				width: 1.666666rem;
+				height: 1.722222rem;
+			}
+			
+			/*评价*/
+			.evaluate{
+				padding: 0.207777rem 0;
+				text-align: right;
+				background-color: #FEFEFE;
+				border-top:2px solid rgba(220,220,220,.5);
+				color: #555555;
+				font-size: 0.277777rem;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.evaluate_btn{
+				color: #1b82d1;
+				border: 1px solid #1b82d1;
+				padding: 0.061666rem 0.369444rem;
+				border-radius: 28px;
+				margin: 0 3%;
+				font-size: 0.333333rem;
+			}
+			.commit_ul{
+				padding: 0.222222rem 5%;
+				background-color: #FEFEFE;
+			}
+			.commit_ul li{
+				margin-bottom: 0.222222rem;
+			}
+			.commit_ul li>span{
+				color: #1B82D1;
+				padding-right:1%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">语文课反馈</div>
+			<div class="detail_box">
+				<div class="detail_list">
+					<div class="list_left">重点:</div>
+					<div class="list_right">本节课的重点在于对文言文的特殊语句的区分，注意语句的使用场景。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">难点:</div>
+					<div class="list_right">祈使句使用。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">问题:</div>
+					<div class="list_right">学生对于祈使句理解有难度。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">方案:</div>
+					<div class="list_right">多加练习。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left">作业:</div>
+					<div class="list_right">文言文翻译。</div>
+				</div>
+				<div class="detail_list">
+					<div class="list_left"></div>
+					<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"><img src="../images/logo.png"><img src="../images/logo.png"></div>
+				</div>
+			</div>
+			<div class="evaluate">
+				对本节课老师做个评价<span class="evaluate_btn">评价</span>
+			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
+			</div>
+			<div class="commit">
+				<ul class="commit_ul">
+					<li><span>我</span>：老师很负责，上课讲的很好</li>
+					<li><span>王老师</span>回复<span> 我</span>：好好复习。</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -1,6 +1,5 @@
 /**
  *1.判断APP是否登陆
- *2.存取登陆后需存入本地数据
  **/
 (function($, owner) {
 	/**
@@ -9,23 +8,15 @@
 	owner.login = function(loginInfo, callback) {
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
-		loginInfo.account = loginInfo.account || '';
-		loginInfo.password = loginInfo.password || '';
-		if (loginInfo.account.length < 5) {
-			return callback('账号最短为 5 个字符');
+		phone = loginInfo.phone || '';
+		passwords = loginInfo.passwords || '';
+		if (phone.value.length != 11) {
+			return callback('请正确输入手机号');
 		}
-		if (loginInfo.password.length < 6) {
+		if (passwords.value.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
-		var authed = users.some(function(user) {
-			return loginInfo.account == user.account && loginInfo.password == user.password;
-		});
-		if (authed) {
-			return owner.createState(loginInfo.account, callback);
-		} else {
-			return callback('用户名或密码错误');
-		}
+		return callback();
 	};
 
 	/**
@@ -39,7 +30,7 @@
 		auth_code = auth_code;
 		confirm_password = regInfo.confirm_password;
 		Invitation_code = regInfo.Invitation_code;
-		if (phone.value.length < 11 || phone.value.length > 12) {
+		if (phone.value.length != 11) {
 			return callback('请正确输入手机号');
 		}
 		if (password.value.length < 6) {
@@ -72,7 +63,17 @@
 		var stateText = localStorage.getItem('$state') || "{}";
 		return JSON.parse(stateText);
 	};
-
+	
+	/**
+	 * 创建存入数据
+	 **/
+	owner.createState = function(name, callback) {
+		var state = owner.getState();
+		state.account = name;
+		state.token = "token123456789";
+		owner.setState(state);
+		return callback();
+	};
 	/**
 	 * 设置当前状态
 	 **/
@@ -108,13 +109,5 @@
 			var settingsText = localStorage.getItem('$settings') || "{}";
 			return JSON.parse(settingsText);
 	}
-	
-	
-	owner.createState = function(name, callback) {
-		var state = owner.getState();
-		state.account = name;
-		state.token = "token123456789";
-		owner.setState(state);
-		return callback();
-	};
+
 }(mui, window.app = {}));

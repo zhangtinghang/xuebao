@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>课程详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			.list span{
+				font-size: 0.333333rem;
+				color: #333333;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #5555555;
+			}
+			
+			/*上课信息*/
+			.course_remind{
+				margin-top: 0.388888rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
+				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">课程内容</span><span>基础</span></div>
+				<div class="list"><span class="list_left">课程进度</span><span>8/10</span></div>
+			</div>
+			
+			<div class="content_course course_remind">消费信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">上课日期</span><span>2017-10-10</span></div>
+				<div class="list"><span class="list_left">上课区间</span><span>09:20-10:20</span></div>
+				<div class="list"><span class="list_left">消费时长</span><span>59min</span></div>
+				<div class="list"><span class="list_left">消费金额</span><span>180.5学保币</span></div>
+			</div>
+			
+			<div class="content_course course_remind">课堂反馈</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

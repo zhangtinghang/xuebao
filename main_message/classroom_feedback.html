@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>课堂反馈</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.indent_list li{
+				background-color: #FEFEFE;
+				padding: 0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.indent_list_title{
+				padding-top: 0.222222rem;
+				font-size: 0.416666rem;
+				color: #333333;
+			}
+			.indent_list_body{
+				margin: 0.305555rem 0;
+				font-size: 0.333333rem;
+				color: #333333;
+				display: flex;
+				justify-content: space-between;
+			}
+			.indent_list_time{
+				font-size: 0.333333rem;
+				color: #555555;
+				font-size: 0.333333rem;
+				padding-bottom: 0.277777rem;
+			}
+			.classroom_time{
+				font-size: 0.333333rem;
+				color: #888888;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="indent_list">
+				<li>
+					<div class="indent_list_title">班课课堂反馈</div>
+					<div class="indent_list_body"><span>语文-基础级</span><span class="classroom_time">2017-10-09</span></div>
+					<div class="indent_list_time">张老师</div>
+				</li>
+				<li>
+					<div class="indent_list_title">一对一课堂反馈</div>
+					<div class="indent_list_body"><span>语文-基础</span><span class="classroom_time">2017-10-09</span></div>
+					<div class="indent_list_time">张老师</div>
+				</li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

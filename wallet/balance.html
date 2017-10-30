@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>订单详情2</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background-color: #fefefe;
+			}
+			.content{
+				position: relative;
+			}
+			.content_show{
+				padding-top:1.416666rem;
+				background-color: #FEFEFE;
+			}
+			.remaining_sum{
+				text-align: center;
+				color: #333333;
+				font-size: 0.444444rem;
+			}
+			.money{
+				font-size: 0.666666rem;
+				color: #333333;
+				text-align: center;
+				margin:0.583333rem 0;
+			}
+			.pay_msg{
+				font-size: 0.333333rem;
+				color: #888888;
+				text-align: center;
+				padding-bottom: 0.777777rem;
+			}
+			
+			.evaluate_btn{
+				color: #1b82d1;
+				border: 1px solid #1b82d1;
+				padding: 0.061666rem 0.369444rem;
+				border-radius: 18px;
+				margin: 0 10%;
+			}
+			.balance_btn{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.list_text{
+				display: flex;
+			}
+			.list_text{
+				margin-top: 0.777777rem;
+				padding:0 0.583333rem;
+			}
+			.text_left{
+				color: #333333;
+				font-size: 0.333333rem;
+			}
+			.text_right{
+				color: #555555;
+			}
+			.explain{
+				position: absolute;
+				width: 100%;
+				bottom: 10%;
+				text-align: center;
+				color: #1b82d1;
+				font-size: 0.333333rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="explain">余额说明</div>
+		<div class="content">
+			<div class="content_show">
+				<div class="remaining_sum">可用余额</div>
+				<div class="money">800.50</div>
+				<div class="pay_msg">冻结金额：5000.50</div>
+			</div>
+			<div class="balance_btn">
+				<span class="evaluate_btn">充值</span>
+				<span class="evaluate_btn">提现</span>
+			</div>
+			<div class="list_text">
+				<div class="text_left">【优惠活动】：</div>
+				<div class="text_right">
+					<div>充值1000元返200</div>
+					<div>充值2000元返500</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>更多动态</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.dynamic_list{
+				display: flex;
+				background-color: #FEFEFE;
+				padding: 0.416666rem 0.388888rem;
+			}
+			.avatar{
+				width: 15%;
+			}
+			.avatat_box{
+				width: 0.833333rem;
+				height: 0.833333rem;
+				border-radius:1.25rem;
+				background-color: rgb(220,220,220);
+				overflow: hidden;
+			}
+			.avatat_box img{
+				width: 100%;
+				height:100%;
+			}
+			.more_text{
+				width: 85%;
+			}
+			.list_name{
+				font-size: 0.333333rem;
+				color: rgb(51,51,51);
+			}
+			.list_name img{
+				margin-left: 0.222222rem;
+				width: 0.208333rem;
+				height: 0.194444rem;
+			}
+			.list_signature{
+				font-size: 0.277777rem;
+				color: rgb(136,136,136);
+				margin-bottom: 0.222222rem;
+			}
+			.list_cover{
+				width: 90%;
+				border-radius:10px;
+				overflow: hidden;
+			}
+			.list_cover img{
+				width: 100%;
+			}
+			.list_title{
+				width: 90%;
+				margin-top: 0.222222rem;
+				margin-bottom: 0.25rem;
+			}
+			.list_content{
+				font-size: 0.277777rem;
+				color: rgb(85,85,85);
+				margin-bottom: 0.416666rem;
+			}
+			.show_more{
+				font-size: 0.277777rem;
+				color:rgb(86,110,148);
+				margin:0.2328888rem 0;
+			}
+			.list_footer{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.footer_time{
+				font-size: 0.277777rem;
+				color: rgb(85,85,85);
+			}
+			.footer_comm{
+				font-size: 0.277777rem;
+				color: rgb(85,85,85);
+			}
+			.footer_comm img{
+				width: 0.180555rem;
+				height: 0.180555rem;
+				color: rgb(136,136,136);
+			}
+			.list_commit_ul{
+				background-color: rgb(240,240,240);
+				padding: 0.222222rem;
+				border-radius:4px;
+				margin-top: 0.222222rem;
+				position: relative;
+				z-index: 9;
+			}
+			.list_commit_ul:before{
+				content:"";
+				background-color:rgb(240,240,240);
+				transform:rotateZ(45deg);
+				-webkit-transform:rotateZ(45deg);
+				width: 0.277777rem;
+				height: 0.277777rem;
+				position: absolute;
+				right: 3%;
+				top: -5px;
+				z-index: 99;
+			}
+			.list_commit_ul li >span{
+				font-size: 0.277777rem;
+				color: rgb(86,110,148);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="dynamic_list">
+				<div class="avatar">
+					<div class="avatat_box">
+						<img src="../images/teacher_list/teacher_dynamic_head.png" />
+					</div>
+				</div>
+				<div class="more_text">
+					<div class="list_name">王老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+					<div class="list_signature">趁我们还没有老，多去走走看看!</div>
+					<div class="list_cover">
+						<img src="../images/teacher_list/pensonnel.png" />
+					</div>
+					<div class="list_title">
+						上月去香港看了看，发现偌大的世界真美妙！
+					</div>
+					<div class="list_content mui-ellipsis-1">
+						在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
+					</div>
+					<div class="list_footer">
+						<div class="footer_time">2016年10月21日</div>
+						<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="dynamic_list">
+				<div class="avatar">
+					<div class="avatat_box">
+						<img src="../images/teacher_list/teacher_dynamic_head.png" />
+					</div>
+				</div>
+				<div class="more_text">
+					<div class="list_name">周老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+					<div class="list_signature">没有更好，只有最好！</div>
+					<!--<div class="list_cover">
+						<img src="../images/teacher_list/pensonnel.png" />
+					</div>-->
+					<div class="list_title">
+						上月去香港看了看，发现偌大的世界真美妙！
+					</div>
+					<div class="list_content mui-ellipsis-1">
+						在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
+					</div>
+					<div class="show_more">全文</div>
+					<div class="list_footer">
+						<div class="footer_time">2016年10月21日</div>
+						<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+					</div>
+					
+					<div class="list_commit">
+						<ul class="list_commit_ul">
+							<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+							<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

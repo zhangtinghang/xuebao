@@ -98,17 +98,22 @@
 			</div>
 			<div class="input password">
 				<label class="login_img"><img src="../images/login/password.png" /></label>
-				<input type="text" class="input_choose" id="password" placeholder="请输入密码" />
+				<input type="password" class="input_choose" id="passwords" placeholder="请输入密码" />
 			</div>
 			<div class="forget">忘记密码？</div>
 			<div class="clear"></div>
 			 <button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
 			 <button type="button" id="logins" class="mui-btn mui-btn-block">登录</button>
 		</div>
+		<!--引入环信SDK-->
+		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
+		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
+		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
+		<!--end-->
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
-		<script type="text/javascript" src="../js/app.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript">
 			mui.init({
 				preloadPages:[
@@ -123,38 +128,62 @@
 			  ]
 			});
 			mui.plusReady(function () {
+				//清空缓存
+				app.removeState();
 			    var doc = {
 			    	phone:document.querySelector('#phone'),
-			    	passwod:document.querySelector('#password'),
+			    	passwords:document.querySelector('#passwords'),
 			    	register:document.querySelector('#register'),
 			    	login:document.querySelector('#logins'),
 			    	forget:document.querySelector('#forget')
 			    }
+			    //存入凭据
+			   var state = app.getState();
 				//登陆
 				doc.login.addEventListener('tap',function(){
-					app.login(dc,function(data){
-					if(data){
-						plus.nativeUI.toast(data);
-					}else{
-						var ajaxData = {url:'public/users/login',
-						data: {
+					app.login(doc,function(data){
+						if(data){
+							plus.nativeUI.toast(data);
+						}else{				
+							var ajaxData = {
+							url:'public/users/login',
+							data: {
 								userIdOrnumber:doc.phone.value,
-								password:doc.password.value
-						},type:'post'}
-						
-						ajax(ajaxData, function(data) {
-							console.log(JSON.stringify(data))
-							if(data.code == 200){
-								plus.nativeUI.toast(data.msg);
-								mui.back();
-							}else{
-								
+								password:doc.passwords.value
+							},
+							type:'post'
 							}
-						});
-					}
-				});
-					console.log('dianji')
-
+							//环信登录相关
+							var options = {
+							    apiUrl: WebIM.config.apiURL,
+							    user: doc.phone.value,
+							    pwd: doc.passwords.value,
+							    appKey: WebIM.config.appkey,
+							    success: function (token) {
+							        var token = token.access_token;
+							        state.IM_token = token;
+							        state.phone = doc.phone.value;
+							        app.setState(state);
+							        mui.back();
+							    },
+							    error: function(data){
+							    	plus.nativeUI.toast('登录失败，请稍后再试！');
+							    }
+							};
+							
+							ajax(ajaxData, function(data) {
+								if(data.code == 200){
+									plus.nativeUI.toast(data.msg);
+									state.data = data.data;
+							        app.setState(state);
+									//登录环信
+								 	conn.open(options);
+								}else{
+									plus.nativeUI.toast('登录失败，请稍后再试！');
+								}
+							});
+						}
+					});
 				},false)
 				
 				//注册
