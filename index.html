@@ -47,7 +47,7 @@
 				width: 100%;
 			}
 			#img1{
-				height: 5.833333rem;
+				width: 100%;
 			}
 			.hm-description {
 				margin: 15px;
@@ -69,7 +69,7 @@
 				height: 100%;
 			}
 			.head_location{
-				width: 0.491666rem;
+				width: 0.41666rem;
 				height: 0.581111rem;
 			}
 			.head_location img{
@@ -81,6 +81,10 @@
 				top: 50%;
 				margin-top: -8px;
 				left: 17%;
+				z-index: 1;
+			}
+			.search_btn img{
+				width: 0.333333rem;
 			}
 			.search_input{
 				width: 75%;
@@ -91,6 +95,7 @@
 				padding: 5px 0;
 				padding-left: 10%;
 				background-color: rgba(255,255,255,0.4);
+				z-index: 99;
 				
 			}
 			.receive_infor_btn{
@@ -104,7 +109,6 @@
 			/*轮播图*/
 			.mui-slider{
 				width: 100%;
-				height: 5.833333rem;
 			}
 			.mui-slider-indicator{
 				bottom: 24px;
@@ -188,9 +192,10 @@
 				align-items: center;
 			}
 			.title_img{
-				width: 0.5rem;
-				height: 0.5rem;
-			}.title_img img{
+				width: 0.75rem;
+				height: 0.75rem;
+			}
+			.title_img img{
 				width: 100%;
 				height: 100%;
 			}
@@ -207,7 +212,7 @@
 			}
 			.message_body{
 				width: 100%;
-				padding: 0.388888rem 0;
+				padding-bottom: 0.388888rem;
 				display: flex;
 				justify-content: space-between;
 				color: rgba(136,136,136,1);
@@ -216,13 +221,19 @@
 				color: rgba(85,85,85,1);
 				font-size: 0.333333rem;
 				margin-left:5%;
-				padding-left: 0.888888rem;
+				padding-left: 1.138rem;
 			}
 			.body_detail{
 				color: rgb(136,136,136);
 				font-size: 0.277777rem;
 				padding-right: 5%;
 				display: inline-flex;
+				align-items: center;
+			}
+			.body_detail > img{
+				width: 0.166666rem;
+				height: 0.152777rem;
+				margin-left: 0.057777rem;
 			}
 			
 			/*老师动态*/
@@ -234,9 +245,10 @@
 				display: flex;
 				justify-content: space-between;
 				width: 100%;
+				flex-wrap:wrap;
 			}
 			.teacher_ul li{
-				width: 46%;
+				width: 48%;
 				
 			}
 			.teacher_cover{
@@ -251,13 +263,14 @@
 				display: flex;
 				align-items: center;
 				width: 100%;
+				margin: 0.122222rem 0;
 			}
 			.teacher_img{	
 				width: 8%;
 			}
 			.teacher_img img{
-				width: 0.222222rem;
-				width: 0.222222rem;
+				width: 0.333333rem;
+				width: 0.333333rem;
 			}
 			.teacher_name{
 				padding-left: 0.111111rem;
@@ -270,8 +283,8 @@
 				text-align: right;
 			}
 			.teacher_message img{
-				width: 0.180555rem;
-				height: 0.180555rem;
+				width: 0.277777rem;
+				height: 0.277777rem;
 			}
 			.teacher_message span{
 				font-size: 0.277777rem;
@@ -284,7 +297,7 @@
 		<header id="header" class="mui-bar mui-bar-transparent">
 			<div class="head_location"><img src="images/index/location.png"/></div>
 			<div class="search_btn"><img src="images/index/search_btn.png"/></div>
-			<div class="search_input">请输入老师的名字或手机号</div>
+			<div id="search" class="search_input">请输入老师的名字或手机号</div>
 			<div class="receive_infor_btn" id="message"><img src="images/index/receive_infor_btn.png" /></div>
 		</header>
 
@@ -315,13 +328,13 @@
 			
 			<!--课程表-->
 			<div class="course_box">
-				<div class="course"><img src="images/index/arrangement.png" /></div>
+				<div class="course" id="course"><img src="images/index/arrangement.png" /></div>
 				<div class="recommend">
 					<div class="recommend_top" id="login">
-						<img src="images/index/recommand_1.png" />
+						<img align="center" src="images/index/recommand_1.png" />
 					</div>
 					<div class="recommend_bottom">
-						<img  src="images/index/recommand_2.png" />
+						<img align="center"  src="images/index/recommand_2.png" />
 					</div>
 				</div>				
 			</div>
@@ -330,7 +343,7 @@
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">服务消息</span>
-				<div class="nav_more">更多</div>
+				<div id="server_more" class="nav_more">更多</div>
 			</div>
 			<div class="class_message_box">
 				<div class="class_message">
@@ -341,7 +354,7 @@
 					</div>
 					<div class="message_body">
 						<div class="body_choose">【语文】</div>
-						<div class="body_detail">查看详情 >></div></div>
+						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div></div>
 					</div>
 				</div>
 				
@@ -353,7 +366,7 @@
 					</div>
 					<div class="message_body">
 						<div class="body_choose">1000学保币充值成功</div>
-						<div class="body_detail">查看详情 >></div>
+						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
 					</div>
 				</div>
 				
@@ -365,7 +378,7 @@
 					</div>
 					<div class="message_body">
 						<div class="body_choose">【数学课堂反馈】</div>
-						<div class="body_detail">查看详情 >></div>
+						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
 					</div>
 				</div>
 			
@@ -373,53 +386,54 @@
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">老师动态</span>
-				<div class="nav_more">更多</div>
+				<div id="teacher_dynamic" class="nav_more">更多</div>
 			</div>
 			
 			<div class="teacher_box">
-				<ul class="teacher_ul">
+				<ul class="teacher_ul">				
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
-							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
-								<img src="images/index/chat_num.png" />
+								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
 							</div>		
 						</div>
 					</li>
+					
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
-							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
-								<img src="images/index/chat_num.png" />
+								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
 							</div>		
 						</div>
 					</li>
-				</ul>
-				<ul class="teacher_ul">
+					
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
-							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
-								<img src="images/index/chat_num.png" />
+								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
 							</div>		
 						</div>
 					</li>
+					
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img src="images/index/teacher_picture.png" /></div>
+						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
-							<div class="teacher_img"><img src="images/index/teacher_head.png" /></div>
+							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
-								<img src="images/index/chat_num.png" />
+								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
 							</div>		
 						</div>
@@ -471,17 +485,6 @@
 					}
 				}
 			});
-			
-			//课程
-			document.getElementById("message").addEventListener('tap',function(){
-				openView.nativeView('im/msg_list.html','msg_list','消息列表');
-			})
-			
-			document.getElementById("login").addEventListener('tap',function(){
-				openView.incView('login/login.html','login','欢迎登陆');
-			})
-			
-			
 				mui.plusReady(function() {
 				var self = plus.webview.currentWebview(),
 					nviews = self.getSubNViews(),
@@ -625,7 +628,6 @@
 				
 			//环信
 			var state = app.getState();
-			console.log(JSON.stringify(state));
 			var options = {
 				    apiUrl: WebIM.config.apiURL,
 				    user: state.phone,
@@ -663,10 +665,35 @@
 				    	console.log('连接失败回调'+JSON.stringify(message))
 				    },          //失败回调
 				});
-							
-				
-				
-				
+			
+			//页面跳转连接
+			document.getElementById("message").addEventListener('tap',function(){
+				openView.nativeView('im/msg_list.html','msg_list','消息列表');
+			});
+			//日历
+			document.getElementById("course").addEventListener('tap',function(){
+				openView.nativeView('pages/calendar.html','calendar','日历');
+			});
+			//登录
+			document.getElementById("login").addEventListener('tap',function(){
+				openView.incView('login/login.html','login','欢迎登陆');
+			});
+			//服务消息
+			document.getElementById("server_more").addEventListener('tap',function(){
+				openView.nativeView('main_message/server_list.html','server_list','服务消息');
+			});
+			//老师动态
+			document.getElementById("teacher_dynamic").addEventListener('tap',function(){
+				openView.nativeView('pages/more_dynamic.html','more_dynamic','更多动态');
+			});
+			//搜索
+			document.getElementById("search").addEventListener('tap',function(){
+				openView.usuView('im/im_search.html','im_search');
+			})
+			//定位
+			document.getElementById("login").addEventListener('tap',function(){
+//				openView.incView('login/login.html','login','欢迎登陆');
+			})
 			});
 		</script>
 	</body>

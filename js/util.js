@@ -68,11 +68,11 @@ var util = {
 		self.updateSubNViews([{
 			id: currObj.id,
 			tags: [{
-				tag: 'font', //currObj.tag
+				
+				tag: 'img', //此处直接赋值因为已知需要更新的tag 类型，不是固定值，请注意
 				id: currObj.id + 1,
 				position: currObj.tags[0].position,
-				text: currObj.tags[0].text,
-				textStyles: util.changeColor(currObj.tags[0].textStyles, util.options.active_color)
+				src: currObj.tags[0].src+'_2'
 			}, {
 				tag: 'font',
 				id: currObj.id + 2,
@@ -106,11 +106,10 @@ var util = {
 		self.updateSubNViews([{
 			id: obj.id,
 			tags: [{
-				tag: 'font', //此处直接赋值因为已知需要更新的tag 类型，不是固定值，请注意
+				tag: 'img', //此处直接赋值因为已知需要更新的tag 类型，不是固定值，请注意
 				id: obj.id + 1,
 				position: obj.tags[0].position,
-				text: obj.tags[0].text,
-				textStyles: util.changeColor(obj.tags[0].textStyles, util.options.normal_color)
+				src: obj.tags[0].src+'_2'
 			}, {
 				tag: 'font',
 				id: obj.id + 2,

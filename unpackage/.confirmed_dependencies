@@ -24,7 +24,11 @@
       "images/index/recharge_record_icon.png",
       "images/index/arrangement.png",
       "images/index/in_class_icon.png",
-      "js/config.js"
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js",
+      "js/IM/webim.config.js"
     ],
     "refer": [
       "html/tab-webview-subpage-setting.html",
@@ -34,7 +38,11 @@
       "html/new-webview.html",
       "html/tab-webview-subpage-me.html",
       "im/msg_list.html",
-      "login/login.html"
+      "login/login.html",
+      "im/im_search.html",
+      "main_message/server_list.html",
+      "pages/calendar.html",
+      "pages/more_dynamic.html"
     ]
   },
   "launch.html": {
@@ -117,7 +125,11 @@
       "images/im/message_list.png",
       "images/im/avatar_2.png",
       "js/util.js",
-      "js/config.js"
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/webim.config.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js"
     ],
     "refer": [
       "im/linkman_contacts.html"
@@ -158,7 +170,11 @@
       "js/zoom/flexible.js",
       "js/mui.min.js",
       "js/ajax.js",
-      "js/config.js"
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/webim.config.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js"
     ],
     "refer": [
       "login/register.html"
@@ -171,6 +187,40 @@
       "js/zoom/flexible.js",
       "js/mui.min.js",
       "js/login_config.js"
-    ]
+    ],
+    "refer": []
+  },
+  "main_message/server_list.html": {
+    "resources": [
+      "images/main_server/icon_chongzhi.png",
+      "images/main_server/icon_sktx.png",
+      "images/main_server/icon_ktfk.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "images/main_server/icon_schooltime.png",
+      "css/mui.min.css",
+      "images/main_server/icon_txcg.png",
+      "images/main_server/icon_kcan.png"
+    ],
+    "refer": []
+  },
+  "pages/calendar.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "pages/more_dynamic.html": {
+    "resources": [
+      "images/teacher_list/pensonnel.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "images/teacher_list/dynamic.png",
+      "css/mui.min.css",
+      "images/index/chat_num.png",
+      "images/teacher_list/teacher_dynamic_head.png"
+    ],
+    "refer": []
   }
 }

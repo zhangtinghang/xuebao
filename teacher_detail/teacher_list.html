@@ -33,15 +33,17 @@
 			.head_ul li{
 				width: 50%;
 				text-align: center;
+				font-size: 0.444444rem;
+				color: rgb(85,85,85);
 				padding: 0.291666rem 0;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
 			.head_ul img{
-				padding-left: 0.111111rem;
-				width: 12px;
-				height: 6px;
+				margin-left: 0.111111rem;
+				width: 0.25rem;
+				height: 0.180555rem;
 			}
 			/*教师列表*/
 			.content_list{
@@ -52,8 +54,8 @@
 			}
 			.recommend{
 				position: absolute;
-				width: 0.583333rem;
-				height: 0.583333rem;
+				width: 0.875rem;
+				height: 0.875rem;
 				top: 0;
 				right: 0;
 				
@@ -85,6 +87,7 @@
 			}
 			.list_title_box{
 				display: inline-flex;
+				align-items: center;
 				width: 100%;
 			}
 			.list_title_text{
@@ -94,23 +97,30 @@
 				margin-left: 0.111111rem;
 			}
 			.list_title_img img{
-				width: 0.263888rem;
-				height: 0.263888rem;
+				width: 0.388888rem;
+				height: 0.388888rem;
 			}
 			.list_title_ul{
 				display: flex;
 				margin-left: 0.111111rem;
 			}
+			.list_title_ul li{
+				display: inherit;
+			}
 			.list_title_li img{
-				width: 0.277777rem;
-				height: 0.277777rem;
+				width: 0.416666rem;
+				height: 0.416666rem;
 				margin-left: 0.111111rem;
+				margin-bottom: 0.027777rem
 			}
 			.list_title_right{
 				position: absolute;
 				right: 5%;
 				color: #fe7136;
 				font-size: 0.444444rem;
+			}
+			.list_title_right span{
+				font-size: 0.472222rem;
 			}
 			/*个性签名*/
 			.signature{
@@ -209,7 +219,7 @@
 							<div class="list_title">
 								<div class="list_title_box">
 									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
 										
 									<ul class="list_title_ul">
 										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
@@ -219,7 +229,7 @@
 										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
 									</ul>
 									<div class="list_title_right">
-										￥5元/分钟
+										￥<span>5</span>/分钟
 									</div>
 								</div>	
 								<!--个性签名-->
@@ -265,7 +275,7 @@
 							<div class="list_title">
 								<div class="list_title_box">
 									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
 										
 									<ul class="list_title_ul">
 										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
@@ -275,7 +285,7 @@
 										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
 									</ul>
 									<div class="list_title_right">
-										￥5元/分钟
+										￥<span>5</span>/分钟
 									</div>
 								</div>	
 								<!--个性签名-->
@@ -321,7 +331,7 @@
 							<div class="list_title">
 								<div class="list_title_box">
 									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
 										
 									<ul class="list_title_ul">
 										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
@@ -331,7 +341,7 @@
 										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
 									</ul>
 									<div class="list_title_right">
-										￥5元/分钟
+										￥<span>5</span>/分钟
 									</div>
 								</div>	
 								<!--个性签名-->
@@ -366,7 +376,6 @@
 							</ul>
 						</div>
 					</li>
-					
 				</ul>
 			</div>
 		</div>
