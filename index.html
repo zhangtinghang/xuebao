@@ -8,14 +8,16 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title>首页</title>
 		<script src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/zoom/flexible.js" ></script>
+		<script type="text/javascript" src="js/zoom/flexible.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
 			html,
 			body {
 				background-color: #efeff4;
 			}
-			ul,li{
+			
+			ul,
+			li {
 				list-style: none;
 				margin: 0;
 				padding: 0;
@@ -27,6 +29,7 @@
 				font-size: 15px;
 			}
 			/*顶部导航条*/
+			
 			.mui-bar .mui-pull-left .mui-icon {
 				padding-right: 5px;
 				font-size: 28px;
@@ -40,15 +43,20 @@
 			.mui-bar .mui-btn-link {
 				top: 1px;
 			}
-			.mui-content{
-				margin-bottom: 50px;
+			
+			.mui-content {
+				margin-bottom: 80px;
+				background-color: rgb(240,240,240);
 			}
+			
 			.mui-content img {
 				width: 100%;
 			}
-			#img1{
+			
+			#img1 {
 				width: 100%;
 			}
+			
 			.hm-description {
 				margin: 15px;
 			}
@@ -58,63 +66,74 @@
 				color: #8f8f94;
 			}
 			/*头部样式修改*/
-			.mui-bar{
+			
+			.mui-bar {
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
-				background-color: rgba(77,169,239,0);
+				background-color: rgba(77, 169, 239, 0);
 			}
-			.mui-bar img{
+			
+			.mui-bar img {
 				width: 100%;
 				height: 100%;
 			}
-			.head_location{
+			
+			.head_location {
 				width: 0.41666rem;
 				height: 0.581111rem;
 			}
-			.head_location img{
+			
+			.head_location img {
 				width: 100%;
 				height: 100%;
 			}
-			.search_btn{
+			
+			.search_btn {
 				position: absolute;
 				top: 50%;
 				margin-top: -8px;
 				left: 17%;
 				z-index: 1;
 			}
-			.search_btn img{
+			
+			.search_btn img {
 				width: 0.333333rem;
 			}
-			.search_input{
+			
+			.search_input {
 				width: 75%;
-				border-radius:24px;
+				border-radius: 24px;
 				color: #FFFFFF;
 				font: "microsoft yahei";
 				text-align: left;
 				padding: 5px 0;
 				padding-left: 10%;
-				background-color: rgba(255,255,255,0.4);
+				background-color: rgba(255, 255, 255, 0.4);
 				z-index: 99;
-				
 			}
-			.receive_infor_btn{
+			
+			.receive_infor_btn {
 				width: 0.575rem;
 				height: 0.575rem;
 			}
-			.receive_infor_btn img{
+			
+			.receive_infor_btn img {
 				width: 100%;
 				height: 100%;
 			}
 			/*轮播图*/
-			.mui-slider{
+			
+			.mui-slider {
 				width: 100%;
 			}
-			.mui-slider-indicator{
+			
+			.mui-slider-indicator {
 				bottom: 24px;
 			}
 			/*课程表*/
-			.course_box{
+			
+			.course_box {
 				display: flex;
 				position: relative;
 				width: 98%;
@@ -125,207 +144,237 @@
 				justify-content: space-around;
 				z-index: 9;
 			}
-			.course{
+			
+			.course {
 				background-color: #000000;
 				width: 49.5%;
-				height:3.333333rem;
+				height: 3.333333rem;
 			}
-			.course img{
+			
+			.course img {
 				width: 100%;
 				height: 100%;
 			}
-			.recommend{
+			
+			.recommend {
 				width: 49.5%;
 			}
-			.recommend_top{
+			
+			.recommend_top {
 				width: 100%;
 				height: 1.652777rem;
 				margin-bottom: 0.027777rem;
 			}
-			.recommend_top img{
+			
+			.recommend_top img {
 				width: 100%;
 				height: 100%;
 			}
-			.recommend_bottom{
+			
+			.recommend_bottom {
 				width: 100%;
 				height: 1.652777rem;
 			}
-			.recommend_bottom img{
+			
+			.recommend_bottom img {
 				width: 100%;
 				height: 100%;
 			}
 			/*服务消息*/
-			.serve_nav{
+			
+			.serve_nav {
 				width: 100%;
-				height:0.763888rem;
-				border-bottom: 1px solid rgba(220,220,220,.5);
+				height: 0.763888rem;
+				border-bottom: 1px solid rgba(220, 220, 220, .5);
 				display: flex;
 				align-items: center;
-				background-color: rgba(255,255,255,1);
+				background-color: rgba(255, 255, 255, 1);
 				margin-top: 0.222222rem;
 			}
-			.nav_line{
+			
+			.nav_line {
 				width: 4px;
 				background-color: #007AFF;
 				height: 0.436666rem;
 				margin-left: 5%;
 			}
-			.nav_serve{
+			
+			.nav_serve {
 				width: 70%;
 				margin-left: 0.222222rem;
-				color: rgba(136,136,136,1);
+				color: rgba(136, 136, 136, 1);
 			}
-			.nav_more{
+			
+			.nav_more {
 				width: 30%;
 				text-align: right;
 				padding-right: 5%;
-				color: rgba(136,136,136,1);
+				color: rgba(136, 136, 136, 1);
 			}
-			.class_message{
+			
+			.class_message {
 				width: 100%;
-				background-color: rgba(255,255,255,1);
+				background-color: rgba(255, 255, 255, 1);
 				margin-bottom: 0.111111rem;
 			}
-			.message_title{
+			
+			.message_title {
 				display: flex;
 				padding: 0.222222rem 5%;
 				align-items: center;
 			}
-			.title_img{
+			
+			.title_img {
 				width: 0.75rem;
 				height: 0.75rem;
 			}
-			.title_img img{
+			
+			.title_img img {
 				width: 100%;
 				height: 100%;
 			}
-			.title_text{
+			
+			.title_text {
 				padding-left: 0.388888rem;
 				font-size: 0.416666rem;
-				color: rgb(51,51,51);
-				
+				color: rgb(51, 51, 51);
 			}
-			.title_time{
-				color: rgba(136,136,136,1);
+			
+			.title_time {
+				color: rgba(136, 136, 136, 1);
 				padding-left: 0.222222rem;
 				font-size: 0.277777rem;
 			}
-			.message_body{
+			
+			.message_body {
 				width: 100%;
 				padding-bottom: 0.388888rem;
 				display: flex;
 				justify-content: space-between;
-				color: rgba(136,136,136,1);
+				color: rgba(136, 136, 136, 1);
 			}
-			.body_choose{
-				color: rgba(85,85,85,1);
+			
+			.body_choose {
+				color: rgba(85, 85, 85, 1);
 				font-size: 0.333333rem;
-				margin-left:5%;
+				margin-left: 5%;
 				padding-left: 1.138rem;
 			}
-			.body_detail{
-				color: rgb(136,136,136);
+			
+			.body_detail {
+				color: rgb(136, 136, 136);
 				font-size: 0.277777rem;
 				padding-right: 5%;
 				display: inline-flex;
 				align-items: center;
 			}
-			.body_detail > img{
+			
+			.body_detail>img {
 				width: 0.166666rem;
 				height: 0.152777rem;
 				margin-left: 0.057777rem;
 			}
-			
 			/*老师动态*/
-			.teacher_box{
-				background-color: rgba(255,255,255,1);
+			
+			.teacher_box {
+				background-color: rgba(255, 255, 255, 1);
 				padding: 3%;
 			}
-			.teacher_ul{
+			
+			.teacher_ul {
 				display: flex;
 				justify-content: space-between;
 				width: 100%;
-				flex-wrap:wrap;
+				flex-wrap: wrap;
 			}
-			.teacher_ul li{
+			
+			.teacher_ul li {
 				width: 48%;
-				
 			}
-			.teacher_cover{
+			
+			.teacher_cover {
 				width: 100%;
 				height: 3.333333rem;
 			}
-			.teacher_cover img{
+			
+			.teacher_cover img {
 				width: 100%;
 				height: 100%;
 			}
-			.teacher_list{
+			
+			.teacher_list {
 				display: flex;
 				align-items: center;
 				width: 100%;
 				margin: 0.122222rem 0;
 			}
-			.teacher_img{	
+			
+			.teacher_img {
 				width: 8%;
 			}
-			.teacher_img img{
+			
+			.teacher_img img {
 				width: 0.333333rem;
 				width: 0.333333rem;
 			}
-			.teacher_name{
+			
+			.teacher_name {
 				padding-left: 0.111111rem;
 				width: 60%;
 				font-size: 0.277777rem;
-				color: rgba(136,136,136,1);
+				color: rgba(136, 136, 136, 1);
 			}
-			.teacher_message{
+			
+			.teacher_message {
 				width: 40%;
 				text-align: right;
 			}
-			.teacher_message img{
+			
+			.teacher_message img {
 				width: 0.277777rem;
 				height: 0.277777rem;
 			}
-			.teacher_message span{
+			
+			.teacher_message span {
 				font-size: 0.277777rem;
-				color: rgba(136,136,136,1);
-			}		
+				color: rgba(136, 136, 136, 1);
+			}
 		</style>
 	</head>
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
-			<div class="head_location"><img src="images/index/location.png"/></div>
-			<div class="search_btn"><img src="images/index/search_btn.png"/></div>
+			<div class="head_location"><img src="images/index/location.png" /></div>
+			<div class="search_btn"><img src="images/index/search_btn.png" /></div>
 			<div id="search" class="search_input">请输入老师的名字或手机号</div>
 			<div class="receive_infor_btn" id="message"><img src="images/index/receive_infor_btn.png" /></div>
 		</header>
 
 		<div class="mui-content">
 			<!--静态图片-->
-			<img id="img1" src="images/yuantiao.jpg"/>
+			<img id="img1" src="images/yuantiao.jpg" />
 			<!--轮播图片-->
-			<div id="slider" class="mui-slider mui-hidden" >
-			  <div class="mui-slider-group">
-			    <!-- 第一张 -->
-			     <div class="mui-slider-item">
-			      <a href="#">
-			        <img src="images/shuijiao.jpg">
-			      </a>
-			    </div>
-			    <!-- 第二张 -->
-			    <div class="mui-slider-item">
-			      <a href="#">
-			        <img src="images/yuantiao.jpg">
-			      </a>
-			    </div>
-			  </div>
-			  <div class="mui-slider-indicator">
-			    <div class="mui-indicator mui-active"></div>
-			    <div class="mui-indicator"></div>
-			  </div>
+			<div id="slider" class="mui-slider mui-hidden">
+				<div class="mui-slider-group">
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/shuijiao.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/yuantiao.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+				</div>
 			</div>
-			
+
 			<!--课程表-->
 			<div class="course_box">
 				<div class="course" id="course"><img src="images/index/arrangement.png" /></div>
@@ -334,19 +383,19 @@
 						<img align="center" src="images/index/recommand_1.png" />
 					</div>
 					<div class="recommend_bottom">
-						<img align="center"  src="images/index/recommand_2.png" />
+						<img align="center" src="images/index/recommand_2.png" />
 					</div>
-				</div>				
+				</div>
 			</div>
-			
+
 			<!--服务消息-->
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">服务消息</span>
 				<div id="server_more" class="nav_more">更多</div>
 			</div>
-			<div class="class_message_box">
-				<div class="class_message">
+			<div class="class_message_box" id="class_message_box">
+				<div class="class_message" data-type="1">
 					<div class="message_title">
 						<div class="title_img"><img src="images/index/in_class_icon.png" /></div>
 						<div class="title_text">上课中</div>
@@ -354,11 +403,11 @@
 					</div>
 					<div class="message_body">
 						<div class="body_choose">【语文】</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div></div>
+						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
 					</div>
 				</div>
 				
-				<div class="class_message">
+				<div class="class_message" data-type="2">
 					<div class="message_title">
 						<div class="title_img"><img src="images/index/recharge_record_icon.png" /></div>
 						<div class="title_text">充值记录</div>
@@ -369,8 +418,8 @@
 						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
 					</div>
 				</div>
-				
-				<div class="class_message">
+
+				<div class="class_message" data-type="3">
 					<div class="message_title">
 						<div class="title_img"><img src="images/index/class_feedback_icon.png" /></div>
 						<div class="title_text">课堂反馈</div>
@@ -381,61 +430,62 @@
 						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
 					</div>
 				</div>
-			
+			</div>
+
 			<!--老师动态-->
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">老师动态</span>
 				<div id="teacher_dynamic" class="nav_more">更多</div>
 			</div>
-			
+
 			<div class="teacher_box">
-				<ul class="teacher_ul">				
+				<ul class="teacher_ul">
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
 							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
-							</div>		
+							</div>
 						</div>
 					</li>
-					
+
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
 							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
-							</div>		
+							</div>
 						</div>
 					</li>
-					
+
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
 							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
-							</div>		
+							</div>
 						</div>
 					</li>
-					
+
 					<li class="teacher_li">
-						<div class ="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
 						<div class="teacher_list">
 							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
 							<div class="teacher_name">黄代富</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
-							</div>		
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -452,16 +502,16 @@
 					<input name="style" type="radio" value="slider">
 				</div>
 			</form>-->
-			
+
 		</div>
 		<!--引入环信SDK-->
-		<script type="text/javascript" src="js/IM/webim.config.js" ></script>
-		<script type="text/javascript" src="js/IM/strophe-1.2.8.min.js" ></script>
-		<script type="text/javascript" src="js/IM/websdk-1.4.13.js" ></script>
+		<script type="text/javascript" src="js/IM/webim.config.js"></script>
+		<script type="text/javascript" src="js/IM/strophe-1.2.8.min.js"></script>
+		<script type="text/javascript" src="js/IM/websdk-1.4.13.js"></script>
 		<!--end-->
 		<script src="js/util.js"></script>
-		<script type="text/javascript" src="js/config.js" ></script>
-		<script type="text/javascript" src="js/login_config.js" ></script>
+		<script type="text/javascript" src="js/config.js"></script>
+		<script type="text/javascript" src="js/login_config.js"></script>
 		<script type="text/javascript">
 			var aniShow = {};
 			mui.init({
@@ -485,132 +535,64 @@
 					}
 				}
 			});
-				mui.plusReady(function() {
+			mui.plusReady(function() {
 				var self = plus.webview.currentWebview(),
-					nviews = self.getSubNViews(),
-					subpages = util.options.subpages,
 					leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
-
 				/**	
-				 * drawNativeIconBg 绘制带边框的半圆，
-				 * 实现原理：
-				 *   id为bg的tag 创建带边框的圆
-				 *   id为bg2的tag 创建白色矩形遮住圆下半部分，只显示凸起带边框部分
-				 *   注意创建先后顺序，创建越晚的层级越高
+				 * drawNativeIcon 绘制带边框的半圆，
+				 * 	 id为iconBg的图片
+				 *   
 				 */
-				var drawNativeIconBg = util.drawNative('iconBg', {
-					bottom: '5px',
+				var drawNativeIcon = util.drawNative('icon', {
+					bottom: '18px',
 					left: leftPos + 'px',
 					width: '60px',
-					height: '60px',
-					position: 'dock'
+					height: '60px'
 				}, [{
-					tag: 'rect',
-					id: 'bg',
-					position: {
-						top: '0px',
-						left: '0px',
-						width: '100%',
-						height: '100%'
-					},
-					rectStyles: {
-						color: '#fff',
-						radius: '30px',
-						borderColor: '#ccc',
-						borderWidth: '1px'
-					}
-				}, {
-					tag: 'rect',
-					id: 'bg2',
-					position: {
-						bottom: '0px',
-						left: '0px',
-						width: '100%',
-						height: '45px'
-					},
-					rectStyles: {
-						color: '#fff'
-					}
-				}]);
-
-				/**
-				 * 凸起图标最后创建  浮在最顶层
-				 *	id为iconBg的红色背景图
-				 * 	id为icon的字体图标
-				 * 	
-				 */
-				var drawNativeIcon = util.drawNative('tabIcon', {
-					bottom: '10px',
-					left: leftPos + 5 + 'px',
-					width: '50px',
-					height: '50px',
-					position: 'dock' //此种停靠方式表明该控件应浮在窗口最上层，以免被其他窗口遮住
-				}, [{
-					tag: 'rect',
+					tag: 'img',
 					id: 'iconBg',
+					src:'images/index/chos_subj.png',
 					position: {
-						top: '0px',
-						left: '0px',
+						top: '5px',
+						left: '5px',
 						width: '50px',
-						height: '100%'
-					},
-					rectStyles: {
-						color: '#d74b28',
-						size: '50px',
-						radius: '50%'
-					}
-				}, {
-					tag: 'font',
-					id: 'icon',
-					text: '\ue600', //此为字体图标Unicode码'\e600'转换为'\ue600'
-					position: {
-						top: '0px',
-						left: '0px',
-						width: '50px',
-						height: '100%'
-					},
-					textStyles: {
-						fontSrc: '_www/fonts/iconfont.ttf',
-						align: 'center',
-						color: '#fff',
-						size: '30px'
+						height: '50px'
 					}
 				}]);
 				// append 到父webview中
-				self.append(drawNativeIconBg);
 				self.append(drawNativeIcon);
 
 				//自定义监听图标点击事件
 				drawNativeIcon.addEventListener('click', function(e) {
-					mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
-					// 重绘字体颜色
-					drawNativeIcon.drawText('\ue600', {}, {
-						fontSrc: '_www/fonts/iconfont.ttf',
-						align: 'center',
-						color: '#000',
-						size: '30px'
-					}, 'icon');
+					shareWebview();
 				});
-				
-				//创建子webview窗口 并初始化
-				util.initSubpage();
-				var activePage = plus.webview.currentWebview();
+				// 中间凸起图标绘制及监听点击完毕
 
-				//给每个view 添加监听点击切换
-				for(var i = 0; i < 2; i++) {
-					nviews[i].addEventListener('click', clickEvent, false);
-				}
+				// 创建子webview窗口 并初始化
+				var aniShow = {};
+				util.initSubpage(aniShow);
 
-				// 自定义 tab 点击事件
-				function clickEvent(e) {
-					var currId = e.target.id,
-						currIndex = parseInt(currId.substr(currId.length - 1, 1) - 1),
-						currView = self.getStyle().subNViews[currIndex];
-						
+				var nview = plus.nativeObj.View.getViewById('tabBar'),
+					activePage = plus.webview.currentWebview(),
+					targetPage,
+					subpages = util.options.subpages,
+					pageW = window.innerWidth,
+					currIndex = 0;
+
+				/**
+				 * 根据判断view控件点击位置判断切换的tab
+				 */
+				nview.addEventListener('click', function(e) {
+					var clientX = e.clientX;
+					if(clientX > parseInt(pageW * 0.2) && clientX <= parseInt(pageW * 0.4)) {
+						currIndex = 0;
+					} else if(clientX > parseInt(pageW * 0.6) && clientX <= parseInt(pageW * 0.8)) {
+						currIndex = 1;
+					}
 					// 匹配对应tab窗口	
-					if(currIndex > 0){
-						targetPage = plus.webview.getWebviewById(subpages[currIndex-1]);						
-					}else {
+					if(currIndex > 0) {
+						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+					} else {
 						targetPage = plus.webview.currentWebview();
 					}
 
@@ -619,81 +601,128 @@
 					}
 
 					//底部选项卡切换
-					util.toggleNview(currView, currIndex);
+					util.toggleNview(currIndex);
 					// 子页面切换
-					util.changeSubpage(targetPage, activePage);
-					//更改当前活跃的页面
+					util.changeSubpage(targetPage, activePage, aniShow);
+					//更新当前活跃的页面
 					activePage = targetPage;
+				});
+				/**
+				 *分享窗口
+				 */
+				var sharew;
+
+				function shareWebview() {
+					if(sharew) { // 避免快速多次点击创建多个窗口
+						return;
+					}
+					var href = "mask.html";
+					sharew = plus.webview.create(href, "mask.html", {
+						width: '100%',
+						height: '100%',
+						top: '0',
+						scrollIndicator: 'none',
+						scalable: false,
+						popGesture: 'none'
+					});
+					sharew.addEventListener("loaded", function() {
+						sharew.show('fade-in', 300);
+					}, false);
 				}
-				
-			//环信
-			var state = app.getState();
-			var options = {
-				    apiUrl: WebIM.config.apiURL,
-				    user: state.phone,
-				    accessToken:state.IM_token,
-				    appKey: WebIM.config.appkey
+
+				function closeMask() {
+					self.setStyle({
+						mask: "none"
+					});
+					//避免出现特殊情况，确保分享页面在初始化时关闭 
+					if(!sharew) {
+						sharew = plus.webview.getWebviewById("mask.html");
+					}
+					if(sharew) {
+						sharew.close();
+						sharew = null;
+					}
+				}
+				//环信
+				var state = app.getState();
+				var options = {
+					apiUrl: WebIM.config.apiURL,
+					user: state.phone,
+					accessToken: state.IM_token,
+					appKey: WebIM.config.appkey
 				};
-			conn.open(options);
+				conn.open(options);
 				//创建连接 监听连接事件
 				conn.listen({
-				    onOpened: function ( message ) {
-				    	console.log('连接成功回调'+JSON.stringify(message))
-				    },        //连接成功回调
-				    onClosed: function ( message ) {
-				    	console.log('连接成功回调'+JSON.stringify(message))
-				    },         //连接关闭回调
-				    onTextMessage: function ( message ) {
-				    	var roster = plus.storage.getItem("roster") || [];
+					onOpened: function(message) {
+						console.log('连接成功回调' + JSON.stringify(message))
+					}, //连接成功回调
+					onClosed: function(message) {
+						console.log('连接成功回调' + JSON.stringify(message))
+					}, //连接关闭回调
+					onTextMessage: function(message) {
+						var roster = plus.storage.getItem("roster") || [];
 						var arrObj = JSON.parse(roster);
-				    	console.log('收到文本消息'+JSON.stringify(message))
-				    	//传入arrObj
-				    	arrObj.push(message);
-				    	//本地存储
-				    	plus.storage.setItem("roster",JSON.stringify(message));
-				    	//每次有数据时，打印
-				    	
-						console.log('打印'+roster)
-				    }, //收到文本消息
-				    onOnline: function (message) {
-				    	console.log('本机网络连接成功'+JSON.stringify(message))
-				    },                  //本机网络连接成功
-				    onOffline: function (message) {
-				    	console.log('本机网络掉线'+JSON.stringify(message))
-				    },                 //本机网络掉线
-				    onError: function ( message ) {
-				    	console.log('连接失败回调'+JSON.stringify(message))
-				    },          //失败回调
+						console.log('收到文本消息' + JSON.stringify(message))
+						//传入arrObj
+						arrObj.push(message);
+						//本地存储
+						plus.storage.setItem("roster", JSON.stringify(message));
+						//每次有数据时，打印
+
+						console.log('打印' + roster)
+					}, //收到文本消息
+					onOnline: function(message) {
+						console.log('本机网络连接成功' + JSON.stringify(message))
+					}, //本机网络连接成功
+					onOffline: function(message) {
+						console.log('本机网络掉线' + JSON.stringify(message))
+					}, //本机网络掉线
+					onError: function(message) {
+						console.log('连接失败回调' + JSON.stringify(message))
+					}, //失败回调
 				});
-			
-			//页面跳转连接
-			document.getElementById("message").addEventListener('tap',function(){
-				openView.nativeView('im/msg_list.html','msg_list','消息列表');
-			});
-			//日历
-			document.getElementById("course").addEventListener('tap',function(){
-				openView.nativeView('pages/calendar.html','calendar','日历');
-			});
-			//登录
-			document.getElementById("login").addEventListener('tap',function(){
-				openView.incView('login/login.html','login','欢迎登陆');
-			});
-			//服务消息
-			document.getElementById("server_more").addEventListener('tap',function(){
-				openView.nativeView('main_message/server_list.html','server_list','服务消息');
-			});
-			//老师动态
-			document.getElementById("teacher_dynamic").addEventListener('tap',function(){
-				openView.nativeView('pages/more_dynamic.html','more_dynamic','更多动态');
-			});
-			//搜索
-			document.getElementById("search").addEventListener('tap',function(){
-				openView.usuView('im/im_search.html','im_search');
-			})
-			//定位
-			document.getElementById("login").addEventListener('tap',function(){
-//				openView.incView('login/login.html','login','欢迎登陆');
-			})
+
+				//聊天列表
+				document.getElementById("message").addEventListener('tap', function() {
+					openView.nativeView('im/msg_list.html', 'msg_list', '消息列表');
+				});
+				//日历
+				document.getElementById("course").addEventListener('tap', function() {
+					openView.nativeView('pages/calendar.html', 'calendar', '日历');
+				});
+				//登录
+				document.getElementById("login").addEventListener('tap', function() {
+					openView.incView('login/login.html', 'login', '欢迎登陆');
+				});
+				//更多服务消息
+				document.getElementById("server_more").addEventListener('tap', function() {
+					openView.nativeView('main_message/server_list.html', 'server_list', '服务消息');
+				});
+				//跟多老师动态
+				document.getElementById("teacher_dynamic").addEventListener('tap', function() {
+					openView.nativeView('pages/more_dynamic.html', 'more_dynamic', '更多动态');
+				});
+				//搜索
+				document.getElementById("search").addEventListener('tap', function() {
+					openView.usuView('im/im_search.html', 'im_search');
+				});
+				//定位
+				document.getElementById("login").addEventListener('tap', function() {
+					//				openView.incView('login/login.html','login','欢迎登陆');
+				});
+				
+				//服务消息
+				mui('#class_message_box').on('tap','.class_message',function(){
+					openView.nativeView('main_message/server_list.html', 'server_list', '服务消息');
+				});
+				
+				//老师动态详情
+				mui('.teacher_ul').on('tap','.teacher_li',function(){
+//					var type = this.getAttribute('data-type');
+					openView.nativeView('pages/dynamic_detail.html', 'dynamic_detail', '动态详情');
+				});
+				
 			});
 		</script>
 	</body>

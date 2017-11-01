@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>课程安排</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding: 4% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				padding:0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 4px 0;
+			}
+			.list span{
+				font-size: 0.333333rem;
+				color: #333333;
+			}
+			.list_left{
+				color: #888888 !important;
+				font-size: 0.333333rem !important;
+			}
+			/*按钮*/
+			.body_btn{
+				margin-bottom: 0.488888rem;
+			}
+			.mui-btn{
+				width: 70%;
+				margin: 0 auto;
+				margin-top: 0.388888rem;
+				border-radius:42px;
+				background-color: #4ea9ef;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+			}
+			.finish{
+				background-color: #bebebe;
+			}
+			/*安排时间表*/
+			.content_course_list{
+				margin-top: 0.388888rem;
+				background-color: #fefefe;
+			}
+			.course_title{
+				display: flex;
+				justify-content: space-between;
+				padding: 4% 5%;
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.course_ul{
+				width: 100%;
+			}
+			.course_ul li{
+				display: flex;
+				align-items: center;
+				padding:4% 2%;
+				position: relative;
+				border-top:1px solid rgba(220,220,220,.5);
+			}
+			.course_ul li >span{
+				padding-left: 0.388888rem;
+				font-size: 0.333333rem;
+			}
+			.course_time{
+				margin-left: 0.388888rem;
+				padding: 0 0.338888rem !important;
+				border: 2px solid #1b82d1;
+				border-radius:18px;
+				color: #1b82d1;
+			}
+			.course_place{
+				position: absolute;
+				right: 5%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
+				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">课堂内容</span><span>基础</span></div>
+			</div>
+			<div class="content_course_list">
+				<div class="course_title">课程安排<span>5节</span></div>
+				<ul class="course_ul">
+					<li><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>3</span><span>10月31日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>4</span><span>11月01日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>5</span><span>10月02日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+				</ul>
+			</div>
+			
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-block">同意课程安排</button>
+				<button type="button" class="mui-btn mui-btn-block finish">不同意课程安排</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

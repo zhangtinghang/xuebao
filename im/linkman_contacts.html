@@ -100,11 +100,7 @@
 		<script type="text/javascript">
 			mui.init()
 			
-			var roster = plus.storage.getItem("roster");
-			var obj = JSON.parse(roster);
-			for(var i in obj){
-			    console.log(obj[i].id);
-			}
+			
 			mui.plusReady(function () {
 			    /**
 				 * 绘制右上角文字
@@ -121,6 +117,12 @@
 						openView.usuView('im_search.html','im_search');
 					}
 				}, false);
+				
+				var roster = plus.storage.getItem("roster");
+				var obj = JSON.parse(roster);
+				for(var i in obj){
+				    console.log(obj[i].id);
+				}
 			})
 		</script>
 	</body>

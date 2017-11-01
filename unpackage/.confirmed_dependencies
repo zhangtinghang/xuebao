@@ -42,7 +42,8 @@
       "im/im_search.html",
       "main_message/server_list.html",
       "pages/calendar.html",
-      "pages/more_dynamic.html"
+      "pages/more_dynamic.html",
+      "mask.html"
     ]
   },
   "launch.html": {

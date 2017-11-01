@@ -107,7 +107,7 @@
 				</div>
 			</div>
 			<div class="evaluate">
-				对本节课老师做个评价<span class="evaluate_btn">评价</span>
+				对本节课老师做个评价<span id="comment_btn" class="evaluate_btn">评价</span>
 			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
 			</div>
 			<div class="commit">
@@ -118,8 +118,15 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function (){
+			    document.getElementById("comment_btn").addEventListener('tap',function(){
+			    	//传参
+			    	openView.nativeView('comment.html', 'comment', '发表评论');
+			    })
+			})
 		</script>
 	</body>
 

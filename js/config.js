@@ -48,13 +48,15 @@ var dateUtils = {
  * title：导航条上显示的名称
  */
 var openView = {
-	incView:function(url,id,title){
+	incView:function(url,id,title,extras){
+			var extras = extras || '';
 			mui.openWindowWithTitle({
 			    url:url,
 			    id:id,
 			    waiting:{
 			      autoShow:false,
-			    }
+			    },
+			    extras:extras
 			},{
 				 id:'title_'+id,
 				 backgroundColor:"rgb(77,169,239)",
@@ -68,23 +70,27 @@ var openView = {
 			})
 	},
 	
-	usuView : function(url,id){
+	usuView : function(url,id,extras){
+		var extras = extras || '';
 		mui.openWindow({
 			    url:url,
 			    id:id,
 			    waiting:{
 			      autoShow:false,
-			    }
+			    },
+			    extras:extras
 			})
 	},
 	
-	nativeView : function(url,id,title){
+	nativeView : function(url,id,title,extras){
+		var extras = extras || '';
 		mui.openWindowWithTitle({
 		    url:url,
 		    id:id,
 		    waiting:{
 		      autoShow:false,
-		    }
+		    },
+		    extras:extras
 		},{
 			 id:'title_'+id,
 			 backgroundColor:"rgb(77,169,239)",

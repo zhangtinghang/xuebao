@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>反馈</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,html{
+				background-color: #FEFEFE;
+			}
+			.write_text{
+				height: 4.166666rem;
+				border: none;
+				padding: 0.388888rem !important;
+			}
+			.write_text::-webkit-input-placeholder{
+				font-size: 0.416666rem;
+				color: #888888;
+			}
+			.addImg{
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				padding-left: 0.5rem;
+			}
+			.addImg_box{
+				width: 1.944444rem;
+				height: 1.944444rem;
+				margin-right: 0.388888rem;
+				margin-bottom: 0.388888rem;
+			}
+			.addImg_text{
+				margin-bottom:0.388888rem;
+				font-size: 0.333333rem;
+				color: #888888;
+				font-size: 0.416666rem;
+			}
+			.addImg_box img{
+				width: 100%;
+				height: 100%;
+			}
+			.link_me{
+				display: flex;
+				align-items: center;
+				padding-left: 0.5rem;
+				height:1.166666rem;
+				border-top: 2px solid rgba(220,220,220,.5);
+				border-bottom: 2px solid rgba(220,220,220,.5);
+			}
+			.link_me label{
+				width: 20%;
+				text-align: center;
+				font-size: 0.444444rem;
+				color: #555555;
+				padding-bottom: 3px;
+			}
+			.link_me input{
+				width: 80%;
+				margin: 0;
+				border: none;
+			}
+			.link_me input::-webkit-input-placeholder{
+				font-size: 0.444444rem;
+				color: #888888;
+			}
+			
+			.mui-btn{
+				width: 80%;
+				margin: 0.777777rem auto;
+				border-radius:42px;
+				background-color: #4ea9ef;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.8;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<textarea class="write_text" placeholder="请简单描述遇到的问题"></textarea>
+			<div class="addImg">
+				<div class="addImg_box">
+					<img src="../images/feedback/icon_tptj.png" />
+				</div>
+				<div class="addImg_text">添加图片说明</div>				
+			</div>
+			<div class="link_me">
+				<label>联系电话</label>
+				<input type="tel" name="" id="" value="" placeholder="选填，方便我们联系你" />
+			</div>
+			
+			<button type="button" class="mui-btn mui-btn-block">提交</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

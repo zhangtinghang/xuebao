@@ -111,101 +111,92 @@
 		"launchwebview": {
 			"bottom": "0px",
 			"background": "#fff",
-			"mask":"rgba(249,250,254,1)",
 			"subNViews": [
 				{
-					"id": "tabBar1",
+					"id": "tabBar",
 					"styles": {
 						"bottom": "0px",
 						"left": "0",
-						"height": "50px",
-						"width": "50%",
+						"height": "51px",
+						"width": "100%",
 						"backgroundColor": "#fff"
 					},
 					"tags": [
 						{
 							"tag": "img",
-							"id": "tabBar11",
-							"src": "main_page.png",
+							"id": "indexIcon",
+							"src":"_www/images/index/main_page.png",
 							"position": {
-								"top": "4px",
-								"left": "0",
+								"top": "6px",
+								"left": "20%",
 								"width": "24px",
 								"height": "24px"
+							},
+							"sprite":{
+								"top":"0px",
+								"left":"0px",
+								"width":"100%",
+								"height":"100%"
 							}
 						}, {
 							"tag": "font",
-							"id": "tabBar12",
+							"id": "indexText",
 							"text": "首页",
 							"position": {
-								"top": "23px",
-								"left": "0",
-								"width": "100%",
+								"top": "27px",
+								"left": "20%",
+								"width": "50%",
 								"height": "24px"
 							},
 							"textStyles": {
-								"align": "center",
-								"size": "10px"
+								"align": "left",
+								"size": "10px",
+								"margin":"2px"
 							}
-						}
-					]
-				}, {
-					"id": "tabBar2",
-					"styles": {
-						"bottom": "0px",
-						"left": "50%",
-						"height": "50px",
-						"width": "50%",
-						"backgroundColor": "#fff"
-					},
-					"tags": [
-						{
+						},{
 							"tag": "img",
-							"id": "tabBar21",
-							"src": "me.png",
+							"id": "meIcon",
+							"src":"_www/images/index/my.png",
 							"position": {
-								"top": "4px",
-								"left": "20px",
+								"top": "6px",
+								"right": "20%",
 								"width": "24px",
 								"height": "24px"
+							},
+							"sprite":{
+								"top":"0",
+								"left":"0",
+								"width":"100%",
+								"height":"100%"
 							}
 						}, {
 							"tag": "font",
-							"id": "tabBar22",
+							"id": "contactText",
 							"text": "我",
 							"position": {
-								"top": "23px",
-								"left": "-20px",
-								"width": "100%",
+								"top": "27px",
+								"right": "20%",
+								"width": "50%",
+								"height": "24px"
+							},
+							"textStyles": {
+								"align": "right",
+								"size": "10px",
+								"margin":"6px"
+							}
+						}, {
+							"tag": "font",
+							"id": "courseText",
+							"text": "选课",
+							"position": {
+								"top": "27px",
+								"left": "33.33%",
+								"width": "33.33%",
 								"height": "24px"
 							},
 							"textStyles": {
 								"align": "center",
 								"size": "10px"
-							}
-						}
-					]
-				},{
-					"id": "tabBar3",
-					"styles": {
-						"bottom": "50px",
-						"left": "0",
-						"height": "1px",
-						"width": "100%",
-						"backgroundColor": "#ccc"
-					},
-					"tags": [
-						{
-							"tag": "rect",
-							"id": "tabBorder",
-							"position": {
-								"top": "0",
-								"left": "0",
-								"width": "100%",
-								"height": "1px"
-							},
-							"rectStyles": {
-								"color": "#ccc"
 							}
 						}
 					]
@@ -347,7 +338,8 @@
 					"im/im_search.html",
 					"main_message/server_list.html",
 					"pages/calendar.html",
-					"pages/more_dynamic.html"
+					"pages/more_dynamic.html",
+					"mask.html"
 				],
 				"priority": 0
 			},

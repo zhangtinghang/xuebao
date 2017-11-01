@@ -10,6 +10,12 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<style>
+			body,html{
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+			}
 			/*使用rem规定宽度,防止图片拉伸失帧*/
 			.header_box{
 				height: 6.25rem;
@@ -188,24 +194,24 @@
 			
 			<div class="nav_list">
 				<ul class="nav_list_ul">
-					<li class="list_li">
+					<li class="list_li balance_box">
 						<img class="balance" src="../images/me/blance.png" />
 					</li>
-					<li class="list_li">
+					<li class="list_li form_box">
 						<img class="form" src="../images/me/order_form.png" />
 					</li>
-					<li class="list_li li_last">
+					<li class="list_li li_last record_box">
 						<img class="record" src="../images/me/class_record.png" />
 					</li>
-					<div class="list_li_text">我的余额</div>
-					<div class="list_li_text">我的订单</div>
-					<div class="list_li_text">上课记录</div>
+					<div class="list_li_text balance_box">我的余额</div>
+					<div class="list_li_text form_box">我的订单</div>
+					<div class="list_li_text record_box">上课记录</div>
 				</ul>
 			</div>
 			
 			<div class="function_list">
 				<ul class="function_list_ul">
-					<li class="function_list_li">
+					<li class="function_list_li" data-type = "classroom_feedback">
 						<div class="function_list_li_left">
 							<img class="response" align="center" src="../images/me/response.png"/>
 							课堂反馈
@@ -214,7 +220,7 @@
 							<img class="next_content" align="center" src="../images/me/next_content.png" />
 						</div>
 					</li>		
-					<li class="function_list_li">
+					<li class="function_list_li" data-type ="">
 						<div class="function_list_li_left">
 							<img class="self_data" align="center" src="../images/me/self_data.png"/>
 							个人资料
@@ -223,7 +229,7 @@
 							<img class="next_content" align="center" src="../images/me/next_content.png" />
 						</div>
 					</li>
-					<li class="function_list_li">
+					<li class="function_list_li" data-type = "3">
 						<div class="function_list_li_left">
 							<img class="client_phone" align="center" src="../images/me/client_phone.png"/>
 							客服电话
@@ -232,7 +238,7 @@
 							<div class="call_phone"><img align="center" src="../images/me/phone_client.png" />8208888</div>
 						</div>
 					</li>
-					<li class="function_list_li">
+					<li class="function_list_li" data-type = "4">
 						<div class="function_list_li_left">
 							<img class="set_some" align="center" src="../images/me/set_some.png" />
 							设置
@@ -246,9 +252,30 @@
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
 	<script>
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		
+		mui.plusReady(function () {
+			//我的余额
+		    mui('.nav_list_ul').on('tap','.balance_box',function(){
+		    	openView.nativeView('../wallet/balance.html', 'balance', '余额');
+		    })
+		    //我的订单
+		    mui('.nav_list_ul').on('tap','.form_box',function(){
+		    	openView.nativeView('../main_message/my_indent.html', 'my_indent', '我的订单');
+		    })
+		    //上课记录
+		    mui('.nav_list_ul').on('tap','.record_box',function(){
+		    	openView.nativeView('../main_message/class_record.html', 'class_record', '上课记录');
+		    })
+		    
+		    //课堂反馈
+		    mui('.function_list_ul').on('tap','.function_list_li',function(){
+		    	var type = this.getAttribute('data-type');
+		    })
+		})
 	</script>
 </html>
