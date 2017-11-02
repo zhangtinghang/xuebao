@@ -108,6 +108,10 @@
 		},"Payment":{}
 	},
 	"plus": {
+		 "statusbar": {
+	        "immersed": true,
+	        "background":"rgba(77, 169, 239,1)"
+    	},
 		"launchwebview": {
 			"bottom": "0px",
 			"background": "#fff",
@@ -128,7 +132,7 @@
 							"src":"_www/images/index/main_page.png",
 							"position": {
 								"top": "6px",
-								"left": "20%",
+								"left": "15%",
 								"width": "24px",
 								"height": "24px"
 							},
@@ -144,7 +148,7 @@
 							"text": "首页",
 							"position": {
 								"top": "27px",
-								"left": "20%",
+								"left": "15%",
 								"width": "50%",
 								"height": "24px"
 							},
@@ -159,7 +163,7 @@
 							"src":"_www/images/index/my.png",
 							"position": {
 								"top": "6px",
-								"right": "20%",
+								"right": "15%",
 								"width": "24px",
 								"height": "24px"
 							},
@@ -175,7 +179,7 @@
 							"text": "我",
 							"position": {
 								"top": "27px",
-								"right": "20%",
+								"right": "15%",
 								"width": "50%",
 								"height": "24px"
 							},
@@ -217,7 +221,8 @@
 				"password": "",/*iOS应用打包个人证书导入密码*/
 				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
 				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
-				"frameworks": []
+				"frameworks": [],
+				"UIStatusBarStyle":"UIStatusBarStyleBlackTranslucent"
 			},
 			"google": {
 				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
@@ -339,7 +344,11 @@
 					"main_message/server_list.html",
 					"pages/calendar.html",
 					"pages/more_dynamic.html",
-					"mask.html"
+					"mask.html",
+					"pages_index/calendar.html",
+					"pages_index/server_list.html",
+					"pages_index/dynamic_detail.html",
+					"pages_index/more_dynamic.html"
 				],
 				"priority": 0
 			},
@@ -420,7 +429,12 @@
 				"refer": [
 					"wallet/balance.html",
 					"main_message/my_indent.html",
-					"main_message/class_record.html"
+					"main_message/class_record.html",
+					"pages_balance/balance.html",
+					"pages_class_register/classroom_feedback.html",
+					"pages_setting/setting.html",
+					"pages_class_register/class_record.html",
+					"pages_indent/my_indent.html"
 				],
 				"priority": 0
 			},
@@ -544,6 +558,85 @@
 					"images/teacher_list/teacher_dynamic_head.png"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"pages_balance/balance.html": {
+				"resources": [],
+				"refer": [
+					"pages_balance/touchBalance.html",
+					"pages_balance/recharge.html",
+					"pages_balance/withdraw_deposit.html"
+				],
+				"priority": 0
+			},
+			"pages_setting/setting.html": {
+				"resources": [],
+				"refer": [
+					"pages_setting/feedback.html",
+					"login/changePassword.html",
+					"pages_setting/Invitation_code.html"
+				],
+				"priority": 0
+			},
+			"pages_index/server_list.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/in_class.html",
+					"pages_index/classroom_detail.html",
+					"pages_index/pay_success.html",
+					"pages_index/Withdrawal_success.html",
+					"pages_index/course_remind.html",
+					"pages_index/course_arrangement.html"
+				],
+				"priority": 0
+			},
+			"pages_index/classroom_detail.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/comment.html"
+				],
+				"priority": 0
+			},
+			"pages_index/class_local.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/localQue.html"
+				],
+				"priority": 0
+			},
+			"mask.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/class_local.html"
+				],
+				"priority": 0
+			},
+			"pages_index/localQue.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/subject_problem.html"
+				],
+				"priority": 0
+			},
+			"pages_index/subject_problem.html": {
+				"resources": [],
+				"refer": [
+					"pages_curricula_variable/teacher_list.html"
+				],
+				"priority": 0
+			},
+			"pages_curricula_variable/teacher_list.html": {
+				"resources": [],
+				"refer": [
+					"pages_curricula_variable/teacher_detail.html"
+				],
+				"priority": 0
+			},
+			"pages_curricula_variable/teacher_detail.html": {
+				"resources": [],
+				"refer": [
+					"pages_curricula_variable/teacher_detail_2.html"
+				],
 				"priority": 0
 			}
 		},

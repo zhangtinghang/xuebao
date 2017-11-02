@@ -5,7 +5,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title>分享</title>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/zoom/flexible.js" ></script>
@@ -15,6 +14,7 @@
 				width: 100%;
 				height: 100%;
 				background-color: rgba(249,250,254,1);
+				overflow: hidden;
 			}
 			.content{
 				width: 100%;
@@ -23,26 +23,278 @@
 			}
 			.btn{
 				position: absolute;
-				bottom: 44px;
-				width: 1.444444rem;
-				height: 1.444444rem;
+				bottom: 23px;
+				width: 50px;
+				height: 50px;
 				left: 50%;
-				margin-left: -0.479166rem;
+				margin-left: -25px;
 			}
 			.btn img{
 				width: 100%;
 				height: 100%;
+			}
+			.rotate{
+				animation:myRotate 1s;
+				-webkit-animation:myRotate 1s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.return_rotate{
+				animation:returnRotate 1s;
+				-webkit-animation:returnRotate 1s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			
+			@keyframes myRotate{
+				0%{
+					transform:rotateZ(0deg);
+			-webkit-transform: rotateZ(0deg);
+				}
+				100%{
+					transform:rotateZ(45deg);
+			-webkit-transform: rotateZ(45deg);
+				}
+			}		
+			@-webkit-keyframes myRotate{
+				0%{
+					transform:rotateZ(0deg);
+			-webkit-transform: rotateZ(0deg);
+				}
+				100%{
+					transform:rotateZ(45deg);
+			-webkit-transform: rotateZ(45deg);
+				}
+			}
+			/*返回动画*/
+			@keyframes returnRotate{
+				0%{
+					transform:rotateZ(45deg);
+			-webkit-transform: rotateZ(45deg);
+				}
+				100%{
+					transform:rotateZ(0deg);
+			-webkit-transform: rotateZ(0deg);
+				}
+			}		
+			@-webkit-keyframes returnRotate{
+				0%{
+					transform:rotateZ(45deg);
+			-webkit-transform: rotateZ(45deg);
+				}
+				100%{
+					transform:rotateZ(0deg);
+			-webkit-transform: rotateZ(0deg);
+				}
+			}
+			
+			.come_box{
+				position: absolute;
+				bottom: 3.25rem;
+				width:100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+			}
+			.classIcon{
+				width: 1.666666rem;
+				height: 1.666666rem;
+			}.classIcon img{
+				width: 100%;
+				height: 100%;
+			}
+			.classText{
+				text-align: center;
+				margin-top: 0.388888rem;
+			}
+			
+			/*图标动画*/
+			.classRotate{
+				opacity: 0.5;
+				animation:classRotate 0.5s;
+				-webkit-animation:classRotate 0.5s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			.oneRotate{
+				opacity: 0.5;
+				animation:classRotate 1s;
+				-webkit-animation:classRotate 1s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;		
+			}
+			.returnClassRotate{
+				opacity: 1;
+				animation:returnClassRotate 1s;
+				-webkit-animation:returnClassRotate 1s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			
+			
+			.returnOneRotate{
+				opacity: 1;
+				animation:returnClassRotate 0.5s;
+				-webkit-animation:returnClassRotate 0.5s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			@keyframes classRotate{
+				0%{
+					transform:translateY(3.25rem);
+			-webkit-transform: translateY(3.25rem);
+					opacity: 0.5;
+				}
+				70%{
+					transform:translateY(-5px);
+					-webkit-transform: translateY(-5px);
+					opacity: 0.8;
+				}
+				100%{
+					transform:translateY(0px);
+					-webkit-transform: translateY(0px);
+					opacity: 1;
+				}
+			}		
+			@-webkit-keyframes classRotate{
+				0%{
+					transform:translateY(3.25rem);
+			-webkit-transform: translateY(3.25rem);
+					opacity: 0.5;
+				}
+				70%{
+					transform:translateY(-5px);
+					-webkit-transform: translateY(-5px);
+					opacity: 0.8;
+				}
+				100%{
+					transform:translateY(0px);
+					-webkit-transform: translateY(0px);
+					opacity: 1;
+				}
+			}
+			
+			@keyframes returnClassRotate{
+				0%{
+					transform:translateY(0px);
+					-webkit-transform: translateY(0px);
+					opacity: 1;
+					
+				}
+				100%{
+					transform:translateY(3.25rem);
+					-webkit-transform: translateY(3.25rem);
+					opacity: 0;
+				}
+			}		
+			@-webkit-keyframes returnClassRotate{
+				0%{
+					transform:translateY(0px);
+					-webkit-transform: translateY(0px);
+					opacity: 1;		
+				}
+				100%{
+					transform:translateY(3.25rem);
+					-webkit-transform: translateY(3.25rem);
+					opacity: 0;
+				}
 			}
 		</style>
 	</head>
 
 	<body>
 		<div class="content">
-			<div class="btn"><img src="images/index/chos_subj.png" /></div>
+			<div id="return_btn" class="btn rotate"><img src="images/index/chos_subj.png" /></div>
+			<div class="come_box">
+				<div id="claasBox" class="class classRotate">
+					<div class="classIcon"><img src="images/mask/class_teach.png" /></div>
+					<div class="classText">班课</div>
+				</div>
+				<div id="oneBox" class="oneToOne oneRotate">
+					<div class="classIcon"><img src="images/mask/one_to_one.png" /></div>
+					<div class="classText">一对一</div>
+				</div>
+			</div>
 		</div>	
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/util.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function () {
+				var claasBox = document.getElementById("claasBox");
+				var oneBox = document.getElementById("oneBox");
+				var return_btn = document.getElementById("return_btn");
+				
+				//退出逻辑				
+			    return_btn.addEventListener('click',function(){
+			    		//退出按钮动画
+						if(return_btn.classList.contains('return_rotate')){
+						    return_btn.classList.remove('return_rotate');
+						}
+						  	return_btn.classList.add('return_rotate');
+						//左图标动画
+						if(claasBox.classList.contains('returnClassRotate')){
+						    claasBox.classList.remove('returnClassRotate');
+						}
+						  	claasBox.classList.add('returnClassRotate');
+						//右图标动画
+						if(oneBox.classList.contains('returnOneRotate')){
+						    oneBox.classList.remove('returnOneRotate');
+						}
+						  	oneBox.classList.add('returnOneRotate');
+						setTimeout(function(){
+							var ws=plus.webview.currentWebview();
+							plus.webview.close(ws);
+						},500)
+			    })
+			    
+			    //打开班课页面
+			    claasBox.addEventListener('tap',function(){
+			    	openWindow('pages_index/class_local.html','class_local','地点',{type:'0'});
+			    	var ws=plus.webview.currentWebview();
+					plus.webview.close(ws);
+			    })
+			    
+			    //打开一对一页面
+			    oneBox.addEventListener('tap',function(){
+			    	openWindow('pages_index/class_local.html','class_local','地点',{type:'1'});
+			    	var ws=plus.webview.currentWebview();
+					plus.webview.close(ws);
+			    })
+			    
+			//打开页面    
+			    function openWindow(url,id,title,extras){
+			    	var extras = extras || '';
+			    	mui.openWindow({
+						url: url,
+						id: id,
+						extras:extras,
+						styles: {
+							titleNView: {
+								titleText: title,
+								titleColor: "#fefefe",
+								titleSize: "17px", 
+								backgroundColor: "rgb(77,169,239)", 
+								progress: { 
+									color: "#00FF00", 
+									height: "2px"         
+								},
+								tags: ([{
+									tag: 'img',
+									id: 'return_' + id,
+									src: '_www/images/index/return.png',
+									position: {
+										top: "10px",
+										left: "15px",
+										width: "12px",
+										height: "23px"
+									}
+								}])
+							}
+						}
+					});
+			    }
+			})
 		</script>
 	</body>
 

@@ -92,18 +92,13 @@
 			mui.init()
 			mui.plusReady(function () {
 				var self = plus.webview.currentWebview();
-				 //关闭等待框
-   				 plus.nativeUI.closeWaiting();
-			    /**
-				 * 绘制右上角文字
-				 */
-				var view = plus.nativeObj.View.getViewById('title_msg_list');
-				view.drawText('联系人', {top:'0px',right:'18px',height:'44px',width:'44px'}, {size:'15px',color:'#fefefe'}, 'list');
+				console.log( "当前Webview窗口："+self.getURL());
+			    listenReturn('msg_list','联系人');
 				 /**
 				 * 监听原生控件click事件
 				 * 当位置在联系人时，触发页面跳转事件
 				 */
-				view.addEventListener("click", function(e){
+				self.addEventListener("click", function(e){
 					if(screen.width - e.clientX <= 60){
 						//打开联系人页面
 						openView.nativeView('linkman_contacts.html','linkman_contacts','联系人');

@@ -1,0 +1,187 @@
+<!DOCTYPE html> -
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>上课地址</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			ul,
+			li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.list_ul {
+				width: 100%;
+			}
+			
+			.list_ul li {
+				width: 100%;
+				display: flex;
+				padding: 0.388888rem;
+				margin-bottom: 0.222222rem;
+				background: #FFFFFF;
+			}
+			
+			.list_cover {
+				width: 3.333333rem;
+				height: 2.5rem;
+			}
+			
+			.list_cover img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.list_right {
+				height: 2.5rem;
+				padding-left: 0.388888rem;
+				position: relative;
+				width: 100%;
+			}
+			
+			.list_title {
+				color: rgba(0, 0, 0, 1);
+				font-size: 0.444444rem;
+				margin-top: 0.069444rem;
+			}
+			
+			.list_local {
+				color: rgb(136, 136, 136);
+				font-size: 0.416666rem;
+				margin-top: 0.416666rem;
+			}
+			
+			.list_detail {
+				position: absolute;
+				bottom: 0;
+				display: flex;
+				align-items: center;
+			}
+			
+			.list_detail span {
+				margin-left: 0.111111rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="list_ul">
+					<li class="list_li">
+						<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div>
+						<div class="list_right">
+							<div class="list_title">教师上门</div>
+							<div class="list_local">青羊区</div>
+							<div class="list_detail">
+								<img src="../images/local/position3.png" />
+								<span>金泽录147号3楼建设银行上</span>
+							</div>
+						</div>
+					</li>
+					<li class="list_li">
+						<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div>
+						<div class="list_right">
+							<div class="list_title">教师上门</div>
+							<div class="list_local">青羊区</div>
+							<div class="list_detail">
+								<img src="../images/local/position3.png" />
+								<span>金泽录147号3楼建设银行上</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script>
+			var webview_detail = null; //详情页webview
+			var titleNView = { //详情页原生导航配置
+				backgroundColor: 'rgba(77,169,239,1)', //导航栏背景色
+				titleText: '', //导航栏标题
+				titleColor: '#FFFFFF', //文字颜色
+				autoBackButton: true, //自动绘制返回箭头
+				splitLine: { //底部分割线
+					color: '#cccccc'
+				}
+			}
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						callback: pulldownRefresh
+					}
+				}
+			});
+
+			mui.plusReady(function() {
+				//预加载详情页
+				webview_detail = mui.preload({
+					url: 'localQue.html',
+					id: 'localQue',
+					styles: {
+						"render": "always",
+						"popGesture": "hide",
+						"bounce": "vertical",
+						"bounceBackground": "#efeff4",
+						"titleNView": titleNView
+					}
+				});
+				//获取传递的参数
+				var self = plus.webview.currentWebview();
+				var type = self.type;
+				
+				//进入筛选页面
+				mui('.list_ul').on('tap', '.list_li', function() {
+					//触发子窗口变更新闻详情
+					mui.fire(webview_detail, 'get_detail', {
+						type:type
+					});
+	
+					//更改详情页原生导航条信息
+					titleNView.titleText = '选择';
+					webview_detail.setStyle({
+						"titleNView": titleNView
+					});
+					setTimeout(function() {
+						webview_detail.show("slide-in-right", 300);
+					}, 150);
+				})
+			});
+
+			
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var table = document.body.querySelector('.list_ul');
+					var cells = document.body.querySelectorAll('.list_li');
+					for(var i = cells.length, len = i + 5; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'list_li';
+						li.innerHTML = '<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div><div class="list_right"><div class="list_title">教师上门</div><div class="list_local">青羊区</div><div class="list_detail"><img src="../images/local/position3.png" /><span>金泽录147号3楼建设银行上</span></div></div>';
+						//下拉刷新，新纪录插到最前面；
+						table.insertBefore(li, table.firstChild);
+					}
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+					mui.toast('下拉刷新成功');
+				}, 1000);
+			}
+		</script>
+	</body>
+
+</html>

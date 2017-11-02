@@ -1,7 +1,7 @@
 var util = {
 	options: {
-		ACTIVE_COLOR: "#007aff",
-		NORMAL_COLOR: "#000",
+		ACTIVE_COLOR: "#1B82D1",
+		NORMAL_COLOR: "#555",
 		subpages: ["html/tab-webview-subpage-me.html"]
 	},
 	/**
@@ -102,7 +102,7 @@ var util = {
 	 * 改变图片
 	 */
 	changeSrc: function(obj, currIndex, flag) {
-		console.log('这是原来的路径',obj,'这是当前点击',currIndex,'这是状态',flag);
+//		console.log('这是原来的路径',obj,'这是当前点击',currIndex,'这是状态',flag);
 		if(currIndex == 0){
 			if(flag === 'active'){
 				obj = '_www/images/index/main_page_hover.png';

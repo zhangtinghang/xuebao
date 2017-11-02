@@ -41,7 +41,7 @@
 				border:1px solid rgba(190,190,190,.8);
 				padding: 5px 0;
 				border-radius:7px;
-				margin:0.210188888rem;
+				margin: 0.188888rem;
 				color: rgb(190,190,190);
 			}
 			/*分隔条*/
@@ -77,25 +77,17 @@
 		<div class="content">
 			<div class="content_title">
 				<div class="title_icon"><img src="../images/localQue/chos_subj.png" /></div>
-				<div class="title_text">选择科目</div>
+				<div class="title_text">科目问题</div>
 			</div>
 			<div class="content_list">
 				<ul class="list_ul">
-					<li>语文</li>
-					<li>数学</li>
-					<li>英语</li>
-					<li>物理</li>
-					<li>化学</li>
-					<li>生物</li>
-					<li>政治</li>
-					<li>珠心算</li>
-					<li>阅读与写作</li>
-					<li>国学</li>
-					<li>兴趣英语</li>
-					<li>数学思维提升</li>
-					
+					<li>基础</li>
+					<li>文言文</li>
+					<li>古诗文</li>
+					<li>作文</li>
 				</ul>
 			</div>
+
 			<!--问题-->
 			<div class="question">
 				问题不太清楚？学导师帮助
@@ -109,31 +101,13 @@
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			//点击选择事件
 			mui.plusReady(function () {
-				var type = '';
-			    document.addEventListener('get_detail', function(event) {
-			    	console.log(event.detail.type)
-			    	 type=event.detail.type;		    	
-			    })
-			   document.getElementById("comeBtn").addEventListener('tap',function(){
-			   	console.log('点击',typeof type,type)
-			    	switch(type){
-			    		case '0' :
-			    		//班课
-			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表');
-			    		break;
-			    		case '1' :
-			    		//一对一
-			    		openView.nativeView('subject_problem.html', 'subject_problem', '教师列表');
-			    		break;
-			    		default :
-			    		//出现未知错误
-			    		console.log('出现未知错误');
-			    	}
-			   })
+			  document.getElementById("comeBtn").addEventListener('tap',function(){
+			    	openView.nativeView('../pages_curricula_variable/teacher_list.html', 'teacher_list', '教师列表');
+			   }); 
 			})
 			
-			//点击选择事件
 		</script>
 	</body>
 

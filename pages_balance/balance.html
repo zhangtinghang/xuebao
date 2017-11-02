@@ -5,7 +5,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title>余额</title>
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
@@ -100,22 +99,9 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
-				//明细
-				 /**
-				 * 绘制右上角文字
-				 */
-				var view = plus.nativeObj.View.getViewById('title_balance');
-				view.drawText('明细', {top:'0px',right:'18px',height:'44px',width:'44px'}, {size:'15px',color:'#fefefe'}, 'list');
-			    /**
-				 * 监听原生控件click事件
-				 * 当位置在联系人时，触发页面跳转事件
-				 */
-				view.addEventListener("click", function(e){
-					if(screen.width - e.clientX <= 60){
-						//打开明细页面
-						openView.nativeView('touchBalance.html','touchBalance','余额明细');
-					}
-				}, false);
+				//事件监听
+				listenReturn();
+				listenNext('明细','touchBalance.html','touchBalance','余额明细');
 				
 				//余额监听
 				mui('.content_show').on('tap','.balance',function(){
