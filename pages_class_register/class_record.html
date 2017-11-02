@@ -6,7 +6,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<title>上课记录</title>
-		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style>
@@ -67,6 +66,16 @@
 				</ul>
 				
 			</div>
-		</div>
+		</div>		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    mui('.content_list_ul').on('tap','li',function(){
+					openView.nativeView('course_detail.html','course_detail','课程详情');
+			    })
+			})
+		</script>
 	</body>
 </html>

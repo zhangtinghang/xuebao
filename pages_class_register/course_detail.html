@@ -65,11 +65,18 @@
 				<div class="list"><span class="list_left">消费金额</span><span>180.5学保币</span></div>
 			</div>
 			
-			<div class="content_course course_remind">课堂反馈</div>
+			<div id="courseFeedback" class="content_course course_remind">课堂反馈</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function () {
+				//课堂反馈
+			    document.getElementById("courseFeedback").addEventListener('tap',function(){
+			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
+			    })
+			})
 		</script>
 	</body>
 

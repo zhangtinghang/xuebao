@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>设置</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.list_ul li{
+				height: 1.416666rem;
+				background-color: #FEFEFE;
+				border-bottom:1px solid rgba(220,220,220,.5);
+				display: flex;
+				align-items: center;
+				padding: 0 5%;
+				color: #555555;
+				font-size: 0.444444rem;
+			}
+			
+			.mui-btn{
+				width: 80%;
+				margin: 0.777777rem auto;
+				border-radius:42px;
+				background-color: #4ea9ef;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.8;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<ul class="list_ul">
+				<li data-type="1">反馈</li>
+				<li data-type="2">功能介绍</li>
+				<li data-type="3">关于学保</li>
+				<li data-type="4">修改密码</li>
+				<li data-type="5">服务协议</li>
+				<li data-type="6">我的邀请码</li>
+				<li data-type="7">分享</li>
+			</ul>
+			<button type="button" class="mui-btn mui-btn-block">退出登录</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    mui('.list_ul').on('tap','li',function(){
+			    	var type = this.getAttribute('data-type');
+			    	switch(type)
+			    	{
+			    		case '1':
+			    		openView.nativeView('feedback.html', 'feedback', '反馈');
+			    		break;
+			    		case '2':
+			    		//个人资料
+	//		    		openView.nativeView('../pages_class_register/class_feedback.html', 'class_feedback', '课堂反馈');
+			    		break;
+			    		case '3':
+			    		//拨打电话
+			    		break;
+			    		case '4':
+			    		openView.nativeView('../login/changePassword.html', 'changePassword', '修改密码');
+			    		break;
+			    		case '5':
+//			    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+			    		break;
+			    		case '6':
+			    		openView.nativeView('Invitation_code.html', 'Invitation_code', '邀请码');
+			    		break;
+			    		case '7':
+//			    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+			    		break;
+			    		default:
+						  //异常处理
+					}
+			    })
+			})
+		</script>
+	</body>
+
+</html>

@@ -52,8 +52,14 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function () {
+			    mui('.indent_list').on('tap','li',function(){
+					openView.nativeView('indent_detail.html','indent_detail','订单详情');
+			    })
+			})
 		</script>
 	</body>
 

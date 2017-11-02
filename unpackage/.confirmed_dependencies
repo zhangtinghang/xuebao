@@ -1,227 +1,238 @@
 {
-  "index.html": {
-    "resources": [
-      "js/mui.min.js",
-      "css/mui.min.css",
-      "html/tab-webview-subpage-about.html",
-      "fonts/mui.ttf",
-      "fonts/iconfont.ttf",
-      "js/util.js",
-      "html/tab-webview-subpage-chat.html",
-      "images/index/recommand_2.png",
-      "images/index/teacher_head.png",
-      "js/zoom/flexible.js",
-      "images/shuijiao.jpg",
-      "images/index/teacher_picture.png",
-      "images/index/location.png",
-      "images/index/class_feedback_icon.png",
-      "images/index/search_btn.png",
-      "images/yuantiao.jpg",
-      "images/index/recommand_1.png",
-      "html/tab-webview-subpage-me.html",
-      "images/index/receive_infor_btn.png",
-      "images/index/chat_num.png",
-      "images/index/recharge_record_icon.png",
-      "images/index/arrangement.png",
-      "images/index/in_class_icon.png",
-      "js/config.js",
-      "js/IM/websdk-1.4.13.js",
-      "js/IM/strophe-1.2.8.min.js",
-      "js/login_config.js",
-      "js/IM/webim.config.js"
-    ],
-    "refer": [
-      "html/tab-webview-subpage-setting.html",
-      "html/tab-webview-subpage-chat.html",
-      "html/tab-webview-subpage-contact.html",
-      "html/tab-webview-subpage-about.html",
-      "html/new-webview.html",
-      "html/tab-webview-subpage-me.html",
-      "im/msg_list.html",
-      "login/login.html",
-      "im/im_search.html",
-      "main_message/server_list.html",
-      "pages/calendar.html",
-      "pages/more_dynamic.html",
-      "mask.html"
-    ]
-  },
-  "launch.html": {
-    "resources": [
-      "js/mui.min.js",
-      "css/mui.min.css",
-      "html/tab-webview-subpage-about.html"
-    ],
-    "refer": [
-      "html/tab-webview-subpage-setting.html",
-      "html/tab-webview-subpage-chat.html",
-      "html/tab-webview-subpage-contact.html",
-      "html/tab-webview-subpage-about.html"
-    ]
-  },
-  "html/tab-webview-subpage-setting.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "css/mui.min.css",
-      "js/mui.min.js"
-    ],
-    "refer": []
-  },
-  "html/tab-webview-subpage-about.html": {
-    "resources": [
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "js/util.js"
-    ],
-    "refer": []
-  },
-  "html/tab-webview-subpage-chat.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "js/mui.min.js",
-      "css/mui.min.css"
-    ],
-    "refer": []
-  },
-  "html/tab-webview-subpage-contact.html": {
-    "resources": [
-      "images/60x60.gif",
-      "js/mui.min.js",
-      "css/mui.min.css"
-    ],
-    "refer": []
-  },
-  "html/new-webview.html": {
-    "resources": [
-      "css/mui.min.css",
-      "js/mui.min.js",
-      "fonts/mui.ttf"
-    ],
-    "refer": []
-  },
-  "html/tab-webview-subpage-me.html": {
-    "resources": [
-      "images/60x60.gif",
-      "css/mui.min.css",
-      "images/me/order_form.png",
-      "images/me/self_data.png",
-      "images/me/client_phone.png",
-      "images/me/blance_23.png",
-      "images/me/class_record.png",
-      "images/me/head.png",
-      "images/me/response.png",
-      "images/me/self_bg.png",
-      "images/me/set_some.png",
-      "images/me/next_content.png",
-      "images/me/phone_client.png"
-    ],
-    "refer": []
-  },
-  "im/msg_list.html": {
-    "resources": [
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "css/mui.min.css",
-      "images/im/list.png",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png",
-      "js/util.js",
-      "js/config.js",
-      "js/IM/websdk-1.4.13.js",
-      "js/IM/webim.config.js",
-      "js/IM/strophe-1.2.8.min.js",
-      "js/login_config.js"
-    ],
-    "refer": [
-      "im/linkman_contacts.html"
-    ]
-  },
-  "im/linkman_contacts.html": {
-    "resources": [
-      "css/mui.min.css",
-      "images/im/avatar_1.png",
-      "images/im/create_list.png",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "images/im/list.png",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png"
-    ],
-    "refer": [
-      "im/im_search.html"
-    ]
-  },
-  "im/im_search.html": {
-    "resources": [
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "css/mui.min.css",
-      "images/im/avatar_1.png",
-      "images/im/message_list.png",
-      "images/im/avatar_2.png",
-      "fonts/mui.ttf"
-    ],
-    "refer": []
-  },
-  "login/login.html": {
-    "resources": [
-      "images/login/username.png",
-      "css/mui.min.css",
-      "images/login/password.png",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "js/ajax.js",
-      "js/config.js",
-      "js/IM/websdk-1.4.13.js",
-      "js/IM/webim.config.js",
-      "js/IM/strophe-1.2.8.min.js",
-      "js/login_config.js"
-    ],
-    "refer": [
-      "login/register.html"
-    ]
-  },
-  "login/register.html": {
-    "resources": [
-      "fonts/mui.ttf",
-      "css/mui.min.css",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "js/login_config.js"
-    ],
-    "refer": []
-  },
-  "main_message/server_list.html": {
-    "resources": [
-      "images/main_server/icon_chongzhi.png",
-      "images/main_server/icon_sktx.png",
-      "images/main_server/icon_ktfk.png",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "images/main_server/icon_schooltime.png",
-      "css/mui.min.css",
-      "images/main_server/icon_txcg.png",
-      "images/main_server/icon_kcan.png"
-    ],
-    "refer": []
-  },
-  "pages/calendar.html": {
-    "resources": [
-      "js/mui.min.js",
-      "css/mui.min.css"
-    ],
-    "refer": []
-  },
-  "pages/more_dynamic.html": {
-    "resources": [
-      "images/teacher_list/pensonnel.png",
-      "js/zoom/flexible.js",
-      "js/mui.min.js",
-      "images/teacher_list/dynamic.png",
-      "css/mui.min.css",
-      "images/index/chat_num.png",
-      "images/teacher_list/teacher_dynamic_head.png"
-    ],
-    "refer": []
-  }
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"html/tab-webview-subpage-about.html",
+			"fonts/mui.ttf",
+			"fonts/iconfont.ttf",
+			"js/util.js",
+			"html/tab-webview-subpage-chat.html",
+			"images/index/recommand_2.png",
+			"images/index/teacher_head.png",
+			"js/zoom/flexible.js",
+			"images/shuijiao.jpg",
+			"images/index/teacher_picture.png",
+			"images/index/location.png",
+			"images/index/class_feedback_icon.png",
+			"images/index/search_btn.png",
+			"images/yuantiao.jpg",
+			"images/index/recommand_1.png",
+			"html/tab-webview-subpage-me.html",
+			"images/index/receive_infor_btn.png",
+			"images/index/chat_num.png",
+			"images/index/recharge_record_icon.png",
+			"images/index/arrangement.png",
+			"images/index/in_class_icon.png",
+			"js/config.js",
+			"js/IM/websdk-1.4.13.js",
+			"js/IM/strophe-1.2.8.min.js",
+			"js/login_config.js",
+			"js/IM/webim.config.js"
+		],
+		"refer": [
+			"html/tab-webview-subpage-setting.html",
+			"html/tab-webview-subpage-chat.html",
+			"html/tab-webview-subpage-contact.html",
+			"html/tab-webview-subpage-about.html",
+			"html/new-webview.html",
+			"html/tab-webview-subpage-me.html",
+			"im/msg_list.html",
+			"login/login.html",
+			"im/im_search.html",
+			"main_message/server_list.html",
+			"pages/calendar.html",
+			"pages/more_dynamic.html",
+			"mask.html"
+		]
+	},
+	"launch.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"html/tab-webview-subpage-about.html"
+		],
+		"refer": [
+			"html/tab-webview-subpage-setting.html",
+			"html/tab-webview-subpage-chat.html",
+			"html/tab-webview-subpage-contact.html",
+			"html/tab-webview-subpage-about.html"
+		]
+	},
+	"html/tab-webview-subpage-setting.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"html/tab-webview-subpage-about.html": {
+		"resources": [
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"js/util.js"
+		],
+		"refer": []
+	},
+	"html/tab-webview-subpage-chat.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"html/tab-webview-subpage-contact.html": {
+		"resources": [
+			"images/60x60.gif",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"html/new-webview.html": {
+		"resources": [
+			"css/mui.min.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"html/tab-webview-subpage-me.html": {
+		"resources": [
+			"images/60x60.gif",
+			"css/mui.min.css",
+			"images/me/order_form.png",
+			"images/me/self_data.png",
+			"images/me/client_phone.png",
+			"images/me/blance_23.png",
+			"images/me/class_record.png",
+			"images/me/head.png",
+			"images/me/response.png",
+			"images/me/self_bg.png",
+			"images/me/set_some.png",
+			"images/me/next_content.png",
+			"images/me/phone_client.png"
+		],
+		"refer": [
+			"wallet/balance.html",
+			"main_message/my_indent.html",
+			"main_message/class_record.html"
+		]
+	},
+	"im/msg_list.html": {
+		"resources": [
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/im/list.png",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png",
+			"js/util.js",
+			"js/config.js",
+			"js/IM/websdk-1.4.13.js",
+			"js/IM/webim.config.js",
+			"js/IM/strophe-1.2.8.min.js",
+			"js/login_config.js"
+		],
+		"refer": [
+			"im/linkman_contacts.html"
+		]
+	},
+	"im/linkman_contacts.html": {
+		"resources": [
+			"css/mui.min.css",
+			"images/im/avatar_1.png",
+			"images/im/create_list.png",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"images/im/list.png",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png"
+		],
+		"refer": [
+			"im/im_search.html"
+		]
+	},
+	"im/im_search.html": {
+		"resources": [
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/im/avatar_1.png",
+			"images/im/message_list.png",
+			"images/im/avatar_2.png",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"login/login.html": {
+		"resources": [
+			"images/login/username.png",
+			"css/mui.min.css",
+			"images/login/password.png",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"js/ajax.js",
+			"js/config.js",
+			"js/IM/websdk-1.4.13.js",
+			"js/IM/webim.config.js",
+			"js/IM/strophe-1.2.8.min.js",
+			"js/login_config.js"
+		],
+		"refer": [
+			"login/register.html"
+		]
+	},
+	"login/register.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"js/login_config.js"
+		],
+		"refer": []
+	},
+	"main_message/server_list.html": {
+		"resources": [
+			"images/main_server/icon_chongzhi.png",
+			"images/main_server/icon_sktx.png",
+			"images/main_server/icon_ktfk.png",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"images/main_server/icon_schooltime.png",
+			"css/mui.min.css",
+			"images/main_server/icon_txcg.png",
+			"images/main_server/icon_kcan.png"
+		],
+		"refer": [
+			"main_message/in_class.html",
+			"main_message/pay_success.html",
+			"main_message/Withdrawal_success.html",
+			"main_message/course_remind.html",
+			"main_message/classroom_detail.html",
+			"main_message/course_arrangement.html"
+		]
+	},
+	"pages/calendar.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"pages/more_dynamic.html": {
+		"resources": [
+			"images/teacher_list/pensonnel.png",
+			"js/zoom/flexible.js",
+			"js/mui.min.js",
+			"images/teacher_list/dynamic.png",
+			"css/mui.min.css",
+			"images/index/chat_num.png",
+			"images/teacher_list/teacher_dynamic_head.png"
+		],
+		"refer": []
+	}
 }

@@ -344,7 +344,7 @@
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
-			<div class="head_location"><img src="images/index/location.png" /></div>
+			<div class="head_location" id="localtion"><img src="images/index/location.png" /></div>
 			<div class="search_btn"><img src="images/index/search_btn.png" /></div>
 			<div id="search" class="search_input">请输入老师的名字或手机号</div>
 			<div class="receive_infor_btn" id="message"><img src="images/index/receive_infor_btn.png" /></div>
@@ -607,8 +607,9 @@
 					//更新当前活跃的页面
 					activePage = targetPage;
 				});
+				
 				/**
-				 *分享窗口
+				 *选课窗口
 				 */
 				var sharew;
 
@@ -629,11 +630,9 @@
 						sharew.show('fade-in', 300);
 					}, false);
 				}
-
-				function closeMask() {
-					self.setStyle({
-						mask: "none"
-					});
+				
+				closeSharew();
+				function closeSharew() {
 					//避免出现特殊情况，确保分享页面在初始化时关闭 
 					if(!sharew) {
 						sharew = plus.webview.getWebviewById("mask.html");
@@ -689,7 +688,7 @@
 				});
 				//日历
 				document.getElementById("course").addEventListener('tap', function() {
-					openView.nativeView('pages/calendar.html', 'calendar', '日历');
+					openView.nativeView('pages_index/calendar.html', 'calendar', '日历');
 				});
 				//登录
 				document.getElementById("login").addEventListener('tap', function() {
@@ -697,30 +696,28 @@
 				});
 				//更多服务消息
 				document.getElementById("server_more").addEventListener('tap', function() {
-					openView.nativeView('main_message/server_list.html', 'server_list', '服务消息');
+					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
 				});
 				//跟多老师动态
 				document.getElementById("teacher_dynamic").addEventListener('tap', function() {
-					openView.nativeView('pages/more_dynamic.html', 'more_dynamic', '更多动态');
+					openView.nativeView('pages_index/more_dynamic.html', 'more_dynamic', '更多动态');
 				});
 				//搜索
 				document.getElementById("search").addEventListener('tap', function() {
 					openView.usuView('im/im_search.html', 'im_search');
 				});
 				//定位
-				document.getElementById("login").addEventListener('tap', function() {
-					//				openView.incView('login/login.html','login','欢迎登陆');
-				});
-				
+				document.getElementById("localtion").addEventListener('tap', function() {
+					openView.nativeView('pages_index/localtion.html','localtion','位置');
+				});				
 				//服务消息
 				mui('#class_message_box').on('tap','.class_message',function(){
-					openView.nativeView('main_message/server_list.html', 'server_list', '服务消息');
-				});
-				
+					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
+				});				
 				//老师动态详情
 				mui('.teacher_ul').on('tap','.teacher_li',function(){
 //					var type = this.getAttribute('data-type');
-					openView.nativeView('pages/dynamic_detail.html', 'dynamic_detail', '动态详情');
+					openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情');
 				});
 				
 			});

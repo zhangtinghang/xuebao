@@ -417,7 +417,11 @@
 					"images/me/next_content.png",
 					"images/me/phone_client.png"
 				],
-				"refer": [],
+				"refer": [
+					"wallet/balance.html",
+					"main_message/my_indent.html",
+					"main_message/class_record.html"
+				],
 				"priority": 0
 			},
 			"im/msg_list.html": {
@@ -511,7 +515,14 @@
 					"images/main_server/icon_txcg.png",
 					"images/main_server/icon_kcan.png"
 				],
-				"refer": [],
+				"refer": [
+					"main_message/in_class.html",
+					"main_message/pay_success.html",
+					"main_message/Withdrawal_success.html",
+					"main_message/course_remind.html",
+					"main_message/classroom_detail.html",
+					"main_message/course_arrangement.html"
+				],
 				"priority": 0
 			},
 			"pages/calendar.html": {

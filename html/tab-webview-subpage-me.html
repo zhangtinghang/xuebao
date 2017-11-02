@@ -211,7 +211,7 @@
 			
 			<div class="function_list">
 				<ul class="function_list_ul">
-					<li class="function_list_li" data-type = "classroom_feedback">
+					<li class="function_list_li" data-type = "1">
 						<div class="function_list_li_left">
 							<img class="response" align="center" src="../images/me/response.png"/>
 							课堂反馈
@@ -220,7 +220,7 @@
 							<img class="next_content" align="center" src="../images/me/next_content.png" />
 						</div>
 					</li>		
-					<li class="function_list_li" data-type ="">
+					<li class="function_list_li" data-type ="2">
 						<div class="function_list_li_left">
 							<img class="self_data" align="center" src="../images/me/self_data.png"/>
 							个人资料
@@ -261,20 +261,38 @@
 		mui.plusReady(function () {
 			//我的余额
 		    mui('.nav_list_ul').on('tap','.balance_box',function(){
-		    	openView.nativeView('../wallet/balance.html', 'balance', '余额');
+		    	openView.nativeView('../pages_balance/balance.html', 'balance', '余额');
 		    })
 		    //我的订单
 		    mui('.nav_list_ul').on('tap','.form_box',function(){
-		    	openView.nativeView('../main_message/my_indent.html', 'my_indent', '我的订单');
+		    	openView.nativeView('../pages_indent/my_indent.html', 'my_indent', '我的订单');
 		    })
 		    //上课记录
 		    mui('.nav_list_ul').on('tap','.record_box',function(){
-		    	openView.nativeView('../main_message/class_record.html', 'class_record', '上课记录');
+		    	openView.nativeView('../pages_class_register/class_record.html', 'class_record', '上课记录');
 		    })
 		    
 		    //课堂反馈
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){
 		    	var type = this.getAttribute('data-type');
+		    	switch(type)
+		    	{
+		    		case '1':
+		    		openView.nativeView('../pages_class_register/classroom_feedback.html', 'classroom_feedback', '课堂反馈');
+		    		break;
+		    		case '2':
+		    		//个人资料
+//		    		openView.nativeView('../pages_class_register/class_feedback.html', 'class_feedback', '课堂反馈');
+		    		break;
+		    		case '3':
+		    		//拨打电话
+		    		break;
+		    		case '4':
+		    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+		    		break;
+		    		default:
+					  //异常处理
+				}    	
 		    })
 		})
 	</script>
