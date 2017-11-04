@@ -83,6 +83,7 @@ var openView = {
 
 	nativeView: function(url, id, title, extras) {
 		var extras = extras || '';
+		var title = title || null;
 		mui.openWindow({
 			url: url,
 			id: id,
@@ -134,6 +135,7 @@ var listenReturn = function() {
 }
 var listenNext = function(text, url, id, title) {
 	var extras = extras || '';
+	var title = title || null;
 	var ws = plus.webview.currentWebview();
 	var view = ws.getTitleNView();
 	view.drawText(text, {

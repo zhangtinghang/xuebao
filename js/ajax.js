@@ -12,7 +12,6 @@ var ajax = function(ajaxData,callback) {
 //			'Content-Type': 'application/json'
 //		},
 		success: function(data) {
-			console.log('12'+JSON.stringify(data))
 			 callback(data);
 		},
 		error: function(xhr, type, errorThrown) {
@@ -25,3 +24,5 @@ var ajax = function(ajaxData,callback) {
 		}
 	});
 };
+
+var ajaxUrl = 'http://120.77.245.43:8001/webapp/';

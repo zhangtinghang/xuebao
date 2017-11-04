@@ -254,10 +254,11 @@
 	<script type="text/javascript" src="../js/config.js" ></script>
 	<script>
 		mui.init({
-			swipeBack:true //启用右滑关闭功能
+			swipeBack:false //启用右滑关闭功能
 		});
 		
 		mui.plusReady(function () {
+			
 			//我的余额
 		    mui('.nav_list_ul').on('tap','.balance_box',function(){
 		    	openView.nativeView('../pages_balance/balance.html', 'balance', '余额');

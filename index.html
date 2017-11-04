@@ -88,18 +88,6 @@
 				height: 100%;
 			}
 			
-			.search_btn {
-				position: absolute;
-				top: 50%;
-				margin-top: -8px;
-				left: 17%;
-				z-index: 1;
-			}
-			
-			.search_btn img {
-				width: 0.333333rem;
-			}
-			
 			.search_input {
 				width: 75%;
 				border-radius: 24px;
@@ -110,6 +98,14 @@
 				padding-left: 10%;
 				background-color: rgba(255, 255, 255, 0.4);
 				z-index: 99;
+				position: relative;
+			}
+			.search_input img{
+				width: 15px;
+				height: 15px;
+				position: absolute;
+				left: 5%;
+				top: 9px;
 			}
 			
 			.receive_infor_btn {
@@ -346,17 +342,16 @@
 
 	<body>
 		<header id="header" class="mui-bar mui-bar-transparent">
-			<div class="head_location" id="localtion"><img src="images/index/location.png" /></div>
-			<div class="search_btn"><img src="images/index/search_btn.png" /></div>
-			<div id="search" class="search_input">请输入老师的名字或手机号</div>
+			<div class="head_location" id="localtion"><img src="images/index/location.png" /></div>		
+			<div id="search" class="search_input"><img align="center" src="images/index/search_btn.png" />请输入老师的名字或手机号</div>
 			<div class="receive_infor_btn" id="message"><img src="images/index/receive_infor_btn.png" /></div>
 		</header>
 
-		<div class="mui-content">
+		<div class="mui-content" id="mcontent">
 			<!--静态图片-->
-			<img id="img1" src="images/yuantiao.jpg" />
+			<img v-if="" id="img1" src="images/yuantiao.jpg" />
 			<!--轮播图片-->
-			<div id="slider" class="mui-slider mui-hidden">
+			<div v-else id="slider" class="mui-slider mui-hidden">
 				<div class="mui-slider-group">
 					<!-- 第一张 -->
 					<div class="mui-slider-item">
@@ -506,6 +501,8 @@
 			</form>-->
 
 		</div>
+		<!--沉浸式适配-->
+		<script type="text/javascript" src="js/immersed.js" ></script>
 		<!--引入环信SDK-->
 		<script type="text/javascript" src="js/IM/webim.config.js"></script>
 		<script type="text/javascript" src="js/IM/strophe-1.2.8.min.js"></script>
@@ -514,6 +511,8 @@
 		<script src="js/util.js"></script>
 		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/login_config.js"></script>
+		<script type="text/javascript" src="js/ajax.js" ></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
 		<script type="text/javascript">
 			var aniShow = {};
 			mui.init({
@@ -540,7 +539,7 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview(),
 					leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
-				/**	
+				/**
 				 * drawNativeIcon 绘制带边框的半圆，
 				 * 	 id为iconBg的图片
 				 *   
@@ -586,9 +585,9 @@
 				 */
 				nview.addEventListener('click', function(e) {
 					var clientX = e.clientX;
-					if(clientX > parseInt(pageW * 0.2) && clientX <= parseInt(pageW * 0.4)) {
+					if(clientX > parseInt(pageW * 0.1) && clientX <= parseInt(pageW * 0.3)) {
 						currIndex = 0;
-					} else if(clientX > parseInt(pageW * 0.6) && clientX <= parseInt(pageW * 0.8)) {
+					} else if(clientX > parseInt(pageW * 0.7) && clientX <= parseInt(pageW * 0.9)) {
 						currIndex = 1;
 					}
 					// 匹配对应tab窗口	
@@ -653,7 +652,7 @@
 						sharew = null;
 					}
 				}
-				//环信
+				//环信相关配置及消息处理
 				var state = app.getState();
 				var options = {
 					apiUrl: WebIM.config.apiURL,
@@ -692,7 +691,19 @@
 						console.log('连接失败回调' + JSON.stringify(message))
 					}, //失败回调
 				});
-
+				
+				//轮播图相关数据处理
+				var ajaxData = {
+						url:'public/app/carousel',
+						data: {
+							type:'student'
+						},
+						type:'post'
+					}
+				ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+				});
+				
 				//聊天列表
 				document.getElementById("message").addEventListener('tap', function() {
 					openView.nativeView('im/msg_list.html', 'msg_list', '消息列表');
@@ -730,8 +741,14 @@
 //					var type = this.getAttribute('data-type');
 					openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情');
 				});
-				
-			});
+		});
+//				vue渲染数据
+			var app = new Vue({
+      			el: '#mcontent',
+	      		data: {
+	      			sliderBox:{},
+	      		}
+      		})
 		</script>
 	</body>
 

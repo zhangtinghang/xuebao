@@ -25,15 +25,15 @@ var util = {
 			temp = {};
 			
 		//兼容安卓上添加titleNView 和 设置沉浸式模式会遮盖子webview内容
-		if(mui.os.android) {
-			if(plus.navigator.isImmersedStatusbar()) {
-				subpage_style.top += plus.navigator.getStatusbarHeight();
-			}
-			if(self.getTitleNView()) {
-				subpage_style.top += 40;
-			}
-			
-		}
+//		if(mui.os.android) {
+//			if(plus.navigator.isImmersedStatusbar()) {
+//				subpage_style.top += plus.navigator.getStatusbarHeight();
+//			}
+//			if(self.getTitleNView()) {
+//				subpage_style.top += 40;
+//			}
+//			
+//		}
 
 		// 初始化第一个tab项为首次显示
 		temp[self.id] = "true";
@@ -42,7 +42,6 @@ var util = {
 		util.toggleNview(0);
 
 		for(var i = 0, len = subpages.length; i < len; i++) {
-
 			if(!plus.webview.getWebviewById(subpages[i])) {
 				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
 				//初始化隐藏
@@ -127,7 +126,6 @@ var util = {
 			nviewEvent = plus.nativeObj.View.getViewById("tabBar"), // 获取nview控件对象
 			nviewObj = self.getStyle().subNViews[0], // 获取nview对象的属性
 			currTag = nviewObj.tags[currIndex]; // 获取当前需重绘的tag
-
 		nviewEvent.drawText(currTag.text, currTag.position, util.changeColor(currTag.textStyles, color), currTag.id);
 	},
 	/*

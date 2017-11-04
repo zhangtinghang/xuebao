@@ -91,19 +91,9 @@
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function () {
-				var self = plus.webview.currentWebview();
-				console.log( "当前Webview窗口："+self.getURL());
-			    listenReturn('msg_list','联系人');
-				 /**
-				 * 监听原生控件click事件
-				 * 当位置在联系人时，触发页面跳转事件
-				 */
-				self.addEventListener("click", function(e){
-					if(screen.width - e.clientX <= 60){
-						//打开联系人页面
-						openView.nativeView('linkman_contacts.html','linkman_contacts','联系人');
-					}
-				}, false);
+				//导航
+			    listenReturn();
+			    listenNext('联系人','linkman_contacts.html','linkman_contacts','联系人');
 			})
 		</script>
 	</body>
