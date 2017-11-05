@@ -347,30 +347,12 @@
 			<div class="receive_infor_btn" id="message"><img src="images/index/receive_infor_btn.png" /></div>
 		</header>
 
-		<div class="mui-content" id="mcontent">
-			<!--静态图片-->
-			<img v-if="" id="img1" src="images/yuantiao.jpg" />
-			<!--轮播图片-->
-			<div v-else id="slider" class="mui-slider mui-hidden">
-				<div class="mui-slider-group">
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/shuijiao.jpg">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/yuantiao.jpg">
-						</a>
-					</div>
-				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-				</div>
-			</div>
+		<div class="mui-content" id="msg-content">
+				<!--静态图片-->
+				<!--<img v-if="sliderBox.num == 1" id="img1" :src="sliderBox.ajaxUrl+item.carouselImageUrl" />-->
+				<!--轮播图片-->
+				<div id="slider" class="mui-slider" ></div>
+			
 
 			<!--课程表-->
 			<div class="course_box">
@@ -474,31 +456,23 @@
 						</div>
 					</li>
 
-					<li class="teacher_li">
-						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+					<li v-for="item in sliderBox.data" class="teacher_li">
+						<div class="teacher_cover"><img align="center" :src="sliderBox.ajaxUrl+item.carouselImageUrl" /></div>
 						<div class="teacher_list">
 							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
-							<div class="teacher_name">黄代富</div>
+							<div class="teacher_name">{{item.carouselId}}</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
 								<span>102</span>
 							</div>
 						</div>
 					</li>
+					<!--<li v-for="item in sliderBox.data">
+						<p v-if="item.length == 1">{{item.carouselId}}</p>
+						<p v-else>{{sliderBox.ajaxUrl+item.carouselImageUrl}}</p>
+					</li>-->
 				</ul>
 			</div>
-			<!--<p id="kecheng" style="margin: 30px 15px 20px;">课程安排</p>
-			
-			<form class="mui-input-group" style="margin-bottom: 300px;">
-				<div class="mui-input-row mui-radio">
-					<label>静态图片</label>
-					<input name="style" type="radio" checked value="static">
-				</div>
-				<div class="mui-input-row mui-radio">
-					<label>轮播图</label>
-					<input name="style" type="radio" value="slider">
-				</div>
-			</form>-->
 
 		</div>
 		<!--沉浸式适配-->
@@ -517,24 +491,6 @@
 			var aniShow = {};
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
-			});
-			//图片轮播控制
-			var slider = document.getElementById("slider");
-			mui('.mui-input-group').on('change', 'input', function() {
-				if(this.checked) {
-					switch(this.value) {
-						case 'static':
-							document.getElementById("img1").className = "";
-							document.getElementById("slider").classList.add("mui-hidden");
-							break;
-						case 'slider':
-							document.getElementById("img1").className = "mui-hidden";
-							if(slider.classList.contains("mui-hidden")) {
-								document.getElementById("slider").classList.remove("mui-hidden");
-							}
-							break;
-					}
-				}
 			});
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview(),
@@ -693,6 +649,10 @@
 				});
 				
 				//轮播图相关数据处理
+					var slider = mui("#slider");				
+					slider.slider({
+						interval: 200
+					});
 				var ajaxData = {
 						url:'public/app/carousel',
 						data: {
@@ -701,15 +661,61 @@
 						type:'post'
 					}
 				ajax(ajaxData, function(data) {
-						console.log(JSON.stringify(data))
+						creatSlider(data.data);
 				});
+				
+				
+				function creatSlider(data){
+					var len = data.length;	
+					// 图片
+					var sliderGroup = document.createElement("div");
+					sliderGroup.className = "mui-slider-group mui-slider-loop";
+					var group  = '<div class="mui-slider-item mui-slider-item-duplicate">'+
+						'<a href="'+ajaxUrl+data[len-1].carouselUrl+'">'+
+							'<img src="'+ajaxUrl+data[len-1].carouselImageUrl+'">'+
+						'</a>'+
+					'</div>';
+					for(var i=0; i < len;i++){
+						group += '<div class="mui-slider-item">'+
+							'<a href="'+ajaxUrl+data[i].carouselUrl+'">'+
+								'<img src="'+ajaxUrl+data[i].carouselImageUrl+'">'+
+							'</a>'+
+						'</div>';
+					}
+					group += '<div class="mui-slider-item mui-slider-item-duplicate">'+
+						'<a href="'+ajaxUrl+ data[0].carouselUrl +'">'+
+							'<img src="'+ajaxUrl+data[0].carouselImageUrl+'">'+
+						'</a>'+
+					'</div>';
+					sliderGroup.innerHTML = group;
+					
+					// 圆点
+					var sliderIndicator = document.createElement("div");
+					sliderIndicator.className = "mui-slider-indicator";
+					for(var i=0; i < len;i++){
+						var item = document.createElement("div");
+						item.className = "mui-indicator";
+						if(i==0){
+							item.classList.add('mui-active');
+						}
+						sliderIndicator.appendChild(item);
+					}
+						
+					var slider = document.getElementById('slider');
+					slider.appendChild(sliderGroup);
+					slider.appendChild(sliderIndicator);
+					
+					mui("#slider").slider({
+						interval: 5000
+					});
+				}
 				
 				//聊天列表
 				document.getElementById("message").addEventListener('tap', function() {
 					openView.nativeView('im/msg_list.html', 'msg_list', '消息列表');
 				});
 				//日历
-				document.getElementById("course").addEventListener('tap', function() {
+				document.getElementById("course").addEventListener('tap', function() { 
 					openView.nativeView('pages_index/calendar.html', 'calendar', '日历');
 				});
 				//登录
@@ -742,13 +748,13 @@
 					openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情');
 				});
 		});
-//				vue渲染数据
-			var app = new Vue({
-      			el: '#mcontent',
-	      		data: {
-	      			sliderBox:{},
-	      		}
-      		})
+		
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					sliderBox: {}, //顶部banner数据
+				}			
+			})
 		</script>
 	</body>
 

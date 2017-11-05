@@ -94,8 +94,13 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
 		</script>
 	</body>
 

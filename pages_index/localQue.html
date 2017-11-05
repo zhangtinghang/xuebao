@@ -108,16 +108,29 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
-				var type = '';
-			    document.addEventListener('get_detail', function(event) {
-			    	console.log(event.detail.type)
-			    	 type=event.detail.type;		    	
-			    })
+				var self  = plus.webview.currentWebview();
+				var type = self.type;
+				//监听返回
+			    listenReturn();
+				//相关数据处理
+				var ajaxData = {
+						url:'restful1/subject/selectSubject',
+						data: {
+							timeOfMonth:'201710',
+							userId:'72c8ffb2-fc47-468e-aa18-b2f0431cafb6'
+						},
+						type:'post'
+					}
+				ajax(ajaxData, function(data) {
+						console.log(data)
+				});
+
 			   document.getElementById("comeBtn").addEventListener('tap',function(){
-			   	console.log('点击',typeof type,type)
 			    	switch(type){
 			    		case '0' :
 			    		//班课
@@ -125,7 +138,7 @@
 			    		break;
 			    		case '1' :
 			    		//一对一
-			    		openView.nativeView('subject_problem.html', 'subject_problem', '教师列表');
+			    		openView.nativeView('subject_problem.html', 'subject_problem', '科目问题');
 			    		break;
 			    		default :
 			    		//出现未知错误

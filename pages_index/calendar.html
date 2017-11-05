@@ -6,8 +6,14 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<meta charset="UTF-8">
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style>
+			body,html{
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+			}
 			ul {
 				padding: 0;
 				list-style: none;
@@ -19,25 +25,92 @@
 				color: #000000;
 				font-family: 微软雅黑;
 				width: 100%;
+				z-index: 999;
+				background-color: #FEFEFE;
 			}
 			
 			#now {
 				text-align: center;
+				position: relative;
+				z-index: 999;
 			}
-			
-			#week-list:after,
-			#date-list:after {
-				display: table;
-				content: '';
-				clear: both;
+			#week-list{
+				position: relative;				
+				z-index: 999;
+				display: flex;
+				overflow: hidden;
 			}
-			
-			#week-list li,
-			#date-list li {
-				width: 14.2857%;
+			#week-list li{
+				width: calc(100%/7);
 				text-align: center;
-				float: left;
-				padding: 10px 0;
+			}
+			.weekAnimate{
+				animation:mydialog2 1s;
+			-webkit-animation:mydialog2 1s;  /*Safari 和 Chrome */
+			animation-fill-mode:forwards;
+			-webkit-animation-fill-mode: forwards;	
+			}
+			
+			@keyframes mydialog2{
+				0%{
+					transform:translateY(0);
+			-webkit-transform: translateY(0);
+				}
+				100%{
+					transform:translateY(-70px);
+			-webkit-transform: translateY(-70px);
+				}
+			}		
+			@-webkit-keyframes mydialog2{
+				0%{
+					transform:translateY(0);
+			-webkit-transform: translateY(0);
+				}
+				100%{
+					transform:translateY(-70px);
+			-webkit-transform: translateY(-70px);
+				}
+			}
+			
+			.weekAnimateDown{	
+				animation:mydialog 1s;
+				-webkit-animation:mydialog 1s;  /*Safari 和 Chrome */
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;	
+				animation-delay:1s;
+				-webkit-animation-delay:1s; /* Safari 和 Chrome */
+			}
+			
+			@keyframes mydialog{
+				0%{
+					transform:translateY(0);
+			-webkit-transform: translateY(0);
+				}
+				100%{
+					transform:translateY(70px);
+			-webkit-transform: translateY(70px);
+				}
+			}		
+			@-webkit-keyframes mydialog{
+				0%{
+					transform:translateY(0);
+			-webkit-transform: translateY(0);
+				}
+				100%{
+					transform:translateY(70px);
+			-webkit-transform: translateY(70px);
+				}
+			}
+			
+			#date-list{
+				position: relative;
+				z-index: -1;
+				display: flex;
+				flex-wrap: wrap;
+			}
+			#date-list li{
+				width: calc(100%/7);
+				text-align: center;
 			}
 			.circle{
 				width: 30px !important;
@@ -51,28 +124,65 @@
 				justify-content: center;
 				align-items: center;
 			}
+			.date_day{
+				font-size: 0.388888rem;
+			}
+			
+			.list_box{
+				position: relative;
+				z-index: 999;
+				background-color: #FEFEFE;
+			}
+			.show_day{
+				margin-top: 20px;
+				background-color: #FFFFFF;
+			}
 		</style>
 	</head>
 
-	<body>
-		<div id="date-box">
-			<div id="now">
-
+	<body id="bodyBox">
+		<div class="content">
+			<div id="date-box">
+				<div id="now">
+	
+				</div>
+				<ul id="week-list">
+					<li data-week="日">日</li>
+					<li data-week="一">一</li>
+					<li data-week="二">二</li>
+					<li data-week="三">三</li>
+					<li data-week="四">四</li>
+					<li data-week="五">五</li>
+					<li data-week="六">六</li>
+				</ul>	
 			</div>
-			<ul id="week-list">
-				<li data-week="日">日</li>
-				<li data-week="一">一</li>
-				<li data-week="二">二</li>
-				<li data-week="三">三</li>
-				<li data-week="四">四</li>
-				<li data-week="五">五</li>
-				<li data-week="六">六</li>
-			</ul>
-			<ul id="date-list">
-
+			<div>
+				<ul  id="date-list">
+					
+				</ul>
+			</div>
+		</div>
+		<div id="list_box" class="list_box">
+			<div class="show_day">
+				今天
+			</div>
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li>10</li>
+				<li>11</li>
 			</ul>
 		</div>
+		
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script>
 			//将单位数前加0
 			function todu(n) {
@@ -101,7 +211,6 @@
 				//返回月份的某一天
 				var maxdate = date.getDate();
 				//当前月第一天是周几，并在前面空上相应的li
-				console.log(nowDay)
 				var html = '';
 				for(var i = 1; i < MonthWeek + 1; i++) {
 					html += '<li></li>';
@@ -109,7 +218,14 @@
 
 				//输出每天的li
 				for(var j = 1; j <= nowDay; j++) {
-					html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div>有课</div></li>'
+					if(now_day == j){
+						html += '<li class="date_day" id="nowDay'+j+'" date-day="' + j + '"><div class="circle">' + j + '</div><div>有课</div></li>'
+					}else if(now_day > j){
+						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div>完课</div></li>'
+					}else if(now_day < j){
+						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div>待上课</div></li>'
+					}
+					
 				}
 				//获取当前周几
 				var str = "今天是星期" + "日一二三四五六".charAt(new Date().getDay());
@@ -134,13 +250,42 @@
 				var oneWeek = curDate.getDay();
 				return oneWeek;
 			}
-		</script>
-		<script type="text/javascript">
+
 			mui.init();
 			mui.plusReady(function() {
+				//监听返回
+				listenReturn();
 				mui('#date-list').on('tap', '.date_day', function() {
 					//			var day = this.getAttribute('date-day');
 				})
+				//监听滑动
+				var bodyBox = document.getElementById("bodyBox");
+				var dateList = document.getElementById("date-list");
+				var now_day = date.getDate();
+				var idFlag = 'nowDay'+now_day;
+				var liBox = document.getElementById(idFlag);
+				var liBoxToTop = -liBox.offsetTop;
+				//计算列表高度
+				var list_box = document.getElementById("list_box");
+				var listBoxToTop = list_box.offsetTop;
+				var moveTop = -(listBoxToTop + liBoxToTop) + 40;
+				//上滑
+				bodyBox.addEventListener('swipeup',function(){			
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+            		dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";
+            		//列表
+            		list_box.style.transition="-webkit-transform 500ms ease-out";
+            		list_box.style.webkitTransform="translateY("+moveTop+"px)";
+				});
+				//下滑
+				bodyBox.addEventListener('swipedown',function(){
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+            		dateList.style.webkitTransform="translateY(0)";
+            		//列表
+            		list_box.style.transition="-webkit-transform 500ms ease-out";
+            		list_box.style.webkitTransform="translateY(0)";
+				});
+				
 			})
 		</script>
 	</body>

@@ -125,6 +125,9 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function (){
+				//监听返回
+			    listenReturn();
+				
 			    document.getElementById("comment_btn").addEventListener('tap',function(){
 			    	//传参
 			    	openView.nativeView('comment.html', 'comment', '发表评论');

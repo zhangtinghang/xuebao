@@ -98,7 +98,7 @@
 				<label class="login_img"><img src="../images/login/password.png" /></label>
 				<input type="password" class="input_choose" id="passwords" placeholder="请输入密码" />
 			</div>
-			<div class="forget">忘记密码？</div>
+			<div id="forget" class="forget">忘记密码？</div>
 			<div class="clear"></div>
 			
 			<button type="button" id="logins" class="mui-btn mui-btn-block">登录</button>
@@ -133,7 +133,7 @@
 					app.login(doc,function(data){
 						if(data){
 							plus.nativeUI.toast(data);
-						}else{				
+						}else{	
 							var ajaxData = {
 							url:'public/users/login',
 							data: {
@@ -180,6 +180,10 @@
 					openView.incView('register.html','register','注册');
 				},false)
 				//忘记密码
+				
+				doc.forget.addEventListener('tap',function(){
+					openView.incView('register.html','register','忘记密码');
+				})
 			})
 			
 				

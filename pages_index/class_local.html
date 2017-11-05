@@ -1,4 +1,4 @@
-<!DOCTYPE html> -
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -105,17 +105,18 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
 		<script>
 			var webview_detail = null; //详情页webview
-			var titleNView = { //详情页原生导航配置
-				backgroundColor: 'rgba(77,169,239,1)', //导航栏背景色
-				titleText: '', //导航栏标题
-				titleColor: '#FFFFFF', //文字颜色
-				autoBackButton: true, //自动绘制返回箭头
-				splitLine: { //底部分割线
-					color: '#cccccc'
-				}
-			}
+//			var titleNView = { //详情页原生导航配置
+//				backgroundColor: 'rgba(77,169,239,1)', //导航栏背景色
+//				titleText: '', //导航栏标题
+//				titleColor: '#FFFFFF', //文字颜色
+//				autoBackButton: true, //自动绘制返回箭头
+//				splitLine: { //底部分割线
+//					color: '#cccccc'
+//				}
+//			}
 			mui.init({
 				swipeBack: false,
 				pullRefresh: {
@@ -128,37 +129,15 @@
 			});
 
 			mui.plusReady(function() {
-				//预加载详情页
-				webview_detail = mui.preload({
-					url: 'localQue.html',
-					id: 'localQue',
-					styles: {
-						"render": "always",
-						"popGesture": "hide",
-						"bounce": "vertical",
-						"bounceBackground": "#efeff4",
-						"titleNView": titleNView
-					}
-				});
+				//监听返回
+			    listenReturn();
 				//获取传递的参数
 				var self = plus.webview.currentWebview();
 				var type = self.type;
 				
 				//进入筛选页面
 				mui('.list_ul').on('tap', '.list_li', function() {
-					//触发子窗口变更新闻详情
-					mui.fire(webview_detail, 'get_detail', {
-						type:type
-					});
-	
-					//更改详情页原生导航条信息
-					titleNView.titleText = '选择';
-					webview_detail.setStyle({
-						"titleNView": titleNView
-					});
-					setTimeout(function() {
-						webview_detail.show("slide-in-right", 300);
-					}, 150);
+					openView.nativeView('localQue.html', 'localQue', '科目选择',{type:type});				
 				})
 			});
 

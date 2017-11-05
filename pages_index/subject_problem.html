@@ -104,6 +104,8 @@
 			mui.init();
 			//点击选择事件
 			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			  document.getElementById("comeBtn").addEventListener('tap',function(){
 			    	openView.nativeView('../pages_curricula_variable/teacher_list.html', 'teacher_list', '教师列表');
 			   }); 

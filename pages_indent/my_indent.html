@@ -55,6 +55,8 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			    mui('.indent_list').on('tap','li',function(){
 					openView.nativeView('indent_detail.html','indent_detail','订单详情');
 			    })

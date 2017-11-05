@@ -348,7 +348,8 @@
 					"pages_index/calendar.html",
 					"pages_index/server_list.html",
 					"pages_index/dynamic_detail.html",
-					"pages_index/more_dynamic.html"
+					"pages_index/more_dynamic.html",
+					"pages_index/localtion.html"
 				],
 				"priority": 0
 			},
@@ -636,6 +637,20 @@
 				"resources": [],
 				"refer": [
 					"pages_curricula_variable/teacher_detail_2.html"
+				],
+				"priority": 0
+			},
+			"pages_class_register/class_record.html": {
+				"resources": [],
+				"refer": [
+					"pages_class_register/course_detail.html"
+				],
+				"priority": 0
+			},
+			"pages_class_register/classroom_feedback.html": {
+				"resources": [],
+				"refer": [
+					"pages_index/classroom_detail.html"
 				],
 				"priority": 0
 			}

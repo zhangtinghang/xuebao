@@ -59,6 +59,8 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			    mui('.indent_list').on('tap','li',function(){
 					openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
 			    })

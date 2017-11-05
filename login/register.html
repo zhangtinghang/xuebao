@@ -63,7 +63,7 @@
 			.mui-btn{
 				background-color: rgb(76,168,238);
 				border-radius:42px;
-				box-shadow: 0 10px 10px rgba(27,130,209,0.15);
+				box-shadow:none;
 				color: rgb(255,255,255);
 				font-size: 0.5rem;
 				line-height: 22px;
@@ -113,6 +113,7 @@
 		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
 		<!--end-->
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 		mui.plusReady(function () {
@@ -159,6 +160,7 @@
 						}; 
 
 						ajax(ajaxData, function(data) {
+							console.log(data)
 							if(data.code == 200){
 								plus.nativeUI.toast(data.msg);
 								//注册环信
@@ -170,7 +172,12 @@
 						});
 					}
 				});
-			})			
+			})
+			
+			//返回登录
+			dc.login.addEventListener('tap',function(){
+				mui.back();
+			})
 		})
 			
 		</script>

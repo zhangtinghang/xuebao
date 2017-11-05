@@ -719,6 +719,8 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			    mui('.resume_box').on('tap','.resume_detail',function(){
 			    	openView.nativeView('teacher_detail_2.html', 'teacher_detail_2', '个人简历');
 			    })

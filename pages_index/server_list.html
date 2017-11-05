@@ -148,6 +148,8 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			    //服务消息
 				mui('#class_message_box').on('tap','.class_message',function(){
 					var type = this.getAttribute('data-type');
