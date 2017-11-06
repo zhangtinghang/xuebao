@@ -58,10 +58,10 @@ var openView = {
 				titleNView: {
 					titleText: title,
 					titleColor: "#fefefe",
-					titleSize: "17px",
+					titleSize: "20px",
 					backgroundColor: "rgb(77,169,239)",
 					progress: {
-						color: "#00FF00",
+						color: "#C1E4FF",
 						height: "2px"
 					}
 				}
@@ -92,11 +92,11 @@ var openView = {
 				titleNView: { // 窗口的标题栏控件
 					titleText: title, // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
 					titleColor: "#fefefe", // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
-					titleSize: "17px", // 字体大小,默认17px
+					titleSize: "20px", // 字体大小,默认17px
 					//		      autoBackButton:"true",
 					backgroundColor: "rgb(77,169,239)", // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
 					progress: { // 标题栏控件的进度条样式
-						color: "#4ea9ef", // 进度条颜色,默认值为"#00FF00"  
+						color: "#C1E4FF", // 进度条颜色,默认值为"#00FF00"  
 						height: "2px" // 进度条高度,默认值为"2px"         
 					},
 					//		      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom

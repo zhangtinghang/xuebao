@@ -199,11 +199,25 @@
 					opacity: 0;
 				}
 			}
+			
+			.personalized_signature{
+				width: 70%;
+				right: 0.388888rem;
+				top: 2.555555rem;
+				position: absolute;
+				
+			}
+			.personalized_signature img{
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="content">
+			<div class="personalized_signature">
+				<img src="images/title.png" />
+			</div>
 			<div id="return_btn" class="btn rotate"><img src="images/index/chos_subj.png" /></div>
 			<div class="come_box">
 				<div id="claasBox" class="class classRotate">
@@ -250,14 +264,14 @@
 			    
 			    //打开班课页面
 			    claasBox.addEventListener('tap',function(){
-			    	openWindow('pages_index/class_local.html','class_local','地点',{type:'0'});
+			    	openWindow('pages_index/class_local.html','class_local','上课地点',{type:'0'});
 			    	var ws=plus.webview.currentWebview();
 					plus.webview.close(ws);
 			    })
 			    
 			    //打开一对一页面
 			    oneBox.addEventListener('tap',function(){
-			    	openWindow('pages_index/class_local.html','class_local','地点',{type:'1'});
+			    	openWindow('pages_index/class_local.html','class_local','上课地点',{type:'1'});
 			    	var ws=plus.webview.currentWebview();
 					plus.webview.close(ws);
 			    })
@@ -276,7 +290,7 @@
 								titleSize: "17px", 
 								backgroundColor: "rgb(77,169,239)", 
 								progress: { 
-									color: "#00FF00", 
+									color: "#C1E4FF", 
 									height: "2px"         
 								},
 								tags: ([{

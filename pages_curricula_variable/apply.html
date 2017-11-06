@@ -70,7 +70,7 @@
 						<div class="left_title">语文作文提高班(1)</div>
 						<div class="left_num">200.0元/分钟</div>
 					</div>
-					<div class="list_right">
+					<div class="list_right all_class">
 						报名
 					</div>
 				</li>
@@ -80,7 +80,7 @@
 						<div class="left_title">语文作文提高班(2)</div>
 						<div class="left_num">200.0元/分钟</div>
 					</div>
-					<div class="list_right">
+					<div class="list_right all_class">
 						报名
 					</div>
 				</li>
@@ -95,6 +95,9 @@
 			    listenReturn();
 			    mui('.list_ul').on('tap','.list_right',function(){
 			    	openView.nativeView('onetoone_sign.html', 'onetoone_sign', '一对一报名');
+			    })
+			    mui('.list_ul').on('tap','.all_class',function(){
+			    	openView.nativeView('classApply.html', 'classApply', '班课报名');
 			    })
 			    
 			})
