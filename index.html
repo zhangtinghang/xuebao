@@ -121,6 +121,7 @@
 			
 			.mui-slider {
 				width: 100%;
+				min-height: 5.555555rem;
 			}
 			
 			.mui-slider-indicator {
@@ -661,6 +662,7 @@
 						type:'post'
 					}
 				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
 						creatSlider(data.data);
 				});
 				

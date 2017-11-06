@@ -69,21 +69,24 @@
 			}
 			
 			.detail_subject img {
-				width: 0.25rem;
-				height: 0.305555rem;
+				width: 0.277777rem;
+				height: 0.361111rem;
 				margin-right: 0.111111rem;
+				margin-bottom: 0.089444rem;
 			}
 			
 			.detail_age img {
 				width: 0.277777rem;
 				height: 0.319444rem;
 				margin-right: 0.111111rem;
+				margin-bottom: 0.087777rem;
 			}
 			
 			.detail_perfect img {
-				width: 0.319444rem;
-				height: 0.291666rem;
+				width: 0.305555rem;
+				height: 0.277777rem;
 				margin-right: 0.111111rem;
+				margin-bottom: 0.088888rem;
 			}
 			
 			.list_item {
@@ -462,7 +465,7 @@
 			<div class="header_detail">
 				<div class="detail_subject"><img align="center" src="../images/teacher_list/teach_subj.png" />授课:英语</div>
 				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄:8年</div>
-				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />学生满意度:99.99%</div>
+				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />满意度:99.99%</div>
 			</div>
 
 			<div class="list_item">
@@ -723,6 +726,10 @@
 			    listenReturn();
 			    mui('.resume_box').on('tap','.resume_detail',function(){
 			    	openView.nativeView('teacher_detail_2.html', 'teacher_detail_2', '个人简历');
+			    })
+			    
+			    document.getElementById("btn_apply").addEventListener('tap',function(){
+			    	openView.nativeView('apply.html', 'apply', '个人简历');
 			    })
 			})
 		</script>

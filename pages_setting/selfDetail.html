@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人资料</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<style>
+			.list_ul{
+				
+			}
+			.list_ul li{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.5rem 5%;
+				background-color: #FEFEFE;
+				border-bottom: 1px solid rgb(220,220,220);
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.right_box{
+				display: flex;
+				justify-content: center;
+				align-content: center;
+			}
+			.avatar_box{
+				display: block;
+				width: 1.694444rem;
+				height: 1.694444rem;
+				border-radius:45px;
+				overflow: hidden;
+			}
+			.avatar_box img{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.right_btn{
+				display: flex;
+				align-items: center;
+				color: #888888;
+				font-size: 0.333333rem;
+			}
+			.right_btn img{
+				width: 0.194444rem;
+				height: 0.333333rem;
+				margin-left: 0.222222rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="list_box">
+				<ul class="list_ul">
+					<li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="../images/me/head.png" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li>
+					<li data-type = "2"><span>姓名</span><span class="right_btn">小明 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "3"><span>性别</span><span class="right_btn">男 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "4"><span>学校</span><span class="right_btn">青城一中 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "5"><span>年级</span><span class="right_btn">初一 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "6"><span>电话</span><span class="right_btn">17780632699 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "7"><span>区域</span><span class="right_btn">成都市 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "8"><span>地址</span><span class="right_btn">都江堰青城山青城阳光2号楼东户 <img src="../images/me/next_content.png" /></span></li>
+				</ul>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+			    mui('.list_ul').on('tap','li',function(){
+			    	var type = this.getAttribute('data-type');
+			    	switch (type){
+			    		case '1':
+			    			openView.nativeView('self_change.html', 'self_change', '头像');
+			    			break;
+			    		case '2':
+			    			openView.nativeView('self_change.html', 'self_change', '姓名');
+			    			break;
+			    		case '3':
+			    			openView.nativeView('self_change.html', 'self_change', '性别');
+			    			break;
+			    		case '4':
+			    			openView.nativeView('self_change.html', 'self_change', '学校');
+			    			break;
+			    		case '5':
+			    			openView.nativeView('grade_setting.html', 'grade_setting', '年级');
+			    			break;
+			    		case '6':
+			    			openView.nativeView('self_change.html', 'self_change', '电话');
+			    			break;
+			    		case '7':
+			    			openView.nativeView('self_change.html', 'self_change', '区域');
+			    			break;
+		    			case '8':
+		    			openView.nativeView('self_change.html', 'self_change', '地址');
+		    			break;
+			    		default:
+			    			break;
+			    	}
+			    })
+			})
+		</script>
+	</body>
+
+</html>

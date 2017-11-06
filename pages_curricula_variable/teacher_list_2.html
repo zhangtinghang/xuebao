@@ -131,7 +131,6 @@
 			.list_item{
 				width: 100%;
 				padding: 0.377777rem;
-				margin-bottom: 0.111111rem;
 			}
 			.list_item_ul{
 				display: flex;
@@ -146,12 +145,12 @@
 				border: none;
 			}
 			.list_item_num{
-				font-size: 0.416666rem;
+				font-size: 0.444444rem;
 				color: #FEFEFE;
 			}
 			.list_item_text{
 				color: #EEEEEE;
-				font-size: 0.333333rem;
+				font-size: 0.388888rem;
 			}
 			.body_list_box{
 				display: flex;
@@ -166,6 +165,24 @@
 			.list_left_label{
 				border-radius:10px;
 				background-color: #fec00d;
+				margin: 0 auto;
+				margin-top: 0.388888rem;
+				width: 70%;
+				color: #FEFEFE;
+				padding: 1% 0;
+			}
+			.list_left_label1{
+				border-radius:10px;
+				background-color:#FE7136;
+				margin: 0 auto;
+				margin-top: 0.388888rem;
+				width: 70%;
+				color: #FEFEFE;
+				padding: 1% 0;
+			}
+			.list_left_label2{
+				border-radius:10px;
+				background-color: #4ea9ef;
 				margin: 0 auto;
 				margin-top: 0.388888rem;
 				width: 70%;
@@ -199,7 +216,7 @@
 				color: #fe7136;
 			}
 			.right_content_apply{
-				font-size: 0.333333rem;
+				font-size: 0.388888rem;
 				color: #555555;
 			}
 			.right_content_apply span{
@@ -207,7 +224,7 @@
 			}
 			.right_content_date{
 				margin-right: 5%;
-				font-size: 0.277777rem;
+				font-size: 0.333333rem;
 				color: #888888;
 			}
 			.more_course{
@@ -303,7 +320,7 @@
 						</div>
 						<div class="body_list_box">
 							<div class="list_left_icon">
-								<div class="list_left_label">基础级</div>
+								<div class="list_left_label1">基础级</div>
 							</div>
 							<div class="list_right_content">
 								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
@@ -374,7 +391,7 @@
 						</div>
 						<div class="body_list_box">
 							<div class="list_left_icon">
-								<div class="list_left_label">基础级</div>
+								<div class="list_left_label2">基础级</div>
 							</div>
 							<div class="list_right_content">
 								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
@@ -395,8 +412,11 @@
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
-			    mui('.content_list_ul').on('tap','.content_list_li',function(){
+			    mui('.content_list_ul').on('tap','.content_list_box',function(){
 			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情');
+			    })
+			    mui('.body_list').on('tap','.more_course',function(){
+			    	openView.nativeView('all_class.html', 'all_class', ' 全部班课');
 			    })
 			})
 		</script>

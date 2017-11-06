@@ -18,7 +18,7 @@
 			.list_ul{
 				padding-left: 5%;
 				background-color: #FEFEFE;
-				margin-bottom: 0.222222rem;
+				margin-bottom: 0.111111rem;
 			}
 			.list_ul li{
 				color: rgb(85,85,85);
@@ -38,6 +38,9 @@
 				align-items: center;
 				font-size: 0.444444rem;
 			}
+			.list_ul li > span{
+				font-size: 0.388888rem;
+			}
 			.list_left_money{
 				color: rgb(254,113,54);
 			}
@@ -47,7 +50,7 @@
 			}
 			.list_right{
 				padding-right: 5%;
-				font-size: 0.444444rem;
+				font-size: 0.444444rem !important;
 				color: rgb(27,130,209);
 			}
 		</style>
@@ -85,6 +88,7 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
 			})
 		</script>
 	</body>

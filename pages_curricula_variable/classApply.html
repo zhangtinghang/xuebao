@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.header{
+				width: 100%;
+				padding-top: 1.166666rem;
+				background-color: #FEFEFE;
+				padding-bottom:0.763888rem;
+			}
+			.content{
+				margin-bottom:2.34444rem;
+			}
+			.header_box{
+				width: 1.666666rem;
+				height: 1.666666rem;
+				margin: 0 auto;
+			}
+			.header_box img{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.body_list{
+				background-color: #FEFEFE;
+				padding: 0 5%;
+			}
+			.body_list_ul li{
+				display: flex;
+				justify-content:space-between;
+				align-items: center;
+				padding-bottom:0.555555rem;
+				font-size: 0.444444rem;
+				color: rgb(51,51,51);
+			}
+			
+			.list_right{
+				color: rgb(136,136,136);
+			}
+			
+			.right_money{
+				color: rgb(254,113,54);
+			}
+			
+			/*底部*/
+			.footer{
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				display: flex;
+				width: 100%;
+				height: 1.34444rem;
+				z-index: 999;
+			}
+			.footer_left{
+				width: 60%;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #FEFEFE;
+				font-size: 0.444444rem;
+			}
+			.left_text{
+				color: rgb(254,113,54);
+				font-size: 0.444444rem;
+			}
+			.footer_right{
+				width: 40%;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				background-color: rgb(27,130,209);
+				color: #FEFEFE;
+				font-size: 0.444444rem;
+			}
+			
+			/*导航条*/
+			.serve_nav {
+				width: 100%;
+				height: 1.063888rem;
+				border-bottom: 1px solid rgba(220, 220, 220, .5);
+				display: flex;
+				align-items: center;
+				background-color: rgba(255, 255, 255, 1);
+				margin-top: 0.222222rem;
+			}
+			
+			.nav_line {
+				width: 3px;
+				background-color: #007AFF;
+				height: 0.436666rem;
+				margin-left: 5%;
+			}
+			
+			.nav_serve {
+				width: 70%;
+				margin-top: 0.128888rem;
+				margin-left: 0.163333rem;
+				color: rgba(136, 136, 136, 1);
+				font-size: 0.388888rem;
+			}
+			.nav_more {
+				width: 30%;
+				text-align: right;
+				padding-right: 5%;
+				color: rgba(136, 136, 136, 1);
+			}
+			.more{
+				font-size: 0.333333rem;
+				color: rgb(27,130,209);
+			}
+			.more img{
+				width: 0.319444rem;
+				height: 0.180555rem;
+				margin-left: 0.111111rem;
+			}
+			/*课程安排*/
+			.course_ul{
+				width: 100%;
+			}
+			.course_ul li{
+				display: flex;
+				align-items: center;
+				background-color: #FEFEFE;
+				padding:4% 2%;
+				position: relative;
+				border-top:1px solid rgba(220,220,220,.5);
+			}
+			.course_ul li >span{
+				padding-left: 0.388888rem;
+				font-size: 0.388888rem;
+			}
+			.course_time{
+				margin-left: 0.388888rem;
+				padding: 0 0.338888rem !important;
+				border: 2px solid #1b82d1;
+				border-radius:18px;
+				color: #1b82d1;
+			}
+			.course_place{
+				position: absolute;
+				right: 5%;
+				color: #555555;
+			}
+			
+			.course_ul li:last-child{
+				justify-content: center;
+				color: rgb(27,130,209);
+				font-size: 0.333333rem;
+			}
+			.course_ul li:last-child > img{
+				width: 0.319444rem;
+				height: 0.180555rem;
+				margin-left: 0.111111rem;
+			}
+			/*课程介绍*/
+			.course_introduce{
+				padding: 0 5%;
+				background-color: #FEFEFE;
+			}
+			.course_title{
+				font-size: 0.333333rem;
+				padding-top: 0.388888rem;
+				color: rgb(51,51,51);	
+			}
+			.course_body{
+				line-height: 28px;
+				padding-top: 0.388888rem;
+			}
+			.course_title:last-child{
+				padding-bottom: 0.388888rem;
+			}
+			
+			/*授课地址*/
+			.location_box{
+				padding: 0.388888rem 5%;
+				background-color: #FEFEFE;
+				font-size: 0.333333rem;
+				color: rgb(51,51,51);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="footer">
+			<div class="footer_left">共支付：<span class="left_text">300.00</span>元</div>
+			<div class="footer_right">立即支付</div>
+		</div>
+		<div class="content">
+			<div class="header">
+				<div class="header_box">
+					<img src="../images/teacher_list/teacher_head.png" />
+				</div>
+			</div>
+			<div class="body_list">
+				<ul class="body_list_ul">
+					<li><span>授课老师</span><span class="list_right">周老师</span></li>
+					<li><span>科目</span><span class="list_right">英语</span></li>
+					<li><span>问题</span><span class="list_right">语法</span></li>
+					<li><span>上课方式</span><span class="list_right">教师上门</span></li>
+					<li><span>上课地点</span><span class="list_right">青羊区</span></li>
+					<li><span>价格</span><span class="list_right right_money">2.5元/分钟</span></li>
+					<li><span>课时</span><span class="list_right">20.0小时</span></li>
+				</ul>
+			</div>
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课程介绍</span>
+				<div id="server_more" class="nav_more more">全文<img align="center" src="../images/teacher_list/spread.png" /></div>
+			</div>
+			<div class="course_introduce">
+				<div class="course_title">【教学目标】</div>
+				<div class="course_body">
+					掌握标准发音，建立语音基础，培育高校鸡蛋和独立拓展词汇的能力，为语法学习做铺垫。
+				</div>
+				<div class="course_title">【教学内容】</div>
+			</div>
+			
+			
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">课程安排</span>
+			</div>
+			<div class="course_list">
+				<ul class="course_ul">
+					<li><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>3</span><span>10月31日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>4</span><span>11月01日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li><span>5</span><span>10月02日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li>查看全部<img align="center" src="../images/teacher_list/spread.png" /></li>
+				</ul>
+			</div>
+			
+			<div class="serve_nav">
+				<div class="nav_line"></div>
+				<span class="nav_serve">授课地址</span>
+			</div>
+			<div class="location_box">
+				成都市都江堰市青城山镇东软大道一号成都东软学院
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+		</script>
+	</body>
+
+</html>

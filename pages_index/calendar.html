@@ -19,7 +19,9 @@
 				list-style: none;
 				font-size: 20px;
 			}
-			
+			.content{
+				padding-bottom: 1.555555rem;
+			}
 			#date-box {
 				background: #FEFEFE;
 				color: #000000;
@@ -27,18 +29,24 @@
 				width: 100%;
 				z-index: 999;
 				background-color: #FEFEFE;
+				border-bottom: 1px solid rgb(220,220,220);
 			}
 			
 			#now {
 				text-align: center;
 				position: relative;
 				z-index: 999;
+				padding: 0.388888rem 0;
+				font-size: 0.388888rem;
 			}
 			#week-list{
 				position: relative;				
 				z-index: 999;
 				display: flex;
 				overflow: hidden;
+				color: rgb(136,136,136);
+				font-size: 0.333333rem;
+				padding-bottom: 0.208333rem;
 			}
 			#week-list li{
 				width: calc(100%/7);
@@ -107,35 +115,112 @@
 				z-index: -1;
 				display: flex;
 				flex-wrap: wrap;
+				padding-top: 0.277777rem;
+				background-color: #FEFEFE;
 			}
 			#date-list li{
 				width: calc(100%/7);
 				text-align: center;
+				padding-bottom: 0.138888rem;
 			}
 			.circle{
 				width: 30px !important;
 				height: 30px !important;
 				padding: 0 8px;
 				border-radius:45px;
-				background-color: #1B82D1;
+				background-color: rgb(190,190,190);
 				text-align: center;
 				margin: 0 auto;
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				color: #fefefe;
+			}
+			.todayCircle{
+				background-color: rgb(27,130,209);
+			}
+			/*文字*/
+			.dayCourse{
+				color: rgb(27,130,209);
+			}
+			.suCourse{
+				color: rgb(136,136,136);
+			}
+			.fuCourse{
+				color: rgb(136,136,136);
+			}
+			.course_text{
+				font-size: 0.333333rem;
 			}
 			.date_day{
 				font-size: 0.388888rem;
 			}
-			
+			/*列表*/
 			.list_box{
 				position: relative;
 				z-index: 999;
 				background-color: #FEFEFE;
 			}
-			.show_day{
-				margin-top: 20px;
+			.show_day{	
+				padding:0.222222rem 5%;
+				margin-top:0.222222rem;
 				background-color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				font-size: 0.333333rem;
+				color: rgb(79,150,215);
+				border-bottom:2px solid rgb(220,220,220);
+			}
+			.blue_cirle{
+				width: 0.111111rem;
+				height: 0.111111rem;
+				border-radius: 45px;
+				background-color: rgb(27,130,209);
+				margin-right: 0.111111rem;
+			}
+			.list_ul{
+				
+			}
+			.list_ul li{
+				padding: 0.388888rem 5%;
+				border-bottom:2px solid rgb(220,220,220);
+				background-color: #FEFEFE;
+			}
+			.list_title{
+				display: flex;
+				align-items: center;
+				font-size: 0.444444rem;
+			}
+			.title_time{
+				display: block;
+				border-radius: 18px;
+				border: 2px solid rgb(27,130,209);
+				font-size: 0.333333rem;
+				padding: 0 0.277777rem;
+				color: rgb(27,130,209);
+				margin-right: 0.388888rem;
+			}
+			
+			.list_body{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 0.208333rem;
+				margin-left: 1.838888rem;
+			}
+			.body_text{
+				font-size: 0.333333rem;
+			}
+			.body_text span{
+				margin-left: 0.291666rem;
+				color: rgb(27,130,209);
+			}
+			.body_right{
+				font-size: 0.333333rem;
+			}
+			/*当前周几*/
+			.today_week{
+				color: rgb(27,130,209);
 			}
 		</style>
 	</head>
@@ -161,26 +246,28 @@
 					
 				</ul>
 			</div>
-		</div>
 		<div id="list_box" class="list_box">
 			<div class="show_day">
-				今天
+				<div class="blue_cirle"></div>今天
 			</div>
-			<ul>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-				<li>6</li>
-				<li>7</li>
-				<li>8</li>
-				<li>9</li>
-				<li>10</li>
-				<li>11</li>
-			</ul>
+			<ul class="list_ul">
+				<li>
+					<div class="list_title"><span class="title_time">15:30</span>语文</div>
+					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">待上课</div></div>
+				</li>
+				<li>
+					<div class="list_title"><span class="title_time">15:30</span>语文</div>
+					<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right">待上课</div></div>
+				</li><li>
+					<div class="list_title"><span class="title_time">15:30</span>语文</div>
+					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">已上课</div></div>
+				</li><li>
+					<div class="list_title"><span class="title_time">15:30</span>语文</div>
+					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">已上课</div></div>
+				</li>
+			</ul>		
 		</div>
-		
+	</div>		
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script>
@@ -219,11 +306,11 @@
 				//输出每天的li
 				for(var j = 1; j <= nowDay; j++) {
 					if(now_day == j){
-						html += '<li class="date_day" id="nowDay'+j+'" date-day="' + j + '"><div class="circle">' + j + '</div><div>有课</div></li>'
+						html += '<li class="date_day" id="nowDay'+j+'" date-day="' + j + '"><div class="circle todayCircle">' + j + '</div><div class="course_text dayCourse">有课</div></li>'
 					}else if(now_day > j){
-						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div>完课</div></li>'
+						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text suCourse">完课</div></li>'
 					}else if(now_day < j){
-						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div>待上课</div></li>'
+						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text fuCourse">待上课</div></li>'
 					}
 					
 				}
@@ -264,13 +351,13 @@
 				var now_day = date.getDate();
 				var idFlag = 'nowDay'+now_day;
 				var liBox = document.getElementById(idFlag);
-				var liBoxToTop = -liBox.offsetTop;
+				var liBoxToTop = -liBox.offsetTop+10;
 				//计算列表高度
 				var list_box = document.getElementById("list_box");
 				var listBoxToTop = list_box.offsetTop;
-				var moveTop = -(listBoxToTop + liBoxToTop) + 40;
+				var moveTop = -(listBoxToTop + liBoxToTop) + 80;
 				//上滑
-				bodyBox.addEventListener('swipeup',function(){			
+				bodyBox.addEventListener('swipeup',function(){	
 					dateList.style.transition="-webkit-transform 500ms ease-out";
             		dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";
             		//列表
@@ -286,6 +373,16 @@
             		list_box.style.webkitTransform="translateY(0)";
 				});
 				
+				//修改当前周几
+				var week_list=document.getElementById("week-list");
+				var list_item=week_list.getElementsByTagName("li");
+				var week = date.getDay();
+				for(var i=0;i<7;i++){
+					if(i == week){
+						list_item[i].innerHTML = '今天';
+						list_item[i].setAttribute('class','today_week');
+					}
+				}
 			})
 		</script>
 	</body>

@@ -184,15 +184,45 @@
 				border: none;
 			}
 			.list_item_num{
-				font-size: 0.416666rem;
+				font-size: 0.444444rem;
+				color:#333333
 			}
 			.list_item_text{
-				color: rgb(198,198,198);
-				font-size: 0.333333rem;
+				color: rgb(136,136,136);
+				font-size: 0.388888rem;
 			}
 			.list_item_btn{
-				color: rgba(100,195,249,1);
+				color: rgba(27,130,209,1);
 				font-size: 0.444444rem;
+			}
+			
+			/*遮罩样式修改*/
+			.mui-popover .mui-popover-arrow {
+				display: none;
+			}
+			.mui-popover{
+				top: 0 !important;
+				width: 100% !important;
+				left: 0 !important;
+				border-radius:0 !important;
+			}
+			.popover-box {
+				text-align: center;
+				position: relative;
+			}
+			.choose_list{
+				text-align: left;
+			}
+			.choose_list li{
+				display: flex;
+				padding: 0.305555rem 5%;
+				justify-content: space-between;
+				border-bottom: 1px solid rgb(240,240,240);
+				background-color:#FFFFFF;
+				color: rgb(85,85,85);
+			}
+			a{
+				color:rgb(85,85,85);
 			}
 		</style>
 	</head>
@@ -201,8 +231,8 @@
 		<div class="content">
 			<!--顶部选择-->
 			<ul class="head_ul">
-				<li>默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></li>
-				<li>全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></li>
+				<li><a href="#Popover">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
 			</ul>
 			
 			<!--教师列表-->
@@ -377,6 +407,46 @@
 						</div>
 					</li>
 				</ul>
+			</div>
+		</div>
+		
+		<div id="Popover" class="mui-popover">
+			<div class="popover-box">
+				<ul class="head_ul">
+					<li><a href="#Popover"><span style="color:rgb(27，130，209)">默认排序</span><img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
+					<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				</ul>
+				<div class="choose_list">
+					<ul>
+						<li>默认排序</li>
+						<li>授课时长</li>
+						<li>学生人数</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="Popover2" class="mui-popover">
+			<div class="popover-box">
+				<ul class="head_ul">
+					<li><a href="#Popover">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+					<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
+				</ul>
+				<div class="choose_list">
+					<ul>
+						<li>全部星级</li>
+						<li>一星级</li>
+						<li>二星级</li>
+						<li>三星级</li>
+						<li>四星级</li>
+						<li>五星级</li>
+						<li>六星级</li>
+						<li>七星级</li>
+						<li>八星级</li>
+						<li>九星级</li>
+						<li>十星级</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>

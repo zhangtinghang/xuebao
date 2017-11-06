@@ -25,7 +25,7 @@
 				color: rgb(51,51,51);
 			}
 			.left_num{
-				font-size: 0.333333rem;
+				font-size: 0.388888rem;
 				color: rgb(254,113,54);
 				padding-top: 0.222222rem;
 			}
@@ -93,6 +93,10 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    mui('.list_ul').on('tap','.list_right',function(){
+			    	openView.nativeView('onetoone_sign.html', 'onetoone_sign', '一对一报名');
+			    })
+			    
 			})
 		</script>
 	</body>

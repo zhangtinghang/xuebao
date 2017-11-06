@@ -21,6 +21,7 @@
 			.title_icon img{
 				width: 100%;
 				height: 100%;
+				margin-bottom: 0.108888rem;
 			}
 			.title_text{
 				margin-left: 0.211111rem;
@@ -90,7 +91,7 @@
 			</div>
 
 			<!--问题-->
-			<div class="question">
+			<div id="question" class="question">
 				<u>问题不太清楚？学导师帮助</u>
 			</div>
 			<div class="clear"></div>
@@ -108,7 +109,12 @@
 			    listenReturn();
 			  document.getElementById("comeBtn").addEventListener('tap',function(){
 			    	openView.nativeView('../pages_curricula_variable/teacher_list.html', 'teacher_list', '教师列表');
-			   }); 
+			   });
+			   
+			   //跳转咨询
+			   document.getElementById("question").addEventListener('tap',function(){
+			   	openView.nativeView('../im/chat.html', 'chat', '咨询');
+			   })
 			})
 			
 		</script>
