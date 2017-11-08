@@ -222,8 +222,25 @@
 				color: rgb(85,85,85);
 				font-size: 0.416666rem;
 			}
+			.list_img_box{
+				display: block;
+				width: 0.555555rem;
+				height: 0.388888rem;
+			}
+			.list_img_box img{
+				width: 100%;
+			}
 			a{
 				color:rgb(85,85,85);
+			}
+			a:active{
+				color:rgb(27，130，209);
+			}
+			a:hover{
+				color:rgb(85,85,85);
+			}
+			a:checked{
+				color:rgb(27，130，209);
 			}
 		</style>
 	</head>
@@ -232,8 +249,8 @@
 		<div class="content">
 			<!--顶部选择-->
 			<ul class="head_ul">
-				<li><a href="#Popover">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
-				<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover"><span class='title_text'>默认排序</span><img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover2"><span class='title_text'>全部星级</span><img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
 			</ul>
 			
 			<!--教师列表-->
@@ -414,14 +431,14 @@
 		<div id="Popover" class="mui-popover">
 			<div class="popover-box">
 				<ul class="head_ul">
-					<li><a href="#Popover"><span style="color:rgb(27，130，209)">默认排序</span><img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
+					<li><a href="#Popover"><span class='title_text'>默认排序</span><img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
 					<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
 				</ul>
 				<div class="choose_list">
-					<ul>
-						<li>默认排序</li>
-						<li>授课时长</li>
-						<li>学生人数</li>
+					<ul id="choose_list_ul1">
+						<li><span>默认排序</span><span class="list_img_box"><img src="../images/teacher_list/tick.png"/></span></li>
+						<li><span>授课时长</span><span class="list_img_box"></span></li>
+						<li><span>学生人数</span><span class="list_img_box"></span></li>
 					</ul>
 				</div>
 			</div>
@@ -431,21 +448,21 @@
 			<div class="popover-box">
 				<ul class="head_ul">
 					<li><a href="#Popover">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
-					<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
+					<li><a href="#Popover2"><span class='title_text'>全部星级</span><img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
 				</ul>
 				<div class="choose_list">
-					<ul>
-						<li>全部星级</li>
-						<li>一星级</li>
-						<li>二星级</li>
-						<li>三星级</li>
-						<li>四星级</li>
-						<li>五星级</li>
-						<li>六星级</li>
-						<li>七星级</li>
-						<li>八星级</li>
-						<li>九星级</li>
-						<li>十星级</li>
+					<ul id="choose_list_ul2">
+						<li><span>全部星级</span><span class="list_img_box"><img src="../images/teacher_list/tick.png"/></span></li>
+						<li><span>一星级</span><span class="list_img_box"></span></li>
+						<li><span>二星级</span><span class="list_img_box"></span></li>
+						<li><span>三星级</span><span class="list_img_box"></span></li>
+						<li><span>四星级</span><span class="list_img_box"></span></li>
+						<li><span>五星级</span><span class="list_img_box"></span></li>
+						<li><span>六星级</span><span class="list_img_box"></span></li>
+						<li><span>七星级</span><span class="list_img_box"></span></li>
+						<li><span>八星级</span><span class="list_img_box"></span></li>
+						<li><span>九星级</span><span class="list_img_box"></span></li>
+						<li><span>十星级</span><span class="list_img_box"></span></li>
 					</ul>
 				</div>
 			</div>
@@ -459,6 +476,26 @@
 			    listenReturn();
 			    mui('.content_list_ul').on('tap','.content_list_li',function(){
 			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情');
+			    })
+			    
+			    //排序点击事件
+			    var choose_list_ul1 = document.getElementById("choose_list_ul1");
+			    var choose_list_li1 = choose_list_ul1.getElementsByClassName('list_img_box');
+			    mui('#choose_list_ul1').on('tap','li',function(){
+			    	for(var i=0;i<choose_list_li1.length;i++){
+			    		choose_list_li1[i].innerHTML = '';
+			    	}
+			    	this.getElementsByClassName('list_img_box')[0].innerHTML = '<img src="../images/teacher_list/tick.png"/>';
+			    })
+			    
+			    //第二个排序
+			    var choose_list_ul2 = document.getElementById("choose_list_ul2");
+			    var choose_list_li2 = choose_list_ul2.getElementsByClassName('list_img_box');
+			     mui('#choose_list_ul2').on('tap','li',function(){
+			    	for(var i=0;i<choose_list_li2.length;i++){
+			    		choose_list_li2[i].innerHTML = '';
+			    	}
+			    	this.getElementsByClassName('list_img_box')[0].innerHTML = '<img src="../images/teacher_list/tick.png"/>';
 			    })
 			})
 		</script>

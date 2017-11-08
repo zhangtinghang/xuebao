@@ -351,7 +351,9 @@
 				<!--静态图片-->
 				<!--<img v-if="sliderBox.num == 1" id="img1" :src="sliderBox.ajaxUrl+item.carouselImageUrl" />-->
 				<!--轮播图片-->
-				<div id="slider" class="mui-slider" ></div>
+				<div id="slider" class="mui-slider" >
+					<!--<img src="images/cbd.jpg" />-->
+				</div>
 			
 
 			<!--课程表-->
@@ -672,19 +674,19 @@
 					var sliderGroup = document.createElement("div");
 					sliderGroup.className = "mui-slider-group mui-slider-loop";
 					var group  = '<div class="mui-slider-item mui-slider-item-duplicate">'+
-						'<a href="'+ajaxUrl+data[len-1].carouselUrl+'">'+
+						'<a href="javascript:;" data-type="'+ajaxUrl+data[len-1].carouselUrl+'">'+
 							'<img src="'+ajaxUrl+data[len-1].carouselImageUrl+'">'+
 						'</a>'+
 					'</div>';
 					for(var i=0; i < len;i++){
 						group += '<div class="mui-slider-item">'+
-							'<a href="'+ajaxUrl+data[i].carouselUrl+'">'+
+							'<a href="javascript:;" data-type="'+ajaxUrl+data[i].carouselUrl+'">'+
 								'<img src="'+ajaxUrl+data[i].carouselImageUrl+'">'+
 							'</a>'+
 						'</div>';
 					}
 					group += '<div class="mui-slider-item mui-slider-item-duplicate">'+
-						'<a href="'+ajaxUrl+ data[0].carouselUrl +'">'+
+						'<a href="javascript:;" data-type = "'+ajaxUrl+ data[0].carouselUrl +'">'+
 							'<img src="'+ajaxUrl+data[0].carouselImageUrl+'">'+
 						'</a>'+
 					'</div>';

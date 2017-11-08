@@ -23,7 +23,7 @@
 	<body>
 		<div class="content">
 			<div class="mui-input-row">
-				<input type="text" class="list_box mui-input-clear" value="都江堰青城山青城阳光2号楼东户" />
+				<input id="list_box" type="text" class="list_box mui-input-clear" value="" />
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -33,7 +33,9 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var type = self.eg;
+			    document.getElementById("list_box").value=type;
 			})
 		</script>
 	</body>

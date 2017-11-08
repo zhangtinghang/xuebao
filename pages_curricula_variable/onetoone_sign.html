@@ -51,23 +51,14 @@
 				display: flex;
 				align-items: center;
 				border: 2px solid rgb(27,130,209);
-				padding: 0.166666rem 0.361111rem;
 				border-radius:28px;
+				overflow: hidden;
 			}
 			.btn_text{
 				color: rgb(27,130,209);
 				font-size: 0.5rem;
 				padding: 0 0.222222rem;
 			}
-			/*#btn_left{
-				width: 0.291666rem;
-				height: 0.291666rem;
-			}
-
-			#btn_right{
-				width: 0.291666rem;
-				height: 0.291666rem;
-			}*/
 			
 			.attention{
 				margin: 0.388888rem;
@@ -104,12 +95,38 @@
 				color: #FEFEFE;
 				font-size: 0.444444rem;
 			}
+			/*按钮样式调整*/
+			.mui-numbox{
+				display: flex;
+				align-items: center !important;
+				justify-content: center !important;
+				width: 3.611111rem !important;
+				height: 0.777777rem !important;
+				padding: 0 !important;
+				border: none;
+				border-radius:0 !important;
+				background-color: #FEFEFE;
+			}
+			.mui-input-numbox{
+				color:rgb(26,131,209);
+			}
+			.btn_box{
+				background-color: #FEFEFE !important;
+				display: flex;
+				position: relative !important;
+				justify-content: center;
+				text-align: center;
+				font-size: 0.65rem !important;
+				width: 100% !important;
+				padding: 0.0328888rem 0 !important;
+				color: rgb(26,131,209) !important;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="footer">
-			<div class="footer_left">共支付：<span class="left_text">300.00</span>元</div>
+			<div class="footer_left">共支付：<span id="left_text" class="left_text">0</span>元</div>
 			<div class="footer_right">立即支付</div>
 		</div>
 		<div class="content">
@@ -126,7 +143,15 @@
 					<li><span>上课方式</span><span class="list_right">教师上门</span></li>
 					<li><span>上课地点</span><span class="list_right">青羊区</span></li>
 					<li><span>价格</span><span class="list_right right_money">2.5元/分钟</span></li>
-					<li><span>课时</span><span class="list_right right_btn"><div id="btn_left"><img src="../images/teacher_list/add.png" /></div><div class="btn_text">100</div><div class="btn_right"><img src="../images/teacher_list/substract.png" /></div></span></li>
+					<li><span>课时</span>
+						<span class="list_right right_btn">
+							<div class="mui-numbox" data-numbox-step='60' data-numbox-min='0' >
+								<div class="btn_box mui-btn-numbox-minus" type="button">-</div>
+								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
+								<div class="btn_box mui-btn-numbox-plus" type="button">+</div>
+							</div>
+						</span>
+					</li>
 				</ul>
 			</div>
 			<div class="attention">注 : 60分钟为一个课时</div>
@@ -138,6 +163,15 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //监听值改变
+		     	var numBox=document.getElementById("num");
+		     	 var left_text = document.getElementById("left_text");
+				numBox.addEventListener('change',function(){
+					 left_text.innerText = numBox.value*20;
+					console.log(numBox.value);
+				});
+			  
+			  
 			})
 		</script>
 	</body>

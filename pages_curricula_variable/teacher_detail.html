@@ -728,8 +728,19 @@
 			    	openView.nativeView('teacher_detail_2.html', 'teacher_detail_2', '个人简历');
 			    })
 			    
+			    //报名
 			    document.getElementById("btn_apply").addEventListener('tap',function(){
 			    	openView.nativeView('apply.html', 'apply', '个人简历');
+			    })
+			    
+			    //咨询
+			    document.getElementById("btn_consult").addEventListener('tap',function(){
+			    	openView.nativeView('../im/chat.html', 'chat', '咨询');
+			    })
+			    
+			    //留言
+			    mui('.content').on('tap','.footer_comm',function(){
+			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
 			    })
 			})
 		</script>

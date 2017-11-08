@@ -52,63 +52,6 @@
 				width: calc(100%/7);
 				text-align: center;
 			}
-			.weekAnimate{
-				animation:mydialog2 1s;
-			-webkit-animation:mydialog2 1s;  /*Safari 和 Chrome */
-			animation-fill-mode:forwards;
-			-webkit-animation-fill-mode: forwards;	
-			}
-			
-			@keyframes mydialog2{
-				0%{
-					transform:translateY(0);
-			-webkit-transform: translateY(0);
-				}
-				100%{
-					transform:translateY(-70px);
-			-webkit-transform: translateY(-70px);
-				}
-			}		
-			@-webkit-keyframes mydialog2{
-				0%{
-					transform:translateY(0);
-			-webkit-transform: translateY(0);
-				}
-				100%{
-					transform:translateY(-70px);
-			-webkit-transform: translateY(-70px);
-				}
-			}
-			
-			.weekAnimateDown{	
-				animation:mydialog 1s;
-				-webkit-animation:mydialog 1s;  /*Safari 和 Chrome */
-				animation-fill-mode:forwards;
-				-webkit-animation-fill-mode: forwards;	
-				animation-delay:1s;
-				-webkit-animation-delay:1s; /* Safari 和 Chrome */
-			}
-			
-			@keyframes mydialog{
-				0%{
-					transform:translateY(0);
-			-webkit-transform: translateY(0);
-				}
-				100%{
-					transform:translateY(70px);
-			-webkit-transform: translateY(70px);
-				}
-			}		
-			@-webkit-keyframes mydialog{
-				0%{
-					transform:translateY(0);
-			-webkit-transform: translateY(0);
-				}
-				100%{
-					transform:translateY(70px);
-			-webkit-transform: translateY(70px);
-				}
-			}
 			
 			#date-list{
 				position: relative;
@@ -161,9 +104,13 @@
 				z-index: 999;
 				background-color: #FEFEFE;
 			}
+			.line_box{
+				width: 100%;
+				height:0.222222rem;
+				background-color: #f0f0f0;
+			}
 			.show_day{	
 				padding:0.222222rem 5%;
-				margin-top:0.222222rem;
 				background-color: #FFFFFF;
 				display: flex;
 				align-items: center;
@@ -248,6 +195,7 @@
 				</ul>
 			</div>
 		<div id="list_box" class="list_box">
+			<div class="line_box"></div>
 			<div class="show_day">
 				<div class="blue_cirle"></div>今天
 			</div>
@@ -356,7 +304,7 @@
 				//计算列表高度
 				var list_box = document.getElementById("list_box");
 				var listBoxToTop = list_box.offsetTop;
-				var moveTop = -(listBoxToTop + liBoxToTop) + 80;
+				var moveTop = -(listBoxToTop + liBoxToTop) + 70;
 				//上滑
 				bodyBox.addEventListener('swipeup',function(){	
 					dateList.style.transition="-webkit-transform 500ms ease-out";

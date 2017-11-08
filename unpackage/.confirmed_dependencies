@@ -286,12 +286,14 @@
 	},
 	"pages_index/localQue.html": {
 		"refer": [
-			"pages_index/subject_problem.html"
+			"pages_index/subject_problem.html",
+			"pages_curricula_variable/teacher_list_2.html"
 		]
 	},
 	"pages_index/subject_problem.html": {
 		"refer": [
-			"pages_curricula_variable/teacher_list.html"
+			"pages_curricula_variable/teacher_list.html",
+			"im/chat.html"
 		]
 	},
 	"pages_curricula_variable/teacher_list.html": {
@@ -301,7 +303,9 @@
 	},
 	"pages_curricula_variable/teacher_detail.html": {
 		"refer": [
-			"pages_curricula_variable/teacher_detail_2.html"
+			"pages_curricula_variable/teacher_detail_2.html",
+			"pages_curricula_variable/apply.html",
+			"im/chat.html"
 		]
 	},
 	"pages_class_register/class_record.html": {
@@ -312,6 +316,17 @@
 	"pages_class_register/classroom_feedback.html": {
 		"refer": [
 			"pages_index/classroom_detail.html"
+		]
+	},
+	"pages_curricula_variable/apply.html": {
+		"refer": [
+			"pages_curricula_variable/onetoone_sign.html"
+		]
+	},
+	"pages_curricula_variable/teacher_list_2.html": {
+		"refer": [
+			"pages_curricula_variable/teacher_detail.html",
+			"pages_curricula_variable/all_class.html"
 		]
 	}
 }

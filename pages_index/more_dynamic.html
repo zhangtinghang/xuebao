@@ -183,6 +183,11 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //评论
+			    mui('.content').on('tap','.footer_comm',function(){
+			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
+			    })
 			})
 		</script>
 	</body>

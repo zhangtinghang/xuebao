@@ -38,18 +38,23 @@
 			
 			.list_detail{
 				color: #1B82D1;
-				border: 2px solid #1B82D1;
+				border: 1px solid #1B82D1;
 				padding: 0.166666rem 0.377777rem;
 				border-radius:28px;
 				margin-right: 0.388888rem;
 			}
 			.list_detail_2{
 				color: #555555;
-				border: 2px solid #555555;
+				border: 1px solid #555555;
 				padding: 0.166666rem 0.377777rem;
 				border-radius:28px;
 				margin-right: 0.388888rem;
 				margin-bottom: 0.388888rem;
+			}
+			
+			.add_btn{
+				color: #1B82D1 !important;
+				border:1px solid #1B82D1 !important;
 			}
 		</style>
 	</head>
@@ -66,7 +71,7 @@
 				所有开通城市
 			</div>
 			<div class="list_box">
-				<div class="list_detail_2">成都市</div>
+				<div class="list_detail_2 add_btn">成都市</div>
 				<div class="list_detail_2">成都市</div>
 			</div>
 		</div>
@@ -77,6 +82,21 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //单选		    
+			    	var list_ul = document.getElementById("list_box");
+					var list_li = document.getElementsByClassName('list_detail_2');
+					mui('.list_box').on('tap','.list_detail_2',function(){
+					   	for(var i=0;i<list_li.length;i++){
+					   		list_li[i].classList.remove('add_btn');
+					   	}
+					   	var that = this;
+					   	if(that.classList.contains('add_btn')){
+					   		that.classList.remove('add_btn');
+					   	}else{
+					   		that.classList.add('add_btn');
+					   	}	
+				   })
 			})
 		</script>
 	</body>

@@ -102,8 +102,11 @@
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript">
 			mui.init();
-			//监听返回
+			mui.plusReady(function () {
+			    //监听返回
 			listenReturn();
+			})
+			
 		</script>
 	</body>
 

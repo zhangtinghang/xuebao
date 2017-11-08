@@ -55,12 +55,16 @@
 			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
 				position: relative;
 				top: 0;
+				right: 0;
 			}
 			.agreement{
 				display: flex;
 				align-items: center;
 				margin-top: 0.222222rem;
 				padding-left: 0.388888rem;
+			}
+			.agreement img{
+				width: 0.416666rem;
 			}
 			
 			.agree{
@@ -80,6 +84,14 @@
 				line-height:1;
 				padding: 0;
 			}
+			.list_right{
+				display: flex;
+				align-items: center;
+				margin-right: 5%;
+			}
+			.list_right img{
+				width: 0.416666rem;
+			}
 		</style>
 	</head>
 
@@ -89,32 +101,30 @@
 			<input type="text" class="header_input" id="" value="" placeholder="请输入充值金额（1-9999999）元" />
 			<div class="content_body">
 				<div class="body_title">选择充值方式</div>
-				<form class="mui-input-group">
 				<ul class="body_list_ul">
-					<li>
+					<li data-type = "1">
 						<div class="list_left">
 							<img align="center" src="../images/wallet/icon_wx.png" />
 							<span>微信支付</span>
 						</div>
-						<div class="list_right mui-checkbox">
-							<input name="radio1" type="checkbox" checked>
+						<div class="list_right">
+							<img id="weixin" src="../images/wallet/choose.png" />
 						</div>
 					</li>
-					<li>
+					<li data-type = "2">
 						<div class="list_left">
 							<img align="center" src="../images/wallet/icon_zfb.png"/>
 							<span>支付宝支付</span>
 						</div>
-						<div class="list_right mui-checkbox">
-							<input name="radio1" type="checkbox">
+						<div class="list_right">
+							<img id="zhifubao" src="../images/wallet/no_choose.png" />
 						</div>
 					</li>
 				</ul>
-			</form>
 			</div>
 		<!--充值协议-->
-		<div class="mui-checkbox agreement">
-			<input class="agree" name="radio1" type="checkbox" checked>
+		<div class="agreement">
+			<img id="agreement_img" src="../images/wallet/choose.png" />
 			<span id="agreement_text">同意充值协议</span>
 		</div>
 		
@@ -127,6 +137,38 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //点击事件
+			    var weixin = document.getElementById("weixin");
+			    var zhifubao = document.getElementById("zhifubao");
+			    mui('.body_list_ul').on('tap','li',function(){
+			    	var type = this.getAttribute('data-type');
+			    	switch (type){
+			    		case '1':
+			    			weixin.src='../images/wallet/choose.png';
+			    			zhifubao.src='../images/wallet/no_choose.png'
+			    			break;
+			    		case '2':
+			    			weixin.src='../images/wallet/no_choose.png';
+			    			zhifubao.src='../images/wallet/choose.png'
+			    			break;
+			    		default:
+			    			break;
+			    	}
+			    });
+			    
+			    //协议
+			    var tap = false;
+			    var agreement_img = document.getElementById("agreement_img");
+			    agreement_img.addEventListener('tap',function(){
+			    	if(tap == false){
+			    		agreement_img.src='../images/wallet/choose.png';
+			    		tap =true;
+			    	}else{
+			    		agreement_img.src='../images/wallet/no_choose.png';
+			    		tap =false;
+			    	}
+			    })
 			})
 		</script>
 	</body>

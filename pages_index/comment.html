@@ -36,8 +36,8 @@
 				padding-right: 5%;
 			}
 			.evaluate_btn{
-				color: #1b82d1;
-				border: 1px solid #1b82d1;
+				color: rgb(190,190,190);
+				border: 1px solid rgb(190,190,190);
 				padding: 0.061666rem 0.369444rem;
 				border-radius: 18px;
 				margin: 0 1%;
@@ -51,6 +51,11 @@
 			    color: #888888;
 			    font-size: 0.388888rem;
 			}
+			
+			.add_btn{
+				color: rgb(27,130,209) !important;
+				border:1px solid rgb(27,130,209) !important;
+			}
 		</style>
 	</head>
 
@@ -59,8 +64,8 @@
 			<div class="content_course">对本节课授课老师做个评价</div>
 			<div class="content_comment">
 				<span>满意度</span>
-				<div class="comment_btn">
-					<span class="evaluate_btn">非常满意</span>
+				<div class="comment_btn" id="list_ul">
+					<span class="add_btn evaluate_btn">非常满意</span>
 					<span class="evaluate_btn">满意</span>
 					<span class="evaluate_btn">不满意</span>					
 				</div>
@@ -76,6 +81,21 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //单选框
+			   var list_ul = document.getElementById("list_ul");
+			   var list_li = document.getElementsByClassName('evaluate_btn');
+			   mui('.comment_btn').on('tap','.evaluate_btn',function(){
+				   	for(var i=0;i<list_li.length;i++){
+				   		list_li[i].classList.remove('add_btn');
+				   	}
+				   	var that = this;
+				   	if(that.classList.contains('add_btn')){
+				   		that.classList.remove('add_btn');
+				   	}else{
+				   		that.classList.add('add_btn');
+				   	}	
+			   })
 			})
 		</script>
 	</body>

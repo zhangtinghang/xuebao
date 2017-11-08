@@ -39,7 +39,7 @@
 			.list_ul li{
 				width: 28%;
 				text-align: center;
-				border:1px solid rgba(190,190,190,.8);
+				border:1px solid rgba(190,190,190,1);
 				font-size: 0.388888rem;
 				padding: 5px 0;
 				border-radius:7px;
@@ -72,6 +72,12 @@
 				line-height:2.3;
 				border: none;			
 			}
+			
+			.add_btn{
+				background-color: rgb(27,130,209);
+				color: #FFFFFF !important;
+				border:1px solid rgb(27,130,209) !important;
+			}
 		</style>
 	</head>
 
@@ -82,8 +88,8 @@
 				<div class="title_text">选择科目</div>
 			</div>
 			<div class="content_list">
-				<ul class="list_ul">
-					<li>语文</li>
+				<ul id="list_ul" class="list_ul">
+					<li class="add_btn">语文</li>
 					<li>数学</li>
 					<li>英语</li>
 					<li>物理</li>
@@ -145,6 +151,21 @@
 			    		//出现未知错误
 			    		console.log('出现未知错误');
 			    	}
+			   })
+			   
+			   //单选框
+			   var list_ul = document.getElementById("list_ul");
+			   var list_li = document.getElementsByTagName('li');
+			   mui('.list_ul').on('tap','li',function(){
+				   	for(var i=0;i<list_li.length;i++){
+				   		list_li[i].classList.remove('add_btn');
+				   	}
+				   	var that = this;
+				   	if(that.classList.contains('add_btn')){
+				   		that.classList.remove('add_btn');
+				   	}else{
+				   		that.classList.add('add_btn');
+				   	}	
 			   })
 			})
 			
