@@ -89,7 +89,7 @@
 			<div class="input password">
 				<label class="login_img">验证码</label>
 				<input type="text" class="input_choose" id="auth_code" placeholder="获取验证码" />
-				<div class="auth_code">获取验证码</div>
+				<div class="auth_code" id="acquire_code">获取验证码</div>
 			</div>
 			<div class="input password mui-input-row mui-password">
 				<label class="login_img">输入密码</label>
@@ -125,7 +125,49 @@
 				Invitation_code:document.querySelector('#Invitation_code'),
 				register:document.querySelector('#register'),
 				login:document.querySelector('#login')
-			} 
+			}
+			//点击发送验证码
+			var countdown = 60;
+			var acquire_code = document.getElementById("acquire_code");
+			acquire_code.addEventListener('tap',function(){
+				if(countdown != 60){
+					return;
+				}
+				if(!dc.phone.value){
+						plus.nativeUI.toast('请输入手机号！');
+					}else{
+						settime();
+						//APP后台发送短信
+						var ajaxData = {
+							url:'public/users/smsCode',
+							data: {
+								phone:dc.phone.value,
+							},
+							type: 'post'
+						};
+						ajax(ajaxData, function(data) {
+							if(data.code==200){
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast('获取验证码出错，请稍后再试！');
+							}
+							
+						});
+					}
+			})
+			function settime(val) {
+				if(countdown == 0) {
+					acquire_code.innerHTML = "获取验证码";
+					countdown = 60;
+				} else {
+					acquire_code.innerHTML = "重新发送(" + countdown + ")";
+					countdown--;
+				}
+				setTimeout(function() {
+					settime(val)
+				}, 1000)
+			}
+			
 			//点击注册
 			dc.register.addEventListener('tap',function(){
 				//验证

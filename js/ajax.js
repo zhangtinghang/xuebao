@@ -26,3 +26,15 @@ var ajax = function(ajaxData,callback) {
 };
 
 var ajaxUrl = 'http://120.77.245.43:8001/webapp/';
+
+var sortArr = function(data){
+			var len = data.length;
+			var str = data;
+			var tempArr = [];
+			for (var i = 0; i < len; i++) {
+			  tempArr.push(str.charAt(i));
+			}
+			tempArr = tempArr.sort();
+			str = tempArr.join('');
+			return str;
+		}

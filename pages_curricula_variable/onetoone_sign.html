@@ -109,6 +109,11 @@
 			}
 			.mui-input-numbox{
 				color:rgb(26,131,209);
+				
+			}
+			.mui-numbox .mui-input-numbox{
+				border-left:1px solid rgb(26,131,209) !important;
+				border-right:1px solid rgb(26,131,209) !important;
 			}
 			.btn_box{
 				background-color: #FEFEFE !important;
@@ -121,12 +126,22 @@
 				padding: 0.0328888rem 0 !important;
 				color: rgb(26,131,209) !important;
 			}
+			.substract_btn{
+				width: 0.277777rem;
+				height: 0.027777rem;
+				margin-top: 0.357777rem;
+			}
+			.add_btn{
+				width: 0.277777rem;
+				height: 0.277777rem;
+				margin-top: 0.217777rem;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="footer">
-			<div class="footer_left">共支付：<span id="left_text" class="left_text">0</span>元</div>
+			<div class="footer_left">共支付：<span id="left_text" class="left_text">0</span>学币</div>
 			<div class="footer_right">立即支付</div>
 		</div>
 		<div class="content">
@@ -139,16 +154,16 @@
 				<ul class="body_list_ul">
 					<li><span>授课老师</span><span class="list_right">周老师</span></li>
 					<li><span>科目</span><span class="list_right">英语</span></li>
-					<li><span>问题</span><span class="list_right">语法</span></li>
+					<li><span>问题类型</span><span class="list_right">语法</span></li>
 					<li><span>上课方式</span><span class="list_right">教师上门</span></li>
 					<li><span>上课地点</span><span class="list_right">青羊区</span></li>
-					<li><span>价格</span><span class="list_right right_money">2.5元/分钟</span></li>
+					<li><span>价格</span><span class="list_right right_money">2.5学币/分钟</span></li>
 					<li><span>课时</span>
 						<span class="list_right right_btn">
 							<div class="mui-numbox" data-numbox-step='60' data-numbox-min='0' >
-								<div class="btn_box mui-btn-numbox-minus" type="button">-</div>
+								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/teacher_list/substract.png" /></div>
 								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
-								<div class="btn_box mui-btn-numbox-plus" type="button">+</div>
+								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/teacher_list/add.png" /></div>
 							</div>
 						</span>
 					</li>

@@ -65,7 +65,7 @@
 				margin-top: 40px;
 				padding: 0;
 				font-size: 0.5rem;
-				border-radius:15px;
+				border-radius:45px;
 				background-color: rgb(78,169,239);
 				color: #FFFFFF;
 				height: 1.166666rem !important;
@@ -82,32 +82,23 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_title">
 				<div class="title_icon"><img src="../images/localQue/chos_subj.png" /></div>
 				<div class="title_text">选择科目</div>
 			</div>
 			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
-					<li class="add_btn">语文</li>
-					<li>数学</li>
-					<li>英语</li>
-					<li>物理</li>
-					<li>化学</li>
-					<li>生物</li>
-					<li>政治</li>
-					<li>珠心算</li>
-					<li>阅读与写作</li>
-					<li>国学</li>
-					<li>兴趣英语</li>
-					<li>数学思维提升</li>
-					
+					<li v-for="(value, key, index) in listBox">{{value}}</li>
 				</ul>
 			</div>
 			<!--问题-->
-			<div class="question">
+			<div class="question" id="question">
 				<u>问题不太清楚？学导师帮助</u>
 			</div>
+			
+			<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 			<div class="clear"></div>
 			<!--按钮-->
 				<div id="comeBtn" type="button" class="mui-btn mui-btn-block">下一步</div>
@@ -117,25 +108,46 @@
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				var self  = plus.webview.currentWebview();
 				var type = self.type;
+				var state = app.getState();
 				//监听返回
 			    listenReturn();
 				//相关数据处理
+				var getPassword = document.getElementById("getPassword");
+				var key = state.data.key;
+				var userId = state.data.id;
+				var className = '幼小';
+				var timestamp = Date.parse(new Date());			
+				var hashStr = userId+className+timestamp;
+				var sortStr = sortArr(hashStr);
+				var hash = CryptoJS.HmacSHA1(sortStr,key);
+				getPassword.value = hash;
 				var ajaxData = {
 						url:'restful1/subject/selectSubject',
 						data: {
-							timeOfMonth:'201710',
-							userId:'72c8ffb2-fc47-468e-aa18-b2f0431cafb6'
+							userId:userId,
+							className:className,
+							timestamp:timestamp,
+							token:getPassword.value
 						},
 						type:'post'
-					}
+				}
 				ajax(ajaxData, function(data) {
-						console.log(data)
+						if(data.code == 401){
+							plus.nativeUI.toast('您还未登录哟！');
+						}else if(data.code == 200){
+							vm.listBox = data.data;
+						}else{
+							plus.nativeUI.toast('请求超时！');
+						}
 				});
+				
 
 			   document.getElementById("comeBtn").addEventListener('tap',function(){
 			    	switch(type){
@@ -151,6 +163,12 @@
 			    		//出现未知错误
 			    		console.log('出现未知错误');
 			    	}
+			   })
+			   //咨询
+			   document.getElementById("question").addEventListener('tap',function(){
+				   	embed=plus.webview.create('../im/customer.html', '', {top:'-41px',bottom:'0px'});
+					embed.show();
+			   		embed.loadURL('https://kefu.easemob.com/webim/im.html?configId=bf859445-aadb-4f5f-9239-b02e4fbed4af');
 			   })
 			   
 			   //单选框
@@ -170,6 +188,12 @@
 			})
 			
 			//点击选择事件
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					listBox: []
+				}			
+			})
 		</script>
 	</body>
 
