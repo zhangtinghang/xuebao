@@ -490,6 +490,7 @@
 		<script type="text/javascript" src="js/ajax.js" ></script>
 		<script type="text/javascript" src="js/vue.min.js" ></script>
 		<script type="text/javascript" src="js/storage/indexedDB.js" ></script>
+		<script type="text/javascript" src="js/storage/websql.js" ></script>
 		<script type="text/javascript">
 			var aniShow = {};
 			mui.init({
@@ -619,6 +620,9 @@
 					accessToken: state.IM_token,
 					appKey: WebIM.config.appkey
 				};
+				//打开数据库
+				websqlOpenDB();
+                websqlCreatTable(TableCacheMessage);
 				conn.open(options);
 				//创建连接 监听连接事件
 				conn.listen({
@@ -626,32 +630,30 @@
 						console.log('连接成功回调' + JSON.stringify(message))
 					}, //连接成功回调
 					onClosed: function(message) {
-						console.log('连接成功回调' + JSON.stringify(message))
+						console.log('连接失败回调' + JSON.stringify(message))
+						conn.open(options);
 					}, //连接关闭回调
 					onTextMessage: function(message) {
+						console.log('收到文本消息',JSON.stringify(message))
 						//组合并存入数据库
 						var fromName = message.from;
 						var type = message.type;
 						var id = message.id;
-						var data = message.data;
-						var database = {
-							id:id,
-							type:type,
-							data:data,
-							fromName:fromName
-						}
-						console.log('收到文本消息',fromName,type,id,data)
-						//打开数据库				
-				indexDB.openDB(messageDB.name,messageDB.version);
-				console.log('待存储的数据'+JSON.stringify(database));
-				console.log('db对象'+messageDB.db);
-//				indexDB.updateDataByKey(messageDB.db,'newMessage',database);
-//				indexDB.getDataByKey(messageDB.db,'newMessage','fromName');
-//				setTimeout(function(){
-//		            closeDB(messageDB.db);
-//		            deleteDB(messageDB.name);
-//		        },500);
+						var data = message.data ||'';
+						var delay = delay || '';
+						console.log("插入数据");
+                		websqlInsterDataToTable(TableCacheMessage,id,type,fromName,data,delay);
 					}, //收到文本消息
+					onPictureMessage: function ( message ) {
+						console.log('收到图片消息',JSON.stringify(message))
+						//组合并存入数据库
+						var fromName = message.from;
+						var type = message.type;
+						var id = message.id;
+						var data = message.data ||'';
+						var delay = delay || '';
+						
+					},//收到图片消息
 					onOnline: function(message) {
 						console.log('本机网络连接成功' + JSON.stringify(message))
 					}, //本机网络连接成功

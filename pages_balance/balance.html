@@ -72,11 +72,45 @@
 				color: #1b82d1;
 				font-size: 0.333333rem;
 			}
+			
+			.mui-popover .mui-popover-arrow {
+				display: none;
+			}
+			#popover{
+				top:20% !important;
+				left: 0 !important;
+				width: 70%;
+				margin-left: 15%;
+			}
+			.popover-box{
+				
+			}
+			.popover_title{
+				font-size: 0.444444rem;
+				text-align: center;
+				margin-top: 0.388888rem;
+				margin-bottom: 0.583333rem;
+			}
+			.popover_list_ul{
+				padding: 0 0.458333rem;
+			}
+			.popover_list_ul li{
+				line-height: 28px;
+				font-size: 0.333333rem;
+				color: #333333;
+			}
+			.popover_btn{
+				margin-top: 0.763888rem;
+				margin-bottom: 0.388888rem;
+				text-align: center;
+				font-size: 0.5rem;
+				color: #1B82D1;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div class="explain">余额说明</div>
+		<div class="explain"><a id="come_popover" href="javascript:;">余额说明</a></div>
 		<div class="content">
 			<div class="content_show">
 				<div class="remaining_sum balance">可用余额</div>
@@ -94,6 +128,21 @@
 					<div>充值2000元返500</div>
 				</div>
 			</div>
+		</div>	
+		<div id="popover" class="mui-popover">
+				<div class="popover-box">
+					<div class="popover_title">余额说明</div>
+					<div class="popover_list">
+						<ul class="popover_list_ul">
+							<li>1. 余额单位为学币。</li>
+							<li>2. 余额用于学保平台购买课程使用。</li>
+							<li>3. 余额=本金+活动优惠金额，本金1学币=1人民币，课程优先使用本金。</li>
+							<li>4. 优惠额度不能提现。</li>
+							<li>5. 产生退费后，所有优惠清零。</li>
+						</ul> 
+					</div>
+					<div id="popover_btn" class="popover_btn">我知道了</div>
+				</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
@@ -102,8 +151,7 @@
 			mui.plusReady(function () {
 				//事件监听
 				listenReturn();
-				listenNext('明细','touchBalance.html','touchBalance','余额明细');
-				
+				listenNext('明细','touchBalance.html','touchBalance','余额明细');	
 				//余额监听
 				mui('.content_show').on('tap','.balance',function(){
 					openView.nativeView('touchBalance.html','touchBalance','余额明细');
@@ -112,7 +160,7 @@
 				//冻结详情
 				document.getElementById("freeze").addEventListener('tap',function(){
 					openView.nativeView('frozen_capital.html','frozen_capital','冻结明细');
-				})
+				});
 				
 			   //充值
 			    document.getElementById("Recharge").addEventListener('tap',function(){
@@ -122,6 +170,24 @@
 			    document.getElementById("Withdraw").addEventListener('tap',function(){
 			    	openView.nativeView('withdraw_deposit.html', 'withdraw_deposit', '提现');
 			    });
+			    
+			    document.getElementById("come_popover").addEventListener('tap',function(){
+			    	setTimeout(function(){
+						mask.show();
+						pop.classList.add('mui-active');
+					},50);
+			    })
+			    //点击遮罩触发事件
+				var pop = document.getElementById("popover");
+				var mask = mui.createMask(function() {
+					pop.classList.remove('mui-active');
+					
+				});
+			    var popover_btn = document.getElementById("popover_btn");
+			    popover_btn.addEventListener('tap',function(){
+			    	pop.classList.remove('mui-active');
+			    	mask.close();
+			    })
 			});
 		</script>
 	</body>

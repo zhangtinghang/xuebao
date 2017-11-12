@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <title></title>
+        <script type="text/javascript" src="js/storage/websql.js" ></script>
+    </head>
+
+    <script>
+            function creatTable() {
+                console.log("新建数据库");
+                websqlOpenDB();
+                websqlCreatTable(TableCacheMessage);
+            }
+            function insterData() {
+                console.log("插入数据");
+                websqlInsterDataToTable(TableCacheMessage,"397887393694229624","chat","admin","12141","2017-11-10T03:19:12.635Z");
+            }
+            function updateData() {
+                console.log("修改数据");
+                websqlUpdateAData(TableCacheMessage,"小明","1000")
+            }
+            function deleteAData() {
+                console.log("删除一条数据");
+                websqlDeleteADataFromTable(TableCacheMessage,"小明");
+            }
+            function deleteAllData() {
+                console.log("删除全部数据");
+                websqlDeleteAllDataFromTable(TableCacheMessage);
+            }
+            function selectAData() {
+                console.log("查找一条数据");
+                websqlGetAData(TableCacheMessage,"小明");
+            }
+            function selectALlData() {
+                console.log("查找全部数据");
+                websqlGetAllData(TableCacheMessage);
+            }
+        </script>
+
+        <style>
+            .content {
+                padding-top: 50px;
+            }
+            .websql {
+                margin-top: 10px;
+            }
+            /*设置按钮样式*/
+            .websql button{
+                height: 44px;
+                width: 120px;
+            }
+        </style>
+
+    <body>
+        <div class="content">
+            <div class="websql">
+                <button type="button" onclick="creatTable()">新建数据库</button>
+            </div>
+            <div class="websql">
+                <!--增-->
+                <button type="button" onclick="insterData()">插入数据</button> 
+            </div>
+            <div class="websql">
+                <!--删-->
+                <button type="button" onclick="deleteAData()">删除一条数据</button>
+                <button type="button" onclick="deleteAllData()">删除全部数据</button>
+            </div>
+            <div class="websql">
+                <!--改-->
+                <button type="button" onclick="updateData()">修改数据</button>
+            </div>
+            <div class="websql">
+                <!--查-->
+                <button type="button" onclick="selectAData()">查找一条数据</button>
+                <button type="button" onclick="selectALlData()">查找全部数据</button>
+            </div>
+        </div>
+    </body>
+</html>
