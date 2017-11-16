@@ -28,7 +28,6 @@
 				font-size: 15px;
 			}
 			/*顶部导航条*/
-			
 			.mui-bar .mui-pull-left .mui-icon {
 				padding-right: 5px;
 				font-size: 28px;
@@ -214,6 +213,9 @@
 				background-color: rgba(255, 255, 255, 1);
 				margin-bottom: 0.111111rem;
 			}
+			.class_message:active{
+				background-color: rgb(240,240,240);
+			}
 			
 			.message_title {
 				display: flex;
@@ -376,7 +378,7 @@
 				<div id="server_more" class="nav_more">更多</div>
 			</div>
 			<div class="class_message_box" id="class_message_box">
-				<div class="class_message" data-type="1">
+				<div class="class_message mui-active" data-type="1">
 					<div class="message_title">
 						<div class="title_img"><img src="images/index/in_class_icon.png" /></div>
 						<div class="title_text">上课中</div>
@@ -678,7 +680,12 @@
 					}
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
+					if(data.data){
 						creatSlider(data.data);
+					}else{
+						console.log('请求轮播失败',JSON.stringify(data))
+					}
+						
 				});
 				
 				
@@ -764,6 +771,48 @@
 //					var type = this.getAttribute('data-type');
 					openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情');
 				});
+				
+				//个推
+				getPushInfo();
+				function getPushInfo(){
+				    var info = plus.push.getClientInfo();
+				    console.log( "获取客户端推送标识信息：" );
+				    console.log( "token: "+info.token );
+				    console.log( "clientid: "+info.clientid );
+				    console.log( "appid: "+info.appid );
+				    console.log( "appkey: "+info.appkey );
+				}
+				listAllPush();
+				// 监听在线消息事件
+				    plus.push.addEventListener( "receive", function( msg ) {
+				    	console.log('监听到消息',JSON.stringify(msg))
+				    	mui.toast('这是接收的消息'+msg);
+				        if ( msg.aps ) {  // Apple APNS message
+				             mui.toast( "接收到在线APNS消息：" );
+				        } else {
+				             mui.toast( "接收到在线透传消息：" );
+				        }
+				    }, false );
+				function listAllPush(){
+					var msgs=null;
+					switch ( plus.os.name ) {
+						case "Android":
+						msgs = plus.push.getAllMessage();
+						break;
+						default:
+						break;
+					}
+					if ( !msgs ) {
+						mui.toast( "此平台不支持枚举推送消息列表！" );
+						return;
+					}
+					console.log( "枚举消息列表（"+msgs.length+"）：" );
+					for ( var i in msgs ) {
+						var msg = msgs[i];
+						mui.toast( i+": "+msg.title+" - "+msg.content );
+						console.log(i+": "+msg.title+" - "+msg.content)
+					}
+				}
 		});
 		
 			var vm = new Vue({

@@ -37,9 +37,13 @@
 			.body_list_ul li{
 				display: flex;
 				justify-content: space-between;
+				background-color: #FEFEFE;
 				align-items: center;
 				padding: 0.388888rem 0;
 				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.body_list_ul li:active{
+				background-color: rgb(240,240,240);
 			}
 			.list_left{
 				width: 50%;
@@ -98,7 +102,7 @@
 	<body>
 		<div class="content">
 			<div class="header">请输入充值金额</div>
-			<input type="text" class="header_input" id="" value="" placeholder="请输入充值金额（1-9999999）元" />
+			<input type="text" class="header_input" id="pay_money" value="" placeholder="请输入充值金额（1-9999999）元" />
 			<div class="content_body">
 				<div class="body_title">选择充值方式</div>
 				<ul class="body_list_ul">
@@ -128,12 +132,18 @@
 			<span id="agreement_text">同意充值协议</span>
 		</div>
 		
-		<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确认充值</button>
+		<button type="button" id="agreeRecharge" class="mui-btn mui-btn-blue mui-btn-block">确认充值</button>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			var pays={};
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
@@ -141,8 +151,9 @@
 			    //点击事件
 			    var weixin = document.getElementById("weixin");
 			    var zhifubao = document.getElementById("zhifubao");
+			    var type ='1';
 			    mui('.body_list_ul').on('tap','li',function(){
-			    	var type = this.getAttribute('data-type');
+			    	type = this.getAttribute('data-type');
 			    	switch (type){
 			    		case '1':
 			    			weixin.src='../images/wallet/choose.png';
@@ -157,6 +168,120 @@
 			    	}
 			    });
 			    
+			    //支付
+			    var agreeRecharge = document.getElementById("agreeRecharge");
+			    var pay_money = document.getElementById("pay_money");
+			    var state = app.getState();
+			    var pays={};
+			    agreeRecharge.addEventListener('tap',function(){
+			    	getPay();
+			    })
+			    
+			    // 获取支付通道
+				function getPay(){
+				    plus.payment.getChannels(function(channels){
+				    	console.log(JSON.stringify(channels))
+				    	if(type ==='1'){
+				    		//遍历支付通道
+					        for(var i in channels){
+								var channel=channels[i];
+								if(channel.id == 'wxpay'){
+									pays[channel.id]=channel;
+									checkServices(channel);
+									pay(channel.id,channel);
+								}							
+							}
+				    	}else if(type === '2'){
+				    		console.log(JSON.stringify('这是1'))
+				    		//遍历支付通道
+					        for(var i in channels){
+								var channel=channels[i];
+								if(channel.id == 'alipay'){
+									pays[channel.id]=channel;
+									checkServices(channel);
+									pay(channel.id,channel);
+								}						
+							}
+				    	}				        
+				    },function(e){
+				        console.log("获取支付通道失败："+e.message);
+				    });
+				}
+			    
+			    var w=null;
+				var ALIPAYSERVER='restful1/payment/alipay/paymentrequest';
+				var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+				// 支付
+				// 2. 发起支付请求
+				function pay(id,channel){
+					var channel = channel;
+				    // 从服务器请求支付订单
+				    var PAYSERVER='';
+				    if(id=='alipay'){
+				        PAYSERVER=ALIPAYSERVER;
+				    }else if(id=='wxpay'){
+				        PAYSERVER=WXPAYSERVER;
+				    }else{
+				        plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+				        return;
+				    }
+				    //第三方服务器请求
+				    var getPassword = document.getElementById("getPassword");
+				    var key = state.data.key;
+				    var userId = state.data.id;
+				    var timestamp = Date.parse(new Date());
+				    var Num_money = pay_money.value;
+				    console.log('服务器请求数据',userId,Num_money,timestamp)
+				    var hashStr = userId+Num_money+timestamp;
+					var sortStr = sortArr(hashStr);
+					var hash = CryptoJS.HmacSHA1(sortStr,key);
+					getPassword.value = hash;
+				    var ajaxData = {
+						url:PAYSERVER,
+						data: {
+							value:Num_money,
+							userId:userId,
+							timestamp:timestamp,
+							token:getPassword.value
+						},
+						type:'post'
+						}
+				    ajax(ajaxData, function(data) {
+				    		callbackData=data.data;
+							requestPay(channel,callbackData);
+						});
+					// 请求支付操作
+					function requestPay(channel,callbackData){
+						console.log(JSON.stringify(channel))
+						console.log(JSON.stringify(callbackData))
+						// 必须从业务服务器获取支付信息
+						plus.payment.request(channel, callbackData, function(){
+							alert("支付操作成功！");
+						}, function(e){
+							alert("支付失败："+e.message);
+						} );
+					}
+				}
+							    
+			    // 检测是否安装支付服务
+				function checkServices(pc){
+					if(!pc.serviceReady){
+						var txt=null;
+						switch(pc.id){
+							case 'alipay':
+							txt='检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，请先安装客服端！';
+							break;
+							default:
+							txt='系统未安装“'+pc.description+'”服务，无法完成支付，请先安装客服端！';
+							break;
+						}
+						plus.nativeUI.confirm(txt, function(e){
+							if(e.index==0){
+								pc.installService();
+							}
+						}, pc.description);
+					}
+				}
 			    //协议
 			    var tap = false;
 			    var agreement_img = document.getElementById("agreement_img");

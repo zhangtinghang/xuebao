@@ -59,6 +59,9 @@
 				float: right;
 				margin-right: 0.388888rem;
 			}
+			.question:active{
+				color: #333333;
+			}
 			.mui-btn-block{
 				width: 60%;
 				margin: 0.388888rem auto !important;
@@ -87,9 +90,20 @@
 				<div class="title_icon"><img src="../images/localQue/chos_subj.png" /></div>
 				<div class="title_text">选择科目</div>
 			</div>
-			<div class="content_list">
+			<!--<div class="content_list">
 				<ul id="list_ul" class="list_ul">
 					<li v-for="(value, key, index) in listBox">{{value}}</li>
+				</ul>
+			</div>-->
+			<div class="content_list">
+				<ul id="list_ul" class="list_ul">
+					<li>语文</li>
+					<li>数学</li>
+					<li>化学</li>
+					<li>英语</li>
+					<li>物理</li>
+					<li>生物</li>
+					<li>政治</li>
 				</ul>
 			</div>
 			<!--问题-->
@@ -113,40 +127,48 @@
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				var localUrl = 'https://kefu.easemob.com/webim/im.html?configId=bf859445-aadb-4f5f-9239-b02e4fbed4af';
 				var self  = plus.webview.currentWebview();
+				//预加载网络页面
+				plus.webview.prefetchURL(localUrl);
 				var type = self.type;
 				var state = app.getState();
 				//监听返回
 			    listenReturn();
 				//相关数据处理
 				var getPassword = document.getElementById("getPassword");
-				var key = state.data.key;
-				var userId = state.data.id;
-				var className = '幼小';
-				var timestamp = Date.parse(new Date());			
-				var hashStr = userId+className+timestamp;
-				var sortStr = sortArr(hashStr);
-				var hash = CryptoJS.HmacSHA1(sortStr,key);
-				getPassword.value = hash;
-				var ajaxData = {
-						url:'restful1/subject/selectSubject',
-						data: {
-							userId:userId,
-							className:className,
-							timestamp:timestamp,
-							token:getPassword.value
-						},
-						type:'post'
+				if(state.data){
+					var key = state.data.key;
+					var userId = state.data.id;
+					var className = '幼小';
+					var timestamp = Date.parse(new Date());			
+					var hashStr = userId+className+timestamp;
+					var sortStr = sortArr(hashStr);
+					var hash = CryptoJS.HmacSHA1(sortStr,key);
+					getPassword.value = hash;
+					var ajaxData = {
+							url:'restful1/subject/selectSubject',
+							data: {
+								userId:userId,
+								className:className,
+								timestamp:timestamp,
+								token:getPassword.value
+							},
+							type:'post'
+					}
+					ajax(ajaxData, function(data) {
+							if(data.code == 401){
+								plus.nativeUI.toast('您还未登录哟！');
+							}else if(data.code == 200){
+								vm.listBox = data.data;
+							}else{
+								plus.nativeUI.toast('请求超时！');
+							}
+					});
+				}else{
+					plus.nativeUI.toast('亲，请登录哟！')
 				}
-				ajax(ajaxData, function(data) {
-						if(data.code == 401){
-							plus.nativeUI.toast('您还未登录哟！');
-						}else if(data.code == 200){
-							vm.listBox = data.data;
-						}else{
-							plus.nativeUI.toast('请求超时！');
-						}
-				});
+				
 				
 
 			   document.getElementById("comeBtn").addEventListener('tap',function(){
@@ -166,9 +188,21 @@
 			   })
 			   //咨询
 			   document.getElementById("question").addEventListener('tap',function(){
-				   	embed=plus.webview.create('../im/customer.html', '', {top:'-41px',bottom:'0px'});
-					embed.show();
-			   		embed.loadURL('https://kefu.easemob.com/webim/im.html?configId=bf859445-aadb-4f5f-9239-b02e4fbed4af');
+//				   	var wn=plus.webview.create(localUrl, 'test',{top:'-41px',bottom:'0px',titleNView: {
+//					titleText: '',
+//					titleColor: "#fefefe",
+//					titleSize: "20px",
+//					backgroundColor: "rgb(77,169,239)",
+//					progress: {
+//						color: "#C1E4FF",
+//						height: "2px"
+//					}
+//				},
+//				render:'always'});
+//					wn.show('none');
+//				   	embed=plus.webview.create('../im/customer.html', '', {top:'-41px',bottom:'0px'});
+//					embed.show();
+//					embed.loadURL('https://kefu.easemob.com/webim/im.html?configId=bf859445-aadb-4f5f-9239-b02e4fbed4af');
 			   })
 			   
 			   //单选框

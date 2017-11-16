@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>订单信息</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				border-top:2px solid rgb(240,240,240);
+				border-bottom:2px solid rgb(240,240,240);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.063888rem;
+				display: flex;
+				align-items: center;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			.list span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #333333 !important;
+			}
+			
+			/*订单信息*/
+			.indent_title_text:first-child{
+				padding-top: 0.777777rem;
+			}
+			.indent_title_text{
+				text-align: center;
+				background-color: #FEFEFE;
+				padding-bottom: 0.388888rem;
+			}
+			.title-1{
+				font-size: 0.444444rem;
+				color: #555555;
+			}
+			.title-2{
+				font-size: 0.666666rem;
+				color: #555555;
+			}
+			.title-3{
+				font-size: 0.333333rem;
+				color: #888888;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content">
+			<div class="indent_title">
+				<div class="indent_title_text title-1">订单状态</div>
+				<div class="indent_title_text title-2">接受订单</div>
+				<div class="indent_title_text title-3">订单成功</div>
+			</div>
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
+				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">学生问题</span><span>知识生疏型</span></div>
+				<div class="list"><span class="list_left">订单时长</span><span>1200min</span></div>
+				<div class="list"><span class="list_left">订单金额</span><span>4200学币</span></div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			})
+		</script>
+	</body>
+
+</html>

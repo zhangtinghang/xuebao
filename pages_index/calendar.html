@@ -133,6 +133,9 @@
 				border-bottom:2px solid #f0f0f0;
 				background-color: #FEFEFE;
 			}
+			.list_ul li:active{
+				background-color: rgb(240,240,240);
+			}
 			.list_title{
 				display: flex;
 				align-items: center;
@@ -304,7 +307,7 @@
 				//计算列表高度
 				var list_box = document.getElementById("list_box");
 				var listBoxToTop = list_box.offsetTop;
-				var moveTop = -(listBoxToTop + liBoxToTop) + 70;
+				var moveTop = -(listBoxToTop + liBoxToTop) + 20;
 				//上滑
 				bodyBox.addEventListener('swipeup',function(){	
 					dateList.style.transition="-webkit-transform 500ms ease-out";

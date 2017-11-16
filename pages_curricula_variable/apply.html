@@ -15,7 +15,7 @@
 				align-items: center;
 				padding: 0.388888rem 5%;
 				background-color: #FEFEFE;
-				border-bottom:2px solid rgba(220,220,220,.5)
+				border-bottom:2px solid rgba(240,240,240,1)
 			}
 			.list_left{
 				
@@ -39,6 +39,12 @@
 				justify-content: center;
 				align-items: center;
 			}
+			.list_right:active{
+				background-color: #FEFEFE;
+				border:1px solid  rgb(27,130,209);
+				border-radius:18px;
+				color: rgb(27,130,209);
+			}
 		</style>
 	</head>
 
@@ -50,7 +56,7 @@
 						<div class="left_title">数学一对一课程</div>
 						<div class="left_num">5.0元/分钟</div>
 					</div>
-					<div class="list_right">
+					<div class="list_right oneToOne">
 						报名
 					</div>
 				</li>
@@ -60,7 +66,7 @@
 						<div class="left_title">数学一对一课程</div>
 						<div class="left_num">5.0元/分钟</div>
 					</div>
-					<div class="list_right">
+					<div class="list_right oneToOne">
 						报名
 					</div>
 				</li>
@@ -93,7 +99,7 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    mui('.list_ul').on('tap','.list_right',function(){
+			    mui('.list_ul').on('tap','.oneToOne',function(){
 			    	openView.nativeView('onetoone_sign.html', 'onetoone_sign', '一对一报名');
 			    })
 			    mui('.list_ul').on('tap','.all_class',function(){

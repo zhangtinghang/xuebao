@@ -34,12 +34,11 @@
 			width: 100%;
 			height: 50px;
 			min-height: 50px;
-			border-top: solid 1px #bbb;
 			left: 0px;
 			bottom: 0px;
 			overflow: hidden;
 			padding: 0px 50px;
-			background-color: #fafafa;
+			padding-right: 80px;
 		}
 		.footer-left {
 			position: absolute;
@@ -62,10 +61,15 @@
 			cursor: pointer;
 			z-index: 0;
 		}
+		.footer-left img{
+			width: 35px;
+			height: 29px;
+			padding-bottom: 1px;
+		}
 		
 		.footer-right {
 			position: absolute;
-			width: 50px;
+			width: 80px;
 			height: 50px;
 			right: 0px;
 			bottom: 0px;
@@ -74,6 +78,7 @@
 			line-height: 100%;
 			padding: 12px 5px;
 			display: inline-block;
+			margin-bottom:1px;
 		}
 		.footer-center {
 			height: 100%;
@@ -83,6 +88,7 @@
 			width: 100%;
 			height: 100%;
 			border-radius: 5px;
+			border: none !important;
 		}
 		.footer-center .input-text {
 			background: #fff;
@@ -103,8 +109,11 @@
 			color: #007AFF !important;
 		}
 		.footer-right span{
-			color: #0062CC;
+			color: #FEFEFE;
 			line-height: 30px;
+			background-color: rgb(27,130,209);
+			padding: 8px 10px;
+			border-radius:5px;
 		}
     </style>
 </head>
@@ -114,7 +123,7 @@
 	</div>
 	<footer>
 		<div class="footer-left">
-			<i id='msg-choose-img' class="mui-icon mui-icon-image"></i>
+			<img id="msg-choose-img" align="center" src="../images/im/picture.png" />
 		</div>
 		<div class="footer-center">
 			<textarea id='msg-text' type="text" class='input-text'></textarea>
@@ -133,6 +142,7 @@
 	<script src="../js/easemob.im.config.js"></script>
 	
 	<script src="../js/chatMsg.js"></script>
+	<script type="text/javascript" src="../js/config.js" ></script>
 	<script type="text/javascript" charset="UTF-8">
       	// UI控件对象
 		var ui = {
@@ -163,9 +173,13 @@
 				release: true //默认为false，不监听
 			}
 		});
+		mui.plusReady(function () {
+		    //监听返回
+			    listenReturn();
+		})
 		
 		// 创建连接
-		var conn = new Easemob.im.Connection();
+//		var conn = new Easemob.im.Connection();
      	
       	// 页面传参数事件监听
       	var chatName = null;
@@ -175,20 +189,20 @@
 			document.querySelector(".mui-title").innerHTML = "与" + chatName + "正在聊天";
 			
 			// 初始化连接
-			conn.init({
-				onOpened : function(){
-					//mui.toast("成功登录");
-					conn.setPresence();
-				},
-				// 收到文本消息时的回调函数
-			    onTextMessage : function(message) {
-					handleTextMessage(message);
-				},
-				// 收到图片消息时的回调函数
-				onPictureMessage : function(message) {
-			     	handlePictureMessage(message);
-			   	}
-			});
+//			conn.init({
+//				onOpened : function(){
+//					//mui.toast("成功登录");
+//					conn.setPresence();
+//				},
+//				// 收到文本消息时的回调函数
+//			    onTextMessage : function(message) {
+//					handleTextMessage(message);
+//				},
+//				// 收到图片消息时的回调函数
+//				onPictureMessage : function(message) {
+//			     	handlePictureMessage(message);
+//			   	}
+//			});
 			
 			var username = plus.storage.getItem("username");
 			var password = plus.storage.getItem("password");
@@ -426,11 +440,11 @@
 		/**
 		 * 重写返回事件
 		 */
-		mui.back = function(){
-			var ws = plus.webview.currentWebview();
-			ws.reload(true);
-			ws.hide();
-		}
+//		mui.back = function(){
+//			var ws = plus.webview.currentWebview();
+//			ws.reload(true);
+//			ws.hide();
+//		}
     </script>
 </body>
 </html>

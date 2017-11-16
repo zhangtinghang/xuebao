@@ -58,6 +58,7 @@ var openView = {
 				autoShow:false
 			},
 			styles: {
+				bounce:"vertical",
 				titleNView: {
 					titleText: title,
 					titleColor: "#fefefe",
@@ -80,7 +81,10 @@ var openView = {
 			waiting: {
 				autoShow: false,
 			},
-			extras: extras
+			extras: extras,
+			styles:{
+				bounce:"vertical"
+			}
 		})
 	},
 
@@ -95,6 +99,7 @@ var openView = {
 				autoShow:false
 			},
 			styles: { // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+				bounce:"vertical",
 				titleNView: { // 窗口的标题栏控件
 					titleText: title, // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
 					titleColor: "#fefefe", // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"

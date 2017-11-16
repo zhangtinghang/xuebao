@@ -175,6 +175,11 @@
 				width: 0.444444rem;
 				height: 0.444444rem;
 			}
+			
+			/*点击效果*/
+			.function_list_li:active{
+				background-color: rgb(240,240,240);
+			}
 		</style>
 	</head>
 
@@ -303,6 +308,9 @@
 		    		break;
 		    		case '4':
 		    		openView.nativeView('../pages_setting/setting.html', 'setting', '设置');
+		    		break;
+		    		case '5':
+		    		openView.nativeView('../pages_setting/platform_list.html', 'platform_list', '平台资料');
 		    		break;
 		    		default:
 					  //异常处理

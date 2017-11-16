@@ -164,6 +164,7 @@
 							};
 							
 							ajax(ajaxData, function(data) {
+								console.log(JSON.stringify(data))
 								if(data.code == 200){
 									plus.nativeUI.toast(data.msg);
 									state.data = data.data;
