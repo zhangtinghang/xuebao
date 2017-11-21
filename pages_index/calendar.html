@@ -64,12 +64,12 @@
 			#date-list li{
 				width: calc(100%/7);
 				text-align: center;
-				padding-bottom: 0.138888rem;
+				margin: 3px 0;
 			}
 			.circle{
 				width: 0.625rem !important;
 				height: 0.625rem !important;
-				padding: 0 8px;
+				padding: 0;
 				border-radius:45px;
 				background-color: rgb(190,190,190);
 				text-align: center;
@@ -173,15 +173,54 @@
 			.today_week{
 				color: rgb(27,130,209);
 			}
+			/*顶部样式*/
+			.list_item{
+				width: 100%;
+				background-color: rgb(255,255,255);
+				padding: 0.377777rem;
+			}
+			.list_item_ul{
+				display: flex;
+				align-items: center;
+			}
+			.list_item_ul li{
+				width: 33.33%;
+				text-align: center;
+				border-right: 2px solid rgba(220,220,220,0.8) ;
+			}
+			.list_item_ul li:last-child{
+				border: none;
+			}
+			.list_item_num{
+				font-size: 0.444444rem;
+				color:#333333
+			}
+			.list_item_text{
+				color: rgb(136,136,136);
+				font-size: 0.388888rem;
+			}
 		</style>
 	</head>
 
 	<body id="bodyBox">
 		<div class="content">
+			<div class="list_item">
+				<ul class="list_item_ul">
+					<li>
+						<div class="list_item_num">4800</div>
+						<div class="list_item_text">待上课时间/分</div>
+					</li>
+					<li>
+						<div class="list_item_num">800</div>
+						<div class="list_item_text">待排课时间/分</div>
+					</li>
+					<li>
+						<div class="list_item_num">5600</div>
+						<div class="list_item_text">总时间/分</div>
+					</li>
+				</ul>
+			</div>
 			<div id="date-box">
-				<div id="now">
-	
-				</div>
 				<ul id="week-list">
 					<li data-week="日">日</li>
 					<li data-week="一">一</li>
@@ -192,7 +231,7 @@
 					<li data-week="六">六</li>
 				</ul>	
 			</div>
-			<div>
+			<div id="dateListBox">
 				<ul  id="date-list">
 					
 				</ul>
@@ -238,7 +277,7 @@
 			function showdate(date) {
 
 				//当前年月
-				document.getElementById('now').innerHTML = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
+//				document.getElementById('now').innerHTML = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
 				//当前日
 				var now_day = date.getDate();
 				//当前周几
@@ -290,39 +329,76 @@
 				return oneWeek;
 			}
 
-			mui.init();
+			mui.init({
+				 gestureConfig:{
+				   swipe: true, //默认为true
+				  }
+			});
 			mui.plusReady(function() {
 				//监听返回
 				listenReturn();
 				mui('#date-list').on('tap', '.date_day', function() {
 					//			var day = this.getAttribute('date-day');
 				})
-				//监听滑动
+				var time = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
+				var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+				view.drawText(time, {
+					top: '0px',
+					right: '20px',
+					height: '44px',
+					width: '80px'
+				}, {
+					size: '15px',
+					color: '#fefefe'
+				}, 'next');
+				//监听时间打开，打开popover
+				view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 110) {
+						console.log('点击')
+					}
+				}, false);
+				
+			})
+			
+			//监听滑动
 				var bodyBox = document.getElementById("bodyBox");
 				var dateList = document.getElementById("date-list");
 				var now_day = date.getDate();
 				var idFlag = 'nowDay'+now_day;
 				var liBox = document.getElementById(idFlag);
-				var liBoxToTop = -liBox.offsetTop+10;
+				var dateListBox =document.getElementById("dateListBox");
 				//计算列表高度
 				var list_box = document.getElementById("list_box");
+				var dateListBoxToTop = -dateListBox.offsetTop;
 				var listBoxToTop = list_box.offsetTop;
-				var moveTop = -(listBoxToTop + liBoxToTop) + 20;
+				var liBoxHeight = -liBox.offsetHeight;
+				var liBoxToTop = -liBox.offsetTop+3;
+				var moveTop = -(listBoxToTop + dateListBoxToTop + liBoxHeight)+1;
 				//上滑
-				bodyBox.addEventListener('swipeup',function(){	
-					dateList.style.transition="-webkit-transform 500ms ease-out";
-            		dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";
+				bodyBox.addEventListener('swipeup',function(){
+					dateList.style.transition="transform 500ms ease-out";
+					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
+					dateList.style.transform="translateY("+liBoxToTop+"px)";
+            		dateList.style.webkitTransform="-webkit-translateY("+liBoxToTop+"px)";       		
             		//列表
-            		list_box.style.transition="-webkit-transform 500ms ease-out";
-            		list_box.style.webkitTransform="translateY("+moveTop+"px)";
+            		list_box.style.transition="transform 500ms ease-out";       		
+            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
+            		list_box.style.transform="translateY("+moveTop+"px)";
+            		list_box.style.webkitTransform="-webkit-translateY("+moveTop+"px)";
+            		
 				});
 				//下滑
 				bodyBox.addEventListener('swipedown',function(){
 					dateList.style.transition="-webkit-transform 500ms ease-out";
-            		dateList.style.webkitTransform="translateY(0)";
+					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
+            		dateList.style.transform="translateY(0)";
+            		dateList.style.webkitTransform="-webkit-translateY(0)";
             		//列表
-            		list_box.style.transition="-webkit-transform 500ms ease-out";
-            		list_box.style.webkitTransform="translateY(0)";
+            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
+            		list_box.style.transition="transform 500ms ease-out";
+            		list_box.style.webkitTransform="-webkit-translateY(0)";
+            		list_box.style.transform="translateY(0)";
 				});
 				
 				//修改当前周几
@@ -335,7 +411,6 @@
 						list_item[i].setAttribute('class','today_week');
 					}
 				}
-			})
 		</script>
 	</body>
 

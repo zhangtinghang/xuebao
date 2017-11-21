@@ -102,39 +102,42 @@
 							</div>
 						</div>
 					</li>
-					<li class="list_li">
-						<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div>
+					<li class="list_li"  v-for="item in listBox" >
+						<div class="list_cover"><img align="center" :data-lazyload="vm.ajaxUrl"/></div>
 						<div class="list_right">
-							<div class="list_title"><span>金牛凯德店</span><span class="title_right">0.8km</span></div>
-							<div class="list_local">青羊区</div>
+							<div class="list_title"><span>{{item.organizationArea}}</span><span class="title_right">{{item.longitude}}km</span></div>
+							<div class="list_local">{{item.organizationArea}}</div>
 							<div class="list_detail">
 								<img src="../images/local/position3.png" />
-								<span>金泽录147号3楼建设银行上</span>
+								<span>{{item.organizationLocation}}</span>
 							</div>
 						</div>
 					</li>
 				</ul>
+				<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
+			<div class="clear"></div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<!--懒加载-->
+		<script src="../js/mui.lazyload.js"></script>
+		<script src="../js/mui.lazyload.img.js"></script>
+		<!--end-->
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
-			var webview_detail = null; //详情页webview
-//			var titleNView = { //详情页原生导航配置
-//				backgroundColor: 'rgba(77,169,239,1)', //导航栏背景色
-//				titleText: '', //导航栏标题
-//				titleColor: '#FFFFFF', //文字颜色
-//				autoBackButton: true, //自动绘制返回箭头
-//				splitLine: { //底部分割线
-//					color: '#cccccc'
-//				}
-//			}
+			var state = app.getState();
 			mui.init({
 				swipeBack: false,
 				pullRefresh: {
 					container: '#pullrefresh',
 					down: {
 						style: 'circle',
+						auto: true,
 						callback: pulldownRefresh
 					}
 				}
@@ -153,24 +156,47 @@
 				})
 			});
 
-			
+//			VUE页面渲染
+			var vm = new Vue({
+				el: '#pullrefresh',
+				data: {
+					listBox:[]
+				}			
+			});
+			//懒加载图片
+			(function($) {
+				$(document).imageLazyload({
+					placeholder: '../images/60x60.gif'
+				});
+			})(mui);
 			/**
 			 * 下拉刷新具体业务实现
 			 */
-			function pulldownRefresh() {
-				setTimeout(function() {
-					var table = document.body.querySelector('.list_ul');
-					var cells = document.body.querySelectorAll('.list_li');
-					for(var i = cells.length, len = i + 5; i < len; i++) {
-						var li = document.createElement('li');
-						li.className = 'list_li';
-						li.innerHTML = '<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div><div class="list_right"><div class="list_title">教师上门</div><div class="list_local">青羊区</div><div class="list_detail"><img src="../images/local/position3.png" /><span>金泽录147号3楼建设银行上</span></div></div>';
-						//下拉刷新，新纪录插到最前面；
-						table.insertBefore(li, table.firstChild);
+			function pulldownRefresh() {		
+				//页面渲染
+				if(state.data){
+					var ajaxData = {
+							url:'restful1/course/getCourseLocation',
+							data: {},
+							type:'post'
 					}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+							if(data.code == 401){
+								plus.nativeUI.toast('您还未登录哟！');
+							}else if(data.code == 200){
+								vm.listBox = data.data;
+								mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+								mui.toast('获取数据成功');
+							}else{
+								mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+								plus.nativeUI.toast('请求超时！');
+							}
+				},true);
+				}else{
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-					mui.toast('下拉刷新成功');
-				}, 1000);
+					plus.nativeUI.toast('亲，请登录哟！')
+				}
 			}
 		</script>
 	</body>

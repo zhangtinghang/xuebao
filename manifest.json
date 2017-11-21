@@ -5,7 +5,7 @@
 		"iPad"
 	],
 	"id": "xuebao",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "学保",/*应用名称，程序桌面图标名称*/
+	"name": "快易学",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0",/*应用版本名称*/
 		"code": ""
@@ -631,7 +631,8 @@
 					"pages_index/pay_success.html",
 					"pages_index/Withdrawal_success.html",
 					"pages_index/course_remind.html",
-					"pages_index/course_arrangement.html"
+					"pages_index/course_arrangement.html",
+					"pages_index/indent_succ.html"
 				],
 				"priority": 0
 			},
@@ -705,7 +706,8 @@
 			"pages_curricula_variable/apply.html": {
 				"resources": [],
 				"refer": [
-					"pages_curricula_variable/onetoone_sign.html"
+					"pages_curricula_variable/onetoone_sign.html",
+					"pages_curricula_variable/classApply.html"
 				],
 				"priority": 0
 			},
@@ -714,6 +716,20 @@
 				"refer": [
 					"pages_curricula_variable/teacher_detail.html",
 					"pages_curricula_variable/all_class.html"
+				],
+				"priority": 0
+			},
+			"pages_index/dynamic_detail.html": {
+				"resources": [],
+				"refer": [
+					"pages_curricula_variable/teacher_detail.html"
+				],
+				"priority": 0
+			},
+			"pages_indent/my_indent.html": {
+				"resources": [],
+				"refer": [
+					"pages_indent/indent_detail.html"
 				],
 				"priority": 0
 			}

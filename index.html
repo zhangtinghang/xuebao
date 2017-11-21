@@ -424,75 +424,40 @@
 
 			<div class="teacher_box">
 				<ul class="teacher_ul">
-					<li class="teacher_li">
-						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
+					<li class="teacher_li" v-for="item in teacherMessage.data">
+						<a href="javascript:;" @tap="open_detail(item)">
+						<div class="teacher_cover"><img align="center" :src="teacherMessage.imgUrl+item.images" /></div>
 						<div class="teacher_list">
-							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
-							<div class="teacher_name">黄代富</div>
+							<div class="teacher_img"><img align="center" :src="teacherMessage.imgUrl+item.teacherImage" /></div>
+							<div class="teacher_name">{{item.userName}}</div>
 							<div class="teacher_message">
 								<img align="center" src="images/index/chat_num.png" />
-								<span>102</span>
+								<span>{{item.comments.length}}</span>
 							</div>
 						</div>
+						</a>
 					</li>
-
-					<li class="teacher_li">
-						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
-						<div class="teacher_list">
-							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
-							<div class="teacher_name">黄代富</div>
-							<div class="teacher_message">
-								<img align="center" src="images/index/chat_num.png" />
-								<span>102</span>
-							</div>
-						</div>
-					</li>
-
-					<li class="teacher_li">
-						<div class="teacher_cover"><img align="center" src="images/index/teacher_picture.png" /></div>
-						<div class="teacher_list">
-							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
-							<div class="teacher_name">黄代富</div>
-							<div class="teacher_message">
-								<img align="center" src="images/index/chat_num.png" />
-								<span>102</span>
-							</div>
-						</div>
-					</li>
-
-					<!--<li v-for="item in sliderBox.data" class="teacher_li">
-						<div class="teacher_cover"><img align="center" :src="sliderBox.ajaxUrl+item.carouselImageUrl" /></div>
-						<div class="teacher_list">
-							<div class="teacher_img"><img align="center" src="images/index/teacher_head.png" /></div>
-							<div class="teacher_name">{{item.carouselId}}</div>
-							<div class="teacher_message">
-								<img align="center" src="images/index/chat_num.png" />
-								<span>102</span>
-							</div>
-						</div>
-					</li>-->
-					<!--<li v-for="item in sliderBox.data">
-						<p v-if="item.length == 1">{{item.carouselId}}</p>
-						<p v-else>{{sliderBox.ajaxUrl+item.carouselImageUrl}}</p>
-					</li>-->
 				</ul>
 			</div>
-
+			<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
 		<!--沉浸式适配-->
 		<script type="text/javascript" src="js/immersed.js" ></script>
+		<!--原生渲染插件-->
+		<script src="js/util.js"></script>
 		<!--引入环信SDK-->
 		<script type="text/javascript" src="js/IM/webim.config.js"></script>
 		<script type="text/javascript" src="js/IM/strophe-1.2.8.min.js"></script>
 		<script type="text/javascript" src="js/IM/websdk-1.4.13.js"></script>
 		<!--end-->
-		<script src="js/util.js"></script>
 		<script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/login_config.js"></script>
-		<script type="text/javascript" src="js/ajax.js" ></script>
 		<script type="text/javascript" src="js/vue.min.js" ></script>
 		<script type="text/javascript" src="js/storage/indexedDB.js" ></script>
 		<script type="text/javascript" src="js/storage/websql.js" ></script>
+		<script type="text/javascript" src="js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="js/ajax.js" ></script>
 		<script type="text/javascript">
 			var aniShow = {};
 			mui.init({
@@ -666,8 +631,8 @@
 						console.log('连接失败回调' + JSON.stringify(message))
 					}, //失败回调
 				});
-				//轮播图相关数据处理
-					var slider = mui("#slider");				
+				//轮播图相关数据处理（字符串拼接）
+				var slider = mui("#slider");				
 					slider.slider({
 						interval: 200
 					});
@@ -688,8 +653,110 @@
 						
 				});
 				
+				//教师动态相关数据处理（vue渲染）
+				var ajaxData = {
+						url:'restful1/teacher/teachernews/getteachernews',
+						data: {},
+						type:'post'
+					}
+				ajax(ajaxData, function(data) {
+					if(data.code==200){
+						data.imgUrl = ajaxUrl;
+						vm.teacherMessage = data;
+						
+					}else{
+						console.log('获取教师动态失败！')
+					}
+				},true);
 				
-				function creatSlider(data){
+				//聊天列表
+				document.getElementById("message").addEventListener('tap', function() {
+					openView.nativeView('im/msg_list.html', 'msg_list', '消息列表');
+				});
+				//日历
+				document.getElementById("course").addEventListener('tap', function() { 
+					openView.nativeView('pages_index/calendar.html', 'calendar', '日历','','none');
+				});
+				//登录
+				document.getElementById("login").addEventListener('tap', function() {
+					openView.incView('login/login.html', 'login', '欢迎登陆');
+				});
+				//更多服务消息
+				document.getElementById("server_more").addEventListener('tap', function() {
+					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
+				});
+				//跟多老师动态
+				document.getElementById("teacher_dynamic").addEventListener('tap', function() {
+					openView.nativeView('pages_index/more_dynamic.html', 'more_dynamic', '更多动态');
+				});
+				//搜索
+				document.getElementById("search").addEventListener('tap', function() {
+					openView.usuView('im/im_search.html', 'im_search');
+				});
+				//定位
+				document.getElementById("localtion").addEventListener('tap', function() {
+					openView.nativeView('pages_index/localtion.html','localtion','位置');
+				});				
+				//服务消息
+				mui('#class_message_box').on('tap','.class_message',function(){
+					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
+				});				
+				//老师动态详情
+				
+				//个推
+				getPushInfo();
+				function getPushInfo(){
+				    var info = plus.push.getClientInfo();
+				    console.log( "获取客户端推送标识信息：" );
+				    console.log( "token: "+info.token );
+				    console.log( "clientid: "+info.clientid );
+				    console.log( "appid: "+info.appid );
+				    console.log( "appkey: "+info.appkey );
+				}
+				listAllPush();
+				// 监听在线消息事件
+				    plus.push.addEventListener( "receive", function( msg ) {
+				    	console.log('监听到消息',JSON.stringify(msg))
+				    	mui.toast('这是接收的消息'+msg);
+				        if ( msg.aps ) {  // Apple APNS message
+				             mui.toast( "接收到在线APNS消息：" );
+				        } else {
+				             mui.toast( "接收到在线透传消息：" );
+				        }
+				    }, false );
+				function listAllPush(){
+					var msgs=null;
+					switch ( plus.os.name ) {
+						case "Android":
+						msgs = plus.push.getAllMessage();
+						break;
+						default:
+						break;
+					}
+					if ( !msgs ) {
+						return;
+					}
+					console.log( "枚举消息列表（"+msgs.length+"）：" );
+					for ( var i in msgs ) {
+						var msg = msgs[i];
+						mui.toast( i+": "+msg.title+" - "+msg.content );
+						console.log(i+": "+msg.title+" - "+msg.content)
+					}
+				}
+		});
+			var detailPage = null;
+			function open_detail(data){
+				var datas = JSON.stringify(data);
+				openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情',{datas:datas});
+			}
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacherMessage:{},//教师动态数据
+				}			
+			})
+			
+		function creatSlider(data){
 					var len = data.length;
 					// 图片
 					var sliderGroup = document.createElement("div");
@@ -733,94 +800,6 @@
 						interval: 5000
 					});
 				}
-				
-				//聊天列表
-				document.getElementById("message").addEventListener('tap', function() {
-					openView.nativeView('im/msg_list.html', 'msg_list', '消息列表');
-				});
-				//日历
-				document.getElementById("course").addEventListener('tap', function() { 
-					openView.nativeView('pages_index/calendar.html', 'calendar', '日历');
-				});
-				//登录
-				document.getElementById("login").addEventListener('tap', function() {
-					openView.incView('login/login.html', 'login', '欢迎登陆');
-				});
-				//更多服务消息
-				document.getElementById("server_more").addEventListener('tap', function() {
-					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
-				});
-				//跟多老师动态
-				document.getElementById("teacher_dynamic").addEventListener('tap', function() {
-					openView.nativeView('pages_index/more_dynamic.html', 'more_dynamic', '更多动态');
-				});
-				//搜索
-				document.getElementById("search").addEventListener('tap', function() {
-					openView.usuView('im/im_search.html', 'im_search');
-				});
-				//定位
-				document.getElementById("localtion").addEventListener('tap', function() {
-					openView.nativeView('pages_index/localtion.html','localtion','位置');
-				});				
-				//服务消息
-				mui('#class_message_box').on('tap','.class_message',function(){
-					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
-				});				
-				//老师动态详情
-				mui('.teacher_ul').on('tap','.teacher_li',function(){
-//					var type = this.getAttribute('data-type');
-					openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情');
-				});
-				
-				//个推
-				getPushInfo();
-				function getPushInfo(){
-				    var info = plus.push.getClientInfo();
-				    console.log( "获取客户端推送标识信息：" );
-				    console.log( "token: "+info.token );
-				    console.log( "clientid: "+info.clientid );
-				    console.log( "appid: "+info.appid );
-				    console.log( "appkey: "+info.appkey );
-				}
-				listAllPush();
-				// 监听在线消息事件
-				    plus.push.addEventListener( "receive", function( msg ) {
-				    	console.log('监听到消息',JSON.stringify(msg))
-				    	mui.toast('这是接收的消息'+msg);
-				        if ( msg.aps ) {  // Apple APNS message
-				             mui.toast( "接收到在线APNS消息：" );
-				        } else {
-				             mui.toast( "接收到在线透传消息：" );
-				        }
-				    }, false );
-				function listAllPush(){
-					var msgs=null;
-					switch ( plus.os.name ) {
-						case "Android":
-						msgs = plus.push.getAllMessage();
-						break;
-						default:
-						break;
-					}
-					if ( !msgs ) {
-						mui.toast( "此平台不支持枚举推送消息列表！" );
-						return;
-					}
-					console.log( "枚举消息列表（"+msgs.length+"）：" );
-					for ( var i in msgs ) {
-						var msg = msgs[i];
-						mui.toast( i+": "+msg.title+" - "+msg.content );
-						console.log(i+": "+msg.title+" - "+msg.content)
-					}
-				}
-		});
-		
-			var vm = new Vue({
-				el: '#msg-content',
-				data: {
-					sliderBox: {}, //顶部banner数据
-				}			
-			})
 		</script>
 	</body>
 

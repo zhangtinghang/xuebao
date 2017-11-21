@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -18,6 +17,9 @@
 			
 			.list_bg {
 				width: 100%;
+				max-height: 5rem;
+				background-color: rgb(240,240,240);
+				overflow: hidden;
 			}
 			
 			.list_bg img {
@@ -29,11 +31,14 @@
 				width: 100%;
 				text-align: center;
 				margin-top: -0.755555rem;
+				border-radius:90px;
+				overflow: hidden;
 			}
 			
 			.header_avatar img {
 				width: 1.666666rem;
 				height: 1.666666rem;
+				border-radius:90px;
 			}
 			
 			.header_name {
@@ -448,38 +453,38 @@
 			<div id="btn_apply">报名</div>
 		</div>
 		
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="list_bg">
-				<img src="../images/teacher_list/image_jsxq_dt.png" />
+				<img :src="imgUrl+teacher.teacherImage" />
 			</div>
 
 			<!--头像-->
 			<div class="header_avatar">
-				<img src="../images/teacher_list/teacher_head.png" />
+				<img :src="imgUrl+teacher.teacherImage" />
 			</div>
 
-			<div class="header_name">周老师<img align="center" src="../images/teacher_list/male.png" /></div>
+			<div class="header_name">{{teacher.name}}<img align="center" src="../images/teacher_list/male.png" /></div>
 
-			<div class="signature">没有更好，只有最好！</div>
+			<div class="signature">{{teacher.teacherWorld}}</div>
 
 			<div class="header_detail">
 				<div class="detail_subject"><img align="center" src="../images/teacher_list/teach_subj.png" />授课:英语</div>
-				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄:8年</div>
+				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄:{{teacher.teacherAgeOfYear}}年</div>
 				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />满意度:99.99%</div>
 			</div>
 
 			<div class="list_item">
 				<ul class="list_item_ul">
 					<li>
-						<div class="list_item_num">5468</div>
+						<div class="list_item_num">{{teacher.teacherTeachOfHour}}</div>
 						<div class="list_item_text">授课时长/分</div>
 					</li>
 					<li>
-						<div class="list_item_num">686</div>
+						<div class="list_item_num">{{teacher.studentNum}}</div>
 						<div class="list_item_text">学生数/人</div>
 					</li>
 					<li>
-						<div class="list_item_num">A级</div>
+						<div class="list_item_num">{{teacher.teacherRank}}级</div>
 						<div class="list_item_text">平台等级</div>
 					</li>
 				</ul>
@@ -515,7 +520,7 @@
 				<div class="nav_more resume_detail">详情</div>
 			</div>
 			<div class="my_resume resume_detail">
-				英语师范本科，留美硕士，美国持证培训师；<br /> 老托福650/677，GRE Verbal 740 (99%)
+				{{resume.resumeExperience | unescape}}
 			</div>
 			</div>
 			<div class="line"></div>
@@ -526,10 +531,10 @@
 				<div class="nav_more">更多</div>
 			</div>
 			<div class="dynamic_list_box">
-				<div class="dynamic_list">
+				<div class="dynamic_list" v-for="courseItem in courseStudents">
 					<div class="avatar">
 						<div class="avatar_box">
-							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+							<img :src="imgUrl+courseItem.studentImage" />
 						</div>
 					</div>
 					<div class="more_text">
@@ -539,23 +544,23 @@
 							</div>
 							<div class="detail_list">
 								<div class="list_left">重点:</div>
-								<div class="list_right">本节课的重点在于对文言文的特殊语句的区分，注意语句的使用场景。</div>
+								<div class="list_right">{{courseItem.courseFeedBack.feedbackImportant}}</div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">难点:</div>
-								<div class="list_right">祈使句使用。</div>
+								<div class="list_right">{{courseItem.courseFeedBack.feedbackDifficult}}</div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">问题:</div>
-								<div class="list_right">学生对于祈使句理解有难度。</div>
+								<div class="list_right">{{courseItem.courseFeedBack.feedbackQuestion}}</div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">方案:</div>
-								<div class="list_right">多加练习。</div>
+								<div class="list_right">{{courseItem.courseFeedBack.feedbackScheme}}</div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">作业:</div>
-								<div class="list_right">文言文翻译。</div>
+								<div class="list_right">{{courseItem.courseFeedBack.feedbackHomework}}</div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left"></div>
@@ -563,63 +568,12 @@
 							</div>
 							<!--课堂互动评论-->
 							<div class="list_footer">
-								<div class="footer_time">2016年10月21日</div>
-								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+								<div class="footer_time">{{courseItem.courseFeedBack.feedbackDate}}</div>
+								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> {{courseItem.comments.length}}</div>
 							</div>
 							<div class="list_commit">
 								<ul class="list_commit_ul">
-									<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
-									<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="dynamic_list">
-					<div class="avatar">
-						<div class="avatar_box">
-							<img src="../images/teacher_list/teacher_dynamic_head.png" />
-						</div>
-					</div>
-					<div class="more_text">
-						<div class="detail_box">
-							<div class="detail_list">
-								<div class="list_left">王小明</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left">重点:</div>
-								<div class="list_right">本节课的重点在于对文言文的特殊语句的区分，注意语句的使用场景。</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left">难点:</div>
-								<div class="list_right">祈使句使用。</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left">问题:</div>
-								<div class="list_right">学生对于祈使句理解有难度。</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left">方案:</div>
-								<div class="list_right">多加练习。</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left">作业:</div>
-								<div class="list_right">文言文翻译。</div>
-							</div>
-							<div class="detail_list">
-								<div class="list_left"></div>
-								<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"></div>
-							</div>
-							<!--课堂互动评论-->
-							<div class="list_footer">
-								<div class="footer_time">2016年10月21日</div>
-								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
-							</div>
-							<div class="list_commit">
-								<ul class="list_commit_ul">
-									<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
-									<li><span>周老师</span> 回复 <span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>
+									<li v-for="commentItem in courseItem.comments"><span>{{commentItem.commentSourceName}}</span> 回复 <span>{{commentItem.commentTargetName}}：</span>{{commentItem.commentContent}}</li>
 								</ul>
 							</div>
 						</div>
@@ -635,32 +589,39 @@
 				<div class="nav_more">更多</div>
 			</div>
 			<div class="my_dynamic_list">
-				<div class="dynamic_list more_dynamic">
+				
+				<div class="dynamic_list more_dynamic" v-for="newItem in teacherNews">
 					<div class="avatar">
 						<div class="avatar_box more_avatar">
-							<img src="../images/teacher_list/teacher_dynamic_head.png" />
+							<img :src="ajaxUrl+newItem.teacherImage" />
 						</div>
 					</div>
 					<div class="more_text">
-						<div class="list_name">王老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
-						<div class="list_signature">趁我们还没有老，多去走走看看!</div>
+						<div class="list_name">{{newItem.userName}}<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+						<div class="list_signature">{{teacher.teacherWorld}}</div>
 						<div class="list_cover">
-							<img src="../images/teacher_list/pensonnel.png" />
+							<img :src="imgUrl+newItem.images" />
 						</div>
 						<div class="list_title">
-							上月去香港看了看，发现偌大的世界真美妙！
+							{{newItem.content}}
 						</div>
 						<div class="list_content mui-ellipsis-1">
-							在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
+							{{newItem.content}}
 						</div>
 						<div class="list_footer">
-							<div class="footer_time">2016年10月21日</div>
-							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+							<div class="footer_time">{{newItem.newscreateTime}}</div>
+							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> {{newItem.comments.length}}</div>
+						</div>
+						
+						<div class="list_commit">
+							<ul class="list_commit_ul">
+								<li v-for="commentItem2 in newItem.comments"><span>{{commentItem2.sourceUserName}}</span> 回复 <span>{{commentItem2.targetUserName}}：</span>{{commentItem2.comment}}</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 
-				<div class="dynamic_list more_dynamic">
+				<!--<div class="dynamic_list more_dynamic">
 					<div class="avatar">
 						<div class="avatar_box more_avatar">
 							<img src="../images/teacher_list/teacher_dynamic_head.png" />
@@ -669,9 +630,9 @@
 					<div class="more_text">
 						<div class="list_name">周老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
 						<div class="list_signature">没有更好，只有最好！</div>
-						<!--<div class="list_cover">
+						<div class="list_cover">
 						<img src="../images/teacher_list/pensonnel.png" />
-					</div>-->
+					</div>
 						<div class="list_title">
 							上月去香港看了看，发现偌大的世界真美妙！
 						</div>
@@ -691,7 +652,7 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		
 		<!--课程介绍-->
@@ -704,14 +665,13 @@
 				<div class="course_description_list">
 					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课年级 :</div></div>
 					<div class="course_description_body">
-						<span>一年级</span><span>二年级</span><span>三年级</span><span>四年级</span>
-						<span>五年级</span><span>六年级</span><span>初一</span><span>初二</span>
+						<span>一年级</span>
 					</div>
 				</div>
 				<div class="course_description_list">
 					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课范围 :</div></div>
 					<div class="course_description_body nav_bottom">
-						<span>5km以内</span>
+						<span>{{teacher.teacherRange}}</span>
 					</div>
 				</div>
 			</div>
@@ -719,11 +679,30 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    //获取传递过来的数据(若有，则获取，若无，则请求)
+			     var self  = plus.webview.currentWebview();
+//			     if(self.teacherdata){
+			     	var teacherdata = self.teacherdata;
+				    console.log(teacherdata)
+				    teacherdata = JSON.parse(teacherdata);
+			     	vm.courseStudents = teacherdata.data.courseStudents;
+			     	vm.resume = teacherdata.data.resume;
+			     	vm.teacher=teacherdata.data.teacher;
+					vm.teacherNews=teacherdata.data.teacherNews;
+					vm.imgUrl=ajaxUrl;
+//			     }
+			    
+			    
+			    
 			    mui('.resume_box').on('tap','.resume_detail',function(){
 			    	openView.nativeView('teacher_detail_2.html', 'teacher_detail_2', '个人简历');
 			    })
@@ -742,6 +721,23 @@
 			    mui('.content').on('tap','.footer_comm',function(){
 			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
 			    })
+			});
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					courseStudents:[],
+					resume:{},
+					teacher:{},
+					teacherNews:[],
+					imgUrl:''
+				},
+				filters: {
+//				unescape:function (html) {			    
+//				      html.replace(/\\n/gm,"<br>")
+//				       return html
+//				  }
+				}
 			})
 		</script>
 	</body>

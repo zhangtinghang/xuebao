@@ -30,11 +30,13 @@
 			}
 			.detail_avatar{
 				width: 100%;
-				border-radius:10px;
+				max-height: 5rem;
 				overflow: hidden;
 			}
 			.detail_avatar img{
+				border-radius:10px;
 				width: 100%;
+				height: 100%;
 			}
 			.teacher_box{
 				margin-top:0.777777rem;
@@ -58,9 +60,10 @@
 			.avatar_box{
 				width: 1.25rem;
 				height: 1.25rem;
-				border-radius:45px;
+				border-radius:90px;
 				background-color:rgba(220,220,220,.5);
 				margin: 0 auto;
+				overflow: hidden;
 			}
 			.avatar_box img{
 				width: 100%;
@@ -98,39 +101,87 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="detail_box">
-				<div class="detail_title">孩子，我允许你不优秀，但是我不允许你不努力</div>
+				<div class="detail_title">{{contentDetail.content}}</div>
 				<div class="detail_content">
-					这里是正文，当然也可以配上你喜欢的图片，比如下面，就是我喜欢的图片！
+					{{contentDetail.content}}
 				</div>
 				<div class="detail_avatar">
-					<img src="../images/teacher_list/pensonnel.png" />
+					<img :src="contentDetail.imgUrl+contentDetail.images" />
 				</div>
 			</div>
 			<div class="teacher_box">
 				<div class="teacher_title"><hr />教师简介<hr /></div>
 				<div class="teacher_avatar">
 					<div class="avatar_box">
-						<img src="../images/im/message_list.png" />
+						<img :src="contentDetail.imgUrl+contentDetail.teacherImage" />
 					</div>
 				</div>
-				<div class="teacher_name">邓珊珊 <img align="center" src="../images/teacher_list/female.png" /></div>
+				<div class="teacher_name">{{contentDetail.userName}}<img align="center" src="../images/teacher_list/female.png" /></div>
 				<div class="teacher_list">
-					<span>教龄 ：10年</span><span>授课时长：1567小时</span><span>学生数：500人</span>
+					<span>教龄 ：{{teacherDetail.teacherAgeOfYear}}年</span><span>授课时长：{{teacherDetail.teacherTeachOfHour}} 小时</span><span>学生数：{{teacherDetail.studentNum}} 人</span>
 				</div>
 				<div class="teacher_link">
-					<u>点击查看详情</u>
+					<u id="teacher_link">点击查看详情</u>
 				</div>
 			</div>
+			<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			var data={};
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //判断参数
+			    var dataFlag = false;
+			    var teacherData={};
+			    //获取传递参数
+			    var self  = plus.webview.currentWebview();
+			    var data = self.datas;
+			    data=JSON.parse(data);
+			    var teacherId=data.teacherId;
+			    vm.contentDetail=data;
+			    vm.contentDetail.imgUrl=ajaxUrl;
+			    //获取网络数据
+			    var ajaxData = {
+						url:'restful1/teacher/teacherdetail',
+						data: {
+							teacherId:teacherId
+						},
+						type:'post'
+					}
+				ajax(ajaxData, function(data) {
+					vm.teacherDetail=data.data.teacher;
+					teacherData=data;
+					dataFlag=true;
+				},true);
+				
+			//点击查看详情
+			var detailPage = null;
+			document.getElementById("teacher_link").addEventListener('tap',function(){
+				//避免还未获取到数据时，跳转为空			
+				if(dataFlag == true){
+					var teacherdata = JSON.stringify(teacherData);
+					openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherdata:teacherdata});								
+				}
+			})				
+		})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					contentDetail:{},
+					teacherDetail:{}//教师动态数据
+				}			
 			})
 		</script>
 	</body>

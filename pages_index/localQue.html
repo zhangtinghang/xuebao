@@ -90,12 +90,12 @@
 				<div class="title_icon"><img src="../images/localQue/chos_subj.png" /></div>
 				<div class="title_text">选择科目</div>
 			</div>
-			<!--<div class="content_list">
+			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
 					<li v-for="(value, key, index) in listBox">{{value}}</li>
 				</ul>
-			</div>-->
-			<div class="content_list">
+			</div>
+			<!--<div class="content_list">
 				<ul id="list_ul" class="list_ul">
 					<li>语文</li>
 					<li>数学</li>
@@ -105,7 +105,7 @@
 					<li>生物</li>
 					<li>政治</li>
 				</ul>
-			</div>
+			</div>-->
 			<!--问题-->
 			<div class="question" id="question">
 				<u>问题不太清楚？学导师帮助</u>
@@ -115,15 +115,15 @@
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 			<div class="clear"></div>
 			<!--按钮-->
-				<div id="comeBtn" type="button" class="mui-btn mui-btn-block">下一步</div>
+			<div id="comeBtn" type="button" class="mui-btn mui-btn-block">下一步</div>
 			
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
-		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -136,23 +136,12 @@
 				//监听返回
 			    listenReturn();
 				//相关数据处理
-				var getPassword = document.getElementById("getPassword");
-				if(state.data){
-					var key = state.data.key;
-					var userId = state.data.id;
-					var className = '幼小';
-					var timestamp = Date.parse(new Date());			
-					var hashStr = userId+className+timestamp;
-					var sortStr = sortArr(hashStr);
-					var hash = CryptoJS.HmacSHA1(sortStr,key);
-					getPassword.value = hash;
+				if(state.data){  
+					var className = '幼小'; 
 					var ajaxData = {
 							url:'restful1/subject/selectSubject',
 							data: {
-								userId:userId,
-								className:className,
-								timestamp:timestamp,
-								token:getPassword.value
+								className:className
 							},
 							type:'post'
 					}
@@ -164,7 +153,7 @@
 							}else{
 								plus.nativeUI.toast('请求超时！');
 							}
-					});
+					},true); 
 				}else{
 					plus.nativeUI.toast('亲，请登录哟！')
 				}
