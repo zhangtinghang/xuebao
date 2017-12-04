@@ -1,23 +1,22 @@
-
+var ajaxUrl = 'http://120.77.245.43:8001/webapp';
 var ajax = function(ajaxData,callback,encrypt) {
 	//判断网络
-//	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
-//		plus.nativeUI.toast('似乎已断开与互联网的连接', {
-//			verticalAlign: 'top'
-//		});
-//		return;
-//	}
+	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
+		plus.nativeUI.toast('似乎已断开与互联网的连接', {
+			verticalAlign: 'top'
+		});
+		return;
+	}
 	//数据处理
 	var state = app.getState();
-	
+	var commurl = 'http://120.77.245.43:8001/webapp/';
 	var encrypt = encrypt || false;
 	var dataJSON = ajaxData.data || '';
 	if(encrypt){
 		//需要加密 此时需要将传递过来的obj加密后再发起请求
 		var getPassword = document.getElementById("getPassword");
-		console.log(state.data)
 		if(!state.data){
-			plus.nativeUI.toast('亲，请登录哟！');
+//			plus.nativeUI.toast('亲，请登录哟！');
 			return false;
 		}
 		var key = state.data.key;
@@ -34,7 +33,7 @@ var ajax = function(ajaxData,callback,encrypt) {
 	}
 	var types = ajaxData.type || 'get'; 
 	var url = ajaxData.url || ''; 
-		mui.ajax('http://120.77.245.43:8001/webapp/'+url,{
+		mui.ajax(commurl+url,{
 		data: dataJSON,
 		dataType: 'json', //服务器返回json格式数据
 		type: types, //HTTP请求类型
@@ -55,7 +54,6 @@ var ajax = function(ajaxData,callback,encrypt) {
 		}
 	});
 };
-var ajaxUrl = 'http://120.77.245.43:8001/webapp/';
 //取出obj中的值，并且相加
 var encryptAdd = function(dataObj){
 	var dataStr = '';

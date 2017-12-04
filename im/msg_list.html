@@ -29,6 +29,7 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				position: relative;
 			}
 			.list_avatar img{
 				width: 1.25rem;
@@ -46,37 +47,45 @@
 				font-size: 0.333333rem;
 				color: #888888;
 			}
+			.messRemind{
+				position: absolute;
+				top: 0;
+				left: 1.3227777rem;
+				min-width: 0.4088888rem;
+				height: 0.398888rem;
+				background-color: #f64b2f;
+				border-radius:90px;
+				overflow: hidden;
+				display: block;
+				font-size:0.352222rem;
+				color: #FEFEFE;
+				text-align: center;
+				line-height:0.388888rem;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<ul class="content_ul">
-				<li>
+				<!--<li>
 					<div class="list_avatar">
 						<img src="../images/im/list.png" />
+						<div class="messRemind">1</div>
 					</div>
 					<div class="list_message">
 						<div class="message_title">数学提高班</div>
 						<div class="message_body">李小华：老师我的练习已经做完</div>
 					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/message_list.png" />
-					</div>
-					<div class="list_message">
-						<div class="message_title">王老师</div>
-						<div class="message_body">老师帮我看一下这个题</div>
-					</div>
-				</li>
-				<li>
+				</li>-->
+				<li v-for="item in MessageData" @tap="open_detail(item)">
 					<div class="list_avatar">
 						<img src="../images/im/avatar_2.png" />
+						<div class="messRemind" v-text="item.IMnum"></div>
 					</div>
 					<div class="list_message">
-						<div class="message_title">张老师</div>
-						<div class="message_body">老师我的练习已经做完</div>
+						<div class="message_title" v-text="item.IMfrom"></div>
+						<div class="message_body" v-text="item.IMdata"></div>
 					</div>
 				</li>
 			</ul>
@@ -91,12 +100,45 @@
 		<script type="text/javascript" src="../js/util.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/storage/websql.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
 			mui.plusReady(function () {
 				//导航
 			    listenReturn();
 			    listenNext('联系人','linkman_contacts.html','linkman_contacts','联系人');
+			    //读取聊天信息
+			    //环信相关配置及消息处理
+				var state = app.getState();
+				var OPENDATABASE = 'nishibushishaaa';
+				var OPENDATACASE = OPENDATABASE+OPENDATABASE;
+			    //打开数据库
+				websqlOpenDB();
+                websqlCreatTable(OPENDATACASE);
+			    //打印出存储消息
+                websqlGetAllData(OPENDATACASE,function(data){
+                	console.log('返回数据',JSON.stringify(data))
+                	vm.MessageData = data;
+                });
+                
+                //监听传参 动态渲染
+				window.addEventListener('newsId',function(event){
+					var newsId = event.detail.newsId;
+						websqlGetAllData(OPENDATACASE,function(data){
+		                	vm.MessageData = data;
+		               });
+				});
+			});
+			function open_detail(data){
+				var name = data.IMfrom;
+				openView.nativeView('chat.html', 'chat',name,{data:data},'none');
+			}
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					MessageData:[]//聊天信息
+				}			
 			})
 		</script>
 	</body>

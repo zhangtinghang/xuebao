@@ -26,7 +26,7 @@ var openView = {
 					titleText: title,
 					titleColor: "#fefefe",
 					titleSize: "20px",
-					backgroundColor: "rgb(77,169,239)",
+					backgroundColor: "#4ea9ef",
 					progress: {
 						color: "#C1E4FF",
 						height: "2px"
@@ -52,7 +52,7 @@ var openView = {
 		})
 	},
 
-	nativeView: function(url, id, title, extras,bounce) {
+	nativeView: function(url, id, title, extras,bounce){
 		var extras = extras || '';
 		var title = title || null;
 		var bounce = bounce ||'vertical';
@@ -70,7 +70,7 @@ var openView = {
 					titleColor: "#fefefe", // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
 					titleSize: "20px", // 字体大小,默认17px
 					//		      autoBackButton:"true",
-					backgroundColor: "rgb(77,169,239)", // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+					backgroundColor: "#4ea9ef", // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
 					progress: { // 标题栏控件的进度条样式
 						color: "#C1E4FF", // 进度条颜色,默认值为"#00FF00"  
 						height: "2px" // 进度条高度,默认值为"2px"         
@@ -109,24 +109,43 @@ var listenReturn = function() {
 		}
 	}, false);
 }
-var listenNext = function(text, url, id, title) {
+
+var listenNext = function(text, url, id, title,width) {
 	var extras = extras || '';
 	var title = title || null;
 	var ws = plus.webview.currentWebview();
 	var view = ws.getTitleNView();
+	var style = style || null;
+	var width = width || '44px';
 	view.drawText(text, {
 		top: '0px',
 		right: '18px',
 		height: '44px',
-		width: '44px'
+		width: width
 	}, {
 		size: '15px',
 		color: '#fefefe'
 	}, 'next');
 	view.addEventListener("click", function(e) {
-		if(screen.width - e.clientX <= 60) {
-			//打开明细页面
+	if(screen.width - e.clientX <= 60) {
 			openView.nativeView(url, id, title, extras);
 		}
 	}, false);
+	
+}
+
+var listenReturnRight = function(text,width,callback){
+	var ws = plus.webview.currentWebview();
+	var view = ws.getTitleNView();
+	var style = style || null;
+	var width = width || '44px';
+	view.drawText(text, {
+		top: '0px',
+		right: '18px',
+		height: '44px',
+		width: width
+	}, {
+		size: '15px',
+		color: '#fefefe'
+	}, 'next');
 }

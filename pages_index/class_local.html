@@ -103,13 +103,13 @@
 						</div>
 					</li>
 					<li class="list_li"  v-for="item in listBox" >
-						<div class="list_cover"><img align="center" :data-lazyload="vm.ajaxUrl"/></div>
+						<div class="list_cover"><img align="center" :src="vm.ajaxUrl+item.image" /></div>
 						<div class="list_right">
-							<div class="list_title"><span>{{item.organizationArea}}</span><span class="title_right">{{item.longitude}}km</span></div>
-							<div class="list_local">{{item.organizationArea}}</div>
+							<div class="list_title"><span v-text="item.organizationArea"></span><span class="title_right">{{item.longitude}}km</span></div>
+							<div class="list_local" v-text="item.organizationArea"></div>
 							<div class="list_detail">
 								<img src="../images/local/position3.png" />
-								<span>{{item.organizationLocation}}</span>
+								<span v-text="item.organizationLocation"></span>
 							</div>
 						</div>
 					</li>
@@ -160,15 +160,10 @@
 			var vm = new Vue({
 				el: '#pullrefresh',
 				data: {
-					listBox:[]
+					listBox:[],
+					ajaxUrl:''
 				}			
 			});
-			//懒加载图片
-			(function($) {
-				$(document).imageLazyload({
-					placeholder: '../images/60x60.gif'
-				});
-			})(mui);
 			/**
 			 * 下拉刷新具体业务实现
 			 */
@@ -186,8 +181,15 @@
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								vm.listBox = data.data;
+								vm.ajaxUrl = ajaxUrl;
 								mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 								mui.toast('获取数据成功');
+								//懒加载图片
+								(function($) {
+									$(document).imageLazyload({
+										placeholder: '../images/60x60.gif'
+									});
+								})(mui);
 							}else{
 								mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 								plus.nativeUI.toast('请求超时！');

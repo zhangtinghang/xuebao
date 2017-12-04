@@ -19,6 +19,10 @@
 				width: 100%;
 				max-height: 5rem;
 				background-color: rgb(240,240,240);
+				background-image: url(../images/status/failed.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
 				overflow: hidden;
 			}
 			
@@ -174,9 +178,6 @@
 				margin-right: 0.222222rem;
 				margin-bottom: 0.138888rem;
 			}
-			.list_label_li:last-child{
-				margin-bottom: 0;
-			}
 			
 			.list_label_li:nth-child(1) {
 				background-color: rgb(166, 194, 77);
@@ -264,7 +265,7 @@
 			.avatar_box {
 				width: 1.111111rem;
 				height: 1.111111rem;
-				border-radius: 1.25rem;
+				border-radius: 90px;
 				background-color: rgb(220, 220, 220);
 				overflow: hidden;
 				margin-top: 0.288888rem;
@@ -411,7 +412,7 @@
 				height: 1.666666rem;
 				width: 100%;
 				background-color: rgba(220, 220, 220, .5);
-				padding-bottom: 100px;
+				padding-bottom: 50px;
 			}
 			
 			/*底部按钮*/
@@ -460,31 +461,32 @@
 
 			<!--头像-->
 			<div class="header_avatar">
-				<img :src="imgUrl+teacher.teacherImage" />
+				<img v-if="teacher.teacherImage" :src="imgUrl+teacher.teacherImage" />
+				<img v-else src="../images/status/not_login_head.png" />
 			</div>
 
-			<div class="header_name">{{teacher.name}}<img align="center" src="../images/teacher_list/male.png" /></div>
+			<div class="header_name"><span v-text="teacher.name || '未登录'"></span><img align="center" :src="teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
 
-			<div class="signature">{{teacher.teacherWorld}}</div>
+			<div class="signature" v-text="teacher.teacherWorld || '精勤博学，学以致用'"></div>
 
 			<div class="header_detail">
-				<div class="detail_subject"><img align="center" src="../images/teacher_list/teach_subj.png" />授课:英语</div>
-				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄:{{teacher.teacherAgeOfYear}}年</div>
-				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />满意度:99.99%</div>
+				<div class="detail_subject"><img align="center" src="../images/teacher_list/teach_subj.png" />授课:<span v-text="teacher.teacherAgeOfYear || '暂无'"></span></div>
+				<div class="detail_age"><img align="center" src="../images/teacher_list/icon_jl.png" />教龄:<span v-text="teacher.teacherAgeOfYear || '0'"></span>年</div>
+				<div class="detail_perfect"><img align="center" src="../images/teacher_list/red_heart.png" />满意度:<span v-text="teacher.teacherAgeOfYear || '100%'"></span></div>
 			</div>
 
 			<div class="list_item">
 				<ul class="list_item_ul">
 					<li>
-						<div class="list_item_num">{{teacher.teacherTeachOfHour}}</div>
+						<div class="list_item_num" v-text="teacher.teacherTeachOfHour || 0"></div>
 						<div class="list_item_text">授课时长/分</div>
 					</li>
 					<li>
-						<div class="list_item_num">{{teacher.studentNum}}</div>
+						<div class="list_item_num" v-text="teacher.studentNum || 0"></div>
 						<div class="list_item_text">学生数/人</div>
 					</li>
 					<li>
-						<div class="list_item_num">{{teacher.teacherRank}}级</div>
+						<div class="list_item_num"><span v-text="teacher.teacherRank || 'A'"></span>级</div>
 						<div class="list_item_text">平台等级</div>
 					</li>
 				</ul>
@@ -497,18 +499,8 @@
 			<!--标签-->
 			<div class="platform_label">
 				<ul class="list_label_ul">
-					<li class="list_label_li">8年教龄</li>
-					<li class="list_label_li">名师</li>
-					<li class="list_label_li">负责</li>
-					<li class="list_label_li">负责</li>
-					<li class="list_label_li">8年教龄</li>
-					<li class="list_label_li">名师</li>
-					<li class="list_label_li">负责</li>
-					<li class="list_label_li">负责</li>
-					<li class="list_label_li">8年教龄</li>
-					<li class="list_label_li">名师</li>
-					<li class="list_label_li">负责</li>
-					<li class="list_label_li">负责</li>
+					<li class="list_label_li" v-for="item in teacher.teacherTag" v-text="item"></li>
+					<!--<li class="list_label_li">名师</li>-->
 				</ul>
 			</div>
 			<div class="line"></div>
@@ -517,21 +509,19 @@
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">个人简历</span>
-				<div class="nav_more resume_detail">详情</div>
+				<div v-if="resume.resumeExperience" class="nav_more resume_detail">详情</div>
 			</div>
-			<div class="my_resume resume_detail">
-				{{resume.resumeExperience | unescape}}
-			</div>
+			<div class="my_resume resume_detail" v-text="resume.resumeExperience"></div>
 			</div>
 			<div class="line"></div>
 			<!--课堂互动-->
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">课堂互动</span>
-				<div class="nav_more">更多</div>
+				<div v-if="courseStudents.length != 0" class="nav_more">更多</div>
 			</div>
 			<div class="dynamic_list_box">
-				<div class="dynamic_list" v-for="courseItem in courseStudents">
+				<div class="dynamic_list" v-for="courseItem in courseStudents" v-if="courseItem.courseFeedBack">
 					<div class="avatar">
 						<div class="avatar_box">
 							<img :src="imgUrl+courseItem.studentImage" />
@@ -539,33 +529,35 @@
 					</div>
 					<div class="more_text">
 						<div class="detail_box">
+							<div v-if="courseItem.courseFeedBack">
 							<div class="detail_list">
-								<div class="list_left">王小明</div>
+								<div class="list_left" v-text="courseItem.studentName"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">重点:</div>
-								<div class="list_right">{{courseItem.courseFeedBack.feedbackImportant}}</div>
+								<div class="list_right" v-text="courseItem.courseFeedBack.feedbackImportant || '暂无'"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">难点:</div>
-								<div class="list_right">{{courseItem.courseFeedBack.feedbackDifficult}}</div>
+								<div class="list_right" v-text="courseItem.courseFeedBack.feedbackDifficult || '暂无'"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">问题:</div>
-								<div class="list_right">{{courseItem.courseFeedBack.feedbackQuestion}}</div>
+								<div class="list_right" v-text="courseItem.courseFeedBack.feedbackQuestion || '暂无'"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">方案:</div>
-								<div class="list_right">{{courseItem.courseFeedBack.feedbackScheme}}</div>
+								<div class="list_right" v-text="courseItem.courseFeedBack.feedbackScheme || '暂无'"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left">作业:</div>
-								<div class="list_right">{{courseItem.courseFeedBack.feedbackHomework}}</div>
+								<div class="list_right" v-text="courseItem.courseFeedBack.feedbackHomework || '暂无'"></div>
 							</div>
 							<div class="detail_list">
 								<div class="list_left"></div>
 								<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"></div>
 							</div>
+						</div>
 							<!--课堂互动评论-->
 							<div class="list_footer">
 								<div class="footer_time">{{courseItem.courseFeedBack.feedbackDate}}</div>
@@ -586,7 +578,7 @@
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">他的动态</span>
-				<div class="nav_more">更多</div>
+				<div v-if="teacherNews.length != 0" class="nav_more">更多</div>
 			</div>
 			<div class="my_dynamic_list">
 				
@@ -597,25 +589,21 @@
 						</div>
 					</div>
 					<div class="more_text">
-						<div class="list_name">{{newItem.userName}}<img align="center" src="../images/teacher_list/dynamic.png" /></div>
-						<div class="list_signature">{{teacher.teacherWorld}}</div>
+						<div class="list_name">{{newItem.userName || '未登录'}}<img align="center" src="../images/teacher_list/dynamic.png" /></div>
+						<div class="list_signature">{{teacher.teacherWorld || '精勤博学，学以致用'}}</div>
 						<div class="list_cover">
 							<img :src="imgUrl+newItem.images" />
 						</div>
-						<div class="list_title">
-							{{newItem.content}}
-						</div>
-						<div class="list_content mui-ellipsis-1">
-							{{newItem.content}}
-						</div>
+						<div class="list_title" v-text="newItem.title || '未知'"></div>
+						<div class="list_content mui-ellipsis-1" v-text="newItem.content || '暂无'"></div>
 						<div class="list_footer">
-							<div class="footer_time">{{newItem.newscreateTime}}</div>
-							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> {{newItem.comments.length}}</div>
+							<div class="footer_time" v-text="newItem.newscreateTime"></div>
+							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /><span v-text="newItem.comments.length || 0"></span></div>
 						</div>
 						
 						<div class="list_commit">
 							<ul class="list_commit_ul">
-								<li v-for="commentItem2 in newItem.comments"><span>{{commentItem2.sourceUserName}}</span> 回复 <span>{{commentItem2.targetUserName}}：</span>{{commentItem2.comment}}</li>
+								<li v-for="commentItem2 in newItem.comments"><span v-text="commentItem2.sourceUserName"></span> 回复 <span v-text="commentItem2.targetUserName"></span><span>：</span><span v-text="commentItem2.comment"></span></li>
 							</ul>
 						</div>
 					</div>
@@ -665,13 +653,13 @@
 				<div class="course_description_list">
 					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课年级 :</div></div>
 					<div class="course_description_body">
-						<span>一年级</span>
+						<span v-text="teacher.teacherClass || '暂无'"></span>
 					</div>
 				</div>
 				<div class="course_description_list">
 					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课范围 :</div></div>
 					<div class="course_description_body nav_bottom">
-						<span>{{teacher.teacherRange}}</span>
+						<span v-text="teacher.teacherRange || '0km'"></span>
 					</div>
 				</div>
 			</div>
@@ -690,16 +678,28 @@
 			    listenReturn();
 			    //获取传递过来的数据(若有，则获取，若无，则请求)
 			     var self  = plus.webview.currentWebview();
-//			     if(self.teacherdata){
-			     	var teacherdata = self.teacherdata;
-				    console.log(teacherdata)
-				    teacherdata = JSON.parse(teacherdata);
-			     	vm.courseStudents = teacherdata.data.courseStudents;
+			    
+			     	var teacherdata = self.teacherdata;	
+			     	
+			     	teacherdata = JSON.parse(teacherdata);
+			     if(self.teacherdata.code == 200){				    
+			     	vm.courseStudents = teacherdata.data.courseStudents;		     	
 			     	vm.resume = teacherdata.data.resume;
+			     	var tag = teacherdata.data.teacher.teacherTag.trim();
+			     	//处理字符串
+			     	
+			     	var tagArr= new Array();
+			     	tagArr=tag.split("，");
+			     	teacherdata.data.teacher.teacherTag = tagArr;
+			     	
 			     	vm.teacher=teacherdata.data.teacher;
+			     	
 					vm.teacherNews=teacherdata.data.teacherNews;
+					
 					vm.imgUrl=ajaxUrl;
-//			     }
+			     }else{
+			     	plus.nativeUI.toast('暂未获取到教师信息！');
+			     }
 			    
 			    
 			    

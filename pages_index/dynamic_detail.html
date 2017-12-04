@@ -9,9 +9,6 @@
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style>
-			.content{
-				padding-bottom: 1.577777rem;
-			}
 			.detail_box{
 				background-color:#fefefe;
 				padding: 5%;
@@ -103,10 +100,8 @@
 	<body>
 		<div class="content" id="msg-content">
 			<div class="detail_box">
-				<div class="detail_title">{{contentDetail.content}}</div>
-				<div class="detail_content">
-					{{contentDetail.content}}
-				</div>
+				<div class="detail_title" v-text="contentDetail.title"></div>
+				<div class="detail_content" v-text="contentDetail.content"></div>
 				<div class="detail_avatar">
 					<img :src="contentDetail.imgUrl+contentDetail.images" />
 				</div>
@@ -118,12 +113,12 @@
 						<img :src="contentDetail.imgUrl+contentDetail.teacherImage" />
 					</div>
 				</div>
-				<div class="teacher_name">{{contentDetail.userName}}<img align="center" src="../images/teacher_list/female.png" /></div>
+				<div class="teacher_name"><span v-text="contentDetail.userName"></span><img align="center" src="../images/teacher_list/female.png" /></div>
 				<div class="teacher_list">
-					<span>教龄 ：{{teacherDetail.teacherAgeOfYear}}年</span><span>授课时长：{{teacherDetail.teacherTeachOfHour}} 小时</span><span>学生数：{{teacherDetail.studentNum}} 人</span>
+					<span>教龄 ：{{teacherDetail.teacherAgeOfYear || '0'}}年</span><span>授课时长：{{teacherDetail.teacherTeachOfHour|| '0'}} 小时</span><span>学生数：{{teacherDetail.studentNum|| '0'}} 人</span>
 				</div>
 				<div class="teacher_link">
-					<u id="teacher_link">点击查看详情</u>
+					<u id="teacher_link">点击查看详情</u> 
 				</div>
 			</div>
 			<!--取出加密值-->
@@ -160,9 +155,16 @@
 						type:'post'
 					}
 				ajax(ajaxData, function(data) {
-					vm.teacherDetail=data.data.teacher;
-					teacherData=data;
+					console.log('这是教师详情===',JSON.stringify(data))
 					dataFlag=true;
+					teacherData=data;
+					if(data.code == 200){
+						vm.teacherDetail=data.data.teacher;
+						vm.teacherNewsDetail = data.data.teacherNews[0];
+					}else{
+						plus.nativeUI.toast('暂未获取到教师信息！');
+					}
+					
 				},true);
 				
 			//点击查看详情
@@ -171,7 +173,7 @@
 				//避免还未获取到数据时，跳转为空			
 				if(dataFlag == true){
 					var teacherdata = JSON.stringify(teacherData);
-					openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherdata:teacherdata});								
+					openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherdata:teacherdata},'none');								
 				}
 			})				
 		})
@@ -180,7 +182,8 @@
 				el: '#msg-content',
 				data: {
 					contentDetail:{},
-					teacherDetail:{}//教师动态数据
+					teacherDetail:{},//教师动态数据
+					teacherNewsDetail:{}
 				}			
 			})
 		</script>

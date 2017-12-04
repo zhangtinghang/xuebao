@@ -42,7 +42,7 @@
 				width: 2.083333rem;
 				height: 2.083333rem;
 				margin: 0 auto;
-				border-radius:45px;
+				border-radius:90px;
 			}
 			.header_avatar img{
 				width: 100%;
@@ -197,11 +197,11 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img src="../images/me/head.png" />
+						<img :src="ajaxUrl+studentDetail.studentImage" />
 					</div>
 					<div class="header_name">
 						{{studentDetail.name}}
-						<img align="center" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjI5MzE5MDY0QjM0RTExRTdCMzM0RDVFQzkzMTM5NDBFIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjI5MzE5MDY1QjM0RTExRTdCMzM0RDVFQzkzMTM5NDBFIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjkzMTkwNjJCMzRFMTFFN0IzMzRENUVDOTMxMzk0MEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjkzMTkwNjNCMzRFMTFFN0IzMzRENUVDOTMxMzk0MEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4O4G+nAAADjUlEQVR42qRWaUhUURQ+782kTjqZ+yBKmVv1owJTME0kJcgoCaIgWiSlkhbqh1Hhj8iWn/0piCgpLGmjzKVBgkqNFHUybNGBJmxy1GrSacZlcrbOfXNn0Olt5gcf73GX87173rnnHKYvowokwCDXIzcjc5ApyAg6N4b8jHyDbES2IT1ixpQicyyyBHmaivAhjpJ8SAUVv4S8hXQLGeVDErIDeVNEjA8pdE8HtSFLMB/ZicyE/0cmtZEn5dKNyAZkUODCoMRIiNqfA2F5aaAIV3FjTvM4jLfo4dftdnAMWQK3RCOfI7cim/0BMSNo0pFdSHXgzsi92RB7rIB7n+wagInuAWAULIRmJYFqTSI3PnK+CSx1PXynHUeuRepnnlCBrOETiyrNhZjyfLC91MNIVQO4rHb/nPl6Kyhj1BB/rhg0lRjELAOWx28DTYRR29lIl+8f7uP7Z8HLor1iL/rBVPFwlpgPzp82MJbfganeQdCcKQJldJjQPy3xBQ1DQ/8fRB/K555DlU8ko8R08pHfIwI4RbRYGkm8oa/OT4ep9ybwTLskBUkAOUxjsKhwpdiVySOCRcJXn4HpAbPsuzBtHPVHsACKiOA6wWm3B4LTNbIFQ3Ct47tVbEk2EUwVmrXUv4OQtDhQRoZKigWnxoIC11m1H8SWpbEzEvE/MF9r4Z6JV3aJq6HrEy7v5F5Ha9rFVkawUoEwfLYegvGUSfcOcC4LhGpVAqQ0HoUFmnAYPHEfXDY7SFWLMZrxefG7sRfcdgfEX9gGS++WgfOHFWyv9BjfLKg3LOfcSES+HamFiY4vUp4fI6mN1LBcyaIYpICI7RmgLlgBqtXedDap+wrW5o982UUIbeSE7XIEyV0cre3kmFx3mBszHqyZaxVpJ4JNtHjygiTomOOFqIiF3OUBj9MFylhvyl1SXQKMEtOwkuWu0MjFJrB/GhYTfEaCppVWav6TudzgwX8ITjcnRgx7syHDvXNjSM8fB/dBIiAabb7yVIq8IdcvyU+9LjUUX52LO8tIN+C7FqQH6Za9lcHTsexcxHRUw99ikOy8hxZLSZCroFi8UK4YsbmbaszqafqRO0gOlrJg7xuGqR6jrHxObfbztRg+bEI+oJV6PhinYlqprk1LK7RuHmI6akMrty8lLsii0WuYg5CB7sma6Ua5nTfpnKtpdJFMtIXWzuSAVt9AW33SXr4W6rh9+CvAAIaFGr3khscwAAAAAElFTkSuQmCC" />
+						<img align="center" :src="studentDetail.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" />
 					</div>
 					<div class="header_age">
 						{{studentDetail.cityName}}&nbsp;&nbsp;|&nbsp;&nbsp;{{studentDetail.className}}
@@ -298,11 +298,11 @@
 							type:'post'
 					}
 					ajax(ajaxData, function(data) {
-						console.log('请求数据',JSON.stringify(data))
 							if(data.code == 401){
-								plus.nativeUI.toast('您还未登录哟！');
+//								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								vm.studentDetail = data.data;
+								vm.ajaxUrl = ajaxUrl;
 								studentData=data.data;
 							}else{
 								plus.nativeUI.toast('请求超时！');
@@ -328,7 +328,7 @@
 		    	switch(type)
 		    	{
 		    		case '1':
-		    		openView.nativeView('../pages_class_register/classroom_feedback.html', 'classroom_feedback', '课堂反馈');
+		    		openView.nativeView('../pages_class_register/classroom_feedback.html', 'classroom_feedback', '课堂反馈','','none');
 		    		break;
 		    		case '2':
 		    		//个人资料
@@ -353,7 +353,9 @@
 		var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					studentDetail:{}//教师动态数据
+					studentDetail:{},//教师动态数据
+					studentDetailImg:{},
+					ajaxUrl:''
 				}			
 			})
 	</script>

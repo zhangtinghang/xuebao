@@ -92,7 +92,7 @@
 			</div>
 			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
-					<li v-for="(value, key, index) in listBox">{{value}}</li>
+					<li v-for="(value, key, index) in listBox" :class="key == 0?'add_btn':''" v-text="value"></li>
 				</ul>
 			</div>
 			<!--<div class="content_list">

@@ -43,19 +43,23 @@
 	</head>
 
 	<body>
-		<div class="content">
-			<ul class="indent_list">
-				<li>
-					<div class="indent_list_title">班课课堂反馈</div>
-					<div class="indent_list_body"><span>语文-基础级</span><span class="classroom_time">2017-10-09</span></div>
-					<div class="indent_list_time">张老师</div>
-				</li>
-				<li>
-					<div class="indent_list_title">一对一课堂反馈</div>
-					<div class="indent_list_body"><span>语文</span><span class="classroom_time">2017-10-09</span></div>
-					<div class="indent_list_time">张老师</div>
-				</li>
-			</ul>
+		<div class="content" id="msg-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="indent_list">
+					<li>
+						<div class="indent_list_title">班课课堂反馈</div>
+						<div class="indent_list_body"><span>语文-基础级</span><span class="classroom_time">2017-10-09</span></div>
+						<div class="indent_list_time">张老师</div>
+					</li>
+					<li>
+						<div class="indent_list_title">一对一课堂反馈</div>
+						<div class="indent_list_body"><span>语文</span><span class="classroom_time">2017-10-09</span></div>
+						<div class="indent_list_time">张老师</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 		</div>
 		<!--取出加密值-->
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
@@ -66,12 +70,29 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						auto: true,
+						callback: pulldownRefresh
+					}
+				}
+			});
 			mui.plusReady(function () {
 				//监听返回
-			    listenReturn();
-			    
-			     //获取数据
+			    listenReturn();			
+			    mui('.indent_list').on('tap','li',function(){
+					openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
+			    })
+			})
+						/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				//获取数据
 			    var ajaxData = {
 					url:'restful1/course/getCourseFeedbackByStudentId',
 					data: {},
@@ -81,18 +102,16 @@
 					console.log('请求数据',JSON.stringify(data))
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}else if(data.code == 200){
 							vm.FeedbackByStudentId = data.data;
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}else{
 							plus.nativeUI.toast('请求超时！');
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}
 				},true); 
-				
-			    mui('.indent_list').on('tap','li',function(){
-					openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
-			    })
-			})
-			
+			}
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

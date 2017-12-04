@@ -35,16 +35,35 @@
 	<body>
 		<div>
 			<div class="title">我的邀请码</div>
-			<div class="content">XCH15394</div>
+			<div class="content" id="content"></div>
 		</div>
-		
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    //获取邀请码
+			    var ajaxData = {
+						url:'restful1/users/getInvite',
+						data: {},
+						type: 'post'
+					};
+				var content = document.getElementById("content");
+				ajax(ajaxData, function(data) {
+					if(data.code==200){
+						plus.nativeUI.toast(data.msg);
+						content.innerHTML=data.data.inviteCode;
+					}else{
+						content.innerHTML='';
+					}
+				},true);
 			})
 		</script>
 	</body>

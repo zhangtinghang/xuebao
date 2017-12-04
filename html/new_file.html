@@ -1,199 +1,91 @@
 <!doctype html>  
-
-<html>  
-
+<html> 
 <head>  
-
 <meta charset="utf-8">  
-
 <title>无标题文档</title>  
-
 <style>  
-
-  
-
-#content article {  
-
-    float: left;  
-
-    margin-right: 4%;  
-
-    max-width: 236px;  
-
-    position: relative;  
-
-    width: 22%;  
-
-    margin-bottom: 3.5%;  
-
-}  
-
-#content article:nth-child(4n+4) {  
-
-    margin-right: 0;  
-
-}  
-
-.post-format-content {  
-
-    position: relative;  
-
-    background: #111;  
-
-}  
-
-.post-thumbnail {  
-
-    max-width: 100%;  
-
-    height: auto;  
-
-    overflow: hidden;  
-
-}  
-
-.content-wrap {  
-
-    padding: 0;  
-
-    position: absolute;  
-
-    text-align: center;  
-
-    width: 100%;  
-
-    top: 0;  
-
-    bottom: 0;  
-
-    display: table-cell;  
-
-    vertical-align: middle;  
-
-    overflow: hidden;  
-
-}  
-
-.content-wrap h1.entry-title {  
-
-    display: table;  
-
-    font-size: 110%;  
-
-    height: 100%;  
-
-    text-transform: uppercase;  
-
-    width: 100%;  
-
-    margin:0;  
-
-}  
-
-.edit-link {  
-
-    z-index: 2;  
-
-}  
-
-.featured-image {  
-
-    display: table-cell;  
-
-    position: relative;  
-
-    transition: opacity .25s ease-in-out, background .25s ease-in-out;  
-
-    -moz-transition: opacity .25s ease-in-out, background .25s ease-in-out;  
-
-    -webkit-transition: opacity .25s ease-in-out, background .25s ease-in-out;  
-
-    vertical-align: middle;  
-
-    z-index: 1;  
-
-    color: #fff;  
-
-    text-decoration: none;  
-
-    opacity: 0;  
-
-    padding: 10%;  
-
-}  
-
-.featured-image:hover {  
-
-    opacity: 0.9;  
-
-    color: #fff;  
-
-    background: rgba(0,0,0,0.8);  
-
-}  
-
-.post-thumbnail img {  
-
-    display: block;  
-
-}  
-
-img {  
-
-    max-width: 100%;  
-
-    height: auto;  
-
-}  
-
-  
-
-</style>  
-
-</head>  
-
-  
-
+.input {
+    display: inline-block;
+    &:last-child {
+        border-right: 1px solid #999;
+    }
+    input {
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+        border-left: 1px solid #999;
+        width: 45px;
+        height: 45px;
+        outline:none;
+        font-family: inherit;
+        font-size: 28px;
+        font-weight: inherit;
+        text-align: center;
+        line-height: 45px;
+        color: #c2c2c2;
+        background: rgba(255,255,255,0);
+    }
+}
+</style>
+</head>
 <body>  
-
-<p id="content">  
-
-  
-
-<article  class="post-152 post type-post status-publish format-standard hentry category-people category-photos">  
-
-  <p class="post-format-content">  
-
-    <p class="post-thumbnail"> <img width="480" height="640" src="assets/img/1.jpg" class="attachment-thumbnail wp-post-image" alt="105694702"> </p>  
-
-    <p class="content-wrap">  
-
-      <h1 class="entry-title"><a href="" class="featured-image" rel="bookmark">Music & Fashion</a></h1>  
-
-    </p>  
-
-  </p>  
-
-</article>  
-
-<article  class="post-152 post type-post status-publish format-standard hentry category-people category-photos">  
-
-  <p class="post-format-content">  
-
-    <p class="post-thumbnail"> <img width="480" height="640" src="assets/img/2.jpg" class="attachment-thumbnail wp-post-image" alt="105694702"> </p>  
-
-    <p class="content-wrap">  
-
-      <h1 class="entry-title"><a href="" class="featured-image" title="amp; Fashion" rel="bookmark">Music & Fashion</a></h1>  
-
-    </p>  
-
-  </p>  
-
-</article>  
-
-</p>  
-
-</body>  
-
+	
+	<div class="input">
+    <input type="tel" placeholder="随" maxlength="1"><!-
+  -><input type="tel" placeholder="机" maxlength="1"><!-
+  -><input type="tel" placeholder="5" maxlength="1"><!-
+  -><input type="tel" placeholder="位" maxlength="1"><!-
+  -><input type="tel" placeholder="数" maxlength="1">
+</div>
+<script>
+	/**
+ * 模拟支付宝的密码输入形式
+ */
+(function (window, document) {
+    var active = 0,
+        inputBtn = document.querySelectorAll('input');
+    for (var i = 0; i < inputBtn.length; i++) {
+        inputBtn[i].addEventListener('click', function () {
+            inputBtn[active].focus();
+        }, false);
+        inputBtn[i].addEventListener('focus', function () {
+            this.addEventListener('keyup', listenKeyUp, false);
+        }, false);
+        inputBtn[i].addEventListener('blur', function () {
+            this.removeEventListener('keyup', listenKeyUp, false);
+        }, false);
+    }
+ 
+    /**
+     * 监听键盘的敲击事件
+     */
+    function listenKeyUp() {
+        var beginBtn = document.querySelector('#beginBtn');
+        if (!isNaN(this.value) && this.value.length != 0) {
+            if (active < 4) {
+                active += 1;
+            }
+            inputBtn[active].focus();
+        } else if (this.value.length == 0) {
+            if (active > 0) {
+                active -= 1;
+            }
+            inputBtn[active].focus();
+        }
+        if (active >= 4) {
+            var _value = inputBtn[active].value;
+            if (beginBtn.className == 'begin-no' && !isNaN(_value) && _value.length != 0) {
+                beginBtn.className = 'begin';
+                beginBtn.addEventListener('click', function () {
+                    calculate.begin();
+                }, false);
+            }
+        } else {
+            if (beginBtn.className == 'begin') {
+                beginBtn.className = 'begin-no';
+            }
+        }
+    }
+})(window, document);
+</script>
+</body>
 </html>  
