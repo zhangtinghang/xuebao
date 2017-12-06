@@ -103,16 +103,14 @@
 						type:'post'
 					}
 					ajax(ajaxData, function(data) {
-						console.log('请求数据',JSON.stringify(data))
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						console.log('我的订单页请求数据',JSON.stringify(data))
 							if(data.code == 401){
-								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								vm.orderlist = data.data;
-								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 								mui.toast('获取数据成功');
 							}else{
-								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 								plus.nativeUI.toast('请求超时！');
 							}
 					},true); 

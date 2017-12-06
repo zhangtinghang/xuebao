@@ -52,7 +52,7 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
 				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
@@ -74,16 +74,35 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    //获取传递参数
+			    var self  = plus.webview.currentWebview();
+			    var courseData = self.data;
+			    courseData=JSON.parse(courseData);
+			    
+			    vm.courseData = courseData;
 				//课堂反馈
 			    document.getElementById("courseFeedback").addEventListener('tap',function(){
 			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
 			    })
 			})
+			Vue.filter('courseStartDate',function(value){
+				var time = value.substr(value.lastIndexOf(' ') + 1);
+				return time;
+			})
+			
+			 var vm = new Vue({
+				el: '#msg-content',
+					data: {
+						courseData:{}//教师动态数据
+					}			
+				})
+			
 		</script>
 	</body>
 

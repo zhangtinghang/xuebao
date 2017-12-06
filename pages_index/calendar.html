@@ -259,8 +259,14 @@
 			</ul>		
 		</div>
 	</div>		
+	<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			//将单位数前加0
 			function todu(n) {
@@ -360,6 +366,19 @@
 				}, false);
 				
 			})
+			//获取网络数据
+			var timeOfMonth = todu(date.getFullYear()) + todu(date.getMonth() + 1);
+		    var ajaxData = {
+					url:'restful1/course/getCoursesByMonth',
+					data: {
+						timeOfMonth:timeOfMonth
+					},
+					type:'post'
+				}
+			ajax(ajaxData, function(data) {
+				console.log('这是课程列表===',JSON.stringify(data))		
+			},true);
+			
 			
 			//监听滑动
 				var bodyBox = document.getElementById("bodyBox");

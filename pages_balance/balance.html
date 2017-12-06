@@ -121,11 +121,11 @@
 
 	<body>
 		<div class="explain"><a id="come_popover" href="javascript:;">余额说明</a></div>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_show">
 				<div class="remaining_sum balance">可用余额</div>
-				<div class="money balance">800.50</div>
-				<div class="pay_msg"><span id="freeze">冻结金额：5000.50</span></div>
+				<div class="money balance"><span v-text="CourseByStudentId.account"></span> 学币</div>
+				<div class="pay_msg"><span id="freeze">冻结金额: <span v-text="CourseByStudentId.freeze"></span> 学币</span></div>
 			</div>
 			<div class="balance_btn">
 				<span id="Recharge" class="evaluate_btn">充值</span>
@@ -179,6 +179,7 @@
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
+							console.log('得到账户'+JSON.stringify(data))
 							vm.CourseByStudentId = data.data;
 						}else{
 							plus.nativeUI.toast('请求超时！');

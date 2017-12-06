@@ -11,6 +11,7 @@
 			.date_list{
 				padding: 3px 4%;
 				font-size: 0.333333rem;
+				background-color: #EFEFF4;
 			}
 			.content_list{
 				background-color: #FEFEFE;
@@ -42,30 +43,28 @@
 	</head>
 	<body>
 		<div class="content" id="msg-content">
-			<div class="date_list">9月</div>
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">			
 			<div class="content_list">
-				<ul class="content_list_ul">
+				<!--<ul class="content_list_ul">
+					<div class="date_list">9月</div>
 					<li>
 						<div class="list_time">18:20-19:20</div>
 						<div class="list_choose">【语文】一对一</div>
 						<div class="list_date">2017-09-10</div>
 					</li>
-					<li>
-						<div class="list_time">18:20-19:20</div>
-						<div class="list_choose">【语文】一对一</div>
-						<div class="list_date">2017-09-10</div>
+				</ul>-->
+				<ul class="content_list_ul" v-for="items in CourseByStudentId">
+					<!--<div class="date_list">9月</div>-->
+					<li v-for="item in items.courseSection" @tap="open_detail(items)">
+						<div class="list_time">{{item.courseStartDate | courseStartDate}}-{{item.courseEndDate | courseEndDate}}</div>
+						<div class="list_choose">【{{items.subjectName}}】{{items.courseTypeName}}</div>
+						<div class="list_date">{{item.courseEndDate}}</div>
 					</li>
-					<li>
-						<div class="list_time">18:20-19:20</div>
-						<div class="list_choose">【语文】一对一</div>
-						<div class="list_date">2017-09-10</div>
-					</li>
-					<li>
-						<div class="list_time">18:20-19:20</div>
-						<div class="list_choose">【语文】一对一</div>
-						<div class="list_date">2017-09-10</div>
-					</li>
-				</ul>				
+				</ul>	
+
+			</div>
+			</div>
 			</div>
 			<!--取出加密值-->
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
@@ -77,35 +76,64 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						auto: true,
+						callback: pulldownRefresh
+					}
+				}
+			});
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
-			    //获取数据
+			    
+			    mui('.content_list_ul').on('tap','li',function(){
+					openView.nativeView('course_detail.html','course_detail','课程详情');
+			    })
+			})
+			
+			function pulldownRefresh() {
+				//获取数据
 			    var ajaxData = {
 					url:'restful1/course/getCourseByStudentId',
 					data: {},
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log('请求数据',JSON.stringify(data))
-						if(data.code == 401){
-							plus.nativeUI.toast('您还未登录哟！');
-						}else if(data.code == 200){
-							vm.CourseByStudentId = data.data;
-						}else{
-							plus.nativeUI.toast('请求超时！');
-						}
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					if(data.code == 401){
+						plus.nativeUI.toast('您还未登录哟！');
+					}else if(data.code == 200){
+						vm.CourseByStudentId = data.data;
+					}else{
+						plus.nativeUI.toast('请求超时！');
+					}
 				},true); 
-				
-			    mui('.content_list_ul').on('tap','li',function(){
-					openView.nativeView('course_detail.html','course_detail','课程详情');
-			    })
+			}
+			
+			//老师动态详情
+			function open_detail(data){
+				var data = JSON.stringify(data);
+				openView.nativeView('course_detail.html','course_detail','课程详情',{data:data});
+			}
+			//过滤数据
+			Vue.filter('courseEndDate',function(value){
+				var time = value.substr(value.lastIndexOf(' ') + 1);
+				return time;
 			})
+			Vue.filter('courseStartDate',function(value){
+				var time = value.substr(value.lastIndexOf(' ') + 1);
+				return time;
+			})
+			
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					CourseByStudentId:{}//教师动态数据
+					CourseByStudentId:[]//教师动态数据
 				}			
 			})
 		</script>

@@ -641,7 +641,7 @@
 					}, //失败回调
 				});
 				//组合并存入数据库(消息和图片)
-				function telMessage(message){		
+				function telMessage(message){
 					var fromName = message.from;
 					var type = message.type;
 					var id = message.id;
@@ -711,7 +711,7 @@
 				},true);
 				
 				//登录状态检测 
-				if(!state || !state.data.key || !state.IM_token){ 
+				if(!state || !state.data.key || !state.IM_token){
 					openView.incView('login/login.html', 'login', '欢迎登陆');
 				}
 				

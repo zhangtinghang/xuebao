@@ -132,6 +132,7 @@
 				//预加载网络页面
 				plus.webview.prefetchURL(localUrl);
 				var type = self.type;
+				var organizationId = self.organizationId;
 				var state = app.getState();
 				//监听返回
 			    listenReturn();
@@ -149,6 +150,7 @@
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
+								console.log('huo===',JSON.stringify(data))
 								vm.listBox = data.data;
 							}else{
 								plus.nativeUI.toast('请求超时！');
@@ -164,7 +166,7 @@
 			    	switch(type){
 			    		case '0' :
 			    		//班课
-			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表');
+			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表',{type:type,organizationId:organizationId});
 			    		break;
 			    		case '1' :
 			    		//一对一

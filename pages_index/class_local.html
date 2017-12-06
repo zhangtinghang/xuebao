@@ -102,7 +102,7 @@
 							</div>
 						</div>
 					</li>
-					<li class="list_li"  v-for="item in listBox" >
+					<li class="list_li" :data-organizationId = "item.organizationId"  v-for="item in listBox" >
 						<div class="list_cover"><img align="center" :src="vm.ajaxUrl+item.image" /></div>
 						<div class="list_right">
 							<div class="list_title"><span v-text="item.organizationArea"></span><span class="title_right">{{item.longitude}}km</span></div>
@@ -152,7 +152,8 @@
 				
 				//进入筛选页面
 				mui('.list_ul').on('tap', '.list_li', function() {
-					openView.nativeView('localQue.html', 'localQue', '科目选择',{type:type});				
+					var organizationId = this.getAttribute('data-organizationId');
+					openView.nativeView('localQue.html', 'localQue', '科目选择',{type:type,organizationId:organizationId});				
 				})
 			});
 
@@ -195,7 +196,7 @@
 								plus.nativeUI.toast('请求超时！');
 							}
 				},true);
-				}else{
+				}else{ 
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 					plus.nativeUI.toast('亲，请登录哟！')
 				}
