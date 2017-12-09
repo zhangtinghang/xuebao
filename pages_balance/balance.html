@@ -124,8 +124,8 @@
 		<div class="content" id="msg-content">
 			<div class="content_show">
 				<div class="remaining_sum balance">可用余额</div>
-				<div class="money balance"><span v-text="CourseByStudentId.account"></span> 学币</div>
-				<div class="pay_msg"><span id="freeze">冻结金额: <span v-text="CourseByStudentId.freeze"></span> 学币</span></div>
+				<div class="money balance"><span v-text="CourseByStudentId.account||'0.00'"></span> 学币</div>
+				<div class="pay_msg"><span id="freeze">冻结金额: <span v-text="CourseByStudentId.freeze||'0.00'"></span> 学币</span></div>
 			</div>
 			<div class="balance_btn">
 				<span id="Recharge" class="evaluate_btn">充值</span>

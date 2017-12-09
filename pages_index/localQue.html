@@ -92,7 +92,7 @@
 			</div>
 			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
-					<li v-for="(value, key, index) in listBox" :class="key == 0?'add_btn':''" v-text="value"></li>
+					<li v-for="(value, key, index) in listBox" :class="key == 0?'add_btn':''" :data-type = "value" v-text="value"></li>
 				</ul>
 			</div>
 			<!--<div class="content_list">
@@ -109,15 +109,14 @@
 			<!--问题-->
 			<div class="question" id="question">
 				<u>问题不太清楚？学导师帮助</u>
-			</div>
-			
-			<!--取出加密值-->
-			<input type="text" style="visibility:hidden" id="getPassword" value="" />
+			</div>		
 			<div class="clear"></div>
 			<!--按钮-->
 			<div id="comeBtn" type="button" class="mui-btn mui-btn-block">下一步</div>
 			
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
@@ -133,6 +132,7 @@
 				plus.webview.prefetchURL(localUrl);
 				var type = self.type;
 				var organizationId = self.organizationId;
+				var subject = null;
 				var state = app.getState();
 				//监听返回
 			    listenReturn();
@@ -151,6 +151,7 @@
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								console.log('huo===',JSON.stringify(data))
+								subject = data.data[0];
 								vm.listBox = data.data;
 							}else{
 								plus.nativeUI.toast('请求超时！');
@@ -166,11 +167,11 @@
 			    	switch(type){
 			    		case '0' :
 			    		//班课
-			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表',{type:type,organizationId:organizationId});
+			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表');
 			    		break;
 			    		case '1' :
 			    		//一对一
-			    		openView.nativeView('subject_problem.html', 'subject_problem', '科目问题');
+			    		openView.nativeView('subject_problem.html', 'subject_problem', '科目问题',{'courseType':type,'organizationId':organizationId,'subject':subject});
 			    		break;
 			    		default :
 			    		//出现未知错误
@@ -200,6 +201,7 @@
 			   var list_ul = document.getElementById("list_ul");
 			   var list_li = document.getElementsByTagName('li');
 			   mui('.list_ul').on('tap','li',function(){
+			   	subject = this.getAttribute('data-type');
 				   	for(var i=0;i<list_li.length;i++){
 				   		list_li[i].classList.remove('add_btn');
 				   	}

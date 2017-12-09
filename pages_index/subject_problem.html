@@ -92,17 +92,17 @@
 			</div>
 			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
-					<li class="add_btn">其他问题</li>
-					<li>知识生疏型</li>
-					<li>上课走神型</li>
-					<li>苦学无效型</li>
-					<li>情绪波动型</li>
-					<li>被动学习型</li>
-					<li>实操能力不足型</li>
-					<li>思路不清型</li>
-					<li>懒惰躁动型</li>
-					<li>粗心大意型</li>
-					<li>基础薄弱型</li>				
+					<li data-type = "1" class="add_btn">其他问题</li>
+					<li data-type = "2">知识生疏型</li>
+					<li data-type = "3">上课走神型</li>
+					<li data-type = "4">苦学无效型</li>
+					<li data-type = "5">情绪波动型</li>
+					<li data-type = "6">被动学习型</li>
+					<li data-type = "7">实操能力不足型</li>
+					<li data-type = "8">思路不清型</li>
+					<li data-type = "9">懒惰躁动型</li>
+					<li data-type = "10">粗心大意型</li>
+					<li data-type = "11">基础薄弱型</li>			
 				</ul>
 			</div>
 
@@ -123,8 +123,15 @@
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    //监听传参
+			    var self  = plus.webview.currentWebview();
+			    var courseType = self.courseType;
+				var organizationId = self.organizationId;
+				var subject = self.subject;
+				console.log(subject)
+				var subjectType = '1';
 			  document.getElementById("comeBtn").addEventListener('tap',function(){
-			    	openView.nativeView('../pages_curricula_variable/teacher_list.html', 'teacher_list', '教师列表');
+			    	openView.nativeView('../pages_curricula_variable/teacher_list.html', 'teacher_list', '教师列表',{'courseType':courseType,'organizationId':organizationId,'subject':subject,'subjectType':subjectType});
 			   });
 			   
 			   //跳转咨询
@@ -136,6 +143,7 @@
 			   var list_ul = document.getElementById("list_ul");
 			   var list_li = document.getElementsByTagName('li');
 			   mui('.list_ul').on('tap','li',function(){
+			   		subjectType = this.getAttribute('data-type');
 				   	for(var i=0;i<list_li.length;i++){
 				   		list_li[i].classList.remove('add_btn');
 				   	}

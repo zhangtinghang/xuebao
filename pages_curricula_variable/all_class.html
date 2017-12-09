@@ -59,39 +59,61 @@
 		</style>
 	</head>
 	<body>
-		<div class="content">
-			<div class="list_ul">
+		<div class="content" id="msg-content">
+			<div class="list_ul" v-for="item in listBox">
+				<li><div class="dot"></div><span v-text="item.contentId"></span></li>
+				<li>上课时间：<span v-text="item.courseStartTime"></span>-<span v-text="item.courseEndTime"></span></li>
+				<li>上课时长：<span v-text="item.courseDuration"></span>分钟</li>
+				<li>上课费用：<span class="list_left_money" v-text="">5.0元/分钟</span></li>
+				<li><span>报名情况：<span class="list_left_num" v-text="item.incourse"></span>/<span v-text="item.peopleLimit"></span></span><span class="list_right">我要报名</span></li>
+			</div>
+			<!--<div class="list_ul">
 				<li><div class="dot"></div>少儿英语班</li>
 				<li>上课时间：2017年07月01日-07月31日</li>
 				<li>上课时长：24.0小时</li>
 				<li>上课费用：<span class="list_left_money">5.0元/分钟</span></li>
 				<li><span>报名情况：<span class="list_left_num">3</span>/5</span><span class="list_right">我要报名</span></li>
-			</div>
-			
-			<div class="list_ul">
-				<li><div class="dot"></div>初中英语班</li>
-				<li>上课时间：2017年07月01日-07月31日</li>
-				<li>上课时长：24.0小时</li>
-				<li>上课费用：<span class="list_left_money">5.0元/分钟</span></li>
-				<li><span>报名情况：<span class="list_left_num">3</span>/5</span><span class="list_right">我要报名</span></li>
-			</div>
-			
-			<div class="list_ul">
-				<li><div class="dot"></div>少儿英语班</li>
-				<li>上课时间：2017年07月01日-07月31日</li>
-				<li>上课时长：24.0小时</li>
-				<li>上课费用：<span class="list_left_money">5.0元/分钟</span></li>
-				<li><span>报名情况：<span class="list_left_num">3</span>/5</span><span class="list_right">我要报名</span></li>
-			</div>
+			</div>-->
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self  = plus.webview.currentWebview();
+			    var teacherId = self.teacherId;
+			    var ajaxData = {
+					url:'restful1/course/getAllClassCoursesByTeacherId',
+					data: {
+						teacherId:teacherId
+					},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					if(data.code == 401){
+						plus.nativeUI.toast('您还未登录哟！');
+					}else if(data.code == 200){
+						console.log('huo===',JSON.stringify(data))
+						vm.listBox = data.data;
+					}else{
+						plus.nativeUI.toast('请求超时！');
+					}
+				},true);
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					listBox: []
+				}			
 			})
 		</script>
 	</body>

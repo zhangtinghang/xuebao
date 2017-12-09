@@ -91,7 +91,7 @@
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<ul class="list_ul">
-					<li class="list_li">
+					<!--<li class="list_li">
 						<div class="list_cover"><img align="center" src="../images/local/chos_place_picture.png" /></div>
 						<div class="list_right">
 							<div class="list_title">教师上门</div>
@@ -101,11 +101,11 @@
 								<span>金泽录147号3楼建设银行上</span>
 							</div>
 						</div>
-					</li>
+					</li>-->
 					<li class="list_li" :data-organizationId = "item.organizationId"  v-for="item in listBox" >
 						<div class="list_cover"><img align="center" :src="vm.ajaxUrl+item.image" /></div>
 						<div class="list_right">
-							<div class="list_title"><span v-text="item.organizationArea"></span><span class="title_right">{{item.longitude}}km</span></div>
+							<div class="list_title"><span v-text="item.organizationArea"></span><span class="title_right"><span v-text="item.longitude"></span>km</span></div>
 							<div class="list_local" v-text="item.organizationArea"></div>
 							<div class="list_detail">
 								<img src="../images/local/position3.png" />

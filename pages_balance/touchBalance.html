@@ -41,44 +41,33 @@
 				font-size: 0.444444rem;
 				color: #333333;
 			}
+			.more_order{
+				text-align: center;
+				padding: 0.222222rem 0;
+				font-size: 0.388888rem;
+				color: #555555;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="content">
-			<div class="date_list">十月</div>
+		<div class="content" id="msg-content">
+			<div class="date_list">课程订单</div>
 			<div class="content_list">
 				<ul class="content_list_ul">
 					<li>
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">作文提高班</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
-							+1000 学币
+							-1000 学币
 						</div>
 					</li>
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-				</ul>				
+				</ul>
+				<div class="more_order">更多信息</div>
 			</div>
 			
-			<div class="date_list">九月</div>
+			<div class="date_list">充值订单</div>
 			<div class="content_list">
 				<ul class="content_list_ul">
 					<li>
@@ -90,35 +79,70 @@
 							+1000 学币
 						</div>
 					</li>
-					
+				</ul>
+				<div class="more_order">更多信息</div>
+			</div>
+			
+			<div class="date_list">提现订单</div>
+			<div class="content_list">
+				<ul class="content_list_ul">
 					<li>
 						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
+							<div class="list_title">提现成功</div>
 							<div class="list_time">2017-10-13 12 : 30</div>
 						</div>
 						<div class="list_right">
 							+1000 学币
 						</div>
 					</li>
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-				</ul>				
+				</ul>	
+				<div class="more_order">更多信息</div>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			mui.init({});
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //获取数据
+			    var ajaxData = {
+					url:'restful1/account/getAccountDetail',
+					data: {
+						type:"student"
+					},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('请求数据',JSON.stringify(data))
+						if(data.code == 401){
+							plus.nativeUI.toast('您还未登录哟！');
+						}else if(data.code == 200){
+							console.log('得到账户'+JSON.stringify(data))
+							vm.ordercourse = data.data.ordercourse;
+							vm.orderrecharges = data.data.orderrecharges;
+							vm.withdraw = data.data.withdraw;
+						}else{
+							plus.nativeUI.toast('请求超时！');
+						}
+				},true); 
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					ordercourse:[],//课程订单
+					orderrecharges:[],//充值订单
+					withdraw:[]//提现订单
+				}			
 			})
 		</script>
 	</body>

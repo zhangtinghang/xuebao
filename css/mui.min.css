@@ -43,3 +43,9 @@ body,html{
 	position: absolute;
 	bottom: 2px;
 }
+body,html{
+	height: 100%;
+}
+#msg-content{
+	height: 100%;
+}

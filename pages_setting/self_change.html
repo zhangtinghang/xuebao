@@ -34,8 +34,27 @@
 			    //监听返回
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
-			    var type = self.eg;
-			    document.getElementById("list_box").value=type;
+			    var view = self.getTitleNView();
+			    var eg = self.eg;
+			    var type = self.type;
+			    var list_box = document.getElementById("list_box");
+			    
+			    list_box.value=eg;
+			    //获得列表页面
+				var selfDetail = plus.webview.getWebviewById('selfDetail');
+				
+				//点击提交
+			    listenReturnRight('提交');				
+			    view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 60){
+					 	mui.fire(selfDetail,'change',{
+					    		type:type,
+					    		value:list_box.value
+					  	});
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
 			})
 		</script>
 	</body>

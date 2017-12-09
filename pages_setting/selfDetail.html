@@ -56,27 +56,104 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="../images/me/head.png" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li>
-					<li data-type = "2"><span>姓名</span><span class="right_btn">小明 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "3"><span>性别</span><span class="right_btn">男 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "4"><span>学校</span><span class="right_btn">青城一中 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "5"><span>年级</span><span class="right_btn">初一 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "6"><span>电话</span><span class="right_btn">17780632699 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "7"><span>区域</span><span class="right_btn">成都市 <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "8"><span>地址</span><span class="right_btn">都江堰青城山青城阳光2号楼东户 <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="imgUrl+studentData.studentImage" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li>
+					<li data-type = "2"><span>姓名</span><span class="right_btn"><span v-text="studentData.name"></span> <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "3"><span>性别</span><span class="right_btn"><span v-text="studentData.gender"></span> <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "4"><span>学校</span><span class="right_btn"><span v-text="studentData.school"></span> <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "5"><span>年级</span><span class="right_btn"><span v-text="studentData.className"></span> <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "6"><span>电话</span><span class="right_btn"><span v-text="studentData.mobilephone"></span> <img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "7"><span>区域</span><span class="right_btn"><span v-text="studentData.cityName"></span><img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "8"><span>地址</span><span class="right_btn"><span v-text="studentData.address"></span> <img src="../images/me/next_content.png" /></span></li>
 				</ul>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />	
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    //监听个人信息
+			    var self = plus.webview.currentWebview();
+			    var studentData = self.studentData;
+			    console.log('传递过来的信息',studentData)
+			   	studentData = JSON.parse(studentData);
+			   	vm.studentData = studentData.data;
+			   	vm.imgUrl = ajaxUrl;
+			   	
+			   	//提交资料审核
+			    listenReturnRight('提交审核','60px');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+					console.log('修改后的资料',JSON.stringify(studentData))
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
+			   	
+			   	//接收输入参数
+				window.addEventListener('change',function(event){
+				  var type = event.detail.type;
+				  var value = event.detail.value;
+				  switch (type){
+				  	case '2':
+		    			studentData.data.name = value;
+		    			vm.studentData.name = value;
+		    		break;
+	    			case '4':
+		    			studentData.data.school = value;
+		    			vm.studentData.school = value;
+		    		break;
+	    			case '6':
+	    				studentData.data.mobilephone = value;
+		    			vm.studentData.mobilephone = value;
+	    			break;
+	    			case '8':
+	    				studentData.data.address = value;
+		    			vm.studentData.address = value;
+	    			break;
+				  }
+				});
+				
+				//接收性别参数
+				window.addEventListener('sex',function(event){
+				  	var value = event.detail.value;
+				  	studentData.data.gender = value;
+		    		vm.studentData.gender = value;
+				});
+				
+				//接收年级参数
+				window.addEventListener('grade',function(event){
+					var value = event.detail.value;
+				  	studentData.data.className = value;
+		    		vm.studentData.className = value;
+				});
+				
+				//接收区域参数
+				window.addEventListener('address',function(event){
+					var value = event.detail.value;
+					studentData.data.cityName = value;
+		    		vm.studentData.cityName = value;
+				});
+				
+				//接收头像参数
+				window.addEventListener('avatar',function(event){
+					
+				});
+				
+			   	
 			    mui('.list_ul').on('tap','li',function(){
 			    	var type = this.getAttribute('data-type');
 			    	switch (type){
@@ -84,30 +161,38 @@
 			    		//切图
 			    			break;
 			    		case '2':
-			    			openView.nativeView('self_change.html', 'self_change', '姓名',{'eg':'小明'});
+			    			openView.nativeView('self_change.html', 'self_change', '姓名',{'eg':vm.studentData.name,'type':type});
 			    			break;
 			    		case '3':
-			    			openView.nativeView('self_change.html', 'self_change', '性别',{'eg':'男'});
+			    			openView.nativeView('sex_change.html', 'sex_change', '性别',{'eg':vm.studentData.gender,'type':type});
 			    			break;
 			    		case '4':
-			    			openView.nativeView('self_change.html', 'self_change', '学校',{'eg':'青城一中'});
+			    			openView.nativeView('self_change.html', 'self_change', '学校',{'eg':vm.studentData.school,'type':type});
 			    			break;
 			    		case '5':
-			    			openView.nativeView('grade_setting.html', 'grade_setting', '年级',{'eg':'初一'});
+			    			openView.nativeView('grade_setting.html', 'grade_setting', '年级',{'eg':vm.studentData.className,'type':type});
 			    			break;
 			    		case '6':
-			    			openView.nativeView('self_change.html', 'self_change', '电话',{'eg':'17780632699'});
+			    			openView.nativeView('self_change.html', 'self_change', '电话',{'eg':vm.studentData.mobilephone,'type':type});
 			    			break;
 			    		case '7':
-			    			openView.nativeView('self_change.html', 'self_change', '区域',{'eg':'成都市'});
+			    			openView.nativeView('../pages_index/localtion.html', 'localtion', '区域',{'eg':vm.studentData.cityName,'type':type});
 			    			break;
 		    			case '8':
-		    			openView.nativeView('self_change.html', 'self_change', '地址',{'eg':'都江堰青城山青城阳光2号楼东户'});
+		    				openView.nativeView('self_change.html', 'self_change', '地址',{'eg':vm.studentData.address,'type':type});
 		    			break;
 			    		default:
 			    			break;
 			    	}
 			    })
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					studentData:{},//教师动态数据
+					imgUrl:''
+				}			
 			})
 		</script>
 	</body>

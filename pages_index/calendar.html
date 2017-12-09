@@ -308,8 +308,7 @@
 						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text suCourse">完课</div></li>'
 					}else if(now_day < j){
 						html += '<li class="date_day"  date-day="' + j + '"><div class="circle">' + j + '</div><div class="course_text fuCourse">待上课</div></li>'
-					}
-					
+					}					
 				}
 				//获取当前周几
 				var str = "今天是星期" + "日一二三四五六".charAt(new Date().getDay());
@@ -379,7 +378,15 @@
 				console.log('这是课程列表===',JSON.stringify(data))		
 			},true);
 			
-			
+			//获取排课时间
+			var ajaxData = {
+					url:'restful1/course/getClassStatisticsByStudentId',
+					data: {},
+					type:'post'
+				}
+			ajax(ajaxData, function(data) {
+				console.log('这是课程列表2===',JSON.stringify(data))		
+			},true);
 			//监听滑动
 				var bodyBox = document.getElementById("bodyBox");
 				var dateList = document.getElementById("date-list");

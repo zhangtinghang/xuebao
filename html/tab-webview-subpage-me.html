@@ -197,14 +197,13 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img :src="ajaxUrl+studentDetail.studentImage" />
+						<img :src="ajaxUrl+studentDetail.studentImage || '../images/status/not_login_head.png'" />
 					</div>
-					<div class="header_name">
-						{{studentDetail.name}}
+					<div class="header_name" v-text="studentDetail.name || '未登录'">
 						<img align="center" :src="studentDetail.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" />
 					</div>
 					<div class="header_age">
-						{{studentDetail.cityName}}&nbsp;&nbsp;|&nbsp;&nbsp;{{studentDetail.className}}
+						<span v-text="studentDetail.cityName || '城市'"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<span v-text="studentDetail.className|| '年级'"></span>
 					</div>
 				</div>
 			</div>
@@ -274,11 +273,10 @@
 						</div>
 					</li>
 				</ul>
-			</div>
-			<!--取出加密值-->
-			<input type="text" style="visibility:hidden" id="getPassword" value="" />
+			</div>			
 		</div>
-	</body>
+	<!--取出加密值-->
+	<input type="text" style="visibility:hidden" id="getPassword" value="" />	
 	<script src="../js/mui.min.js"></script>
 	<script type="text/javascript" src="../js/config.js" ></script>
 	<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
@@ -303,7 +301,7 @@
 							}else if(data.code == 200){
 								vm.studentDetail = data.data;
 								vm.ajaxUrl = ajaxUrl;
-								studentData=data.data;
+								studentData=JSON.stringify(data);
 							}else{
 								plus.nativeUI.toast('请求超时！');
 							}
@@ -332,7 +330,7 @@
 		    		break;
 		    		case '2':
 		    		//个人资料
-		    		openView.nativeView('../pages_setting/selfDetail.html', 'selfDetail', '个人资料');
+		    		openView.nativeView('../pages_setting/selfDetail.html', 'selfDetail', '个人资料',{'studentData':studentData});
 		    		break;
 		    		case '3':
 		    		//拨打电话
@@ -359,4 +357,5 @@
 				}			
 			})
 	</script>
+</body>
 </html>

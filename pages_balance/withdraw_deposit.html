@@ -62,20 +62,53 @@
 			<div class="deposit_box balance">500.4 (元)</div>
 			<div class="deposit_title deposit">提现余额(最少5元，精确到小数点后两位)</div>
 			<div class="deposit_box">
-				<input type="text" class="deposit_input" id="" value="" placeholder="请输入金额" />
+				<input type="number" class="deposit_input" id="money_box" value="" placeholder="请输入金额" />
 			</div>
 			<div class="deposit_explain">
 				提现金额将会在15个工作日左右返回原充值账户
 			</div>
-			<button type="button" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
+			<button type="button" id="ConfirmButton" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //提现
+			    var money_box = document.getElementById("money_box");
+			    document.getElementById("ConfirmButton").addEventListener('tap',function(){
+			    if(money_box.value == ''||money_box.value == null){
+			    	plus.nativeUI.toast('请输入提现金额！');
+			    	return false;
+			    }
+			    //获取数据
+			    var ajaxData = {
+					url:'restful1/account/withdraw',
+					data: {
+						value:money_box.value
+					},
+					type:'get'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('请求数据',JSON.stringify(data))
+						if(data.code == 401){
+							plus.nativeUI.toast('您还未登录哟！');
+						}else if(data.code == 200){
+							console.log('得到账户'+JSON.stringify(data))
+						}else if(data.code == 201){
+							plus.nativeUI.toast(data.data);
+						}
+				},true); 
+			    })
 			})
 		</script>
 	</body>

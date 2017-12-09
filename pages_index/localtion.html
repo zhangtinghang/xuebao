@@ -60,29 +60,70 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="nav_list">
 				当前所在城市
 			</div>
 			<div class="list_box">
-				<div class="list_detail">成都市</div>
+				<div class="list_detail" v-text="nowCity"></div>
 			</div>
 			<div class="nav_list_2">
 				所有开通城市
 			</div>
 			<div class="list_box">
-				<div class="list_detail_2 add_btn">成都市</div>
-				<div class="list_detail_2">成都市</div>
+				<div class="list_detail_2" v-for="(value, key, index) in listCity" :data-type="value.cityName" :class="value.cityName == nowCity?'add_btn':''" v-text="value.cityName"></div>
+				<div class="list_detail_2" data-type="上海市">上海市</div>				
+				<!--<div class="list_detail_2">成都市</div>-->
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    //存取选择变量
+			    var flagAddress = null;
+			    //传参
+			    var self = plus.webview.currentWebview();
+			    var view = self.getTitleNView();
+			    var	eg = self.eg;
+			    var type = self.type;
+			    //从修改进入区域时，修改操作
+			    if(eg && type){
+			    	var selfDetail = plus.webview.getWebviewById('selfDetail');
+			    	vm.nowCity = eg;
+			    	flagAddress = eg;
+			    	//点击提交
+				    listenReturnRight('提交');				
+				    view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 60){
+					 	mui.fire(selfDetail,'address',{
+					    		value:flagAddress
+					  	});
+						//事件逻辑处理
+						mui.back();
+						}
+					}, false);
+			    }
+			    //查询当前城市
+				var ajaxData = {
+						url:'public/app/citys',
+						data: {},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							vm.listCity = data.data;
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},false); 
 			    //单选		    
 			    	var list_ul = document.getElementById("list_box");
 					var list_li = document.getElementsByClassName('list_detail_2');
@@ -95,8 +136,17 @@
 					   		that.classList.remove('add_btn');
 					   	}else{
 					   		that.classList.add('add_btn');
-					   	}	
+					   	}
+					   	flagAddress = this.getAttribute('data-type');
 				   })
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					listCity: [],
+					nowCity:''
+				}			
 			})
 		</script>
 	</body>

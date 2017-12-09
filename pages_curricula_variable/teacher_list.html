@@ -246,7 +246,7 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<!--顶部选择-->
 			<ul class="head_ul">
 				<li><a href="#Popover"><span class='title_text'>默认排序</span><img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
@@ -256,41 +256,34 @@
 			<!--教师列表-->
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li class="content_list_li">
-						<div class="recommend"><img src="../images/teacher_list/recommand_teacher.png" /></div>
+					
+					<li class="content_list_li" v-for="(value, key, index) in oneList">
+						<div class="recommend" v-if="index==0"><img src="../images/teacher_list/recommand_teacher.png" /></div>
 						<div class="list_header">
 							<!--头像-->
 							<div class="list_avatar">
-								<img src="../images/teacher_list/teacher_head.png" />
+								<img :src="imgUrl+value.teacher.teacherImage" />
 							</div>
 							<!--右边文字-->
 							<div class="list_title">
 								<div class="list_title_box">
-									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
+									<div class="list_title_text" v-text="value.teacher.name||未登录"></div>
+									<div class="list_title_img"><img align="center" :src="value.teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
 										
 									<ul class="list_title_ul">
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
+										<li class="list_title_li" v-for="value.teacher.teacherRank/2"><img src="../images/teacher_list/leval_star.png" /></li>
+										<li class="list_title_li" v-for="value.teacher.teacherRank%2"><img src="../images/teacher_list/level_star_half.png" /></li>
 									</ul>
 									<div class="list_title_right">
-										￥<span>5</span>/分钟
+										￥<span v-text="value.teacher.teacherRank || '暂无'"></span>/分钟
 									</div>
 								</div>	
 								<!--个性签名-->
-								<div class="signature">
-									没有更好，只有最好！
-								</div>
+								<div class="signature" v-text="value.teacher.teacherWorld">1</div>
 								<!--标签-->
 								<div class="list_label">
 									<ul class="list_label_ul">
-										<li class="list_label_li">8年教龄</li>
-										<li class="list_label_li">名师</li>
-										<li class="list_label_li">负责</li>
-										<li class="list_label_li">负责</li>
+										<li class="list_label_li" v-for="item in value.teacher.teacherTag" v-text="item">8年教龄</li>
 									</ul>
 								</div>
 							</div>							
@@ -299,131 +292,22 @@
 						<div class="list_item">
 							<ul class="list_item_ul">
 								<li>
-									<div class="list_item_num">5468</div>
+									<div class="list_item_num" v-text="value.teacher.teacherTeachOfHour|| '暂无'"></div>
 									<div class="list_item_text">授课时长/分</div>
 								</li>
 								<li>
-									<div class="list_item_num">686</div>
+									<div class="list_item_num" v-text="studentNum || '暂无'"></div>
 									<div class="list_item_text">学生数/人</div>
 								</li>
 								<li>
-									<div class="list_item_btn">可排课</div>
+									<div class="list_item_btn" style="color: #888888;" v-if="value.teacher.status == '0'">已结束</div>			
+									<div class="list_item_btn" v-else-if="value.teacher.status == '1'">正在上课</div>
+									<div class="list_item_btn" v-else-if="value.teacher.status == '2'">可排课</div>
 								</li>
 							</ul>
 						</div>
 					</li>
 					
-					<li class="content_list_li">
-						<div class="list_header">
-							<!--头像-->
-							<div class="list_avatar">
-								<img src="../images/teacher_list/teacher_head.png" />
-							</div>
-							<!--右边文字-->
-							<div class="list_title">
-								<div class="list_title_box">
-									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
-										
-									<ul class="list_title_ul">
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
-									</ul>
-									<div class="list_title_right">
-										￥<span>5</span>/分钟
-									</div>
-								</div>	
-								<!--个性签名-->
-								<div class="signature">
-									没有更好，只有最好！
-								</div>
-								<!--标签-->
-								<div class="list_label">
-									<ul class="list_label_ul">
-										<li class="list_label_li">8年教龄</li>
-										<li class="list_label_li">名师</li>
-										<li class="list_label_li">负责</li>
-										<li class="list_label_li">负责</li>
-									</ul>
-								</div>
-							</div>							
-						</div>
-						
-						<div class="list_item">
-							<ul class="list_item_ul">
-								<li>
-									<div class="list_item_num">5468</div>
-									<div class="list_item_text">授课时长/分</div>
-								</li>
-								<li>
-									<div class="list_item_num">686</div>
-									<div class="list_item_text">学生数/人</div>
-								</li>
-								<li>
-									<div class="list_item_btn">可排课</div>
-								</li>
-							</ul>
-						</div>
-					</li>
-					
-					<li class="content_list_li">
-						<div class="list_header">
-							<!--头像-->
-							<div class="list_avatar">
-								<img src="../images/teacher_list/teacher_head.png" />
-							</div>
-							<!--右边文字-->
-							<div class="list_title">
-								<div class="list_title_box">
-									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img align="center" src="../images/teacher_list/male.png" /></div>
-										
-									<ul class="list_title_ul">
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/leval_star.png" /></li>
-										<li class="list_title_li"><img src="../images/teacher_list/level_star_half.png" /></li>
-									</ul>
-									<div class="list_title_right">
-										￥<span>5</span>/分钟
-									</div>
-								</div>	
-								<!--个性签名-->
-								<div class="signature">
-									没有更好，只有最好！
-								</div>
-								<!--标签-->
-								<div class="list_label">
-									<ul class="list_label_ul">
-										<li class="list_label_li">8年教龄</li>
-										<li class="list_label_li">名师</li>
-										<li class="list_label_li">负责</li>
-										<li class="list_label_li">负责</li>
-									</ul>
-								</div>
-							</div>							
-						</div>
-						
-						<div class="list_item">
-							<ul class="list_item_ul">
-								<li>
-									<div class="list_item_num">5468</div>
-									<div class="list_item_text">授课时长/分</div>
-								</li>
-								<li>
-									<div class="list_item_num">686</div>
-									<div class="list_item_text">学生数/人</div>
-								</li>
-								<li>
-									<div class="list_item_btn">可排课</div>
-								</li>
-							</ul>
-						</div>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -467,13 +351,58 @@
 				</div>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
+			    
+			    //接收到参数
+			    var self  = plus.webview.currentWebview();
+			    var courseType = self.courseType;
+			    var organizationId = self.organizationId;
+			    var subject =1;
+//			     self.subject
+			    var subjectType = self.subjectType;
+			    var classId = 3;
+			    //网络请求
+			     //查询当前城市
+				var ajaxData = {
+						url:'restful1/course/getCoursesByType',
+						data: {
+							courseType:courseType,
+							organizationId:organizationId,
+							subject:subject,
+							subjectType:subjectType,
+							classId:classId
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200 && data.data.length!=0){
+							var tag = data.data.teacher.teacherTag.trim();
+					     	//处理字符串			     	
+					     	var tagArr= new Array();
+					     	tagArr=tag.split("，");
+					     	data.data.teacher.teacherTag = tagArr;
+					     	vm.oneList = data.data;
+							vm.imgUrl=ajaxUrl;
+						}else if(data.data.length==0){
+							plus.nativeUI.toast('获取数据为空！');
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+			    
 			    mui('.content_list_ul').on('tap','.content_list_li',function(){
 			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情');
 			    })
@@ -497,6 +426,14 @@
 			    	}
 			    	this.getElementsByClassName('list_img_box')[0].innerHTML = '<img src="../images/teacher_list/tick.png"/>';
 			    })
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					oneList:[],
+					imgUrl:''
+				}			
 			})
 		</script>
 	</body>
