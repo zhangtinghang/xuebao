@@ -403,28 +403,28 @@
 				var moveTop = -(listBoxToTop + dateListBoxToTop + liBoxHeight)+1;
 				//上滑
 				bodyBox.addEventListener('swipeup',function(){
-					dateList.style.transition="transform 500ms ease-out";
-					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
-					dateList.style.transform="translateY("+liBoxToTop+"px)";
-            		dateList.style.webkitTransform="-webkit-translateY("+liBoxToTop+"px)";       		
+					dateList.style.transition="-webkit-transform 500ms ease-out";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+					dateList.style.transform="-webkit-translateY("+liBoxToTop+"px)";
+            		dateList.style.webkitTransform="translateY("+liBoxToTop+"px)";       		
             		//列表
-            		list_box.style.transition="transform 500ms ease-out";       		
-            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		list_box.style.transform="translateY("+moveTop+"px)";
-            		list_box.style.webkitTransform="-webkit-translateY("+moveTop+"px)";
+            		list_box.style.transition="-webkit-transform 500ms ease-out";       		
+            		list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transform="-webkit-translateY("+moveTop+"px)";
+            		list_box.style.webkitTransform="translateY("+moveTop+"px)";
             		
 				});
 				//下滑
 				bodyBox.addEventListener('swipedown',function(){
 					dateList.style.transition="-webkit-transform 500ms ease-out";
-					dateList.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		dateList.style.transform="translateY(0)";
-            		dateList.style.webkitTransform="-webkit-translateY(0)";
+					dateList.style.webkitTransition="transform 500ms ease-out";
+            		dateList.style.transform="-webkit-translateY(0)";
+            		dateList.style.webkitTransform="translateY(0)";
             		//列表
-            		list_box.style.webkitTransition="-webkit-transform 500ms ease-out";
-            		list_box.style.transition="transform 500ms ease-out";
-            		list_box.style.webkitTransform="-webkit-translateY(0)";
-            		list_box.style.transform="translateY(0)";
+            		list_box.style.webkitTransition="transform 500ms ease-out";
+            		list_box.style.transition="-webkit-transform 500ms ease-out";
+            		list_box.style.webkitTransform="translateY(0)";
+            		list_box.style.transform="-webkit-translateY(0)";
 				});
 				
 				//修改当前周几

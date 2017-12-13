@@ -8,13 +8,12 @@
 	feedback.files = [];
 	feedback.uploader = null;  
 	feedback.deviceInfo = null; 
-	var url =ajaxUrl+ 'public/help/feedback';
+	var url =ajaxUrl+ '/public/help/feedback';
 	mui.plusReady(function() {
 		//设备信息，无需修改
 		feedback.deviceInfo = {
 			appid: plus.runtime.appid, 
 			imei: plus.device.imei, //设备标识
-			images: feedback.files, //图片文件
 			p: mui.os.android ? 'a' : 'i', //平台类型，i表示iOS平台，a表示Android平台。
 			md: plus.device.model, //设备型号
 			app_version: plus.runtime.version,
@@ -34,7 +33,7 @@
 	};
 	
 	feedback.addFile = function(path) {
-		feedback.files.push({file:path});
+		feedback.files.push({path:path});
 	};
 	
 	feedback.Img.addEventListener('tap', function(event) {
@@ -63,9 +62,10 @@
 					}, function(err) {});
 				break;
 				case 2:
-					plus.gallery.pick(function(path) {									
+					plus.gallery.pick(function(path) {
+						
 						for(var i in path.files){
-								lfs=path.files;
+								lfs=path.files[i];
 						    	feedback.addFile(lfs);
 					    	}
 					}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
@@ -77,12 +77,12 @@
 	//提交问题
 	feedback.questionBtn.addEventListener('tap', function(event) {
 		//事件逻辑处理					
-//		if (feedback.text.value == '') {
-//			return mui.toast('信息填写不符合规范');
-//		}
-//		if (feedback.text.value.length > 200) {
-//			return mui.toast('信息超长,请重新填写~')
-//		}
+		if (feedback.text.value == '') {
+			return mui.toast('信息填写不符合规范');
+		}
+		if (feedback.text.value.length > 200) {
+			return mui.toast('信息超长,请重新填写~')
+		}
 		//判断网络连接
 		if(plus.networkinfo.getCurrentType()==plus.networkinfo.CONNECTION_NONE){
 			return mui.toast("连接网络失败，请稍后再试");
@@ -90,8 +90,8 @@
 		feedback.send(mui.extend({}, {}, {
 			feedbackDesc: feedback.text.value,
 			contact: feedback.phone.value,
-			device: feedback.deviceInfo,
-			file: feedback.files
+			device: JSON.stringify(feedback.deviceInfo),
+//			file: feedback.files
 		}));
 //		mui.back();	
 	})
@@ -105,15 +105,16 @@
 			console.log("upload cb:"+upload.responseText);
 			if(status==200){
 				var data = JSON.parse(upload.responseText);
-				mui.toast('反馈成功~');
 				//上传成功，重置表单
-//				if (data.ret === 0 && data.desc === 'Success') {
-////					mui.toast('反馈成功~')
-//					console.log("upload success");
-////					feedback.clearForm();
-//				}
+				if (data.code === 200) {
+					mui.toast('反馈成功~')
+					mui.back();
+					feedback.clearForm();
+				}
 			}else{
 				console.log("upload fail");
+				console.log(status);
+				console.log(JSON.stringify(upload))
 			}
 			
 		});
@@ -128,9 +129,9 @@
 		//添加上传文件
 		mui.each(feedback.files, function(index, element) {
 			var f = feedback.files[index];
-			console.log("addFile:"+JSON.stringify(f));
+			console.log("addFile:"+JSON.stringify(f.path));
 			feedback.uploader.addFile(f.path, {
-				key: f.name
+				key: "file"
 			});
 		});
 		//开始上传任务
