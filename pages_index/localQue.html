@@ -92,7 +92,7 @@
 			</div>
 			<div class="content_list">
 				<ul id="list_ul" class="list_ul">
-					<li v-for="(value, key, index) in listBox" :class="key == 0?'add_btn':''" :data-type = "value" v-text="value"></li>
+					<li v-for="(value, key, index) in listBox" :class="key == 0?'add_btn':''" :data-type = "value.subjectId" v-text="value.subjectName"></li>
 				</ul>
 			</div>
 			<!--<div class="content_list">
@@ -132,7 +132,7 @@
 				plus.webview.prefetchURL(localUrl);
 				var type = self.type;
 				var organizationId = self.organizationId;
-				var subject = null;
+				var subject = '';
 				var state = app.getState();
 				//监听返回
 			    listenReturn();
@@ -144,14 +144,14 @@
 							data: {
 								className:className
 							},
-							type:'post'
+							type:'get'
 					}
 					ajax(ajaxData, function(data) {
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								console.log('huo===',JSON.stringify(data))
-								subject = data.data[0];
+								subject = data.data[0].subjectId;
 								vm.listBox = data.data;
 							}else{
 								plus.nativeUI.toast('请求超时！');

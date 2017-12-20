@@ -68,7 +68,7 @@
 								lfs=path.files[i];
 						    	feedback.addFile(lfs);
 					    	}
-					}, function(err) {}, {filter:"image",multiple:true,maximum:3,system:false});
+					}, function(err) {}, {filter:"image",multiple:true,maximum:1,system:false});
 				break;
 			}
 		});

@@ -58,8 +58,8 @@
 					<!--<div class="date_list">9月</div>-->
 					<li v-for="item in items.courseSection" @tap="open_detail(items)">
 						<div class="list_time">{{item.courseStartDate | courseStartDate}}-{{item.courseEndDate | courseEndDate}}</div>
-						<div class="list_choose">【{{items.subjectName}}】{{items.courseTypeName}}</div>
-						<div class="list_date">{{item.courseEndDate}}</div>
+						<div class="list_choose">【<span v-text="items.subjectName"></span>】<span v-text="items.courseTypeName"></span></div>
+						<div class="list_date" v-text="item.courseEndDate"></div>
 					</li>
 				</ul>	
 

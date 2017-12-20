@@ -59,7 +59,7 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="imgUrl+studentData.studentImage" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li>
+					<a href="#cropper-sheet"><li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src="imgUrl+studentData.studentImage" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li></a>
 					<li data-type = "2"><span>姓名</span><span class="right_btn"><span v-text="studentData.name"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "3"><span>性别</span><span class="right_btn"><span v-text="studentData.gender"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "4"><span>学校</span><span class="right_btn"><span v-text="studentData.school"></span> <img src="../images/me/next_content.png" /></span></li>
@@ -70,6 +70,34 @@
 				</ul>
 			</div>
 		</div>
+		<!--选择头像-->
+			<div id="cropper-sheet" class="mui-popover mui-popover-bottom mui-popover-action">
+			    <!-- 可选择菜单 -->
+			    <ul class="mui-table-view">
+			      	<li class="mui-table-view-cell">
+			        	<a data-type="camera">拍照</a>
+			      	</li>
+			      	<li class="mui-table-view-cell">
+			        	<a data-type="gallery">选择相册</a>
+			      	</li>
+			    </ul>
+			    <!-- 取消菜单 -->
+			    <ul class="mui-table-view">
+			      	<li class="mui-table-view-cell">
+			        	<a href="#cropper-sheet"><b style="color: #ff0000;">取消</b></a>
+			      	</li>
+			    </ul>
+			</div>	
+			
+			<div class="mui-cropper-modal mui-modal">
+				<div class="cropper-image-container">
+					<img id="image" src="" />
+				</div>
+				<div class="cropper-btn-group">
+					<span class="cropper-cancel">取消</span>
+					<span class="cropper-ok">裁剪</span>
+				</div>
+			</div>
 		<!--取出加密值-->
 		<input type="text" style="visibility:hidden" id="getPassword" value="" />	
 		<script src="../js/mui.min.js"></script>
@@ -78,6 +106,9 @@
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/upLoadMessage.js" ></script>
+		<script type="text/javascript" src="../js/mui.cropper.js" ></script>
+		<script type="text/javascript" src="../js/cropper.min.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
@@ -90,7 +121,8 @@
 			   	studentData = JSON.parse(studentData);
 			   	vm.studentData = studentData.data;
 			   	vm.imgUrl = ajaxUrl;
-			   	
+			   	//临时存照片变量
+			   	var imgFiles = [];
 			   	//提交资料审核
 			    listenReturnRight('提交审核','60px');
 			    var ws = plus.webview.currentWebview();
@@ -99,10 +131,39 @@
 				if(screen.width - e.clientX <= 60){
 					console.log('修改后的资料',JSON.stringify(studentData))
 						//事件逻辑处理
-						mui.back();
+						updataMessage(studentData,function(){
+							mui.back();
+						})
 					}
 				}, false);
 			   	
+			   //裁剪头像
+			mui('#cropper-sheet').on('tap','.mui-table-view-cell > a',function(){
+				var type = this.getAttribute('data-type');
+				switch (type){
+					case 'camera':
+						mui.captureImage(function(path){
+							var fullPath = mui.getLocalFileURL(path);
+							handleInit(fullPath);
+						})
+						break;
+					case 'gallery':
+						mui.pickGallery(function(path){
+							handleInit(path);
+						})
+						break;
+					default:
+						break;
+				}
+			})
+			   	
+				function handleInit(path){
+					var name = path.substr(path.lastIndexOf('/') + 1);
+					mui('#cropper-sheet').popover('toggle');
+					mui.cropper.show(path, function(dataUrl){
+						console.log('这是路劲'+JSON.stringify(dataUrl))
+					});
+				}
 			   	//接收输入参数
 				window.addEventListener('change',function(event){
 				  var type = event.detail.type;
@@ -158,7 +219,7 @@
 			    	var type = this.getAttribute('data-type');
 			    	switch (type){
 			    		case '1':
-			    		//切图
+//			    			avatar();
 			    			break;
 			    		case '2':
 			    			openView.nativeView('self_change.html', 'self_change', '姓名',{'eg':vm.studentData.name,'type':type});

@@ -85,42 +85,43 @@
 	</head>
 
 	<body>
-		<div class="content">
-			<div class="content_course">语文课反馈</div>
+		<div class="content" id="msg-content">
+			<div class="content_course"><span v-text="feedDetail.subjectName"></span>课反馈</div>
 			<div class="detail_box">
 				<div class="detail_list">
 					<div class="list_left">重点:</div>
-					<div class="list_right">本节课的重点在于对文言文的特殊语句的区分。</div>
+					<div class="list_right" v-text="feedDetail.feedbackImportant"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">难点:</div>
-					<div class="list_right">祈使句使用。</div>
+					<div class="list_right" v-text="feedDetail.feedbackDifficult"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">优点:</div>
-					<div class="list_right">学生对于祈使句理解有难度。</div>
+					<div class="list_right" v-text="feedDetail.feedbackQuestion"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">缺点:</div>
-					<div class="list_right">多加练习。</div>
+					<div class="list_right" v-text="feedDetail.feedbackScheme"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left">作业:</div>
-					<div class="list_right">文言文翻译。</div>
+					<div class="list_right" v-text="feedDetail.feedbackHomework"></div>
 				</div>
 				<div class="detail_list">
 					<div class="list_left"></div>
-					<div class="list_right"><img src="../images/logo.png"><img src="../images/logo.png"><img src="../images/logo.png"><img src="../images/logo.png"></div>
+					<div class="list_right"><img src="../images/logo.png"></div>
 				</div>
 			</div>
 			<div class="evaluate">
-				对本节课老师做个评价<span id="comment_btn" class="evaluate_btn">评价</span>
+				对本节课老师做个评价
+				<span id="comment_btn" :data-teacherId="feedDetail.teacherId" class="evaluate_btn">评价</span>
 			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
 			</div>
 			<div class="commit">
 				<ul class="commit_ul">
-					<li><span>我</span>：老师很负责，上课讲的很好</li>
-					<li><span>王老师</span>回复<span> 我</span>：好好复习。</li>
+					<!--<li><span>我</span>：老师很负责，上课讲的很好</li>-->
+					<li v-for="coItem in feedDetail.comments"><span v-text="coItem.commentSourceId"></span>回复 <span v-text="coItem.commentTargetName">：</span><span v-text="coItem.commentContent"></span></span></li>
 				</ul>
 			</div>
 		</div>
@@ -131,11 +132,33 @@
 			mui.plusReady(function (){
 				//监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var type = self.type;
+			    switch (type){
+			    	case '课堂详情':
+			    		
+			    		break;		    	
+			    	case '反馈历史':
+			    		vm.feedDetail = JSON.parse(self.dataDetail);
+			    		break;
+			    	default:
+			    		break;
+			    }
+			    
+			    
 				
 			    document.getElementById("comment_btn").addEventListener('tap',function(){
 			    	//传参
-			    	openView.nativeView('comment.html', 'comment', '发表评论');
+			    	var teacherId = this.getAttribute('data-teacherId');
+			    	openView.nativeView('comment.html', 'comment', '发表评论',{teacherId:teacherId});
 			    })
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					feedDetail:{}//教师动态数据
+				}			
 			})
 		</script>
 	</body>

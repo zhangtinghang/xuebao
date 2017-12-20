@@ -173,7 +173,7 @@
 				//避免还未获取到数据时，跳转为空			
 				if(dataFlag == true){
 					var teacherdata = JSON.stringify(teacherData);
-					openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherdata:teacherdata},'none');								
+					openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherdata:teacherdata,type:'动态'},'none');								
 				}
 			})				
 		})

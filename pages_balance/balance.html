@@ -120,7 +120,6 @@
 	</head>
 
 	<body>
-		<div class="explain"><a id="come_popover" href="javascript:;">余额说明</a></div>
 		<div class="content" id="msg-content">
 			<div class="content_show">
 				<div class="remaining_sum balance">可用余额</div>
@@ -139,6 +138,7 @@
 				</div>
 			</div>
 		</div>	
+		<div class="explain"><a id="come_popover" href="javascript:;">余额说明</a></div>
 		<div id="popover" class="mui-popover">
 				<div class="popover-box">
 					<div class="popover_title">余额说明</div>
@@ -216,8 +216,7 @@
 			    //点击遮罩触发事件
 				var pop = document.getElementById("popover");
 				var mask = mui.createMask(function() {
-					pop.classList.remove('mui-active');
-					
+					pop.classList.remove('mui-active');				
 				});
 			    var popover_btn = document.getElementById("popover_btn");
 			    popover_btn.addEventListener('tap',function(){
@@ -230,7 +229,7 @@
 				el: '#msg-content',
 				data: {
 					CourseByStudentId:{}//教师动态数据
-				}			
+				}
 			})
 		</script>
 	</body>

@@ -429,7 +429,7 @@
 					</div>
 				</div>
 			</div>
-
+<!--<button id="getRoasters">GetRoasters</button>-->
 			<!--老师动态-->
 			<div class="serve_nav">
 				<div class="nav_line"></div>
@@ -454,6 +454,7 @@
 					</li>
 				</ul>
 			</div>
+			
 			<!--取出加密值-->
 			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		</div>
@@ -639,7 +640,45 @@
 					onError: function(message) {
 						console.log('连接失败回调' + JSON.stringify(message))
 					}, //失败回调
+					onBlacklistUpdate: function (list) {       //黑名单变动
+        				// 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
+        				console.log('黑名单',list); 
+    				},
 				});
+				var getRoasters = document.getElementById("getRoasters");
+				
+//				getRoasters.addEventListener('tap',function(){
+//					getRoasters();
+//				})
+			// 获取好友列表
+    var getRoasters = function () {
+        var option = {
+            success: function (roster) {
+            console.log('获取到好友列表',JSON.stringify(roster))
+                // roster是所有好友，格式为：
+                /*
+                 [
+                 {
+                 jid:"easemob#chatdemoui_test1@easemob.com",
+                 name:"test1",
+                 subscription: "both"
+                 // subscription的值的集合是{both, to, from, none},
+                 // both表示互相在对方的好友列表中，
+                 // to 和 from意义待定
+                 // 如果添加对方为好友被拒绝则为none
+                 }
+                 ]
+                 */
+                for (var o in roster) {
+                    console.log("jid: ", roster[o].jid);
+                    console.log("name: ", roster[o].name);
+                    console.log("subscription: ", roster[o].subscription);
+                }
+            }
+        };
+        console.log('12')
+        conn.getRoster(option);
+    };
 				//组合并存入数据库(消息和图片)
 				function telMessage(message){
 					var fromName = message.from;
@@ -744,7 +783,7 @@
 				mui('#class_message_box').on('tap','.class_message',function(){
 					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
 				});				
-				
+				getPushInfo();
 				
 				//个推
 				function getPushInfo(){
@@ -757,15 +796,16 @@
 				}
 				listAllPush();
 				// 监听在线消息事件
-				    plus.push.addEventListener( "receive", function( msg ) {
-				    	console.log('监听到消息',JSON.stringify(msg))
-				    	mui.toast('这是接收的消息'+msg);
-				        if ( msg.aps ) {  // Apple APNS message
-				             mui.toast( "接收到在线APNS消息：" );
-				        } else {
-				             mui.toast( "接收到在线透传消息：" );
-				        }
-				    }, false );
+//				    plus.push.addEventListener( "receive", function( msg ) {
+//				    	console.log('监听到消息',JSON.stringify(msg))
+//				    	mui.toast('这是接收的消息'+msg);
+//				        if ( msg.aps ) {  // Apple APNS message
+//				             mui.toast( "接收到在线APNS消息：" );
+//				        } else {
+//				             mui.toast( "接收到在线透传消息：" );
+//				        }
+//				    }, false );
+
 				function listAllPush(){
 					var msgs=null;
 					switch ( plus.os.name ) {

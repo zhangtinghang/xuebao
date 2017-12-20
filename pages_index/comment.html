@@ -84,7 +84,8 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var teacherId = self.teacherId;
 			    //单选框
 			   var list_ul = document.getElementById("list_ul");
 			   var list_li = document.getElementsByClassName('evaluate_btn');

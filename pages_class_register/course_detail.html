@@ -55,19 +55,19 @@
 		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
+				<div class="list"><span class="list_left">课程名</span><span v-text="courseData.subjectName"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="courseData.teacherName"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="courseData.courseTypeName"></span></div>
 				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
 				<div class="list"><span class="list_left">课程进度</span><span>8/10</span></div>
 			</div>
 			
 			<div class="content_course course_remind">消费信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课日期</span><span>2017-10-10</span></div>
-				<div class="list"><span class="list_left">上课区间</span><span>09:20-10:20</span></div>
-				<div class="list"><span class="list_left">消费时长</span><span>59min</span></div>
-				<div class="list"><span class="list_left">消费金额</span><span>180.5学保币</span></div>
+				<div class="list"><span class="list_left">上课日期</span><span v-text="courseData.courseStartTime"></span></div>
+				<div class="list"><span class="list_left">上课区间</span><span>{{courseData.courseStartTime}}-{{courseData.courseEndTime | courseDate}}</span></div>
+				<div class="list"><span class="list_left">消费时长</span><span><span v-text="courseData.courseDuration"></span> min</span></div>
+				<div class="list"><span class="list_left">消费金额</span><span><span v-text=""></span> 学币</span></div>
 			</div>
 			
 			<div id="courseFeedback" class="content_course course_remind">课堂反馈</div>
@@ -88,13 +88,17 @@
 			    vm.courseData = courseData;
 				//课堂反馈
 			    document.getElementById("courseFeedback").addEventListener('tap',function(){
-			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
+			    	openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情',{type:'课堂详情'});
 			    })
 			})
-			Vue.filter('courseStartDate',function(value){
-				var time = value.substr(value.lastIndexOf(' ') + 1);
-				return time;
+			Vue.filter('courseDate',function(value){
+				if(value){ 
+					var time = value.substr(value.lastIndexOf(' ') + 1);
+					return time || '';
+				}
+				
 			})
+			
 			
 			 var vm = new Vue({
 				el: '#msg-content',

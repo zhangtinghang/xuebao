@@ -257,7 +257,7 @@
 			<div class="content_list">
 				<ul class="content_list_ul">
 					
-					<li class="content_list_li" v-for="(value, key, index) in oneList">
+					<li class="content_list_li" :data-teacherId = "value.teacher.id" v-for="(value, key, index) in oneList">
 						<div class="recommend" v-if="index==0"><img src="../images/teacher_list/recommand_teacher.png" /></div>
 						<div class="list_header">
 							<!--头像-->
@@ -369,8 +369,7 @@
 			    var self  = plus.webview.currentWebview();
 			    var courseType = self.courseType;
 			    var organizationId = self.organizationId;
-			    var subject =1;
-//			     self.subject
+			    var subject =self.subject;
 			    var subjectType = self.subjectType;
 			    var classId = 3;
 			    //网络请求
@@ -404,7 +403,8 @@
 				},true);
 			    
 			    mui('.content_list_ul').on('tap','.content_list_li',function(){
-			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情');
+			    	var teacherId = this.getAttribute('data-teacherId');
+			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情',{teacherId:teacherId,type:'一对一'},'none');
 			    })
 			    
 			    //排序点击事件

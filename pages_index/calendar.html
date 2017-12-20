@@ -379,15 +379,18 @@
 			},true);
 			
 			//获取排课时间
+			var state = app.getState();
 			var ajaxData = {
 					url:'restful1/course/getClassStatisticsByStudentId',
 					data: {},
 					type:'post'
 				}
+			
 			ajax(ajaxData, function(data) {
 				console.log('这是课程列表2===',JSON.stringify(data))		
-			},true);
-			//监听滑动
+			},true,true);
+			
+				//监听滑动
 				var bodyBox = document.getElementById("bodyBox");
 				var dateList = document.getElementById("date-list");
 				var now_day = date.getDate();

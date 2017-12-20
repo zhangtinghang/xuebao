@@ -47,16 +47,17 @@
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<ul class="indent_list">
-					<li>
-						<div class="indent_list_title">班课课堂反馈</div>
-						<div class="indent_list_body"><span>语文-基础级</span><span class="classroom_time">2017-10-09</span></div>
-						<div class="indent_list_time">张老师</div>
+					<li v-for="feedListItem in FeedbackByStudentId" @tap="open_detail(feedListItem)">
+						<div class="indent_list_title" v-text="feedListItem.courseType =='0'?'班课课堂反馈':'一对一课堂反馈'"></div>
+						<div class="indent_list_body" v-if="feedListItem.courseType =='0'"><span v-text="feedListItem.subjectName">-<span v-text="feedListItem.courseTypeName"></span></span><span class="classroom_time" v-text="feedListItem.courseEndTime"></span></div>
+						<div class="indent_list_body" v-if="feedListItem.courseType =='1'"><span v-text="feedListItem.subjectName"></span><span class="classroom_time" v-text="feedListItem.courseEndTime"></span></div>
+						<div class="indent_list_time" v-text="feedListItem.teacherName"></div>
 					</li>
-					<li>
+					<!--<li>
 						<div class="indent_list_title">一对一课堂反馈</div>
 						<div class="indent_list_body"><span>语文</span><span class="classroom_time">2017-10-09</span></div>
 						<div class="indent_list_time">张老师</div>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 		</div>
@@ -81,12 +82,12 @@
 					}
 				}
 			});
+			
+			var dataDetail = '';
+			
 			mui.plusReady(function () {
 				//监听返回
-			    listenReturn();			
-			    mui('.indent_list').on('tap','li',function(){
-					openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情');
-			    })
+			    listenReturn();
 			})
 						/**
 			 * 下拉刷新具体业务实现
@@ -99,23 +100,27 @@
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 					console.log('请求数据',JSON.stringify(data))
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
-							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							
 						}else if(data.code == 200){
 							vm.FeedbackByStudentId = data.data;
-							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+							dataDetail = data.data;
 						}else{
 							plus.nativeUI.toast('请求超时！');
-							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						}
 				},true); 
+			}
+			function open_detail(data){
+				var dataDetailStr = JSON.stringify(data);
+					openView.nativeView('../pages_index/classroom_detail.html','classroom_detail','课堂反馈详情',{type:'反馈历史',dataDetail:dataDetailStr});
 			}
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					FeedbackByStudentId:{}//教师动态数据
+					FeedbackByStudentId:[]//教师动态数据
 				}			
 			})
 		</script>

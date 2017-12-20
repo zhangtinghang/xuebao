@@ -50,18 +50,18 @@
 
 	<body>
 		<div class="content">
-			<ul class="list_ul">
-				<li>
+			<ul class="list_ul" id="msg-content">
+				<li v-for="item in dataList">
 					<div class="list_left">
-						<div class="left_title">数学一对一课程</div>
+						<div class="left_title"><span v-text="item.subjectName"></span><span v-text="item.contentId"></span></div>
 						<div class="left_num">5.0元/分钟</div>
 					</div>
-					<div class="list_right oneToOne">
+					<div class="list_right all_class">
 						报名
 					</div>
 				</li>
 				
-				<li>
+				<!--<li>
 					<div class="list_left">
 						<div class="left_title">数学一对一课程</div>
 						<div class="left_num">5.0元/分钟</div>
@@ -69,7 +69,7 @@
 					<div class="list_right oneToOne">
 						报名
 					</div>
-				</li>
+				</li>-->
 				
 				<li>
 					<div class="list_left">
@@ -81,7 +81,7 @@
 					</div>
 				</li>
 				
-				<li>
+				<!--<li>
 					<div class="list_left">
 						<div class="left_title">语文作文提高班(2)</div>
 						<div class="left_num">200.0元/分钟</div>
@@ -89,23 +89,55 @@
 					<div class="list_right all_class">
 						报名
 					</div>
-				</li>
+				</li>-->
 			</ul>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var teacherId = self.teacherid;
+			    
+			    var ajaxData = {
+					url:'restful1/course/getAllClassCoursesByTeacherId',
+					data: {
+						teacherId:teacherId
+					},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.code == 200){
+						vm.dataList = data.data;
+					}else{
+						plus.nativeUI.toast('获取课程信息失败！');
+					}
+				},true);
+			    
 			    mui('.list_ul').on('tap','.oneToOne',function(){
-			    	openView.nativeView('onetoone_sign.html', 'onetoone_sign', '一对一报名');
+			    	openView.nativeView('onetoone_sign.html', 'onetoone_sign', '一对一报名','','none');
 			    })
 			    mui('.list_ul').on('tap','.all_class',function(){
-			    	openView.nativeView('classApply.html', 'classApply', '班课报名');
-			    })
+			    	openView.nativeView('classApply.html', 'classApply', '班课报名','','none');
+			    }) 
 			    
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					dataList:[]
+				}
 			})
 		</script>
 	</body>

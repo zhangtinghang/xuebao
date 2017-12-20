@@ -1,5 +1,5 @@
 var ajaxUrl = 'http://120.77.245.43:8001/webapp';
-var ajax = function(ajaxData,callback,encrypt) {
+var ajax = function(ajaxData,callback,encrypt,userid) {
 	//判断网络
 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
 		plus.nativeUI.toast('似乎已断开与互联网的连接', {
@@ -12,6 +12,7 @@ var ajax = function(ajaxData,callback,encrypt) {
 	var commurl = 'http://120.77.245.43:8001/webapp/';
 	var encrypt = encrypt || false;
 	var dataJSON = ajaxData.data || '';
+	var userid = userid || false;
 	if(encrypt){
 		//需要加密 此时需要将传递过来的obj加密后再发起请求
 		var getPassword = document.getElementById("getPassword");
@@ -20,7 +21,11 @@ var ajax = function(ajaxData,callback,encrypt) {
 			return false;
 		}
 		var key = state.data.key;
-		dataJSON.userId = state.data.id;
+		if(!userid){
+			dataJSON.userId = state.data.id;
+		}else{
+			dataJSON.studentId = state.data.id;
+		}
 		dataJSON.timestamp = Date.parse(new Date());
 		//取出key相加后返回
 		var hashStr = encryptAdd(dataJSON);

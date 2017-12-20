@@ -46,58 +46,153 @@
 				padding: 0.222222rem 0;
 				font-size: 0.388888rem;
 				color: #555555;
+				background-color: #FEFEFE;
+			}
+			
+			/*框架调整*/
+			body,html{
+				height: 100%;
+				width: 100%;
+			}
+			.content{
+				height: 100%;
+			}
+			#segmentedControl{
+				border: none;
+				background-color: #FFFFFF;
+				padding: 0.388888rem 0;
+				border-bottom: 2px solid rgb(240,240,240);
+			}
+			.mui-segmented-control .mui-control-item.mui-active{
+				background-color: #FFFFFF;
+				color: #1b82d1;
+			}
+			.mui-segmented-control .mui-control-item{
+				line-height:0.616666rem;
+				border-left:1px solid #555555;
+				color: #555555;
+				font-size: 0.416666rem;
+			}
+			.list_box{
+				height: 100%;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="content" id="msg-content">
-			<div class="date_list">课程订单</div>
-			<div class="content_list">
-				<ul class="content_list_ul">
-					<li>
-						<div class="list_left">
-							<div class="list_title">作文提高班</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
+			<div class="list_box">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1">课程订单</a>
+					<a class="mui-control-item" href="#item2">充值订单</a>
+					<a class="mui-control-item" href="#item3">提现订单</a>
+				</div>
+				<div id="item1" class="mui-control-content mui-active">
+				<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						
+						<div class="content_list" v-for="orderItem in ordercourse">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title" v-text="orderItem.goodsAttr"></div>
+										<div class="list_time" v-text="orderItem.orderDate"></div>
+									</div>
+									<div class="list_right">-<span v-text="orderItem.shopPrize"></span>学币</div>
+								</li>
+							</ul>							
 						</div>
-						<div class="list_right">
-							-1000 学币
+						<div class="more_order" v-if="ordercourse.length>5">更多信息</div>
+						<!--<div class="content_list">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title">作文提高班</div>
+										<div class="list_time">2017-10-13 12 : 30</div>
+									</div>
+									<div class="list_right">
+										-1000 学币
+									</div>
+								</li>
+							</ul>							
+						</div>-->
+						
+					</div>
+				</div>
+			</div>
+				<div id="item2" class="mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						
+						<div class="content_list" v-for="orderItem in orderrecharges">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title" v-text="orderItem.payNote"></div>
+										<div class="list_time" v-text="orderItem.addTime"></div>
+									</div>
+									<div class="list_right">
+										+<span v-text="orderItem.orderAmount"></span> 学币
+									</div>
+								</li>
+							</ul>
+							
 						</div>
-					</li>
-				</ul>
-				<div class="more_order">更多信息</div>
+						<div class="more_order" v-if="orderrecharges.length>5">更多信息</div>
+						<!--<div class="content_list">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title">支付宝充值</div>
+										<div class="list_time">2017-10-13 12 : 30</div>
+									</div>
+									<div class="list_right">
+										+1000 学币
+									</div>
+								</li>
+							</ul>
+							
+						</div>-->
+						
+					</div>
+				</div>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						
+						<div class="content_list" v-for="drawItem in withdraw">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title" v-text="drawItem.withdrawDesc"></div>
+										<div class="list_time" v-text="drawItem.withdrawTime"></div>
+									</div>
+									<div class="list_right">
+										+<span v-text="drawItem.withdrawAmount"></span> 学币
+									</div>
+								</li>
+							</ul>					
+						</div>
+						<div class="more_order" v-if="withdraw.length>5">更多信息</div>
+						<!--<div class="content_list">
+							<ul class="content_list_ul">
+								<li>
+									<div class="list_left">
+										<div class="list_title">提现成功</div>
+										<div class="list_time">2017-10-13 12 : 30</div>
+									</div>
+									<div class="list_right">
+										+1000 学币
+									</div>
+								</li>
+							</ul>								
+						</div>-->
+						
+					</div>
+				</div>
+				</div>
 			</div>
 			
-			<div class="date_list">充值订单</div>
-			<div class="content_list">
-				<ul class="content_list_ul">
-					<li>
-						<div class="list_left">
-							<div class="list_title">支付宝充值</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-				</ul>
-				<div class="more_order">更多信息</div>
-			</div>
-			
-			<div class="date_list">提现订单</div>
-			<div class="content_list">
-				<ul class="content_list_ul">
-					<li>
-						<div class="list_left">
-							<div class="list_title">提现成功</div>
-							<div class="list_time">2017-10-13 12 : 30</div>
-						</div>
-						<div class="list_right">
-							+1000 学币
-						</div>
-					</li>
-				</ul>	
-				<div class="more_order">更多信息</div>
-			</div>
 		</div>
 		<!--取出加密值-->
 		<input type="text" style="visibility:hidden" id="getPassword" value="" />
@@ -122,11 +217,10 @@
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log('请求数据',JSON.stringify(data))
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
-							console.log('得到账户'+JSON.stringify(data))
+							console.log('得到账户余额明细'+JSON.stringify(data))
 							vm.ordercourse = data.data.ordercourse;
 							vm.orderrecharges = data.data.orderrecharges;
 							vm.withdraw = data.data.withdraw;
@@ -135,6 +229,18 @@
 						}
 				},true); 
 			})
+			
+			//修改框架高度
+			var dom = document.getElementsByClassName('mui-control-content');
+			var segmentedControl = document.getElementById("segmentedControl").offsetHeight;
+			var ViewHeight = document.body.offsetHeight;
+				for(var i=0,len=dom.length; i<len; i++){
+				    dom[i].style.height = ViewHeight-segmentedControl-2+'px';
+				}
+			
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
 			
 			var vm = new Vue({
 				el: '#msg-content',
