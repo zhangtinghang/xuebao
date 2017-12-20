@@ -105,7 +105,9 @@
 		"Payment": {
 			"description": "管理支付插件"
 		},
-		"Push": {},
+		"Push": {
+			"description": "管理推送消息插件"
+		},
 		"OAuth": {}
 	},
 	"plus": {
