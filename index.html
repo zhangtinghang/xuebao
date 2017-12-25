@@ -743,6 +743,7 @@
 					type: 'post'
 				}
 				ajax(ajaxData, function(data) {
+					console.log('这是教师动态===',JSON.stringify(data))
 					if(data.code == 200) {
 						data.imgUrl = ajaxUrl;
 						vm.teacherMessage = data;
@@ -788,29 +789,7 @@
 				mui('#class_message_box').on('tap', '.class_message', function() {
 					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
 				});
-				getPushInfo();
-
-				//个推
-				function getPushInfo() {
-					var info = plus.push.getClientInfo();
-					console.log("获取客户端推送标识信息：");
-					console.log("token: " + info.token);
-					console.log("clientid: " + info.clientid);
-					console.log("appid: " + info.appid);
-					console.log("appkey: " + info.appkey);
-				}
 				listAllPush();
-				// 监听在线消息事件
-//				plus.push.addEventListener("receive", function(msg) {
-//					console.log('监听到消息', JSON.stringify(msg))
-//					mui.toast('这是接收的消息' + msg);
-//					var mess = JSON.stringify(msg);
-//					if(msg.aps) { // Apple APNS message
-//						mui.toast("接收到在线APNS消息：", mess);
-//					} else {
-//						mui.toast("接收到在线透传消息：", mess);
-//					}
-//				}, false);
 
 				// 监听点击消息事件
 				plus.push.addEventListener( "click", function( msg ) {
@@ -856,6 +835,9 @@
 						alert( "aps: "+JSON.stringify(msg.aps) );
 					}
 				}
+			
+				//更新个推
+				updateClient();
 			});
 
 			function listAllPush() {
@@ -878,6 +860,25 @@
 				}
 			}
 			
+			//更新个推
+			function updateClient(){
+				var info = plus.push.getClientInfo();
+				var clientid = info.clientid;
+				var ajaxData2 = {
+				url:'restful1/users/updatePushClientId',
+				data: { 
+					clientId:clientid
+				},
+				type:'post'
+				}								
+				ajax(ajaxData2, function(data) {
+					if(data.code==200){
+						console.log('个推更新成功！');
+						mui.toast(data.msg); 
+					}else{
+					}
+				},true);
+			}
 
 			//老师动态详情
 			function open_detail(data) {

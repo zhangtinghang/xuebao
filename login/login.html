@@ -104,7 +104,6 @@
 			
 			<button type="button" id="logins" class="mui-btn mui-btn-block">登录</button>
 			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
-
 		</div>
 		<!--引入环信SDK-->
 		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
@@ -155,14 +154,17 @@
 							        state.phone = doc.phone.value;
 							        app.setState(state);
 							        mui.back();
+							        
 							    },
 							    error: function(data){
 							    	plus.nativeUI.toast('登录失败，请稍后再试！');
 							    }
 							};
 							
+							
+							
 							ajax(ajaxData, function(data) {
-								console.log(JSON.stringify(data))
+								console.log('2222',JSON.stringify(data))
 								if(data.code == 200){
 									plus.nativeUI.toast(data.msg);
 									state.data = data.data;
@@ -188,7 +190,14 @@
 				})
 			})
 			
-				
+//				function getPushInfo() {
+//					var info = plus.push.getClientInfo();
+//					console.log("获取客户端推送标识信息：");
+//					console.log("token: " + info.token);
+//					console.log("clientid: " + info.clientid);
+//					console.log("appid: " + info.appid);
+//					console.log("appkey: " + info.appkey);
+//				}
 		</script>
 	</body>
 

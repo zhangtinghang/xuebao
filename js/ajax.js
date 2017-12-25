@@ -1,4 +1,4 @@
-var ajaxUrl = 'http://120.77.245.43:8001/webapp';
+var ajaxUrl = 'http://118.126.109.71:8080/webapp';
 var ajax = function(ajaxData,callback,encrypt,userid) {
 	//判断网络
 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
@@ -9,7 +9,8 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 	}
 	//数据处理
 	var state = app.getState();
-	var commurl = 'http://120.77.245.43:8001/webapp/';
+	console.log('这是存的本地数据',JSON.stringify(state))
+	var commurl = 'http://118.126.109.71:8080/webapp/';
 	var encrypt = encrypt || false;
 	var dataJSON = ajaxData.data || '';
 	var userid = userid || false;
