@@ -208,7 +208,7 @@
 			    
 			    var w=null;
 				var ALIPAYSERVER='restful1/payment/alipay/paymentrequest';
-				var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+				var WXPAYSERVER='restful1/payment/weixin/paymentrequest';
 				// 支付
 				// 2. 发起支付请求
 				function pay(id,channel){
@@ -234,17 +234,15 @@
 						type:'post'
 						}
 				    ajax(ajaxData, function(data) {
-				    		callbackData=data.data;
+				    		var callbackData=data.data;
 				    		console.log('这是返回数据===',JSON.stringify(data))
 							requestPay(channel,callbackData);
 						},true);
 					// 请求支付操作
 					function requestPay(channel,callbackData){
-						console.log('这是传递的支付信息===',JSON.stringify(channel))
 						console.log('这是服务器返回的信息===',JSON.stringify(callbackData))
 						// 必须从业务服务器获取支付信息
-						var callback = 'alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=io.dcloud.xuebao&biz_content=%7B%22body%22%3A%22%E5%AD%A6%E4%BF%9D%E5%B8%81%E5%85%85%E5%80%BC%22%2C%22out_trade_no%22%3A%22951511710232563%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E6%94%AF%E4%BB%98%E5%AE%9D%28%E6%89%8B%E6%9C%BA%E7%89%88%29%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%22100.0%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=https%3A%2F%2F127.0.0.1%3A8099%2Fpublic%2Fpayment%2Falipay%2Fcallback&sign=RgNaqIcOr8Fqac9hb6QoRFnM4hzzy1p5RwV9g3bk6GoXsszLj9PNc3igO4w%2BFmuMzFZ76XxUQjHAk6MgpjWIYyyAk2%2BLE3Dd5hNYdQQl3egmrfuhfTYqVZQYYuBCamMWEOntacJNtYFxINInZzSiwiimQuOZkGgNEqEBV0LrCRI%3D&sign_type=RSA2&timestamp=2017-11-26+23%3A31%3A28&version=1.0';
-						plus.payment.request(channel, callback, function(){
+						plus.payment.request(channel, callbackData, function(){
 							alert("支付操作成功！");
 						}, function(e){
 							alert("支付失败："+e.message);

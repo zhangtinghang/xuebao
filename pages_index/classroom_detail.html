@@ -118,16 +118,21 @@
 				<span id="comment_btn" :data-teacherId="feedDetail.teacherId" class="evaluate_btn">评价</span>
 			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
 			</div>
-			<div class="commit">
+			<div class="commit" v-if="feedDetail.comments !=0 ">
 				<ul class="commit_ul">
 					<!--<li><span>我</span>：老师很负责，上课讲的很好</li>-->
-					<li v-for="coItem in feedDetail.comments"><span v-text="coItem.commentSourceId"></span>回复 <span v-text="coItem.commentTargetName">：</span><span v-text="coItem.commentContent"></span></span></li>
+					<li v-for="coItem in feedDetail.comments"><span v-text="coItem.commentSourceName"></span>回复 <span v-text="coItem.commentTargetName"></span>：<span v-text="coItem.commentContent"></span></span></li>
 				</ul>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function (){
@@ -137,7 +142,7 @@
 			    var type = self.type;
 			    switch (type){
 			    	case '课堂详情':
-			    		
+			    		getCourseDetail();
 			    		break;		    	
 			    	case '反馈历史':
 			    		vm.feedDetail = JSON.parse(self.dataDetail);
@@ -145,8 +150,25 @@
 			    	default:
 			    		break;
 			    }
-			    
-			    
+			    //课堂详情获取数据
+			    function getCourseDetail(){
+			    	var ajaxData = {
+						url:'restful1/course/getCourseFeedbackByStudentId',
+						data: {},
+						type:'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log('请求数据',JSON.stringify(data))
+							if(data.code == 401){
+								plus.nativeUI.toast('您还未登录哟！');
+								
+							}else if(data.code == 200){
+								vm.feedDetail = data.data;
+							}else{
+								plus.nativeUI.toast('请求超时！');
+							}
+					},true);
+			    }
 				
 			    document.getElementById("comment_btn").addEventListener('tap',function(){
 			    	//传参
@@ -158,7 +180,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					feedDetail:{}//教师动态数据
+					feedDetail:{},
+					feedImg:[]
 				}			
 			})
 		</script>

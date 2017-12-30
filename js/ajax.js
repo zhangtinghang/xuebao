@@ -9,7 +9,6 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 	}
 	//数据处理
 	var state = app.getState();
-	console.log('这是存的本地数据',JSON.stringify(state))
 	var commurl = 'http://118.126.109.71:8080/webapp/';
 	var encrypt = encrypt || false;
 	var dataJSON = ajaxData.data || '';

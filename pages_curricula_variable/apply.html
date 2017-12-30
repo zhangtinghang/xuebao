@@ -54,9 +54,9 @@
 				<li v-for="item in dataList">
 					<div class="list_left">
 						<div class="left_title"><span v-text="item.subjectName"></span><span v-text="item.contentId"></span></div>
-						<div class="left_num">5.0元/分钟</div>
+						<div class="left_num"><span v-text="item.coursePrice.courseprice"></span>元/分钟</div>
 					</div>
-					<div class="list_right all_class">
+					<div class="list_right" :class="item.courseType == 0?'all_class':'oneToOne'">
 						报名
 					</div>
 				</li>
@@ -109,7 +109,7 @@
 			    var teacherId = self.teacherid;
 			    
 			    var ajaxData = {
-					url:'restful1/course/getAllClassCoursesByTeacherId',
+					url:'restful1/course/getAllCoursesByTeacherId',
 					data: {
 						teacherId:teacherId
 					},

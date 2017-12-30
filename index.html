@@ -511,7 +511,6 @@
 				drawNativeIcon.addEventListener('click', function(e) {
 					shareWebview();
 				});
-				// 中间凸起图标绘制及监听点击完毕
 
 				// 创建子webview窗口 并初始化
 				var aniShow = {};
@@ -681,7 +680,6 @@
 							}
 						}
 					};
-					console.log('12')
 					conn.getRoster(option);
 				};
 				//组合并存入数据库(消息和图片)
@@ -756,7 +754,7 @@
 				}, true);
 
 				//登录状态检测 
-				if(!state || !state.data || !state.IM_token ) { 
+				if(!state || !state.data || !state.IM_token ) {
 					openView.incView('login/login.html', 'login', '欢迎登陆');
 				}
 
