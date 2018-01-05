@@ -99,14 +99,14 @@
 	 **/
 	owner.setSettings = function(settings) {
 		settings = settings || {};
-		localStorage.setItem('$settings', JSON.stringify(settings));
+		localStorage.setItem('$settings_stu', JSON.stringify(settings));
 	}
 
 	/**
 	 * 设置应用本地配置
 	 **/
 	owner.getSettings = function() {
-			var settingsText = localStorage.getItem('$settings') || "{}";
+			var settingsText = localStorage.getItem('$settings_stu') || "{}";
 			return JSON.parse(settingsText);
 	}
 

@@ -18,7 +18,9 @@
 				font-size: 0.444444rem;
 				color: #333333;
 				border-bottom: 1px solid rgba(240,240,240,1) !important;
-				
+			}
+			.list_li_left{
+				width: 60%;
 			}
 		</style>
 	</head>
@@ -26,7 +28,8 @@
 	<body>
 		<div class="content" id="msg-content">
 			<ul class="list_ul">
-				<li v-for="item in sliderList"><span v-text="item.carouselContent"></span><span v-text="item.carouselTime"></span></li>
+				<li v-for="item in sliderList"><span class="list_li_left mui-ellipsis-1" v-text="item.carouselContent"></span><span>{{item.carouselTime | courseTime}}</span></li>
+				<!--<li><span class="list_li_left mui-ellipsis-1">1322222222222222222222222222222222222222222222</span><span>1321</span></li>-->
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -55,7 +58,15 @@
 					}						
 				});
 			})
-			
+			Vue.filter('courseTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

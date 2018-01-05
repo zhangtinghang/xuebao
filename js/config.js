@@ -17,9 +17,6 @@ var openView = {
 			waiting:{
 				autoShow:false
 			},
-			show:{
-		      duration:'50'//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
-    		},
 			styles: {
 				bounce:bounce,
 				titleNView: {

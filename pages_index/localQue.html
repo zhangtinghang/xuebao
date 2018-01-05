@@ -137,8 +137,8 @@
 				//监听返回
 			    listenReturn();
 				//相关数据处理
-				if(state.data){  
-					var className = '幼小'; 
+				if(state.data){
+					var className = state.data.className;
 					var ajaxData = {
 							url:'restful1/subject/selectSubject',
 							data: {
@@ -147,10 +147,10 @@
 							type:'post'
 					}
 					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
-								console.log('huo===',JSON.stringify(data))
 								subject = data.data[0].subjectId;
 								vm.listBox = data.data;
 							}else{
@@ -167,7 +167,7 @@
 			    	switch(type){
 			    		case '0' :
 			    		//班课
-			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表');
+			    		openView.nativeView('../pages_curricula_variable/teacher_list_2.html', 'teacher_list_2', '教师列表',{'courseType':type,'organizationId':organizationId,'subject':subject});
 			    		break;
 			    		case '1' :
 			    		//一对一

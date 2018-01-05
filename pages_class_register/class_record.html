@@ -90,10 +90,6 @@
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
-			    
-			    mui('.content_list_ul').on('tap','li',function(){
-					openView.nativeView('course_detail.html','course_detail','课程详情');
-			    })
 			})
 			
 			function pulldownRefresh() {
@@ -122,12 +118,18 @@
 			}
 			//过滤数据
 			Vue.filter('courseEndDate',function(value){
-				var time = value.substr(value.lastIndexOf(' ') + 1);
-				return time;
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
 			})
 			Vue.filter('courseStartDate',function(value){
-				var time = value.substr(value.lastIndexOf(' ') + 1);
-				return time;
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
 			})
 			
 			var vm = new Vue({

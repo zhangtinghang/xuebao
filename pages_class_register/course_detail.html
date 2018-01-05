@@ -63,8 +63,8 @@
 			
 			<div class="content_course course_remind">消费信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课日期</span><span v-text="courseData.courseStartTime"></span></div>
-				<div class="list"><span class="list_left">上课区间</span><span>{{courseData.courseStartTime}}-{{courseData.courseEndTime | courseDate}}</span></div>
+				<div class="list"><span class="list_left">上课日期</span><span>{{courseData.courseStartTime | dateTime}}</span></div>
+				<div class="list"><span class="list_left">上课区间</span><span>{{courseData.courseStartTime | courseDate}} - {{courseData.courseEndTime | courseDate}}</span></div>
 				<div class="list"><span class="list_left">消费时长</span><span><span v-text="courseData.courseDuration"></span> min</span></div>
 				<div class="list"><span class="list_left">消费金额</span><span><span v-text=""></span> 学币</span></div>
 			</div>
@@ -82,6 +82,7 @@
 			    //获取传递参数
 			    var self  = plus.webview.currentWebview();
 			    var courseData = self.data;
+			    console.log(courseData)
 			    courseData=JSON.parse(courseData);
 			    
 			    vm.courseData = courseData;
@@ -91,14 +92,22 @@
 			    })
 			})
 			Vue.filter('courseDate',function(value){
-				if(value){ 
-					var time = value.substr(value.lastIndexOf(' ') + 1);
-					return time || '';
-				}
-				
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}				
 			})
 			
-			
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			})
 			 var vm = new Vue({
 				el: '#msg-content',
 					data: {

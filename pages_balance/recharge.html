@@ -10,7 +10,7 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<style type="text/css">
 			.header{
-				margin-top: 1.166666rem;
+				padding-top: 1.166666rem;
 				text-align: center;
 				margin-bottom: 0.388888rem;
 				font-size: 0.444444rem;
@@ -128,7 +128,7 @@
 			</div>
 		<!--充值协议-->
 		<div class="agreement">
-			<img id="agreement_img" src="../images/wallet/choose.png" />
+			<img class="agreement_btn" id="agreement_img" src="../images/wallet/choose.png" />
 			<span id="agreement_text">同意充值协议</span>
 		</div>
 		
@@ -174,6 +174,7 @@
 			    var state = app.getState();
 			    var pays={};
 			    agreeRecharge.addEventListener('tap',function(){
+			    	mui(agreeRecharge).button('loading');
 			    	getPay();
 			    })
 			    
@@ -203,6 +204,8 @@
 				    	}				        
 				    },function(e){
 				        console.log("获取支付通道失败："+e.message);
+				        plus.nativeUI.toast(e.message);
+				        mui(agreeRecharge).button('reset');
 				    });
 				}
 			    
@@ -234,6 +237,7 @@
 						type:'post'
 						}
 				    ajax(ajaxData, function(data) {
+				    		mui(agreeRecharge).button('reset');
 				    		var callbackData=data.data;
 				    		console.log('这是返回数据===',JSON.stringify(data))
 							requestPay(channel,callbackData);
@@ -272,7 +276,7 @@
 			    //协议
 			    var tap = false;
 			    var agreement_img = document.getElementById("agreement_img");
-			    agreement_img.addEventListener('tap',function(){
+			    mui('.agreement').on('tap','.agreement_btn',function(){
 			    	if(tap == false){
 			    		agreement_img.src='../images/wallet/choose.png';
 			    		tap =true;
@@ -281,6 +285,11 @@
 			    		tap =false;
 			    	}
 			    })
+			    var agreement_text = document.getElementById("agreement_text");
+			    agreement_text.addEventListener('tap',function(){
+			    	openView.nativeView('Top_up_agreement.html', 'Top_up_agreement', '充值服务协议');
+			    })
+			    
 			})
 		</script>
 	</body>

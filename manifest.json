@@ -294,9 +294,9 @@
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
 						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
-						"retina47": "",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
-						"retina55": "",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+						"retina40": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/640-1136.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+						"retina47": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/750-1334.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+						"retina55": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/1242-2208.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
 						"retina55l": ""
 					},
 					"ipad": {
@@ -313,9 +313,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"hdpi": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/480-762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/720-1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/1080-1882.png"
 				}
 			}
 		}
@@ -453,7 +453,8 @@
 					"pages_class_register/classroom_feedback.html",
 					"pages_setting/setting.html",
 					"pages_class_register/class_record.html",
-					"pages_indent/my_indent.html"
+					"pages_indent/my_indent.html",
+					"pages_setting/selfDetail.html"
 				],
 				"priority": 0
 			},
@@ -473,7 +474,8 @@
 					"js/login_config.js"
 				],
 				"refer": [
-					"im/linkman_contacts.html"
+					"im/linkman_contacts.html",
+					"im/chat.html"
 				],
 				"priority": 0
 			},
@@ -593,7 +595,8 @@
 				"refer": [
 					"pages_setting/feedback.html",
 					"login/changePassword.html",
-					"pages_setting/Invitation_code.html"
+					"pages_setting/Invitation_code.html",
+					"login/login.html"
 				],
 				"priority": 0
 			},

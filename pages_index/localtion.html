@@ -72,7 +72,7 @@
 			</div>
 			<div class="list_box">
 				<div class="list_detail_2" v-for="(value, key, index) in listCity" :data-type="value.cityName" :class="value.cityName == nowCity?'add_btn':''" v-text="value.cityName"></div>
-				<div class="list_detail_2" data-type="上海市">上海市</div>				
+				<!--<div class="list_detail_2" data-type="上海市">上海市</div>-->				
 				<!--<div class="list_detail_2">成都市</div>-->
 			</div>
 		</div>
@@ -93,6 +93,7 @@
 			    var view = self.getTitleNView();
 			    var	eg = self.eg;
 			    var type = self.type;
+			   var state = app.getState();
 			    //从修改进入区域时，修改操作
 			    if(eg && type){
 			    	var selfDetail = plus.webview.getWebviewById('selfDetail');
@@ -109,6 +110,14 @@
 						mui.back();
 						}
 					}, false);
+			    }else{
+			    	//登录状态检测 
+					if(!state || !state.data || !state.IM_token ) {
+						//暂时无相关信息
+						vm.nowCity = '暂无';
+					}else{
+						vm.nowCity = state.data.cityName;
+					}
 			    }
 			    //查询当前城市
 				var ajaxData = {

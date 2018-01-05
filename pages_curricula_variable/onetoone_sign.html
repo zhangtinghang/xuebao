@@ -143,9 +143,9 @@
 	<body>
 		<div class="footer">
 			<div class="footer_left">共支付：<span id="left_text" class="left_text">0</span>学币</div>
-			<div class="footer_right">立即支付</div>
+			<div class="footer_right" id="pay_money">立即支付</div>
 		</div>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="header">
 				<div class="header_box">
 					<img src="../images/teacher_list/teacher_head.png" />
@@ -153,15 +153,15 @@
 			</div>
 			<div class="body_list">
 				<ul class="body_list_ul">
-					<li><span>授课老师</span><span class="list_right">周老师</span></li>
-					<li><span>科目</span><span class="list_right">英语</span></li>
-					<li><span>问题类型</span><span class="list_right">语法</span></li>
-					<li><span>上课方式</span><span class="list_right">教师上门</span></li>
-					<li><span>上课地点</span><span class="list_right">青羊区</span></li>
-					<li><span>价格</span><span class="list_right right_money">2.5学币/分钟</span></li>
+					<li><span>授课老师</span><span class="list_right" v-text="teacher.name"></span></li>
+					<li><span>科目</span><span class="list_right" v-text="course.subjectName"></span></li>
+					<li><span>问题类型</span><span class="list_right" v-text="course.courseTypeName"></span></li>
+					<li><span>上课方式</span><span class="list_right" v-text="course.onetoonetype==0?'教师上门':'学生上门'"></span></li>
+					<li><span>上课地点</span><span class="list_right">{{course.organizationId | organizationId}}</span></li>
+					<li><span>价格</span><span class="list_right right_money"><span v-text="course.courseDuration"></span>学币/分钟</span></li>
 					<li><span>课时</span>
 						<span class="list_right right_btn">
-							<div class="mui-numbox" data-numbox-step='60' data-numbox-min='0' >
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' >
 								<div class="btn_box mui-btn-numbox-minus" type="button"><img class="substract_btn" src="../images/teacher_list/substract.png" /></div>
 								<input id="num" readonly="readonly" class="mui-input-numbox" type="number" />
 								<div class="btn_box mui-btn-numbox-plus" type="button"><img class="add_btn" src="../images/teacher_list/add.png" /></div>
@@ -172,20 +172,70 @@
 			</div>
 			<div class="attention">注 : 60分钟为一个课时</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
-			mui.plusReady(function () {
+			mui.plusReady(function (){
 			    //监听返回
 			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var state = app.getState();
+			    var classNum = state.data.studentClass;
+			    var courseId = self.courseId;
+			    var durtion = null;
+			    var ajaxData = {
+					url:'restful1/course/getCoursesByCourseId',
+					data: {
+						classNum:classNum,
+						courseId:courseId
+					},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('13',JSON.stringify(data))
+					if(data.code == 200){
+						vm.teacher = data.data.teacher;
+						vm.course = data.data.course;
+					}else{
+						plus.nativeUI.toast('获取报名信息失败！');
+					}
+				},true);
+			    
 			    //监听值改变
 		     	var numBox=document.getElementById("num");
 		     	 var left_text = document.getElementById("left_text");
 				numBox.addEventListener('change',function(){
-					 left_text.innerText = numBox.value*20;
-					console.log(numBox.value);
+					 left_text.innerText = numBox.value*vm.course.courseDuration*60;
+					 durtion = numBox.value*60;
 				});
+
+				// 发起支付
+				document.getElementById("pay_money").addEventListener('tap',function(){
+					if(durtion>0){
+						openView.nativeView('../pages_setting/pay_password.html', 'pay_password', '支付',{durtion:durtion,courseId:courseId});
+					}else{
+						plus.nativeUI.toast('请先选择课时');
+					}
+					
+				})
+			})
+			
+			Vue.filter('organizationId',function(value){
+				return originid(value);
+			})
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacher:{},
+					course:{}
+				}
 			})
 		</script>
 	</body>

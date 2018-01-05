@@ -48,4 +48,10 @@ body,html{
 }
 #msg-content{
 	height: 100%;
-}
+} 
+img{  
+    border: none;  
+}  
+img[src=""]{  
+    opacity: 0;  
+} 

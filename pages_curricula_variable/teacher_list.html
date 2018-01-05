@@ -71,10 +71,13 @@
 			}
 			.list_avatar{
 				margin: 0.388888rem;
+				border-radius: 90px;
+				overflow: hidden;
 			}
 			.list_avatar img{
 				width: 1.666666rem;
 				height: 1.666666rem;
+				border-radius: 90px;
 			}
 			.list_title{
 				position: relative;
@@ -296,11 +299,11 @@
 									<div class="list_item_text">授课时长/分</div>
 								</li>
 								<li>
-									<div class="list_item_num" v-text="studentNum || '暂无'"></div>
+									<div class="list_item_num" v-text="value.teacher.studentNum || '暂无'"></div>
 									<div class="list_item_text">学生数/人</div>
 								</li>
 								<li>
-									<div class="list_item_btn" style="color: #888888;" v-if="value.teacher.status == '0'">已结束</div>			
+									<div class="list_item_btn" style="color: #888888;" v-if="value.teacher.status == '-1'">已结束</div>			
 									<div class="list_item_btn" v-else-if="value.teacher.status == '1'">正在上课</div>
 									<div class="list_item_btn" v-else-if="value.teacher.status == '2'">可排课</div>
 								</li>
@@ -371,7 +374,8 @@
 			    var organizationId = self.organizationId;
 			    var subject =self.subject;
 			    var subjectType = self.subjectType;
-			    var classId = 3;
+			    var classId = 1;
+			    console.log(organizationId,subject,subjectType,courseType,classId)
 			    //网络请求
 			     //查询当前城市
 				var ajaxData = {
@@ -388,11 +392,11 @@
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200 && data.data.length!=0){
-							var tag = data.data.teacher.teacherTag.trim();
-					     	//处理字符串			     	
-					     	var tagArr= new Array();
-					     	tagArr=tag.split("，");
-					     	data.data.teacher.teacherTag = tagArr;
+//							var tag = data.data.teacher.teacherTag.trim();
+//					     	//处理字符串			     	
+//					     	var tagArr= new Array();
+//					     	tagArr=tag.split("，");
+//					     	data.data.teacher.teacherTag = tagArr;
 					     	vm.oneList = data.data;
 							vm.imgUrl=ajaxUrl;
 						}else if(data.data.length==0){

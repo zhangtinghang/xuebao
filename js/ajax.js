@@ -25,6 +25,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 			dataJSON.userId = state.data.id;
 		}else{
 			dataJSON.studentId = state.data.id;
+			dataJSON.userId = state.data.id;
 		}
 		dataJSON.timestamp = Date.parse(new Date());
 		//取出key相加后返回
@@ -120,3 +121,96 @@ var dateUtils = {
 		return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
 	}
 };
+
+// 地点转化
+var subjectId = function(value){
+	console.log(value)
+	switch (value){
+		case 1:
+			value='国学';
+			break;
+		case 2:
+			value='兴趣英语';
+			break;
+		case 3:
+			value='数学思维提升';
+			break;
+		case 4:
+			value='珠心算';
+			break;
+		case 5:
+			value='阅读与写作';
+			break;
+		case 6:
+			value='语文';
+			break;
+		case 7:
+			value='数学';
+			break;
+		case 8:
+			value='英语';
+			break;
+		case 9:
+			value='物理';
+			break;
+		case 10:
+			value='化学';
+			break;
+		case 11:
+			value='生物';
+			break;
+		case 12:
+			value='政治';
+			break;
+		case 13:
+			value='历史';
+			break;
+		case 14:
+			value='地理';
+			break;
+		case 15:
+			value='小语种';
+			break;
+		case 16:
+			value='心理健康';
+			break;
+		case 17:
+			value='家庭教育';
+			break;
+		case 18:
+			value='课程规划';
+			break;
+		default:
+			break;
+	}
+	return value;
+}
+
+// 地点转化
+var originid = function(value){
+	switch (value){
+		case -1:
+			value='学生上门';
+			break;
+		case 0:
+			value='教师上门';
+			break;
+		case 1:
+			value='金牛区';
+			break;
+		case 2:
+			value='锦江区';
+			break;
+		default:
+			break;
+	}
+	return value;
+}
+
+
+//Vue.use(VueLazyload, {  
+//  preLoad: 1.3,  
+//  error: 'images/status/failed_trend.png',  
+//  loading: 'images/status/failed_trend.png',  
+//  attempt: 3  
+//});

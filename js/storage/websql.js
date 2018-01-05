@@ -3,7 +3,7 @@
 */
 var dbname='websql';/*数据库名*/
 var version = '1.0'; /*数据库版本*/
-var dbdesc = 'websql练习'; /*数据库描述*/
+var dbdesc = '消息缓存'; /*数据库描述*/
 var dbsize = 2*1024*1024; /*数据库大小*/
 var dataBase = null; /*暂存数据库对象*/
 /*数据库中的表单名*/

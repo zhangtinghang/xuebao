@@ -17,6 +17,7 @@
 			
 			.list_bg {
 				width: 100%;
+				min-height: 3rem;
 				max-height: 5rem;
 				background-color: rgb(240,240,240);
 				background-image: url(../images/status/failed.png);
@@ -305,6 +306,7 @@
 			}
 			.list_cover img{
 				width: 100%;
+				border-radius:10px;
 			}
 			.list_title{
 				width: 90%;
@@ -445,6 +447,9 @@
 				align-items: center;
 				font-size: 0.5rem;
 			}
+			.commit_box{
+				color: rgb(85,85,85) !important;
+			}
 		</style>
 	</head>
 
@@ -456,13 +461,12 @@
 		
 		<div class="content" id="msg-content">
 			<div class="list_bg">
-				<img :src="imgUrl+teacher.teacherImage" />
+				<img src="" v-lazy="imgUrl+teacher.teacherImage" />
 			</div>
 
 			<!--头像-->
 			<div class="header_avatar">
-				<img v-if="teacher.teacherImage" :src="imgUrl+teacher.teacherImage" />
-				<img v-else src="../images/status/not_login_head.png" />
+				<img src="" v-lazy="imgUrl+teacher.teacherImage" />
 			</div>
 
 			<div class="header_name"><span v-text="teacher.name || '未登录'"></span><img align="center" :src="teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
@@ -497,7 +501,7 @@
 				<span class="nav_serve">平台标签</span>
 			</div>
 			<!--标签-->
-			<div class="platform_label">
+			<div class="platform_label" v-if="teacher.teacherTag">
 				<ul class="list_label_ul">
 					<li class="list_label_li" v-for="item in teacher.teacherTag" v-text="item"></li>
 					<!--<li class="list_label_li">名师</li>-->
@@ -506,12 +510,12 @@
 			<div class="line"></div>
 			<!--个人简历-->
 			<div class="resume_box">
-			<div class="serve_nav">
-				<div class="nav_line"></div>
-				<span class="nav_serve">个人简历</span>
-				<div v-if="resume.resumeExperience" class="nav_more resume_detail">详情</div>
-			</div>
-			<div class="my_resume resume_detail" v-text="resume.resumeExperience"></div>
+				<div class="serve_nav">
+					<div class="nav_line"></div>
+					<span class="nav_serve">个人简历</span>
+					<div v-if="resume.resumeExperience" class="nav_more resume_detail">详情</div>
+				</div>
+				<div v-if="resume.resumeExperience" class="my_resume resume_detail"  v-text="resume.resumeExperience"></div>
 			</div>
 			<div class="line"></div>
 			<!--课堂互动-->
@@ -520,15 +524,15 @@
 				<span class="nav_serve">课堂互动</span>
 				<div v-if="courseStudents.length != 0" class="nav_more">更多</div>
 			</div>
-			<div class="dynamic_list_box">
-				<div class="dynamic_list" v-for="courseItem in courseStudents" v-if="courseItem.courseFeedBack.length != 0">
+			<div class="dynamic_list_box"  v-for="(courseItem, index1) in courseStudents" v-if="courseItem.courseFeedBack.length != 0 || index1<3">
+				<div class="dynamic_list" v-for="(FeedBackItem,index) in courseItem.courseFeedBack" v-if="index<1"> 
 					<div class="avatar">
 						<div class="avatar_box">
-							<img :src="imgUrl+courseItem.studentImage" />
+							<img src="" v-lazy="imgUrl+courseItem.studentImage" />
 						</div>
 					</div>
 					<div class="more_text">
-						<div class="detail_box" v-if="courseItem.courseFeedBack.length != 0" v-for="FeedBackItem in courseItem.courseFeedBack">
+						<div class="detail_box" v-if="courseItem.courseFeedBack.length != 0">
 							<div>
 							<div class="detail_list">
 								<div class="list_left" v-text="courseItem.studentName"></div>
@@ -555,17 +559,17 @@
 							</div>
 							<div class="detail_list">
 								<div class="list_left"></div>
-								<div class="list_right"><img v-for=" FeedBackItem.feedbackImages | pictureType" src="../images/logo.png"></div>
+								<div class="list_right"><img v-for="imgItem in FeedBackItem.feedbackImages.split(',')" src="" v-lazy="imgUrl+imgItem"></div>
 							</div>
 						</div>
 							<!--课堂互动评论-->
 							<div class="list_footer">
-								<div class="footer_time" v-text="FeedBackItem.feedbackDate"></div>
-								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" />&nbsp;&nbsp;{{FeedBackItem.comments.length || '0'}}</div>
+								<div class="footer_time">{{FeedBackItem.feedbackDate | dateTime}}</div>
+								<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" />&nbsp;&nbsp;<span v-text="FeedBackItem.comments.length || '0'"></span></div>
 							</div>
 							<div class="list_commit" v-if="FeedBackItem.comments.length != 0">
 								<ul class="list_commit_ul">
-									<li v-for="commentItem in FeedBackItem.comments"><span>{{commentItem.commentSourceName}}</span> 回复 <span>{{commentItem.commentTargetName}}：</span>{{commentItem.commentContent}}</li>
+									<li v-for="commentItem in FeedBackItem.comments"><span v-text="commentItem.commentSourceName"></span> 回复 <span><span v-text="commentItem.commentTargetName"></span>：</span> <span class="commit_box" v-text="commentItem.commentContent"></span></li>
 								</ul>
 							</div>
 						</div>
@@ -582,28 +586,28 @@
 			</div>
 			<div class="my_dynamic_list">
 				
-				<div class="dynamic_list more_dynamic" v-for="newItem in teacherNews">
+				<div class="dynamic_list more_dynamic" v-for="(newItem,index) in teacherNews" v-if="index < 3">
 					<div class="avatar">
 						<div class="avatar_box more_avatar">
-							<img :src="ajaxUrl+newItem.teacherImage" />
+							<img src="" v-lazy="ajaxUrl+newItem.teacherImage" />
 						</div>
 					</div>
 					<div class="more_text">
-						<div class="list_name">{{newItem.userName || '未登录'}}<img align="center" src="../images/teacher_list/dynamic.png" /></div>
-						<div class="list_signature">{{teacher.teacherWorld || '精勤博学，学以致用'}}</div>
+						<div class="list_name" v-text="newItem.userName || '未登录'"><img align="center" src="../images/teacher_list/dynamic.png" /></div>
+						<div class="list_signature" v-text="teacher.teacherWorld || '精勤博学，学以致用'"></div>
 						<div class="list_cover">
-							<img :src="imgUrl+newItem.images" />
+							<img src="" v-lazy="imgUrl+newItem.images"/>
 						</div>
 						<div class="list_title" v-text="newItem.title || '未知'"></div>
 						<div class="list_content mui-ellipsis-1" v-text="newItem.content || '暂无'"></div>
 						<div class="list_footer">
-							<div class="footer_time" v-text="newItem.newscreateTime"></div>
-							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /><span v-text="newItem.comments.length || 0"></span></div>
+							<div class="footer_time">{{newItem.newscreateTime | dateTime}}</div>
+							<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> <span v-text="newItem.comments.length || 0"></span></div>
 						</div>
 						
-						<div class="list_commit">
+						<div class="list_commit" v-if="newItem.comments.length>0">
 							<ul class="list_commit_ul">
-								<li v-for="commentItem2 in newItem.comments"><span v-text="commentItem2.sourceUserName"></span> 回复 <span v-text="commentItem2.targetUserName"></span><span>：</span><span v-text="commentItem2.comment"></span></li>
+								<li v-for="commentItem2 in newItem.comments"><span v-text="commentItem2.sourceUserName"></span> 回复 <span v-text="commentItem2.targetUserName"></span><span>：</span><span class="commit_box" v-text="commentItem2.comment"></span></li>
 							</ul>
 						</div>
 					</div>
@@ -659,17 +663,20 @@
 				<div class="course_description_list">
 					<div class="course_description_title"><div class="circle"></div><div class="course_title_detail">授课范围 :</div></div>
 					<div class="course_description_body nav_bottom">
-						<span v-text="teacher.teacherRange || '0km'"></span>
+						<span v-text="teacher.teacherRange || '0'"></span><span>km</span>
 					</div>
 				</div>
 			</div>
 		<div class="line_footer"></div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js"></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -738,14 +745,10 @@
 			     }else{
 			     	plus.nativeUI.toast('暂未获取到教师信息！');
 			     }
-			    }
-			    
-			    
-			     
-			    
-			    
+			    }			    
 			    
 			    mui('.resume_box').on('tap','.resume_detail',function(){
+			    	console.log('点击详情')
 			    	openView.nativeView('teacher_detail_2.html', 'teacher_detail_2', '个人简历');
 			    })
 			    
@@ -765,10 +768,24 @@
 			    })
 			});
 			
-			Vue.filter('pictureType',function(value){
+			Vue.filter('index1',function(value){
 				console.log('12312',value)
 			})
-			
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			});
+			Vue.use(VueLazyload, {
+			    preLoad: 1.3,  
+			    error: '../images/status/failed_trend.png',  
+			    loading: '../images/status/failed_trend.png',  
+			    attempt: 3  
+			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

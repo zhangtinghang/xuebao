@@ -53,6 +53,7 @@
 			}
 			.list_cover img{
 				width: 100%;
+				border-radius:10px;
 			}
 			.list_title{
 				width: 90%;
@@ -82,6 +83,9 @@
 			.footer_comm{
 				font-size: 0.277777rem;
 				color: rgb(85,85,85);
+			}
+			.commit_box{
+				color: rgb(85,85,85) !important;
 			}
 			.footer_comm img{
 				width: 0.277777rem;
@@ -116,33 +120,35 @@
 	</head>
 
 	<body>
-		<div class="content">
-			<div class="dynamic_list">
+		<div class="content" id="msg-content">
+			<div v-for="item in news" class="dynamic_list">
 				<div class="avatar">
 					<div class="avatat_box">
-						<img src="../images/teacher_list/teacher_dynamic_head.png" />
+						<img src="" v-lazy="imgUrl+item.teacherImage" />
 					</div>
 				</div>
 				<div class="more_text">
-					<div class="list_name">王老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
-					<div class="list_signature">趁我们还没有老，多去走走看看!</div>
+					<div class="list_name"><span v-text="item.userName"></span><img align="center" src="../images/teacher_list/dynamic.png" /></div>
+					<div class="list_signature" v-text=""></div>
 					<div class="list_cover">
-						<img src="../images/teacher_list/pensonnel.png" />
+						<img src="" v-lazy="imgUrl+item.images"/>
 					</div>
-					<div class="list_title">
-						上月去香港看了看，发现偌大的世界真美妙！
-					</div>
-					<div class="list_content mui-ellipsis-1">
-						在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。在香港吃了所谓的"四川火锅"，不会说广东话，没文化，真可怕。
-					</div>
+					<div class="list_title" v-text="item.title"></div>
+					<div class="list_content mui-ellipsis-1" v-text="item.content"></div>
 					<div class="list_footer">
-						<div class="footer_time">2016年10月21日</div>
-						<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> 102</div>
+						<div class="footer_time">{{item.newscreateTime | dateTime}}</div>
+						<div class="footer_comm"><img align="center" src="../images/index/chat_num.png" /> <span v-text="item.comments.length"></span></div>
+					</div>
+					<div class="list_commit" v-if="item.comments.length >0">
+						<ul class="list_commit_ul">
+							<!--<li><span>宋丹丹：</span>老师好棒哦，回来请你吃正宗的四川火锅！</li>-->
+							<li v-for="commitItem in item.comments"><span v-text="commitItem.sourceUserName"></span> 回复 <span><span v-text="commitItem.targetUserName"></span>：</span><span class="commit_box" v-text="commitItem.comment"></span></li>
+						</ul>
 					</div>
 				</div>
 			</div>
 			
-			<div class="dynamic_list">
+			<!--<div class="dynamic_list">
 				<div class="avatar">
 					<div class="avatat_box">
 						<img src="../images/teacher_list/teacher_dynamic_head.png" />
@@ -151,9 +157,9 @@
 				<div class="more_text">
 					<div class="list_name">周老师<img align="center" src="../images/teacher_list/dynamic.png" /></div>
 					<div class="list_signature">没有更好，只有最好！</div>
-					<!--<div class="list_cover">
+					<div class="list_cover">
 						<img src="../images/teacher_list/pensonnel.png" />
-					</div>-->
+					</div>
 					<div class="list_title">
 						上月去香港看了看，发现偌大的世界真美妙！
 					</div>
@@ -173,21 +179,63 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
-			    //评论
-			    mui('.content').on('tap','.footer_comm',function(){
-			    	openView.nativeView('../pages_index/comment.html', 'comment', '留言');
-			    })
+			    //获取数据
+			    var ajaxData = {
+					url:'restful1/teacher/teachernews/getteachernews',
+					data: {},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('请求数据',JSON.stringify(data))
+					if(data.code == 401){
+						plus.nativeUI.toast('您还未登录哟！');
+					}else if(data.code == 200){
+						vm.news = data.data.news;
+						vm.imgUrl = ajaxUrl;
+					}else{
+						plus.nativeUI.toast('请求超时！');
+					}
+				},true); 
+			})
+			Vue.use(VueLazyload, {
+			    preLoad: 1.3,  
+			    error: '../images/status/failed_trend.png',  
+			    loading: '../images/status/failed_trend.png',  
+			    attempt: 3  
+			});
+			
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			});
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					news:[],//教师动态数据
+					imgUrl:''
+				}			
 			})
 		</script>
 	</body>

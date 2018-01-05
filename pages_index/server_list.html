@@ -79,24 +79,24 @@
 
 	<body>
 		<div id="class_message_box">
-		<div class="class_message" data-type="1">
+		<div v-for="item in serverList" class="class_message" :data-type="item.type | serverType" :data-id="item.type">
 			<div class="message_title">
 				<div class="title_img"><img src="../images/main_server/icon_schooltime.png" /></div>
-				<div class="title_text">上课中</div>
-				<div class="title_time">16:54</div>
+				<div class="title_text" v-text="item.desc"></div>
+				<div class="title_time" v-text="item.time"></div>
 			</div>
 			<div class="message_body">
-				<div class="body_choose">【语文】</div>
+				<div class="body_choose" v-text="item.message"></div>
 				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
 			</div>
 		</div>
-		<div class="class_message" data-type="2">
+		<!--<div class="class_message" data-type="2">
 			<div class="message_title">
 				<div class="title_img"><img src="../images/main_server/icon_chongzhi.png" /></div>
 				<div class="title_text">充值成功</div>
 				<div class="title_time">昨天 9:40</div>
 			</div>
-			<div class="message_body" data-type="3">
+			<div class="message_body">
 				<div class="body_choose">1000学保币充值成功</div>
 				<div class="body_detail">查看详情 <img src="../images/index/look_detail_icon.png"/></div>
 			</div>
@@ -155,10 +155,10 @@
 				<div class="body_choose">接受订单</div>
 				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
 			</div>
-		</div>
+		</div>-->
 	</div>
-	<!--取出加密值-->
-	<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
@@ -184,7 +184,7 @@
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
-							vm.serverList = data;
+							vm.serverList = data.data.list;
 						}else{
 							plus.nativeUI.toast('请求超时！');
 						}
@@ -192,39 +192,78 @@
 			    
 				mui('#class_message_box').on('tap','.class_message',function(){
 					var type = this.getAttribute('data-type');
+					var sid = this.getAttribute('data-id');
 					switch(type)
 						{
 						case '1':
-							openView.nativeView('in_class.html', 'in_class', '上课中');
+							openView.nativeView('in_class.html', 'in_class', '上课中',{sid:sid});
 							break;
 						case '2':
-							openView.nativeView('pay_success.html', 'pay_success', '充值成功');
+							openView.nativeView('pay_success.html', 'pay_success', '充值成功',{sid:sid});
 							break;
 						case '3':
-							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈详情');
+							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈详情',{sid:sid});
 							break;
 						case '4':
-							openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功');
+							openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功',{sid:sid});
 							break;
 						case '5':
-							openView.nativeView('course_remind.html', 'course_remind', '上课提醒');
+							openView.nativeView('course_remind.html', 'course_remind', '上课提醒',{sid:sid});
 							break;
 						case '6':
-							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排');
+							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排',{sid:sid});
 							break;
 						case '7':
-						openView.nativeView('indent_succ.html', 'indent_succ', '订单信息');
+							openView.nativeView('indent_succ.html', 'indent_succ', '订单信息',{sid:sid});
 						break;
 						default:
 						
 						}
 				});
 			})
-			
+			Vue.filter('serverType',function(value){
+				switch (value){
+					case 11:
+						return 1;
+						break;
+					case 12:
+						return 5;
+						break;
+					case 13:
+						return 6;
+						break;
+					case 14:
+						return 6;
+						break;
+					case 21:
+						return 2;
+						break;
+					case 22:
+						return 2;
+						break;
+					case 3:
+						return 3;
+						break;
+					case 41:
+						return 4;
+						break;
+					case 42:
+						return 4;
+						break;
+					case 51:
+						return 7;
+						break;
+					case 52:
+						return 7;
+						break;
+					default:
+						break;
+				}
+			})
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
-					serverList:{}//教师动态数据
+					serverList:[]//教师动态数据
 				}			
 			})
 		</script>

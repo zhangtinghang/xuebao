@@ -32,7 +32,6 @@
 			.span_box>span{
 				font-size: 0.444444rem;
 				color: #555555;
-				margin-left: 0.25rem;
 			}
 			.avatar{
 				width: 100%;
@@ -77,53 +76,16 @@
 			<ul class="list_ul" data-checked ="checked" id="list_ul">
 				<li class="list_li" v-for="item in listClass">
 					<span class="span_box" :data-type = "item.classId" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
+						<img class="imgBtn" :src="item.classId ==1?'../images/myself/kspk_yes.png':'../images/myself/kspk_no.png'"  />
 						<span v-text="item.className"></span>
 					</span>						
 				</li>
-				<li class="list_li">
+				<!--<li class="list_li">
 					<span class="span_box" onclick="span_detail(this)">
 						<img src="../images/myself/kspk_no.png"  />
 						<span>1</span>
 					</span>					
-				</li>
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
-				
-				<li class="list_li">
-					<span class="span_box" onclick="span_detail(this)">
-						<img src="../images/myself/kspk_no.png"  />
-						<span>1</span>
-					</span>					
-				</li>
+				</li>-->
 			</ul>
 			<button type="button" id="register" class="mui-btn mui-btn-block">完成</button>
 		</div>
@@ -133,49 +95,22 @@
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
-			mui.init();
-			var changeArr = [];
-			var changeStr=JSON.stringify(changeArr);
-			localStorage.setItem('changeClass',changeStr);
+		mui.init();
+			var changeStr ='1';
+			var list_ul = document.getElementById("list_ul");
 			mui.plusReady(function () {
 			     //监听返回
-			    listenReturn();
-			    //渲染
-			    listenReturnRight('完成');
-			    var ws = plus.webview.currentWebview();
-			    var flagView = ws.type;
-				var view = ws.getTitleNView();
-				var list_ul = document.getElementById("list_ul");
+			    listenReturn();		
 				var classdata = '';
 				var selfDetail = null;
-				//获得列表页面
-				if(flagView=='newclass'){
-					selfDetail = plus.webview.getWebviewById('new_class');
-				}else if(flagView=='lessons_data'){
-					selfDetail = plus.webview.getWebviewById('lessons_data');
-				}
 				
-			    view.addEventListener("click", function(e) {
-				if(screen.width - e.clientX <= 60){
-						//事件逻辑处理
-						var classArr = localStorage.getItem('changeClass');
-//						console.log(classArr,classdata)
-						mui.fire(selfDetail,'classChange',{
-				    		classArr:classArr,
-				    		classdata:classdata
-				  		});
-						mui.back();
-					}
-				}, false);
-				
-				//查询当前城市
+				//查询当前年级
 				var ajaxData = {
 						url:'public/app/class',
 						data: {},
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log(JSON.stringify(data))
 						if(data.code == 200){
 							vm.listClass = data.data;
 							classdata = data.data;
@@ -183,10 +118,24 @@
 							plus.nativeUI.toast(data.msg);
 						}
 				},false);
+				var register = plus.webview.getWebviewById('register');
+				var login = plus.webview.getWebviewById('login');
+				var guide_1 = plus.webview.getWebviewById('guide_1');
+				document.getElementById("register").addEventListener('tap',function(){
+					register.close();
+					login.close();
+					guide_1.close();
+					mui.back();
+				})
 			})
 			
 		  	//复选框
 		  	function span_detail(item){
+		  		//让所有的初始化
+		  		var li_img = document.getElementsByClassName('imgBtn');
+		  		for(var i=0;i<li_img.length;i++){
+		  			li_img[i].src = "../images/myself/kspk_no.png";
+		  		}
 			   	var that = item;
 			   	var img = that.childNodes[0];
 			   	var type = that.getAttribute('data-type');
@@ -194,24 +143,9 @@
 			   	var imgName = img.src.substr(img.src.lastIndexOf('/') + 1); 
 			   if(imgName =='kspk_no.png'){
 			   		img.src="../images/myself/kspk_yes.png";
-			   		changeArr.push(type);
-			   		var changStr = JSON.stringify(changeArr);
-			   		localStorage.setItem('changeClass',changStr);
-			   }else{
-			   		img.src="../images/myself/kspk_no.png";
-			   		removeByValue(changeArr, type);
-			   		var changStr = JSON.stringify(changeArr);
-			   		localStorage.setItem('changeClass',changStr);
+			   		changeStr=type;
 			   }	
 		   }
-		  	function removeByValue(arr, val) {
-			  for(var i=0; i<arr.length; i++) {
-			    if(arr[i] == val) {
-			      arr.splice(i, 1);
-			      break;
-			    }
-			  }
-			}
 		  	var vm = new Vue({
 				el: '#msg-content',
 				data: {

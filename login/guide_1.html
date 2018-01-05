@@ -147,9 +147,10 @@
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script>
 			mui.plusReady(function () {
-			    openView.nativeView('guide_2.html', 'guide_2', '选择年级',{
-			    	
-			    }, 'none');
+				document.getElementById("register").addEventListener('tap',function(){
+					 openView.nativeView('guide_2.html', 'guide_2', '选择年级','', 'none');
+				})
+			   
 			})
 		</script>
 	</body>

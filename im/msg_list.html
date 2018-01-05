@@ -89,13 +89,7 @@
 					</div>
 				</li>
 			</ul>
-		</div>
-		<!--引入环信SDK-->
-		<script type="text/javascript" src="../js/IM/webim.config.js" ></script>
-		<script type="text/javascript" src="../js/IM/strophe-1.2.8.min.js" ></script>
-		<script type="text/javascript" src="../js/IM/websdk-1.4.13.js" ></script>
-		<!--end-->
-		
+		</div>		
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/util.js" ></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
@@ -109,10 +103,8 @@
 			    listenReturn();
 			    listenNext('联系人','linkman_contacts.html','linkman_contacts','联系人');
 			    //读取聊天信息
-			    //环信相关配置及消息处理
 				var state = app.getState();
-				var OPENDATABASE = 'nishibushishaaa';
-				var OPENDATACASE = OPENDATABASE+OPENDATABASE;
+				var OPENDATACASE = JSON.stringify(state.data.mobilephone);
 			    //打开数据库
 				websqlOpenDB();
                 websqlCreatTable(OPENDATACASE);
@@ -125,6 +117,7 @@
                 //监听传参 动态渲染
 				window.addEventListener('newsId',function(event){
 					var newsId = event.detail.newsId;
+					console.log('触发刷新')
 						websqlGetAllData(OPENDATACASE,function(data){
 		                	vm.MessageData = data;
 		               });

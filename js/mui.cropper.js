@@ -26,7 +26,11 @@
 			document.querySelector('.cropper-ok').addEventListener('tap',function () {
 				if (!croppable) return;
 				var croppedCanvas = cropper.getCroppedCanvas(); 
+				console.log('很皮',croppedCanvas)
 				var data = croppedCanvas.toDataURL('image/png', 0.6);
+				$.saveImage(data,'_doc/cropper/',function(path){
+					console.log('这是保存的图片路径==',path)
+				},{overwrite:true,format:"png"});
 				callback && callback(data);
 				
 				if(isClose !== false){
@@ -59,7 +63,7 @@
 		},function(error) {
 			mui.toast('取消拍照');
 		},{
-			filename: "_doc/image/"
+			filename: "_doc/image/copper.png"
 		});
 	}
 	
@@ -136,6 +140,7 @@
 		var bitmap = new plus.nativeObj.Bitmap("__cropper_drawImg__");
 		bitmap.loadBase64Data(base64Str, function(){
 			bitmap.save(path, options, function(e){
+				console.log(JSON.stringify(e))
 				callback && callback(e.target);
 			},function(e){
 				console.log('保存图片失败：'+JSON.stringify(e));
