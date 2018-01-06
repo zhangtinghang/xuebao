@@ -11,6 +11,9 @@
 			body,html{
 				background: rgba(255,255,255,1);
 			}
+			#msg-content{
+				height: auto !important;
+			}
 			.content{
 				width: 80%;
 				margin: 0 auto;
@@ -33,6 +36,7 @@
 			.input{
 				display: flex;
 				justify-content:space-around;
+				align-items: center;
 				flex-wrap: wrap;			
 				border-bottom: 1px solid rgba(240,240,240,1) !important;
 				margin-bottom: 0.555555rem;
@@ -40,6 +44,8 @@
 			}
 			.login_img{
 				width: 15%;
+				height: 21px;
+				padding-top: 3px;
 				display: flex;
 				align-items: center;
 				font-size: 0.444444rem;
@@ -48,12 +54,15 @@
 				width: 85% !important;
 				border: none !important;
 				padding: 0 !important;
-				font-size: 0.444444rem !important;
 				color: rgb(136,136,136) !important;
 				margin-bottom: 0 !important;
-				height:1.15rem !important;
-				line-height: 1.25rem !important;
-				padding-top: 0.1rem !important;
+				height: 21px;
+				font-size: 0.444444rem;
+				line-height: 21px !important;
+				
+			}
+			.input_choose::-webkit-input-placeholder{
+				font-size: 0.444444rem;
 			}
 			.clear{
 				clear: both;
@@ -78,6 +87,7 @@
 				width: 85%;
 				display: flex;
 				align-items: center;
+				height: 40px;
 			}
 			.mui-radio.mui-left input[type=radio]{
 				left: 0;
@@ -102,23 +112,25 @@
 	</head>
 	<body>
 		<div class="avatar"></div>
-		<div class="content">			
+		<div class="content" id="msg-content">			
 			<div class="input name">
 				<label class="login_img">姓名</label>
-				<input type="text" class="input_choose" id="phone" placeholder="请输入姓名" />
+				<input type="text" class="input_choose" id="userName" placeholder="请输入姓名" />
 			</div>
 			<div class="input radio">
 				<label class="login_img">性别</label>
-				<div class="choose_box">
-					<li class="list_li">
-						<span class="span_box" onclick="span_detail(this)">
-							<img src="../images/myself/kspk_no.png"  />
+				<div class="choose_box" id="choose_sex">
+					<li class="list_li" data-type='1'>
+						<span class="span_box">
+							<img align="center" v-if="manSex ==false" src="../images/login/kspk_no.png"  />
+							<img align="center" v-else="manSex == true" src="../images/login/kspk_yes.png"  />
 							<span>男</span>
 						</span>					
 					</li>
-					<li class="list_li">
-						<span class="span_box" onclick="span_detail(this)">
-							<img src="../images/myself/kspk_no.png"  />
+					<li class="list_li" data-type='2'>
+						<span class="span_box">
+							<img v-if="womanSex ==false" src="../images/login/kspk_no.png"  />
+							<img v-else="womanSex == true" src="../images/login/kspk_yes.png"  />
 							<span>女</span>
 						</span>					
 					</li>
@@ -128,9 +140,10 @@
 			<div class="input radio">
 				<label class="login_img">区域</label>
 				<div class="choose_box">
-					<li class="list_li">
-						<span class="span_box" onclick="span_detail(this)">
-							<img src="../images/myself/kspk_no.png"  />
+					<li class="list_li" data-type='3'>
+						<span class="span_box">
+							<img v-if="area ==false" src="../images/login/kspk_no.png"  />
+							<img v-else="area == true" src="../images/login/kspk_yes.png"  />
 							<span>成都</span>
 						</span>					
 					</li>
@@ -138,19 +151,70 @@
 			</div>
 			<div class="input radio">
 				<label class="login_img">地址</label>
-				<input type="text" class="input_choose" placeholder="请输入详细地址" />
+				<input type="text" class="input_choose" id="address" placeholder="请输入详细地址" />
 			</div>
 			<div class="clear"></div>
 			<button type="button" id="register" class="mui-btn mui-btn-block">下一步</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/config.js" ></script><br />
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script>
+			var selfDetail={
+				userName:'',
+				sex:'男',
+				area:1,
+				address:''
+			}
 			mui.plusReady(function () {
+				var userName = document.getElementById("userName");
+				var address = document.getElementById("address");
+				var self = plus.webview.currentWebview();
+				var userid = self.userid;
 				document.getElementById("register").addEventListener('tap',function(){
-					 openView.nativeView('guide_2.html', 'guide_2', '选择年级','', 'none');
+					if(userName.value == ""||address.value == ""){
+						return plus.nativeUI.toast('请填写完整信息！');
+					}
+					selfDetail.userName = userName.value;
+					selfDetail.address = address.value;
+					openView.nativeView('guide_2.html', 'guide_2', '选择年级',{selfDetail:selfDetail,userid:userid}, 'none');
 				})
-			   
+				//监听点击
+			mui('.choose_box').on('tap','.list_li',function(){
+				var type = this.getAttribute('data-type');
+				switch (type){
+					case '1':
+						vm.manSex = true;
+						vm.womanSex = false;
+						selfDetail.sex = '男';
+						break;
+					case '2':
+						vm.manSex = false;
+						vm.womanSex = true;
+						selfDetail.sex = '女';
+						break;
+					case '3':
+					if(vm.area==true){
+						vm.area=false;
+						selfDetail.area =null;
+					}else{
+						vm.area=true;
+						selfDetail.area =1;
+					}
+						break;
+					default:
+						break;
+				}
+			})
+			})			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacherMessage:{},
+					manSex:true,
+					womanSex:false,
+					area:true
+				}
 			})
 		</script>
 	</body>

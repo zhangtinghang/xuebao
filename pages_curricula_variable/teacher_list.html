@@ -265,12 +265,12 @@
 						<div class="list_header">
 							<!--头像-->
 							<div class="list_avatar">
-								<img :src="imgUrl+value.teacher.teacherImage" />
+								<img src="" v-lazy="imgUrl+value.teacher.teacherImage"/>
 							</div>
 							<!--右边文字-->
 							<div class="list_title">
 								<div class="list_title_box">
-									<div class="list_title_text" v-text="value.teacher.name||未登录"></div>
+									<div class="list_title_text" v-text="value.teacher.name||'未登录'"></div>
 									<div class="list_title_img"><img align="center" :src="value.teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
 										
 									<ul class="list_title_ul">
@@ -286,7 +286,8 @@
 								<!--标签-->
 								<div class="list_label">
 									<ul class="list_label_ul">
-										<li class="list_label_li" v-for="item in value.teacher.teacherTag" v-text="item">8年教龄</li>
+										{{value.teacher.teacherTag | teacherTag}}
+										<li class="list_label_li" v-for="item in teacherTag" v-text="item"></li>
 									</ul>
 								</div>
 							</div>							
@@ -361,6 +362,7 @@
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -374,7 +376,8 @@
 			    var organizationId = self.organizationId;
 			    var subject =self.subject;
 			    var subjectType = self.subjectType;
-			    var classId = 1;
+			    var state = app.getState();
+			    var classId = state.data.studentClass;
 			    console.log(organizationId,subject,subjectType,courseType,classId)
 			    //网络请求
 			     //查询当前城市
@@ -392,17 +395,12 @@
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200 && data.data.length!=0){
-//							var tag = data.data.teacher.teacherTag.trim();
-//					     	//处理字符串			     	
-//					     	var tagArr= new Array();
-//					     	tagArr=tag.split("，");
-//					     	data.data.teacher.teacherTag = tagArr;
 					     	vm.oneList = data.data;
 							vm.imgUrl=ajaxUrl;
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
-						}else{
-							plus.nativeUI.toast(data.msg);
+						}else if(success.err){
+							plus.nativeUI.toast(data.err);
 						}
 				},true);
 			    
@@ -432,11 +430,25 @@
 			    })
 			})
 			
+			Vue.filter('teacherTag',function(value){
+				if(value){
+					vm.teacherTag = value.split('，');
+				}
+				
+			})
+			
+			Vue.use(VueLazyload, {
+			    preLoad: 1.3,  
+			    error: '../images/status/failed_trend.png',  
+			    loading: '../images/status/failed_trend.png',  
+			    attempt: 3  
+			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
 					oneList:[],
-					imgUrl:''
+					imgUrl:'',
+					teacherTag:[]
 				}			
 			})
 		</script>

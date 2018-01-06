@@ -76,7 +76,7 @@
 			<ul class="list_ul" data-checked ="checked" id="list_ul">
 				<li class="list_li" v-for="item in listClass">
 					<span class="span_box" :data-type = "item.classId" onclick="span_detail(this)">
-						<img class="imgBtn" :src="item.classId ==1?'../images/myself/kspk_yes.png':'../images/myself/kspk_no.png'"  />
+						<img class="imgBtn" :src="item.classId ==1?'../images/login/kspk_yes.png':'../images/login/kspk_no.png'"  />
 						<span v-text="item.className"></span>
 					</span>						
 				</li>
@@ -94,16 +94,17 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/updateSelf.js" ></script>
 		<script type="text/javascript">
 		mui.init();
 			var changeStr ='1';
 			var list_ul = document.getElementById("list_ul");
 			mui.plusReady(function () {
 			     //监听返回
-			    listenReturn();		
+			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var selfDetail = self.selfDetail;
 				var classdata = '';
-				var selfDetail = null;
-				
 				//查询当前年级
 				var ajaxData = {
 						url:'public/app/class',
@@ -118,14 +119,14 @@
 							plus.nativeUI.toast(data.msg);
 						}
 				},false);
-				var register = plus.webview.getWebviewById('register');
-				var login = plus.webview.getWebviewById('login');
-				var guide_1 = plus.webview.getWebviewById('guide_1');
 				document.getElementById("register").addEventListener('tap',function(){
-					register.close();
-					login.close();
-					guide_1.close();
-					mui.back();
+					var dataObj={};
+					dataObj.userName = selfDetail.userName;
+					dataObj.gender = selfDetail.sex;
+					dataObj.address = selfDetail.address;
+					dataObj.city = selfDetail.area;
+					dataObj.classNum = changeStr;
+					sendFormData(dataObj,fileArr);
 				})
 			})
 			
@@ -134,7 +135,7 @@
 		  		//让所有的初始化
 		  		var li_img = document.getElementsByClassName('imgBtn');
 		  		for(var i=0;i<li_img.length;i++){
-		  			li_img[i].src = "../images/myself/kspk_no.png";
+		  			li_img[i].src = "../images/login/kspk_no.png";
 		  		}
 			   	var that = item;
 			   	var img = that.childNodes[0];
@@ -142,7 +143,7 @@
 			   	//lastIndexOf返回一个指定的字符串值最后出现的位置
 			   	var imgName = img.src.substr(img.src.lastIndexOf('/') + 1); 
 			   if(imgName =='kspk_no.png'){
-			   		img.src="../images/myself/kspk_yes.png";
+			   		img.src="../images/login/kspk_yes.png";
 			   		changeStr=type;
 			   }	
 		   }

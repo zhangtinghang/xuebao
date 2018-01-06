@@ -235,6 +235,14 @@
 				},true); 
 			})
 			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					ordercourse:[],//课程订单
+					orderrecharges:[],//充值订单
+					withdraw:[]//提现订单
+				}			
+			})			
 			//修改框架高度
 			var dom = document.getElementsByClassName('mui-control-content');
 			var segmentedControl = document.getElementById("segmentedControl").offsetHeight;
@@ -246,15 +254,6 @@
 			mui('.mui-scroll-wrapper').scroll({
 				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 			});
-			
-			var vm = new Vue({
-				el: '#msg-content',
-				data: {
-					ordercourse:[],//课程订单
-					orderrecharges:[],//充值订单
-					withdraw:[]//提现订单
-				}			
-			})
 		</script>
 	</body>
 </html>

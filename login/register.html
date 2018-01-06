@@ -170,10 +170,10 @@
 				}, 1000)
 			}
 					
-			
+			var userid = '';
 			//点击注册
 			dc.register.addEventListener('tap',function(){
-				openView.incView('guide_1.html','guide_1','填写信息');
+				openView.incView('guide_1.html','guide_1','填写信息',{userid:userid});
 				//验证
 //				app.reg(dc,function(data){
 //					if(data){
@@ -197,7 +197,12 @@
 //						    nickname: '学保Stu',
 //						    appKey: WebIM.config.appkey,
 //						    success: function (data) {
-//						    	mui.back();
+//						    	if(userid){
+//						    		openView.incView('guide_1.html','guide_1','填写信息',{userid:userid});
+//						    	}else{
+//						    		plus.nativeUI.toast('出现未知错误！');
+//						    	}
+//						    	
 //						    },
 //						    error: function (data) {
 //						    	plus.nativeUI.toast('注册失败，请稍后再试！');
@@ -205,9 +210,10 @@
 //						    apiUrl: WebIM.config.apiURL
 //						}; 
 //
-//						ajax(ajaxData, function(data) {
-//							console.log(data)
+//						ajax(ajaxData, function(data) { 
+//							console.log('注册===',JSON.stringify(data))
 //							if(data.code == 200){
+//								userid = data.data.id;
 //								plus.nativeUI.toast(data.msg);
 //								//注册环信
 //								 conn.registerUser(options);

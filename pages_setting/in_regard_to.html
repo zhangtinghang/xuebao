@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>关于学保</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.header_logo{
+				text-align: center;
+				padding-top: 1.583333rem;
+			}
+			.header_logo img{
+				width: 3.361111rem;
+				height: 3.361111rem;
+			}
+			.versions{
+				text-align: center;
+				font-size: 0.416666rem;
+				color: #1B82D1;
+				padding: 0.777777rem 0;
+			}
+			.versions_update{
+				height: 1.347222rem;
+				padding: 0 5%;
+				background-color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 0.416666rem;
+				color: #555555;
+			}
+			.agreement{
+				position: absolute;
+				bottom: 10%;
+				left: 50%;
+				transform: translateX(-50%);
+				-webkit-transform: translateX(-50%);
+				color: #1b82d1;
+				font-size: 0.416666rem;
+				z-index: 99;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="agreement" id="agreement">《易学宝服务协议》</div>
+		<div class="mui-content">
+			<div class="header_logo">
+				<img src="../images/icon.png" />
+			</div>
+			<div class="versions">
+				v1.0.0
+			</div>
+			<div class="versions_update" id="versions_update">
+				<span>检查更新</span>
+				<span>当前版本1.0.0</span>
+			</div>
+		</div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+				//点击检查更新
+				var versions_update = document.getElementById("versions_update");
+				versions_update.addEventListener('tap',function(){
+					plus.nativeUI.toast('当前版本最新！');
+				})
+				//点击协议
+			    var agreement = document.getElementById("agreement")
+			    agreement.addEventListener('tap',function(){
+			    	openView.nativeView('service_agreement.html', 'service_agreement', '用户注册用户协议');
+			    })
+			})
+		</script>
+	</body>
+
+</html>

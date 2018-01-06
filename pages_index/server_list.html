@@ -83,7 +83,7 @@
 			<div class="message_title">
 				<div class="title_img"><img src="../images/main_server/icon_schooltime.png" /></div>
 				<div class="title_text" v-text="item.desc"></div>
-				<div class="title_time" v-text="item.time"></div>
+				<div class="title_time">{{item.time | dateTime}}</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose" v-text="item.message"></div>
@@ -260,13 +260,22 @@
 						break;
 				}
 			})
+			Vue.filter('dateTime',function(value){
+				var value = value.replace(/-/g,"/");
+				console.log(value)
+				return dateUtils.format(value)
+			})
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
 					serverList:[]//教师动态数据
-				}			
+				},
+				methods: {
+			        numSort: function (a,b) {
+			            return a.count-b.count;
+			        }
+			    }
 			})
 		</script>
 	</body>
-
 </html>

@@ -503,7 +503,7 @@
 			<!--标签-->
 			<div class="platform_label" v-if="teacher.teacherTag">
 				<ul class="list_label_ul">
-					<li class="list_label_li" v-for="item in teacher.teacherTag" v-text="item"></li>
+					<li class="list_label_li" v-for="item in teacher.teacherTag.split('，')" v-text="item"></li>
 					<!--<li class="list_label_li">名师</li>-->
 				</ul>
 			</div>
@@ -731,11 +731,7 @@
 			     	teacherid = teacherdata.data.teacher.id;
 			     	vm.courseStudents = teacherdata.data.courseStudents;		     	
 			     	vm.resume = teacherdata.data.resume;
-			     	var tag = teacherdata.data.teacher.teacherTag.trim();
-			     	//处理字符串			     	
-			     	var tagArr= new Array();
-			     	tagArr=tag.split("，");
-			     	teacherdata.data.teacher.teacherTag = tagArr;
+			     	//处理字符串
 			     	
 			     	vm.teacher=teacherdata.data.teacher;
 

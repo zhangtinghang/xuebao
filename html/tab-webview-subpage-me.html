@@ -291,8 +291,12 @@
 		});
 		
 		mui.plusReady(function () {
-					var studentData = null; 
-					showData();
+					var studentData = null;
+					var state = app.getState();
+					if(state && state.data && state.IM_token ){
+						showData();
+					}
+					
 					function showData(){
 						var ajaxData = {
 							url:'restful1/users/findStudent',
@@ -300,14 +304,16 @@
 							type:'post'
 					}
 					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
 							if(data.code == 401){
 //								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
 								vm.studentDetail = data.data;
 								vm.ajaxUrl = ajaxUrl;
 								studentData=JSON.stringify(data);
-							}else{
-								plus.nativeUI.toast('请求超时！');
+							}else if(data.code == 1){
+								plus.nativeUI.toast('登录失效！');
+								openView.incView('../login/login.html', 'login', '欢迎登陆');
 							}
 						},true);
 					}
@@ -332,6 +338,9 @@
 		    
 		    //课堂反馈
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){
+		    	if(!studentData){
+		    		return plus.nativeUI.toast('请先登录！');
+		    	}
 		    	var type = this.getAttribute('data-type');
 		    	switch(type)
 		    	{

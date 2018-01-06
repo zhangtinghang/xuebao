@@ -454,7 +454,8 @@
 					"pages_setting/setting.html",
 					"pages_class_register/class_record.html",
 					"pages_indent/my_indent.html",
-					"pages_setting/selfDetail.html"
+					"pages_setting/selfDetail.html",
+					"pages_setting/platform_list.html"
 				],
 				"priority": 0
 			},
@@ -535,7 +536,9 @@
 					"js/mui.min.js",
 					"js/login_config.js"
 				],
-				"refer": [],
+				"refer": [
+					"login/guide_1.html"
+				],
 				"priority": 0
 			},
 			"main_message/server_list.html": {
@@ -596,7 +599,9 @@
 					"pages_setting/feedback.html",
 					"login/changePassword.html",
 					"pages_setting/Invitation_code.html",
-					"login/login.html"
+					"login/login.html",
+					"pages_setting/service_agreement.html",
+					"pages_setting/in_regard_to.html"
 				],
 				"priority": 0
 			},
@@ -707,6 +712,13 @@
 				"resources": [],
 				"refer": [
 					"pages_indent/indent_detail.html"
+				],
+				"priority": 0
+			},
+			"login/guide_1.html": {
+				"resources": [],
+				"refer": [
+					"login/guide_2.html"
 				],
 				"priority": 0
 			}

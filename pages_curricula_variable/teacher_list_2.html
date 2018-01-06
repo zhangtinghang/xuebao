@@ -518,9 +518,11 @@
 			    //接收到参数
 			    var self  = plus.webview.currentWebview();
 			    var courseType = self.courseType;
+			    console.log(courseType)
 			    var organizationId = self.organizationId;
 			    var subject =self.subject;
-			    var classId = 3;
+			    var state = app.getState();
+			    var classId = state.data.studentClass;
 			    console.log(courseType,organizationId,subject,classId)
 			    
 			    var ajaxData = {
@@ -529,7 +531,8 @@
 							courseType:courseType,
 							organizationId:organizationId,
 							subject:subject,
-							classId:classId 
+							classId:classId,
+							subjectType:-1
 						},
 						type:'post'
 				}

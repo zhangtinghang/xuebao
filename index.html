@@ -619,7 +619,7 @@
 				//更新个推
 				updateClient();
 				//登录状态检测 
-				if(!state || !state.data || !state.IM_token ) {
+				if(!state || !state.data || !state.IM_token ){
 					openView.incView('login/login.html', 'login', '欢迎登陆');
 				}
 				//监听登录刷新
