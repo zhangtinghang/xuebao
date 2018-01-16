@@ -74,17 +74,82 @@
 				<div class="list list_last"><span class="list_left">开始时间</span><span>09：20</span></div>
 			</div>
 			<div class="body_btn">
-				<button type="button" class="mui-btn mui-btn-block">继续</button>
-				<button type="button" class="mui-btn mui-btn-block finish">结束</button>
+				<button type="button" id="next_btn" class="mui-btn mui-btn-block">暂停</button>
+				<button type="button" id="return_btn"  class="mui-btn mui-btn-block finish">结束</button>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			     var ajaxData = {
+						url:'restful1/course/getCoursesByType',
+						data: {
+							
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							
+						}else if(data.data.length==0){
+							plus.nativeUI.toast('获取数据为空！');
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+				
+				//暂停课程
+				document.getElementById("next_btn").addEventListener('tap',function(){
+					//0 结束 1开始 2暂停
+					courseStaus();
+				})
+				//取消课程
+				document.getElementById("return_btn").addEventListener('tap',function(){
+					
+				})
+				
+				function courseStaus(status){
+					var ajaxData = {
+						url:'restful1/course/updateStudentCourseStatus',
+						data: {
+							courseId:courseId,
+							status:status
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							
+						}else if(data.data.length==0){
+							plus.nativeUI.toast('获取数据为空！');
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+				}
+			})
+			
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacherList:[],
+					imgUrl:'',
+					teacherTag:[]
+				}			
 			})
 		</script>
 	</body>

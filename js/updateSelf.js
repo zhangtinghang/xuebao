@@ -20,8 +20,8 @@ var sendFormData = function (dataObj,fileArr){
 	//前端使用HmacSHA1加密必须先将hash输出到input中才能获取正常值
 	getPassword.value = hash;
 	dataObj.token=getPassword.value;
-	
-	var studentImage = fileArr.studentImage || [];
+	dataObj.file={};
+	var studentImage = fileArr || [];
 	var url =ajaxUrl+'/restful1/users/updateTeacherInfo';
 		uploader = plus.uploader.createUpload(url, {
 			method: 'POST'
@@ -54,7 +54,7 @@ var sendFormData = function (dataObj,fileArr){
 			var f = studentImage[index];
 			console.log("addFile:"+JSON.stringify(f.path));
 			uploader.addFile(f.path, {
-				key: "studentImage"
+				key: "file"
 			});
 		});
 		//开始上传任务

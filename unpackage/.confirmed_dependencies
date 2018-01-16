@@ -130,7 +130,8 @@
 			"pages_class_register/class_record.html",
 			"pages_indent/my_indent.html",
 			"pages_setting/selfDetail.html",
-			"pages_setting/platform_list.html"
+			"pages_setting/platform_list.html",
+			"login/login.html"
 		]
 	},
 	"im/msg_list.html": {

@@ -10,7 +10,7 @@
 		"name": "1.0.0",/*应用版本名称*/
 		"code": ""
 	},
-	"description": "",/*应用描述信息*/
+	"description": "易学宝学生端",/*应用描述信息*/
 	"icons": {
 		"72": "icon.png"
 	},
@@ -211,7 +211,7 @@
 			"delay": "500"
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
-		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
 			"plugins": {
@@ -455,7 +455,8 @@
 					"pages_class_register/class_record.html",
 					"pages_indent/my_indent.html",
 					"pages_setting/selfDetail.html",
-					"pages_setting/platform_list.html"
+					"pages_setting/platform_list.html",
+					"login/login.html"
 				],
 				"priority": 0
 			},

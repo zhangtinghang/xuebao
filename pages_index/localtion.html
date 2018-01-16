@@ -95,9 +95,17 @@
 			    var type = self.type;
 			   var state = app.getState();
 			    //从修改进入区域时，修改操作
-			    if(eg && type){
+			    if(eg || type){ 
 			    	var selfDetail = plus.webview.getWebviewById('selfDetail');
-			    	vm.nowCity = eg;
+			    	 console.log(eg,type)
+			    	switch (eg){
+			    		case 1 :
+			    			vm.nowCity = '成都市';
+			    			break;
+			    		default:
+			    			vm.nowCity = '新增城市';
+			    			break;
+			    	}
 			    	flagAddress = eg;
 			    	//点击提交
 				    listenReturnRight('提交');				

@@ -250,10 +250,10 @@
 				<div class="blue_cirle"></div>今天
 			</div>
 			<ul class="list_ul">
-				<li>
+				<!--<li>
 					<div class="list_title"><span class="title_time">15:30</span>语文</div>
 					<div class="list_body"><div class="body_text">王老师<span>【班课】</span></div><div class="body_right">待上课</div></div>
-				</li>
+				</li>-->
 				<!--<li>
 					<div class="list_title"><span class="title_time">15:30</span>语文</div>
 					<div class="list_body"><div class="body_text">王老师<span>【一对一】</span></div><div class="body_right">待上课</div></div>
@@ -279,7 +279,7 @@
 				//监听返回
 				listenReturn();
 				mui('#date-list').on('tap', '.date_day', function() {
-					//			var day = this.getAttribute('date-day');
+					//var day = this.getAttribute('date-day');
 				})
 				var time = todu(date.getFullYear()) + '年' + todu(date.getMonth() + 1) + '月';
 				var ws = plus.webview.currentWebview();

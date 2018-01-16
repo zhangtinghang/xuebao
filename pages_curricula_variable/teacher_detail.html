@@ -461,12 +461,12 @@
 		
 		<div class="content" id="msg-content">
 			<div class="list_bg">
-				<img src="" v-lazy="imgUrl+teacher.teacherImage" />
+				<img :src="imgUrl+teacher.teacherImage" />
 			</div>
 
 			<!--头像-->
 			<div class="header_avatar">
-				<img src="" v-lazy="imgUrl+teacher.teacherImage" />
+				<img :src="imgUrl+teacher.teacherImage" />
 			</div>
 
 			<div class="header_name"><span v-text="teacher.name || '未登录'"></span><img align="center" :src="teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
@@ -589,14 +589,14 @@
 				<div class="dynamic_list more_dynamic" v-for="(newItem,index) in teacherNews" v-if="index < 3">
 					<div class="avatar">
 						<div class="avatar_box more_avatar">
-							<img src="" v-lazy="ajaxUrl+newItem.teacherImage" />
+							<img :src="ajaxUrl+newItem.teacherImage"  />
 						</div>
 					</div>
 					<div class="more_text">
 						<div class="list_name" v-text="newItem.userName || '未登录'"><img align="center" src="../images/teacher_list/dynamic.png" /></div>
 						<div class="list_signature" v-text="teacher.teacherWorld || '精勤博学，学以致用'"></div>
 						<div class="list_cover">
-							<img src="" v-lazy="imgUrl+newItem.images"/>
+							<img :src="imgUrl+newItem.images"/>
 						</div>
 						<div class="list_title" v-text="newItem.title || '未知'"></div>
 						<div class="list_content mui-ellipsis-1" v-text="newItem.content || '暂无'"></div>

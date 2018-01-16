@@ -84,7 +84,8 @@
 						<div class="messRemind" v-text="item.IMnum"></div>
 					</div>
 					<div class="list_message">
-						<div class="message_title" v-text="item.IMfrom"></div>
+						<div class="message_title" v-if="item.IMfrom" v-text="item.IMfrom"></div>
+						<div class="message_title" v-else-if="item.IMto" v-text="item.IMto"></div>
 						<div class="message_body" v-text="item.IMdata"></div>
 					</div>
 				</li>

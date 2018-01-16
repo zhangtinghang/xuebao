@@ -66,19 +66,48 @@
 		<div class="content">
 			<div class="content_course">对老师做个评价</div>
 			<div class="comment_text">
-				<textarea class="content_textarea" placeholder="对老师做出文字评论，该评论会显示在老师详情页。"></textarea>
+				<textarea class="content_textarea" id="commit_text" placeholder="对老师做出文字评论，该评论会显示在老师详情页。"></textarea>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    listenReturnRight('评价');
 			    var self = plus.webview.currentWebview();
 			    var teacherId = self.teacherId;
-			    //单选框
+			    var view = ws.getTitleNView();
+			    var commit_text = document.getElementById("commit_text");
+			    view.addEventListener("click", function(e) {
+				if(screen.width - e.clientX <= 60){
+						//事件逻辑处理
+						var ajaxData = {
+							url:'restful1/course/getCourseFeedbackByStudentId',
+							data: {
+//								perfect,
+//								commit_text.value
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							console.log('请求数据',JSON.stringify(data))
+								if(data.code == 401){
+									plus.nativeUI.toast('您还未登录哟！');
+								}else if(data.code == 200){
+									vm.feedDetail = data.data;
+								}else{
+									plus.nativeUI.toast('请求超时！');
+								}
+						},true);
+					}
+				}, false);
 			})
 		</script>
 	</body>

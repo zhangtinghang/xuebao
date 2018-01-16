@@ -11,9 +11,9 @@ function message(){
 	var OPENDATACASE = null;
 	var messRemind = document.getElementById("messRemind");
 	//打开数据库
-	websqlOpenDB();
-//				websqlDeleteAllDataFromTable(OPENDATABASE);
-//				websqlDeleteAllDataFromTable(OPENDATACASE);
+	websqlOpenDB(); 
+//	websqlDeleteAllDataFromTable("admin");
+//	websqlDeleteAllDataFromTable("12345678910");
 	
 	conn.open(options);
 	//创建连接 监听连接事件
@@ -66,22 +66,30 @@ function message(){
 		return callback({creatTable:true});
 	}
 	//组合并存入数据库(消息和图片)
-	function telMessage(message) {
-		var fromName = message.from;
-		var type = message.type;
+	function telMessage(message,type,self) {
+		console.log(JSON.stringify(message))
+		var from = message.from ||null;
+		var type = type ||'text'; //数据类型
 		var id = message.id;
-		var data = message.data || '';
-		var delay = delay || ''; //时间为空 为当前时间
+		var data = message.data || null;
+		var to = message.to || null;
+		var delay = message.delay || new Date(); //时间为空 为当前时间
+		if(message.delay){
+			var nowDelay = 0;
+		}else{
+			var nowDelay = 1;
+		}	
+		var nickname = nickname || '未知';
+		var avatar = avatar || null;
+		var self = self || 'false';
 		//所有消息
-		console.log('这是列表表格',OPENDATABASE);
-		websqlInsterDataToTable(OPENDATABASE, id, type, fromName, data, delay, function(state) {
+		websqlInsterDataToTable(OPENDATABASE, id, type, fromName, to, data, delay, function(state) {
 			console.log('存入成功')
 		});
 		//消息列表
-		console.log('这是用户表格',OPENDATACASE);
-		websqlUpdateAData(OPENDATACASE, id, type, data, delay, fromName, function(state) {
+		websqlUpdateAData(OPENDATACASE, id, type, data, delay, fromName, to, function(state) {
+			console.log('列表消息存入成功')
 			if(state.update == true || state.insert == true) {
-				console.log('查看页面情况',detailPage)
 				if(!detailPage) {
 					detailPage = plus.webview.getWebviewById('msg_list');
 				}
@@ -99,5 +107,9 @@ function message(){
 			messRemind.style.display = 'none';
 		}
 
+	}
+	//查询名字头像
+	function avatarMessage(){
+		
 	}
 }

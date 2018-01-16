@@ -161,7 +161,6 @@
 						console.log('请求数据',JSON.stringify(data))
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
-								
 							}else if(data.code == 200){
 								vm.feedDetail = data.data;
 							}else{

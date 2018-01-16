@@ -61,9 +61,14 @@
 						<div class="list_choose">【<span v-text="items.subjectName"></span>】<span v-text="items.courseTypeName"></span></div>
 						<div class="list_date" v-text="item.courseEndDate"></div>
 					</li>
-				</ul>	
-
+				</ul>
 			</div>
+			</div>
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
 			</div>
 			</div>
 			<!--取出加密值-->
@@ -83,6 +88,7 @@
 					down: {
 						style: 'circle',
 						auto: true,
+						color:'#4ea9ef',
 						callback: pulldownRefresh
 					}
 				}
@@ -105,8 +111,14 @@
 						plus.nativeUI.toast('您还未登录哟！');
 					}else if(data.code == 200){
 						vm.CourseByStudentId = data.data;
+						if(data.data.length==0){
+							vm.show_not_mess = true;
+						}else{
+							vm.show_not_mess = false;
+						}
 					}else{
 						plus.nativeUI.toast('请求超时！');
+						vm.show_not_mess = true;
 					}
 				},true); 
 			}
@@ -135,7 +147,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					CourseByStudentId:[]//教师动态数据
+					CourseByStudentId:[],
+					show_not_mess:false
 				}			
 			})
 		</script>

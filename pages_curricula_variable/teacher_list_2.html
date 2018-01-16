@@ -61,10 +61,13 @@
 			}
 			.list_avatar{
 				margin: 0.388888rem;
+				border-radius:90px;
+				overflow: hidden;
 			}
 			.list_avatar img{
 				width: 1.666666rem;
 				height: 1.666666rem;
+				border-radius:90px;
 			}
 			.list_title{
 				display: flex;
@@ -205,7 +208,7 @@
 				font-size: 0.444444rem;
 				color: #333333;
 			}
-			.right_content_title span{
+			.course_detail{
 				font-size: 0.277777rem;
 				color: #888888;
 				margin-left: 0.222222rem;
@@ -279,42 +282,39 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<!--顶部选择-->
 			<ul class="head_ul">
-				<li><a href="#Popover1">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
-				<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
-				<li><a href="#Popover3">详细筛选<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover11">默认排序<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover22">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
+				<li><a href="#Popover33">详细筛选<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
 			</ul>
 			
 			<!--教师列表-->
 			<div class="content_list">
 				<ul class="content_list_ul">
-					<li class="content_list_li">
-						<div class="content_list_box">					
+					<li class="content_list_li" v-for="item in teacherList">
+						<div class="content_list_box" :data-teacherId="item.teacher.id">					
 						<div class="list_header">
 							<!--头像-->
 							<div class="list_avatar">
-								<img src="../images/teacher_list/teacher_head.png" />
+								<img src="" v-lazy="imgUrl+item.teacher.teacherImage"/>
 							</div>
 							<!--右边文字-->
 							<div class="list_title">
 								<div class="list_title_box">
-									<div class="list_title_text">周老师</div>
-									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
+									<div class="list_title_text" v-text="item.teacher.name"></div>
+									<div class="list_title_img"><img :src="item.teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
 									<!--标签-->
 									<div class="list_label">
 										<ul class="list_label_ul">
-											<li class="list_label_li">8年教龄</li>
-											<li class="list_label_li">名师</li>
-											<li class="list_label_li">负责</li>
+											<!--{{item.teacher.teacherTag | teacherTag}}
+											<li class="list_label_li" v-for="item in teacherTag" v-text="item"></li>-->
 										</ul>
 									</div>
 								</div>	
 								<!--个性签名-->
-								<div class="signature">
-									没有更好，只有最好！
-								</div>
+								<div class="signature" v-text="item.teacher.teacherWorld"></div>
 								
 							</div>							
 						</div>
@@ -322,15 +322,15 @@
 						<div class="list_item">
 							<ul class="list_item_ul">
 								<li>
-									<div class="list_item_num">10</div>
+									<div class="list_item_num" v-text="item.teacher.teacherRank ||'0'"></div>
 									<div class="list_item_text">等级</div>
 								</li>
 								<li>
-									<div class="list_item_num">5468</div>
+									<div class="list_item_num" v-text="item.teacher.teacherTeachOfHour ||'0'"></div>
 									<div class="list_item_text">授课时长/分</div>
 								</li>
 								<li>
-									<div class="list_item_num">686</div>
+									<div class="list_item_num" v-text="item.teacher.studentNum ||'0'"></div>
 									<div class="list_item_text">学生数/人</div>
 								</li>
 							</ul>
@@ -338,16 +338,18 @@
 					</div>
 					
 					<div class="body_list">
-						<div class="body_list_box">
+						<div class="body_list_box" v-for="courseItem in item.courses">
 							<div class="list_left_icon">
-								<div class="list_left_label">基础级</div>
+								<div class="list_left_label" v-if="courseItem.courseType==0">基础级</div>
+								<div class="list_left_label1" v-else-if="courseItem.courseType==1">提高级</div>
+								<div class="list_left_label2" v-else-if="courseItem.courseType==2">培优级</div>
 							</div>
 							<div class="list_right_content">
-								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
-								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
+								<div class="list_right_body right_body_first"><span class="right_content_title"><span v-text="courseItem.className"></span><span v-text="courseItem.subjectName"></span><span class="course_detail">正在报名</span></span><span class="right_content_num">￥<span v-text="courseItem.coursePrice.courseprice"></span>/分钟</span></div>
+								<div class="list_right_body"><span class="right_content_apply">已报{{courseItem.incourse}}人<span>上限{{courseItem.peopleLimit}}人</span></span><span class="right_content_date">{{courseItem.courseStartTime | dateTime}}-{{courseItem.courseEndTime | dateTime}}</span></div>
 							</div>
 						</div>
-						<div class="body_list_box">
+						<!--<div class="body_list_box">
 							<div class="list_left_icon">
 								<div class="list_left_label1">基础级</div>
 							</div>
@@ -355,25 +357,23 @@
 								<div class="list_right_body right_body_first"><span class="right_content_title">高中英语班(1)<span>报名已结束</span></span><span class="right_content_num">￥5/分钟</span></div>
 								<div class="list_right_body"><span class="right_content_apply">已报24人<span>上限10人</span></span><span class="right_content_date">10月15日-11月15日</span></div>
 							</div>
-						</div>
+						</div>-->
 						<div class="more_course">更多课程<img align="center" src="../images/index/look_detail_icon.png" /></div>
 					</div>
 					</li>
 					
 					
-					<li class="content_list_li">
+					<!--<li class="content_list_li">
 						<div class="content_list_box">					
 						<div class="list_header">
-							<!--头像-->
 							<div class="list_avatar">
 								<img src="../images/teacher_list/teacher_head.png" />
 							</div>
-							<!--右边文字-->
 							<div class="list_title">
 								<div class="list_title_box">
 									<div class="list_title_text">周老师</div>
 									<div class="list_title_img"><img src="../images/teacher_list/male.png" /></div>
-									<!--标签-->
+									标签
 									<div class="list_label">
 										<ul class="list_label_ul">
 											<li class="list_label_li">8年教龄</li>
@@ -382,7 +382,6 @@
 										</ul>
 									</div>
 								</div>	
-								<!--个性签名-->
 								<div class="signature">
 									没有更好，只有最好！
 								</div>
@@ -429,7 +428,7 @@
 						</div>
 						<div class="more_course">更多课程<img align="center" src="../images/index/look_detail_icon.png" /></div>
 					</div>
-					</li>
+					</li>-->
 
 				</ul>
 			</div>
@@ -440,7 +439,7 @@
 					<li><a href="#Popover1">默认排序<img align="center" src="../images/teacher_list/plug_up_hover.png" /></a></li>
 					<li><a href="#Popover2">全部星级<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
 					<li><a href="#Popover3">详细筛选<img align="center" src="../images/teacher_list/plug_down.png" /></a></li>
-				</ul>
+				</ul> 
 				<div class="choose_list">
 					<ul>
 						<li>默认排序</li>
@@ -508,6 +507,7 @@
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -539,12 +539,7 @@
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200 && data.data.length!=0){
-							var tag = data.data.teacher.teacherTag.trim();
-					     	//处理字符串			     	
-					     	var tagArr= new Array();
-					     	tagArr=tag.split("，");
-					     	data.data.teacher.teacherTag = tagArr;
-					     	vm.oneList = data.data;
+					     	vm.teacherList = data.data;
 							vm.imgUrl=ajaxUrl;
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
@@ -553,11 +548,43 @@
 						}
 				},true);
 			    mui('.content_list_ul').on('tap','.content_list_box',function(){
-			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情');
+			    	var teacherId = this.getAttribute('data-teacherId');
+			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情',{teacherId:teacherId,type:'班课'});
 			    })
 			    mui('.body_list').on('tap','.more_course',function(){
-			    	openView.nativeView('all_class.html', 'all_class', ' 全部班课');
+			    	openView.nativeView('all_class.html', 'all_class', '全部班课');
 			    })
+			})
+			
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			})
+			
+//			Vue.filter('teacherTag',function(value){
+//				if(value){
+//					vm.teacherTag = value.split('，');
+//				}	
+//			})
+			Vue.use(VueLazyload, {
+			    preLoad: 1.3,  
+			    error: '../images/status/failed_trend.png',  
+			    loading: '../images/status/failed_trend.png',  
+			    attempt: 3  
+			});
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacherList:[],
+					imgUrl:'',
+					teacherTag:[]
+				}			
 			})
 		</script>
 	</body>

@@ -55,3 +55,27 @@ img{
 img[src=""]{  
     opacity: 0;  
 } 
+
+.not_message{
+	width: 100%;
+	height:5.555555rem;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-60%);
+	-webkit-transform: translateY(-60%);
+}
+.not_message_img{
+	width: 4.027777rem;
+	height: 4.027777rem;
+	margin: 0 auto;
+}
+.not_message_img img{
+	width: 100%;
+	width: 100%;
+}
+.not_message_text{
+	padding-top: 0.763888rem;
+	text-align: center;
+	font-size: 0.388888rem;
+	color: #555555;
+}

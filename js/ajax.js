@@ -37,6 +37,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 		getPassword.value = hash;
 		dataJSON.token=getPassword.value;
 	}
+	console.log('这是请求参数==',JSON.stringify(dataJSON))
 	var types = ajaxData.type || 'get'; 
 	var url = ajaxData.url || ''; 
 		mui.ajax(commurl+url,{
@@ -214,3 +215,10 @@ var originid = function(value){
 //  loading: 'images/status/failed_trend.png',  
 //  attempt: 3  
 //});
+
+//<div class="not_message">
+//	<div class="not_message_img">
+//		<img src="../images/status/icon_jz_wxx.png" />
+//	</div>
+//	<div class="not_message_text">还没有消息哟~</div>
+//</div>

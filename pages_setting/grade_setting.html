@@ -28,7 +28,7 @@
 	<body>
 		<div class="content" id="msg-content">
 			<ul id="list_ul" class="list_ul">
-				<li v-for="(value, key, index) in gradeList" :data-type="value.className" :class="grade==value.className?'add_bg':''" v-text="value.className"></li>
+				<li v-for="(value, key, index) in gradeList" :data-type="value.className" :data-num="value.classId" :class="grade==value.className?'add_bg':''" v-text="value.className"></li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -45,7 +45,7 @@
 			    var self = plus.webview.currentWebview();
 			    var	eg = self.eg;
 			    vm.grade = eg;
-			    
+			    var num = '';
 			    //查询当前城市
 				var ajaxData = {
 						url:'public/app/class',
@@ -66,12 +66,14 @@
 			    var selfDetail = plus.webview.getWebviewById('selfDetail');
 			    mui('.list_ul').on('tap','li',function(){
 			    	var dataType = this.getAttribute('data-type');
+			    	var dataNum = this.getAttribute('data-num');
 			    	for(var i=0; i<list_li.length;i++){
 			    		list_li[i].classList.remove('add_bg');
 			    	}
 			    	this.classList.add('add_bg');
 			    	mui.fire(selfDetail,'grade',{
-				    		value:dataType
+				    		value:dataType,
+				    		num:dataNum
 				  	});
 			    	mui.back();
 			    })

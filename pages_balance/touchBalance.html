@@ -216,7 +216,9 @@
 					},
 					type:'post'
 				}
+			    var w=plus.nativeUI.showWaiting("加载中，请等待...",{back:"transmit"});
 				ajax(ajaxData, function(data) {
+						w.close();
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){

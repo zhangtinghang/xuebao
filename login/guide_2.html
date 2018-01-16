@@ -89,9 +89,12 @@
 			</ul>
 			<button type="button" id="register" class="mui-btn mui-btn-block">完成</button>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript" src="../js/updateSelf.js" ></script>
@@ -121,10 +124,11 @@
 				},false);
 				document.getElementById("register").addEventListener('tap',function(){
 					var dataObj={};
+					var fileArr={};
 					dataObj.userName = selfDetail.userName;
 					dataObj.gender = selfDetail.sex;
 					dataObj.address = selfDetail.address;
-					dataObj.city = selfDetail.area;
+					dataObj.city = JSON.stringify(selfDetail.area);
 					dataObj.classNum = changeStr;
 					sendFormData(dataObj,fileArr);
 				})

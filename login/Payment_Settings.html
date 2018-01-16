@@ -15,7 +15,7 @@
 				width: 80%;
 				margin: 0 auto;
 				background: rgba(255,255,255,1);
-				margin-top: 1.416666rem;
+				padding-top: 1.416666rem;
 			}
 			.input{
 				display: flex;
@@ -82,7 +82,7 @@
 			<div class="input password">
 				<label class="login_img">验证码</label>
 				<input type="text" class="input_choose" id="auth_code" placeholder="获取验证码" />
-				<div class="auth_code">获取验证码</div>
+				<div class="auth_code" id="acquire_code">获取验证码</div>
 			</div>
 			<div class="input password mui-input-row mui-password">
 				<label class="login_img">新支付密码</label>
@@ -91,13 +91,89 @@
 			
 			<button type="button" id="login" class="mui-btn mui-btn-block">确定</button>
 		</div>	
-		<script type="text/javascript" src="../js/mui.min.js" ></script>
-		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />	
+		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script>
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //点击发送验证码
+			var countdown = 60;
+			var auth_code = document.getElementById("auth_code");
+			var phone = document.getElementById("phone");
+			var confirm_password = document.getElementById("confirm_password");
+			var acquire_code = document.getElementById("acquire_code");
+			acquire_code.addEventListener('tap',function(){
+				if(countdown != 60){
+					return;
+				}
+				if(!phone.value){
+						plus.nativeUI.toast('请输入手机号！');
+					}else{
+						settime();
+						//APP后台发送短信
+						var ajaxData = {
+							url:'public/users/smsCode',
+							data: {
+								phone:phone.value,
+							},
+							type: 'post'
+						};
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+							if(data.code==200){
+								plus.nativeUI.toast(data.msg);
+							}else{
+								plus.nativeUI.toast('获取验证码出错，请稍后再试！');
+							}	
+						});
+					}
+				})
+			
+				function settime(val) {
+					if(countdown == 0){
+						acquire_code.innerHTML = "获取验证码";
+						countdown = 60;
+						window.clearTimeout(timeData);
+						return;
+					}
+						acquire_code.innerHTML = "重新发送(" + countdown + ")";
+						countdown--;
+					var timeData = setTimeout(function() {
+						settime(val)
+					}, 1000)
+				}
+				
+				//点击确定
+				document.getElementById("login").addEventListener('tap',function(){
+					console.log(auth_code.value,confirm_password.value)
+					var ajaxData = {
+							url:'restful1/account/updateAccountPass',
+							data: {
+								phone:phone.value,
+								smsCode:auth_code.value,
+								newPass:confirm_password.value
+							},
+							type: 'post' 
+						};
+						ajax(ajaxData, function(data) {
+							if(data.code==200){
+								plus.nativeUI.toast(data.msg);
+								mui.back();
+							}else{
+								console.log(JSON.stringify(data))
+								plus.nativeUI.toast('修改支付出错！');
+							}
+							
+						},true);
+				})
 			})
 		</script>
 	</body>

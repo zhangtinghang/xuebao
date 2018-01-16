@@ -52,17 +52,23 @@
 						<div class="indent_list_body"><span><span v-text="orderItem.subjectName"></span>【基础级】班课</span><span>实付：<span class="list_right_num" v-text="orderItem.orderAmount"></span> 学币</span></div>
 						<div class="indent_list_time">2017-09-10 15:30</div>
 					</li>
-					<li>
+					<!--<li>
 						<div class="indent_list_title">张老师</div>
 						<div class="indent_list_body"><span>国学一对一</span><span>实付：<span class="list_right_num">500.00</span> 学币</span></div>
 						<div class="indent_list_time">2017-09-10 15:30</div>
-					</li>
+					</li>-->
 				</ul>
+			</div>
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
 			</div>
 		</div>
 		</div>
 		<!--取出加密值-->
-			<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
@@ -76,6 +82,7 @@
 					container: '#pullrefresh',
 					down: {
 						style: 'circle',
+						color:'#4ea9ef',
 						auto: true,
 						callback: pulldownRefresh
 					}
@@ -104,14 +111,18 @@
 					}
 					ajax(ajaxData, function(data) {
 						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-						console.log('我的订单页请求数据',JSON.stringify(data))
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
-								vm.orderlist = data.data;
-								mui.toast('获取数据成功');
+								vm.orderlist = data.data.list;
+								if(data.data.list.length==0){
+									vm.show_not_mess=true;
+								}else{
+									vm.show_not_mess=false;
+								}
 							}else{
 								plus.nativeUI.toast('请求超时！');
+								vm.show_not_mess=true;
 							}
 					},true); 
 			}
@@ -119,7 +130,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					orderlist:{}//教师动态数据
+					orderlist:[],//教师动态数据
+					show_not_mess:false
 				}			
 			})
 		</script>

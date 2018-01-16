@@ -12,6 +12,9 @@
 			.content{
 				padding-bottom: 0.577777rem;
 			}
+			.header img{
+				width: 100%;
+			}
 			.nav_title{
 				width: 100%;
 				height:0.763888rem;
@@ -55,24 +58,8 @@
 
 	<body>
 		<div class="content">
-			<!--轮播图片-->
-			<div id="slider" class="mui-slider" >
-			  <div class="mui-slider-group">
-			    <!-- 第一张 -->
-			     <div class="mui-slider-item">
-			      <a href="#">
-			        <img src="../images/shuijiao.jpg">
-			      </a>
-			    </div>
-			    <!-- 第二张 -->
-			    <div class="mui-slider-item">
-			      <a href="#">
-			        <img src="../images/yuantiao.jpg">
-			      </a>
-			    </div>
-			    
-			  </div>
-			  <p class="mui-slider-title"><span class="num_box">1/2</span></p>
+			<div class="header">
+				<img src="../images/cbd.jpg" />
 			</div>
 			<!--列表-->
 			<div class="nav_title">
@@ -110,13 +97,35 @@
 				</p>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			  //监听返回
 			    listenReturn();
+			})
+			
+			Vue.use(VueLazyload, {
+			    preLoad: 1.3,  
+			    error: '../images/status/failed_trend.png',  
+			    loading: '../images/status/failed_trend.png',  
+			    attempt: 3  
+			});
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacher:{},
+					course:{},
+					imgUrl:''
+				}
 			})
 		</script>
 	</body>

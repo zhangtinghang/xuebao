@@ -337,12 +337,13 @@
 					<div class="mui-item-clear"></div>
 				</div>-->
 				
-				<div v-for="item in messageList" class="msg-item" :class="item.sender=='self'?'msg-item-self':''" :msg-type="item.IMtype" :msg-content="item.IMdata">
-						<i v-if="item.IMtype=='chat'" class="msg-user mui-icon mui-icon-person"></i>
+				<div v-for="item in messageList" class="msg-item" :class="item.IMfrom==''?'msg-item-self':''" :msg-type="item.IMtype" :msg-content="item.IMdata">
+						<i v-if="item.IMfrom==''" class="msg-user mui-icon mui-icon-person"></i>
 						<img v-else class="msg-user-img" src="../images/logo.png" alt="" />
 					<div class="msg-content">
 						<div class="msg-content-inner">
 							<span v-if="item.IMtype=='chat'" v-text="item.IMdata || '&nbsp;&nbsp;'"></span>
+							<span v-else-if="item.IMtype=='txt'" v-text="item.IMdata || '&nbsp;&nbsp;'"></span>
 							<img v-else-if="item.type=='image'" class="msg-content-image" :src="item.content" style="max-width: 100px;" />
 						</div>
 						<div class="msg-content-arrow"></div>
@@ -402,7 +403,6 @@
 					//获取传递参数
 			    var self  = plus.webview.currentWebview();
 			    var listData = self.data;
-			    console.log('传递过来的data',JSON.stringify(listData))
 					//强制弹出键盘
 					var showKeyboard = function() {
 						if ($.os.ios) {
@@ -444,15 +444,14 @@
 					//获取数据并且渲染
 					var database = JSON.stringify(listData.IMfrom);
 					message(database,function(data){
-						console.log('查询到的聊天记录',JSON.stringify(data));
-						vm.messageList=data.data; 
+						bindMsgList(data.data);
 					})
 					//监听接收新消息
 					newMessage(function(callback){
 						if(callback.newMessage == true){
 							//监听到有新消息后 做消息渲染
 							message(database,function(data){
-								vm.messageList=data.data;
+								bindMsgList(data.data);
 							})
 						}
 					});
@@ -460,11 +459,14 @@
 					//绑定消息节点
 					var bindMsgList = function(msg) {
 						//渲染数据
-//						vm.messageList=msg.content;
+						vm.messageList=msg; 
 						//查找所有符合条件的图片
 						imageViewer.findAllImage();
-						//聊天界面的高度修改
-						ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
+						//聊天界面的高度修改，做一个延时，避免vue还未渲染完时，就执行了
+						setTimeout(function(){
+							ui.areaMsgList.scrollTop = ui.areaMsgList.scrollHeight + ui.areaMsgList.offsetHeight;
+						},500)
+						
 					};
 					//平滑高度过渡
 					window.addEventListener('resize', function() {
@@ -473,8 +475,6 @@
 					//发送对象声明
 					var send = function(msg) {
 						console.log(JSON.stringify(msg))
-						//绑定消息节点
-						bindMsgList(msg);
 						sendPrivateText(msg.content);
 					};
 					var sendPrivateText = function (info) {
@@ -494,17 +494,22 @@
 					    msg.body.chatType = 'singleChat';
 					    sendMessage(msg.body,function(callback){
 					    	console.log('存入消息成功',callback)
+					    	//绑定消息节点
+							message(database,function(data){
+								console.log('查询到的聊天记录',JSON.stringify(data));
+								bindMsgList(data.data);
+							})
 					    })
 					    conn.send(msg.body);
 					};
 					
 					//让输入框获取焦点
 					function msgTextFocus() {
+						ui.boxMsgText.focus();
+						setTimeout(function() {
 							ui.boxMsgText.focus();
-							setTimeout(function() {
-								ui.boxMsgText.focus();
-							}, 150);
-						}
+						}, 150);
+					}
 						//解决长按“发送”按钮，导致键盘关闭的问题；
 					ui.footerRight.addEventListener('touchstart', function(event) {
 						if (ui.btnMsgType.classList.contains('mui-icon-paperplane')) {
@@ -553,41 +558,42 @@
 					
 					//点击左边按钮时
 					ui.footerLeft.addEventListener('tap', function(event) {
-						var btnArray = [{
-							title: "拍照"
-						}, {
-							title: "从相册选择"
-						}];
-						plus.nativeUI.actionSheet({
-							title: "选择照片",
-							cancel: "取消",
-							buttons: btnArray
-						}, function(e) {
-							var index = e.index;
-							switch (index) {
-								case 0:
-									break;
-								case 1:
-									var cmr = plus.camera.getCamera();
-									cmr.captureImage(function(path) {
-										send({
-											sender: 'self',
-											type: 'image',
-											content: "file://" + plus.io.convertLocalFileSystemURL(path)
-										});
-									}, function(err) {});
-									break;
-								case 2:
-									plus.gallery.pick(function(path) {
-										send({
-											sender: 'self',
-											type: 'image',
-											content: path
-										});
-									}, function(err) {}, null);
-									break;
-							}
-						});
+						plus.nativeUI.toast('此功能尚未开通！');
+//						var btnArray = [{
+//							title: "拍照"
+//						}, {
+//							title: "从相册选择"
+//						}];
+//						plus.nativeUI.actionSheet({
+//							title: "选择照片",
+//							cancel: "取消",
+//							buttons: btnArray
+//						}, function(e) {
+//							var index = e.index;
+//							switch (index) {
+//								case 0:
+//									break;
+//								case 1:
+//									var cmr = plus.camera.getCamera();
+//									cmr.captureImage(function(path) {
+//										send({
+//											sender: 'self',
+//											type: 'image',
+//											content: "file://" + plus.io.convertLocalFileSystemURL(path)
+//										});
+//									}, function(err) {});
+//									break;
+//								case 2:
+//									plus.gallery.pick(function(path) {
+//										send({
+//											sender: 'self',
+//											type: 'image',
+//											content: path
+//										});
+//									}, function(err) {}, null);
+//									break;
+//							}
+//						});
 					}, false); 
 					//监听用户输入时触发
 					ui.boxMsgText.addEventListener('input', function(event) {
@@ -599,6 +605,7 @@
 						ui.footer.style.height = (ui.h.offsetHeight + footerPadding) + 'px';
 						//调整显示信息高度
 						ui.content.style.paddingBottom = ui.footer.style.height;
+						
 					});
 					var focus = false;
 					//监听用户点击发送时触发

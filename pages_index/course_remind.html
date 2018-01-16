@@ -67,13 +67,46 @@
 				<div class="list list_last"><span class="list_left">上课地点</span><span>青城阳光1号楼2楼东户</span></div>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    var ajaxData = {
+						url:'restful1/course/getCoursesByType',
+						data: {
+							
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							
+						}else if(data.data.length==0){
+							plus.nativeUI.toast('获取数据为空！');
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					teacherList:[],
+					imgUrl:'',
+					teacherTag:[]
+				}			
 			})
 		</script>
 	</body>

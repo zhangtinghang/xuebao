@@ -25,14 +25,14 @@
 			});
 			document.querySelector('.cropper-ok').addEventListener('tap',function () {
 				if (!croppable) return;
-				var croppedCanvas = cropper.getCroppedCanvas(); 
-				console.log('很皮',croppedCanvas)
-				var data = croppedCanvas.toDataURL('image/png', 0.6);
-				$.saveImage(data,'_doc/cropper/',function(path){
-					console.log('这是保存的图片路径==',path)
-				},{overwrite:true,format:"png"});
-				callback && callback(data);
-				
+				var croppedCanvas = cropper.getCroppedCanvas();
+				var data = croppedCanvas.toDataURL('image/png', 0.5);
+				var dataStr = JSON.stringify(data);
+				var name = dataStr.substring(dataStr.length-10,dataStr.length-4);
+				console.log('这是名字======',name)
+				$.saveImage(data,'_doc/'+name+'r.png',function(path){
+					callback && callback(path); 
+				},{overwrite:true,format:"png"});				
 				if(isClose !== false){
 					$.cropper.hide();
 				}
@@ -63,7 +63,7 @@
 		},function(error) {
 			mui.toast('取消拍照');
 		},{
-			filename: "_doc/image/copper.png"
+			filename: "_doc/image/"
 		});
 	}
 	
@@ -136,14 +136,14 @@
 	 * @param {Object} options
 	 */
 	$.saveImage = function(base64Str, path, callback, options){
-		options = options || {};
+		options = options || {format:"png"};
 		var bitmap = new plus.nativeObj.Bitmap("__cropper_drawImg__");
 		bitmap.loadBase64Data(base64Str, function(){
 			bitmap.save(path, options, function(e){
-				console.log(JSON.stringify(e))
 				callback && callback(e.target);
+				bitmap.clear();
 			},function(e){
-				console.log('保存图片失败：'+JSON.stringify(e));
+				console.log('保存图片失败：'+JSON.stringify(e));	
 			});
 		}, function(){
 			console.log('加载Base64图片数据失败：'+JSON.stringify(e));

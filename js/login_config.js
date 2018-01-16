@@ -60,7 +60,7 @@
 	 * 获取当前状态
 	 **/
 	owner.getState = function() {
-		var stateText = localStorage.getItem('$state') || "{}";
+		var stateText = localStorage.getItem('$state_stu') || "{}";
 		return JSON.parse(stateText);
 	};
 	
@@ -79,7 +79,7 @@
 	 **/
 	owner.setState = function(state) {
 		state = state || {};
-		localStorage.setItem('$state', JSON.stringify(state));
+		localStorage.setItem('$state_stu', JSON.stringify(state));
 		//var settings = owner.getSettings();
 		//settings.gestures = '';
 		//owner.setSettings(settings);
@@ -94,20 +94,5 @@
 		//settings.gestures = '';
 		//owner.setSettings(settings);
 	};
-	/**
-	 * 获取应用本地配置
-	 **/
-	owner.setSettings = function(settings) {
-		settings = settings || {};
-		localStorage.setItem('$settings_stu', JSON.stringify(settings));
-	}
-
-	/**
-	 * 设置应用本地配置
-	 **/
-	owner.getSettings = function() {
-			var settingsText = localStorage.getItem('$settings_stu') || "{}";
-			return JSON.parse(settingsText);
-	}
 
 }(mui, window.app = {}));

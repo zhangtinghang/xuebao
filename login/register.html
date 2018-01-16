@@ -15,7 +15,7 @@
 				width: 80%;
 				margin: 0 auto;
 				background: rgba(255,255,255,1);
-				margin-top: 1.416666rem;
+				padding-top: 1.416666rem;
 			}
 			.input{
 				display: flex;
@@ -169,61 +169,63 @@
 					settime(val)
 				}, 1000)
 			}
-					
-			var userid = '';
 			//点击注册
 			dc.register.addEventListener('tap',function(){
-				openView.incView('guide_1.html','guide_1','填写信息',{userid:userid});
 				//验证
-//				app.reg(dc,function(data){
-//					if(data){
-//						plus.nativeUI.toast(data);
-//					}else{
-//						//APP后台注册
-//						var ajaxData = {
-//							url:'public/users/register',
-//							data: {
-//								type:'student',
-//								phone:dc.phone.value,
-//								smsCode:dc.auth_code.value,
-//								password:dc.password.value
-//							},
-//							type: 'post'
-//						};
-//						//环信注册
-//						var options = {
-//						    username: dc.phone.value,
-//						    password: dc.password.value,
-//						    nickname: '学保Stu',
-//						    appKey: WebIM.config.appkey,
-//						    success: function (data) {
-//						    	if(userid){
-//						    		openView.incView('guide_1.html','guide_1','填写信息',{userid:userid});
-//						    	}else{
-//						    		plus.nativeUI.toast('出现未知错误！');
-//						    	}
-//						    	
-//						    },
-//						    error: function (data) {
-//						    	plus.nativeUI.toast('注册失败，请稍后再试！');
-//						    },
-//						    apiUrl: WebIM.config.apiURL
-//						}; 
-//
-//						ajax(ajaxData, function(data) { 
-//							console.log('注册===',JSON.stringify(data))
-//							if(data.code == 200){
-//								userid = data.data.id;
-//								plus.nativeUI.toast(data.msg);
-//								//注册环信
-//								 conn.registerUser(options);
-//							}else{
-//								//注册失败回调
-//								plus.nativeUI.toast('注册失败，请稍后再试！');
-//							}
-//						});
-//					}
-//				});
+				app.reg(dc,function(data){
+					if(data){
+						plus.nativeUI.toast(data);
+					}else{
+						var state = app.getState();
+						//APP后台注册
+						var ajaxData = {
+							url:'public/users/register',
+							data: {
+								type:'student',
+								phone:dc.phone.value,
+								smsCode:dc.auth_code.value,
+								password:dc.password.value
+							},
+							type: 'post'
+						};
+						//环信注册
+						var options = {
+						    username: dc.phone.value,
+						    password: dc.password.value,
+						    nickname: '学保Stu',
+						    appKey: WebIM.config.appkey,
+						    success: function (token) {
+						    	console.log('这是返回的环信郑',JSON.stringify(data))
+//						    	var token = token.access_token;
+//						        state.IM_token = token;
+//						        state.phone = doc.phone.value;
+//						        app.setState(state);
+//						        console.log('这是返回的环信正确',JSON.stringify(data))
+//						    	openView.incView('guide_1.html','guide_1','填写信息');						    	
+						    },
+						    error: function (data) {
+						    	console.log('这是返回的环信错误',JSON.stringify(data))
+						    	plus.nativeUI.toast('type:-2,注册失败！');
+						    },
+						    apiUrl: WebIM.config.apiURL
+						}; 
+						ajax(ajaxData, function(data) { 
+							console.log('注册===',JSON.stringify(data))
+							if(data.code == 200){
+								plus.nativeUI.toast(data.msg);
+								state.data = data.data;
+							    app.setState(state);
+							    openView.incView('guide_1.html','guide_1','填写信息');
+							    //注册环信
+//								conn.registerUser(options);
+							}else{
+								//注册失败回调
+								plus.nativeUI.toast('type:-1 注册失败！');
+								conn.registerUser(options);
+							}
+						});
+					}
+				});
 			})
 			
 			//返回登录

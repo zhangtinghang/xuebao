@@ -198,8 +198,9 @@
 									plus.nativeUI.toast(data.msg);
 									state.data = data.data;
 							        app.setState(state);
+							        mui.back();
 									//登录环信
-								 	conn.open(options);
+//								 	conn.open(options);
 								}else if(data.code == 201){
 									plus.nativeUI.toast(data.msg);
 								}else{

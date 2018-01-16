@@ -93,13 +93,46 @@
 				</ul>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
+			    
+			    //请求数据
+			    var ajaxData = {
+						url:'restful1/course/getCoursesByType',
+						data: {
+							
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+						if(data.code == 200){
+							
+						}else if(data.data.length==0){
+							plus.nativeUI.toast('获取数据为空！');
+						}else if(success.err){
+							plus.nativeUI.toast(data.err);
+						}
+				},true);
+			})
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					oneList:[],
+					imgUrl:'',
+					teacherTag:[]
+				}			
 			})
 		</script>
 	</body>

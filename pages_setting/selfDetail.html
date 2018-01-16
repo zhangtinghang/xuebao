@@ -10,9 +10,6 @@
 		<link rel="stylesheet" href="../css/cropper.min.css" />
 		<link rel="stylesheet" href="../css/mui.cropper.css" />
 		<style>
-			.list_ul{
-				
-			}
 			.list_ul li{
 				display: flex;
 				justify-content: space-between;
@@ -61,13 +58,13 @@
 		<div class="content" id="msg-content">
 			<div class="list_box">
 				<ul class="list_ul">
-					<a href="#cropper-sheet"><li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img src=" " v-lazy="imgUrl+studentData.studentImage" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li></a>
+					<a href="#cropper-sheet"><li data-type = "1"><span>头像</span><div class="right_box"><span class="avatar_box"><img  v-if="isPeople" src=" " v-lazy="avatar" /><img  v-else src=" " v-lazy="imgUrl+studentData.studentImage" /></span><span class="right_btn"><img src="../images/me/next_content.png" /></span></div></li></a>
 					<li data-type = "2"><span>姓名</span><span class="right_btn"><span v-text="studentData.name"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "3"><span>性别</span><span class="right_btn"><span v-text="studentData.gender"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "4"><span>学校</span><span class="right_btn"><span v-text="studentData.school"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "5"><span>年级</span><span class="right_btn"><span v-text="studentData.className"></span> <img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "6"><span>电话</span><span class="right_btn"><span v-text="studentData.mobilephone"></span> <img src="../images/me/next_content.png" /></span></li>
-					<li data-type = "7"><span>区域</span><span class="right_btn"><span v-text="studentData.cityName"></span><img src="../images/me/next_content.png" /></span></li>
+					<li data-type = "7"><span>区域</span><span class="right_btn"><span>{{studentData.city | city}}</span><img src="../images/me/next_content.png" /></span></li>
 					<li data-type = "8"><span>地址</span><span class="right_btn"><span v-text="studentData.address"></span> <img src="../images/me/next_content.png" /></span></li>
 				</ul>
 			</div>
@@ -95,30 +92,38 @@
 		<script type="text/javascript" src="../js/mui.cropper.js" ></script>
 		<script type="text/javascript" src="../js/cropper.min.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var me = plus.webview.getWebviewById('html/tab-webview-subpage-me.html');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(me,'showView',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
 			    //监听个人信息
 			    var self = plus.webview.currentWebview();
 			    var studentData = self.studentData;
-			    console.log('传递过来的信息',studentData)
 			   	studentData = JSON.parse(studentData);
 			   	vm.studentData = studentData.data;
 			   	vm.imgUrl = ajaxUrl;
 			   	//临时存照片变量
 			   	var imgFiles = [];
 			   	//提交资料审核
-			    listenReturnRight('提交审核','60px');
+			    listenReturnRight('修改信息','60px');
 			    var ws = plus.webview.currentWebview();
 				var view = ws.getTitleNView();
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
-					console.log('修改后的资料',JSON.stringify(studentData))
 						//事件逻辑处理
-						updataMessage(studentData,function(){
-							mui.back();
-						})
+						vardataObj = studentData.data;
+						updataMessage(vardataObj,imgFiles);
 					}
 				}, false);
 			
@@ -157,7 +162,9 @@
 					var name = path.substr(path.lastIndexOf('/') + 1);
 					mui('#cropper-sheet').popover('toggle');
 					mui.cropper.show(path, function(dataUrl){
-						console.log('这是路劲'+JSON.stringify(dataUrl))
+						vm.isPeople = true;
+						vm.avatar = dataUrl;
+						imgFiles.push({path:dataUrl})
 					});
 				}
 			   	//接收输入参数
@@ -167,19 +174,19 @@
 				  switch (type){
 				  	case '2':
 		    			studentData.data.name = value;
-		    			vm.studentData.name = value;
+		    			vm.studentData = studentData.data;
 		    		break;
 	    			case '4':
 		    			studentData.data.school = value;
-		    			vm.studentData.school = value;
+		    			vm.studentData = studentData.data;
 		    		break;
 	    			case '6':
 	    				studentData.data.mobilephone = value;
-		    			vm.studentData.mobilephone = value;
+		    			vm.studentData = studentData.data;
 	    			break;
 	    			case '8':
 	    				studentData.data.address = value;
-		    			vm.studentData.address = value;
+		    			vm.studentData = studentData.data;
 	    			break;
 				  }
 				});
@@ -194,20 +201,16 @@
 				//接收年级参数
 				window.addEventListener('grade',function(event){
 					var value = event.detail.value;
+					var num = event.detail.num;
 				  	studentData.data.className = value;
-		    		vm.studentData.className = value;
+		    		vm.studentData.classNum = num;
 				});
 				
 				//接收区域参数
 				window.addEventListener('address',function(event){
 					var value = event.detail.value;
-					studentData.data.cityName = value;
-		    		vm.studentData.cityName = value;
-				});
-				
-				//接收头像参数
-				window.addEventListener('avatar',function(event){
-					
+					studentData.data.city = value;
+		    		vm.studentData.city = value;
 				});
 				
 			   	
@@ -230,10 +233,10 @@
 			    			openView.nativeView('grade_setting.html', 'grade_setting', '年级',{'eg':vm.studentData.className,'type':type});
 			    			break;
 			    		case '6':
-			    			openView.nativeView('self_change.html', 'self_change', '电话',{'eg':vm.studentData.mobilephone,'type':type});
+			    			plus.nativeUI.toast('暂不支持修改手机号~');
 			    			break;
 			    		case '7':
-			    			openView.nativeView('../pages_index/localtion.html', 'localtion', '区域',{'eg':vm.studentData.cityName,'type':type});
+			    			openView.nativeView('../pages_index/localtion.html', 'localtion', '区域',{'eg':vm.studentData.city,'type':type});
 			    			break;
 		    			case '8':
 		    				openView.nativeView('self_change.html', 'self_change', '地址',{'eg':vm.studentData.address,'type':type});
@@ -249,11 +252,23 @@
 			  loading: '../images/status/not_login_head.png',  
 			  attempt: 3  
 			});
+			Vue.filter('city',function(value){
+				switch (value){
+					case 1:
+						return '成都市';
+						break;
+					default:
+						return '新增城市';
+						break;
+				}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
 					studentData:{},//教师动态数据
-					imgUrl:''
+					imgUrl:'',
+					avatar:'',
+					isPeople:false
 				}			
 			})
 		</script>

@@ -19,6 +19,9 @@
 				color: #333333;
 				border-bottom: 1px solid rgba(240,240,240,1) !important;
 			}
+			.list_ul li:active{
+				background-color: rgb(220,220,220);
+			}
 			.list_li_left{
 				width: 60%;
 			}
@@ -27,10 +30,20 @@
 
 	<body>
 		<div class="content" id="msg-content">
-			<ul class="list_ul">
-				<li v-for="item in sliderList"><span class="list_li_left mui-ellipsis-1" v-text="item.carouselContent"></span><span>{{item.carouselTime | courseTime}}</span></li>
-				<!--<li><span class="list_li_left mui-ellipsis-1">1322222222222222222222222222222222222222222222</span><span>1321</span></li>-->
-			</ul>
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="list_ul">
+					<li v-for="item in sliderList" @tap="dataDetail(item)"><span class="list_li_left mui-ellipsis-1" v-text="item.carouselContent"></span><span>{{item.carouselTime | courseTime}}</span></li>
+					<!--<li><span class="list_li_left mui-ellipsis-1">1322222222222222222222222222222222222222222222</span><span>1321</span></li>-->
+				</ul>
+			</div>
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
+			</div>
+		</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
@@ -38,11 +51,26 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						color:'#4ea9ef',
+						auto: true,
+						callback: pulldownRefresh
+					}
+				}
+			});
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    var ajaxData = {
+			})
+						/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				var ajaxData = {
 						url:'public/app/carousel',
 						data: {
 							type:'student'
@@ -50,14 +78,18 @@
 						type:'post'
 					}
 				ajax(ajaxData, function(data){
-					console.log(JSON.stringify(data))
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 					if(data.data){
 						vm.sliderList = data.data;
 					}else{
 						console.log('请求数据失败',JSON.stringify(data))
 					}						
 				});
-			})
+			}
+			
+			function dataDetail (item){
+				openView.nativeView('platform.html', 'platform', '平台详情', {datas: item});
+			}
 			Vue.filter('courseTime',function(value){
 				if(value){
 					var time = value.replace(/-/g,"/");
@@ -70,7 +102,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					sliderList:[]
+					sliderList:[],
+					show_not_mess:false
 				}			
 			})
 		</script>

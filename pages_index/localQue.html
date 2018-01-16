@@ -151,7 +151,7 @@
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
 							}else if(data.code == 200){
-								if(data.length>0){
+								if(data.data.length>0){
 									subject = data.data[0].subjectId;
 									vm.listBox = data.data;
 								}else{

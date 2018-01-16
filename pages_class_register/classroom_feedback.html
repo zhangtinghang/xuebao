@@ -60,6 +60,12 @@
 					</li>-->
 				</ul>
 			</div>
+			<div v-if="show_not_mess" class="not_message">
+				<div class="not_message_img">
+					<img src="../images/status/icon_jz_wxx.png" />
+				</div>
+				<div class="not_message_text">还没有消息哟~</div>
+			</div>
 		</div>
 		</div>
 		<!--取出加密值-->
@@ -78,6 +84,7 @@
 					down: {
 						style: 'circle',
 						auto: true,
+						color:'#4ea9ef',
 						callback: pulldownRefresh
 					}
 				}
@@ -108,8 +115,14 @@
 						}else if(data.code == 200){
 							vm.FeedbackByStudentId = data.data;
 							dataDetail = data.data;
+							if(data.data.length==0){
+								vm.show_not_mess=true;
+							}else{
+								vm.show_not_mess=false;
+							}
 						}else{
 							plus.nativeUI.toast('请求超时！');
+							vm.show_not_mess=true;
 						}
 				},true); 
 			}
@@ -120,7 +133,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					FeedbackByStudentId:[]//教师动态数据
+					FeedbackByStudentId:[],
+					show_not_mess:false
 				}			
 			})
 		</script>

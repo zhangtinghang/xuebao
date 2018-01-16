@@ -35,10 +35,12 @@
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
 			    var view = self.getTitleNView();
-			    var eg = self.eg;
+			    var eg = self.eg||'未知';
+			    if(eg == 'undefined' ||eg ==""){
+			    	eg = '未知';
+			    }
 			    var type = self.type;
 			    var list_box = document.getElementById("list_box");
-			    
 			    list_box.value=eg;
 			    //获得列表页面
 				var selfDetail = plus.webview.getWebviewById('selfDetail');

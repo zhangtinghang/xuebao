@@ -79,7 +79,7 @@
 
 	<body>
 		<div id="class_message_box">
-		<div v-for="item in serverList" class="class_message" :data-type="item.type | serverType" :data-id="item.type">
+		<div v-for="item in serverList" class="class_message" :data-type="item.type | serverType" :data-typeNew="item.type" :data-id="item.id">
 			<div class="message_title">
 				<div class="title_img"><img src="../images/main_server/icon_schooltime.png" /></div>
 				<div class="title_text" v-text="item.desc"></div>
@@ -192,6 +192,7 @@
 			    
 				mui('#class_message_box').on('tap','.class_message',function(){
 					var type = this.getAttribute('data-type');
+					var typeNew = this.getAttribute('data-typeNew');
 					var sid = this.getAttribute('data-id');
 					switch(type)
 						{
@@ -214,7 +215,7 @@
 							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排',{sid:sid});
 							break;
 						case '7':
-							openView.nativeView('indent_succ.html', 'indent_succ', '订单信息',{sid:sid});
+							openView.nativeView('indent_succ.html', 'indent_succ', '订单信息',{sid:sid,typeNew:typeNew});
 						break;
 						default:
 						
@@ -268,13 +269,8 @@
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
-					serverList:[]//教师动态数据
-				},
-				methods: {
-			        numSort: function (a,b) {
-			            return a.count-b.count;
-			        }
-			    }
+					serverList:[]
+				}
 			})
 		</script>
 	</body>
