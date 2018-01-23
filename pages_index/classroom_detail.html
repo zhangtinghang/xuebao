@@ -86,7 +86,7 @@
 
 	<body>
 		<div class="content" id="msg-content">
-			<div class="content_course"><span v-text="feedDetail.subjectName"></span>课反馈</div>
+			<div class="content_course"><span v-text="feedDetail.subjectName" :data-qw="feedDetail | subjectName"></span>课堂反馈</div>
 			<div class="detail_box">
 				<div class="detail_list">
 					<div class="list_left">重点:</div>
@@ -110,7 +110,9 @@
 				</div>
 				<div class="detail_list">
 					<div class="list_left"></div>
-					<div class="list_right"><img src="../images/logo.png"></div>
+					<div class="list_right">
+						<!--<img src="../images/logo.png">-->
+					</div>
 				</div>
 			</div>
 			<div class="evaluate">
@@ -118,7 +120,7 @@
 				<span id="comment_btn" :data-teacherId="feedDetail.teacherId" class="evaluate_btn">评价</span>
 			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
 			</div>
-			<div class="commit" v-if="feedDetail.comments !=0 ">
+			<div class="commit" v-if="feedDetail.comments">
 				<ul class="commit_ul">
 					<!--<li><span>我</span>：老师很负责，上课讲的很好</li>-->
 					<li v-for="coItem in feedDetail.comments"><span v-text="coItem.commentSourceName"></span>回复 <span v-text="coItem.commentTargetName"></span>：<span v-text="coItem.commentContent"></span></span></li>
@@ -147,17 +149,22 @@
 			    	case '反馈历史':
 			    		vm.feedDetail = JSON.parse(self.dataDetail);
 			    		break;
+			    	case '服务列表':
+			    		vm.feedDetail = self.courseDetail.feedback;
+			    		break;
 			    	default:
 			    		break;
 			    }
 			    //课堂详情获取数据
 			    function getCourseDetail(){
+			    	var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
 			    	var ajaxData = {
 						url:'restful1/course/getCourseFeedbackByStudentId',
 						data: {},
 						type:'post'
 					}
 					ajax(ajaxData, function(data) {
+						w.close();
 						console.log('请求数据',JSON.stringify(data))
 							if(data.code == 401){
 								plus.nativeUI.toast('您还未登录哟！');
@@ -168,14 +175,30 @@
 							}
 					},true);
 			    }
-				
+//				 function getServerDetail(sid){
+//				 		var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
+//			    		var ajaxData = {
+//							url:'restful1/message/getServiceMessageById',
+//							data: {
+//								id:sid,
+//							},
+//							type:'post'
+//						}
+//						ajax(ajaxData, function(data) {
+//							w.close();
+//							vm.feedDetail = data.data;
+//						},true);
+//			    }
 			    document.getElementById("comment_btn").addEventListener('tap',function(){
 			    	//传参
 			    	var teacherId = this.getAttribute('data-teacherId');
-			    	openView.nativeView('comment.html', 'comment', '发表评论',{teacherId:teacherId});
+//			    	openView.nativeView('comment.html', 'comment', '发表评论',{teacherId:teacherId});
+					plus.nativeUI.toast('暂未开通~');
 			    })
 			})
-			
+			Vue.filter('subjectName',function(value){
+				console.log(value.feedbackImportant)
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {

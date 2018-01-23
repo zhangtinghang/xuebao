@@ -367,7 +367,8 @@
 					"pages_index/server_list.html",
 					"pages_index/dynamic_detail.html",
 					"pages_index/more_dynamic.html",
-					"pages_index/localtion.html"
+					"pages_index/localtion.html",
+					"pages_index/classroom_detail.html"
 				],
 				"priority": 0
 			},
@@ -720,6 +721,13 @@
 				"resources": [],
 				"refer": [
 					"login/guide_2.html"
+				],
+				"priority": 0
+			},
+			"pages_curricula_variable/onetoone_sign.html": {
+				"resources": [],
+				"refer": [
+					"pages_setting/pay_password.html"
 				],
 				"priority": 0
 			}

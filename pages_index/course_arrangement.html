@@ -141,13 +141,15 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
+			    console.log(sid)
 			    var ajaxData = {
-						url:'restful1/course/getCoursesByType',
-						data: {
-							
-						},
-						type:'post'
+					url:'restful1/message/getServiceMessageById',
+					data: {
+						id:sid
+					},
+					type:'post'
 				}
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))

@@ -1,10 +1,14 @@
 //设置背景图时,去掉图片灰色边框,第一次使用请检查路径是否正确!!
 var img_translate="../images/translate.png";
-
+var imgUrl = 'https://www.yixuebaochina.com:4433/image'
 var taskArr = new Array(); //图片下载任务集合
 var isStartTask = false; //是否开启下载任务
 var indexCover = 0;
 var indexAvatar = 0;
+var localCover = 0;
+var teacherAvatar = 0;
+var teaDetailAvatar = 0;
+var teaDeatilCover = 0;
 //首页Cover渲染
 function indexCoverArrImg(obj,arrImg){ 
 	console.log(JSON.stringify(arrImg))
@@ -14,9 +18,43 @@ function indexCoverArrImg(obj,arrImg){
 }
 //首页头像渲染
 function indexAvatarArrImg(obj,arrImg){
-	var imgUrl = arrImg[indexAvatar].teacherImage;
-	indexAvatar++;
-	load(obj,imgUrl);
+	if(arrImg){
+		var imgUrl = arrImg[indexAvatar].teacherImage;
+		indexAvatar++;
+		load(obj,imgUrl);
+	}
+	
+}
+//地址封面渲染
+function loaclCoverArrImg(obj,arrImg){
+	if(arrImg){
+		var imgUrl = arrImg[localCover].image;
+		localCover++;
+		load(obj,imgUrl);
+	}
+}
+//教师列表页渲染
+function teacherCoverArrImg(obj,arrImg){
+	if(arrImg){
+		var imgUrl = arrImg[teacherAvatar].teacher.teacherImage;
+		teacherAvatar++;
+		load(obj,imgUrl);
+	}
+}
+
+function teaDeatilAvater(obj,arrImg){
+	if(arrImg){
+		var imgUrl = arrImg[teaDetailAvatar].teacherImage;
+		teaDetailAvatar++;
+		load(obj,imgUrl);
+	}
+}
+function teaDeatilCover(obj,arrImg){
+	if(arrImg){
+		var imgUrl = arrImg[teaDeatilCover].teacherImage;
+		teaDeatilCover++;
+		load(obj,imgUrl);
+	}
 }
 /**
  * 通过设置src默认图,来触发onload的方法
@@ -29,7 +67,7 @@ function indexAvatarArrImg(obj,arrImg){
  */
 function load(obj,url) {
 	if (obj.getAttribute('data-loaded')) return;
-	var image_url = ajaxUrl + url;
+	var image_url = imgUrl + url;
 	
 	obj.setAttribute('data-src', image_url);
 	if (!image_url) return;

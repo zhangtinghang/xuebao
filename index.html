@@ -398,60 +398,35 @@
 				<div id="server_more" class="nav_more">更多</div>
 			</div>
 			<div class="class_message_box" id="class_message_box">
-				<!--<div class="class_message" data-type="1">
+				<div v-for="item in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
 					<div class="message_title">
-						<div class="title_img"><img src="images/index/in_class_icon.png" /></div>
-						<div class="title_text">上课中</div>
-						<div class="title_time">16:54</div>
+						<div class="title_img"><img src="images/index/icon_ddxx_shouye.png" /></div>
+						<div class="title_text" v-text="item.desc"></div>
+						<div class="title_time">{{item.time | dateTime}}</div>
 					</div>
 					<div class="message_body">
-						<div class="body_choose">【语文】</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
-					</div>
-				</div>-->
-
-				<!--<div class="class_message" data-type="2">
-					<div class="message_title">
-						<div class="title_img"><img src="images/index/recharge_record_icon.png" /></div>
-						<div class="title_text">充值记录</div>
-						<div class="title_time">10:04</div>
-					</div>
-					<div class="message_body">
-						<div class="body_choose">1000学保币充值成功</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
+						<div class="body_choose" v-text="item.message"></div>
+						<div class="body_detail">查看详情  <img src="images/index/look_detail_icon.png"/></div>
 					</div>
 				</div>
-
-				<div class="class_message" data-type="3">
-					<div class="message_title">
-						<div class="title_img"><img src="images/index/class_feedback_icon.png" /></div>
-						<div class="title_text">课堂反馈</div>
-						<div class="title_time">昨天 9:40</div>
-					</div>
-					<div class="message_body">
-						<div class="body_choose">【数学课堂反馈】</div>
-						<div class="body_detail">查看详情 <img align="center" src="images/index/look_detail_icon.png" /></div>
-					</div>
-				</div>-->
 			</div>
-			<!--<button id="getRoasters">GetRoasters</button>-->
 			<!--老师动态-->
 			<div class="serve_nav">
 				<div class="nav_line"></div>
 				<span class="nav_serve">老师动态</span>
-				<div v-if="teacherArr>0" id="teacher_dynamic" class="nav_more">更多</div>
+				<div v-if="teacherArr" id="teacher_dynamic" class="nav_more">更多</div>
 			</div>
 
-			<div class="teacher_box" v-if="teacherArr>0">
+			<div class="teacher_box" v-if="teacherArr">
 				<ul class="teacher_ul">
-					<li class="teacher_li" v-for="item in teacherArr">
+					<li class="teacher_li" v-for="(item, index) in teacherArr" v-if="index < 6">
 						<a href="javascript:;" @tap="open_detail(item)">
 							<div class="teacher_cover">
 								<img class="img_cover" v-if="item.images" src="images/status/failed_chos_place_picture.png" onload="indexCoverArrImg(this,vm.teacherArr)" />
 							</div>
 							<div class="teacher_list">
 								<div class="teacher_img">
-									<img class="img_cover" align="center" v-if="item.teacherImage" src="images/status/failed_chos_place_picture.png" onload="indexAvatarArrImg(this,vm.teacherArr)" />
+									<img class="img_cover" align="center" v-if="item.teacherImage" src="images/status/not_login_head.png" onload="indexAvatarArrImg(this,vm.teacherArr)" />
 								</div>
 								<div class="teacher_name" v-text="item.userName"></div>
 								<div class="teacher_message">
@@ -480,7 +455,7 @@
 		<script type="text/javascript" src="js/login_config.js"></script>
 		<script type="text/javascript" src="js/vue.min.js"></script>
 		<script type="text/javascript" src="js/md5.min.js"></script>
-		<script type="text/javascript" src="js/imgload.js"></script>
+		<script type="text/javascript" src="js/imgload2.js"></script>
 		<script type="text/javascript" src="js/storage/websql.js"></script>
 		<script type="text/javascript" src="js/hmac-sha1.js"></script>
 		<script type="text/javascript" src="js/IM/message.js" ></script>
@@ -620,6 +595,8 @@
 				push();
 				//更新个推
 				updateClient();
+				//服务消息
+				getServerMess();
 				//登录状态检测 
 				if(!state || !state.data){
 					openView.incView('login/login.html', 'login', '欢迎登陆');
@@ -632,6 +609,8 @@
 				   slider_box();
 				   //更新个推
 				   updateClient();
+				   //服务消息
+					getServerMess();
 				});
 				//聊天列表
 				document.getElementById("message").addEventListener('tap', function() {
@@ -659,49 +638,129 @@
 				document.getElementById("localtion").addEventListener('tap', function() {
 					openView.nativeView('pages_index/localtion.html', 'localtion', '位置');
 				});
-				//服务消息
-				mui('#class_message_box').on('tap', '.class_message', function() {
-					openView.nativeView('pages_index/server_list.html', 'server_list', '服务消息');
-				});
 				//轮播图平台
 				document.getElementById("slider").addEventListener('tap',function(){
 					openView.nativeView('pages_setting/platform_list.html', 'platform_list', '平台资料');
 				})
-//				listAllPush();
+				//服务消息
+				mui('#class_message_box').on('tap','.class_message',function(){
+					var type = this.getAttribute('data-type');
+					var sid = this.getAttribute('data-id');
+					var detailId = this.getAttribute('data-detailId');
+					var typeNew = this.getAttribute('data-typeNew');
+					switch(type)
+						{
+						case '1':
+//							openView.nativeView('in_class.html', 'in_class', '上课中',{sid:sid});
+							openView.nativeView('pages_index/classroom_detail.html', 'classroom_detail', '课堂反馈',{sid:sid,type:'服务列表'});
+							break;
+						case '2':
+							openView.nativeView('pages_index/pay_success.html', 'pay_success', '充值成功',{sid:sid});
+							break;
+						case '3':
+							chooseCourse(sid,detailId);
+							
+							break;
+						case '4':
+							openView.nativeView('pages_index/Withdrawal_success.html', 'Withdrawal_success', '提现成功',{sid:sid});
+							break;
+						case '5':
+							openView.nativeView('pages_index/course_remind.html', 'course_remind', '上课提醒',{sid:sid});
+							break;
+						case '6':
+//							plus.nativeUI.toast('此功能尚未开通~');
+							openView.nativeView('pages_index/course_arrangement.html', 'course_arrangement', '课程安排',{sid:sid});
+							break;
+						case '7':
+							openView.nativeView('pages_index/indent_succ.html', 'indent_succ', '订单信息',{sid:sid,typeNew:typeNew});
+						break;
+						case '8':
+							openView.nativeView('pages_index/indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
+						break;
+						default:		
+						}
+					});
+				
+				function chooseCourse(sid,detailId){
+					//推送的课堂反馈，需先查到课程id
+				    if(sid){
+				    	var ajaxData = {
+							url:'restful1/message/getServiceMessageById',
+							data: {
+								id:sid,
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+								if(data.code == 200){
+									//判断是否填写课堂反馈，如果反馈，查看信息，若未反馈，填写反馈
+									if(data.data.feedback){
+										var courseDetail = data.data;
+										openView.nativeView('pages_index/classroom_detail.html', 'classroom_detail', '课堂反馈',{courseDetail:courseDetail,courseSection:detailId});
+									}else{
+										openView.nativeView('pages_index/fill_feedback.html', 'fill_feedback', '课堂反馈',{sid:sid,courseId:detailId});
+									}							
+								}else{
+									if(data.code){
+										plus.nativeUI.toast(data.msg);
+									}else{
+										plus.nativeUI.toast(data.err);
+									}
+								}
+						},true);
+				    }
+					
+				}
 			});
-
-			function listAllPush() {
-				var msgs = null;
-				switch(plus.os.name) {
-					case "Android":
-						msgs = plus.push.getAllMessage();
+			Vue.filter('serverType',function(value){
+				switch (value){
+					case 11:
+						return 1;
+						break;
+					case 12:
+						return 5;
+						break;
+					case 13:
+						return 6;
+						break;
+					case 14:
+						return 6;
+						break;
+					case 15:
+						return 8;
+						break;
+					case 21:
+						return 2;
+						break;
+					case 22:
+						return 2;
+						break;
+					case 3:
+						return 3;
+						break;
+					case 41:
+						return 4;
+						break;
+					case 42:
+						return 4;
+						break;
+					case 51:
+						return 7;
+						break;
+					case 52:
+						return 7;
 						break;
 					default:
 						break;
 				}
-				if(!msgs) {
-					return;
-				}
-				console.log("枚举消息列表（" + msgs.length + "）：");
-				for(var i in msgs) {
-					var msg = msgs[i];
-					mui.toast(i + ": " + msg.title + " - " + msg.content);
-					console.log(i + ": " + msg.title + " - " + msg.content)
-				}
-			}
-
-			//老师动态详情
-			function open_detail(data) {
-				var datas = JSON.stringify(data);
-				openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情', {
-					datas: datas
-				});
-			}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
 					teacherMessage: [], //教师动态数据
-					imgUrl:''
+					imgUrl:'',
+					serverArr:[]
 				},
 				computed: {
 					teacherArr: function () {
@@ -709,7 +768,13 @@
 					}
 				}
 			})
-
+			//老师动态详情
+			function open_detail(data) {
+				var datas = JSON.stringify(data);
+				openView.nativeView('pages_index/dynamic_detail.html', 'dynamic_detail', '动态详情', {
+					datas: datas
+				});
+			}
 			function creatSlider(data) {
 				var len = data.length;
 				// 图片

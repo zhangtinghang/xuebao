@@ -17,7 +17,7 @@
 			
 			.list_bg {
 				width: 100%;
-				min-height: 3rem;
+				min-height: 4rem;
 				max-height: 5rem;
 				background-color: rgb(240,240,240);
 				background-image: url(../images/status/failed.png);
@@ -277,6 +277,7 @@
 			.avatar_box img {
 				width: 100%;
 				height: 100%;
+				border-radius: 90px;
 			}
 			
 			.more_text {
@@ -461,12 +462,12 @@
 		
 		<div class="content" id="msg-content">
 			<div class="list_bg">
-				<img :src="imgUrl+teacher.teacherImage" />
+				<img class="img_cover" v-if="teacher.teacherImage" src="../images/status/failed.png" onload="load(this,vm.teacher.teacherImage)" />
 			</div>
 
 			<!--头像-->
 			<div class="header_avatar">
-				<img :src="imgUrl+teacher.teacherImage" />
+				<img class="img_cover" v-if="teacher.teacherImage" src="../images/status/not_login_head.png" onload="load(this,vm.teacher.teacherImage)" />
 			</div>
 
 			<div class="header_name"><span v-text="teacher.name || '未登录'"></span><img align="center" :src="teacher.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" /></div>
@@ -589,14 +590,14 @@
 				<div class="dynamic_list more_dynamic" v-for="(newItem,index) in teacherNews" v-if="index < 3">
 					<div class="avatar">
 						<div class="avatar_box more_avatar">
-							<img :src="ajaxUrl+newItem.teacherImage"  />
+							<img v-if="newItem" src="../images/status/not_login_head.png" onload="teaDeatilAvater(this,vm.teacherNews)" />
 						</div>
 					</div>
 					<div class="more_text">
 						<div class="list_name" v-text="newItem.userName || '未登录'"><img align="center" src="../images/teacher_list/dynamic.png" /></div>
 						<div class="list_signature" v-text="teacher.teacherWorld || '精勤博学，学以致用'"></div>
 						<div class="list_cover">
-							<img :src="imgUrl+newItem.images"/>
+							<img v-if="newItem" src="../images/status/failed.png" onload="teaDeatilCover(this,vm.teacherNews)"/>
 						</div>
 						<div class="list_title" v-text="newItem.title || '未知'"></div>
 						<div class="list_content mui-ellipsis-1" v-text="newItem.content || '暂无'"></div>
@@ -676,7 +677,8 @@
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
+		<script type="text/javascript" src="../js/md5.min.js" ></script>
+		<script type="text/javascript" src="../js/imgload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -734,9 +736,9 @@
 			     	//处理字符串
 			     	
 			     	vm.teacher=teacherdata.data.teacher;
-
+					console.log(vm.teacher)
 					vm.teacherNews=teacherdata.data.teacherNews;
-					
+					console.log('这是====',JSON.stringify(vm.teacherNews))
 					vm.imgUrl=ajaxUrl;
 			     }else{
 			     	plus.nativeUI.toast('暂未获取到教师信息！');
@@ -764,7 +766,7 @@
 			    })
 			});
 			
-			Vue.filter('index1',function(value){
+			Vue.filter('wsa',function(value){
 				console.log('12312',value)
 			})
 			Vue.filter('dateTime',function(value){
@@ -775,12 +777,6 @@
 					var getHour = time.getDate();
 					return getMonth +'月'+getHour+'日';
 				}
-			});
-			Vue.use(VueLazyload, {
-			    preLoad: 1.3,  
-			    error: '../images/status/failed_trend.png',  
-			    loading: '../images/status/failed_trend.png',  
-			    attempt: 3  
 			});
 			var vm = new Vue({
 				el: '#msg-content',

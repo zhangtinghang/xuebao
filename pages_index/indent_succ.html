@@ -79,8 +79,8 @@
 				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
 				<div class="list"><span class="list_left">课堂类型</span><span v-text="listDetail.onetoonetype==1?'一对一':'班课'"></span></div>
 				<div class="list"><span class="list_left">学生问题</span><span v-text="listDetail.courseTypeName"></span></div>
-				<div class="list"><span class="list_left">订单时长</span><span><span v-text="listDetail.courseDuration"></span>min</span></div>
-				<div class="list"><span class="list_left">订单金额</span><span><span v-text=""></span>学币</span></div>
+				<div class="list"><span class="list_left">订单时长</span><span><span v-text="ordercourse.duration"></span>min</span></div>
+				<div class="list"><span class="list_left">订单金额</span><span><span v-text="ordercourse.marketPrize/100"></span>学币</span></div>
 			</div>
 		</div>
 		<!--取出加密值-->
@@ -121,6 +121,7 @@
 						plus.nativeUI.toast('您还未登录哟！');
 					}else if(data.code == 200){
 						vm.listDetail = data.data.course;
+						vm.ordercourse = data.data.ordercourse;
 					}else{
 						plus.nativeUI.toast('请求超时！');
 					}
@@ -131,7 +132,8 @@
 				el: '#msg-content',
 				data: {
 					listDetail:{},//教师动态数据
-					title:''
+					title:'',
+					ordercourse:{}
 				}			
 			})
 		</script>

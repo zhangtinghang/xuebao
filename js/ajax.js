@@ -1,4 +1,5 @@
 var ajaxUrl = 'http://118.126.109.71:8080/webapp';
+var imgUrl = 'https://www.yixuebaochina.com:4433/image';
 var ajax = function(ajaxData,callback,encrypt,userid) {
 	//判断网络
 	if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
@@ -37,7 +38,7 @@ var ajax = function(ajaxData,callback,encrypt,userid) {
 		getPassword.value = hash;
 		dataJSON.token=getPassword.value;
 	}
-	console.log('这是请求参数==',JSON.stringify(dataJSON))
+	console.log('请求数据',JSON.stringify(dataJSON))
 	var types = ajaxData.type || 'get'; 
 	var url = ajaxData.url || ''; 
 		mui.ajax(commurl+url,{
@@ -207,15 +208,7 @@ var originid = function(value){
 	}
 	return value;
 }
-
-
-//Vue.use(VueLazyload, {  
-//  preLoad: 1.3,  
-//  error: 'images/status/failed_trend.png',  
-//  loading: 'images/status/failed_trend.png',  
-//  attempt: 3  
-//});
-
+//var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
 //<div class="not_message">
 //	<div class="not_message_img">
 //		<img src="../images/status/icon_jz_wxx.png" />

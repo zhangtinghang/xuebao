@@ -1,358 +1,364 @@
 {
-	"index.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"html/tab-webview-subpage-about.html",
-			"fonts/mui.ttf",
-			"fonts/iconfont.ttf",
-			"js/util.js",
-			"html/tab-webview-subpage-chat.html",
-			"images/index/recommand_2.png",
-			"images/index/teacher_head.png",
-			"js/zoom/flexible.js",
-			"images/shuijiao.jpg",
-			"images/index/teacher_picture.png",
-			"images/index/location.png",
-			"images/index/class_feedback_icon.png",
-			"images/index/search_btn.png",
-			"images/yuantiao.jpg",
-			"images/index/recommand_1.png",
-			"html/tab-webview-subpage-me.html",
-			"images/index/receive_infor_btn.png",
-			"images/index/chat_num.png",
-			"images/index/recharge_record_icon.png",
-			"images/index/arrangement.png",
-			"images/index/in_class_icon.png",
-			"js/config.js",
-			"js/IM/websdk-1.4.13.js",
-			"js/IM/strophe-1.2.8.min.js",
-			"js/login_config.js",
-			"js/IM/webim.config.js"
-		],
-		"refer": [
-			"html/tab-webview-subpage-setting.html",
-			"html/tab-webview-subpage-chat.html",
-			"html/tab-webview-subpage-contact.html",
-			"html/tab-webview-subpage-about.html",
-			"html/new-webview.html",
-			"html/tab-webview-subpage-me.html",
-			"im/msg_list.html",
-			"login/login.html",
-			"im/im_search.html",
-			"main_message/server_list.html",
-			"pages/calendar.html",
-			"pages/more_dynamic.html",
-			"mask.html",
-			"pages_index/calendar.html",
-			"pages_index/server_list.html",
-			"pages_index/dynamic_detail.html",
-			"pages_index/more_dynamic.html",
-			"pages_index/localtion.html"
-		]
-	},
-	"launch.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"html/tab-webview-subpage-about.html"
-		],
-		"refer": [
-			"html/tab-webview-subpage-setting.html",
-			"html/tab-webview-subpage-chat.html",
-			"html/tab-webview-subpage-contact.html",
-			"html/tab-webview-subpage-about.html"
-		]
-	},
-	"html/tab-webview-subpage-setting.html": {
-		"resources": [
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/mui.min.js"
-		],
-		"refer": []
-	},
-	"html/tab-webview-subpage-about.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"js/util.js"
-		],
-		"refer": []
-	},
-	"html/tab-webview-subpage-chat.html": {
-		"resources": [
-			"fonts/mui.ttf",
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"html/tab-webview-subpage-contact.html": {
-		"resources": [
-			"images/60x60.gif",
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"html/new-webview.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf"
-		],
-		"refer": []
-	},
-	"html/tab-webview-subpage-me.html": {
-		"resources": [
-			"images/60x60.gif",
-			"css/mui.min.css",
-			"images/me/order_form.png",
-			"images/me/self_data.png",
-			"images/me/client_phone.png",
-			"images/me/blance_23.png",
-			"images/me/class_record.png",
-			"images/me/head.png",
-			"images/me/response.png",
-			"images/me/self_bg.png",
-			"images/me/set_some.png",
-			"images/me/next_content.png",
-			"images/me/phone_client.png"
-		],
-		"refer": [
-			"wallet/balance.html",
-			"main_message/my_indent.html",
-			"main_message/class_record.html",
-			"pages_balance/balance.html",
-			"pages_class_register/classroom_feedback.html",
-			"pages_setting/setting.html",
-			"pages_class_register/class_record.html",
-			"pages_indent/my_indent.html",
-			"pages_setting/selfDetail.html",
-			"pages_setting/platform_list.html",
-			"login/login.html"
-		]
-	},
-	"im/msg_list.html": {
-		"resources": [
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"images/im/list.png",
-			"images/im/message_list.png",
-			"images/im/avatar_2.png",
-			"js/util.js",
-			"js/config.js",
-			"js/IM/websdk-1.4.13.js",
-			"js/IM/webim.config.js",
-			"js/IM/strophe-1.2.8.min.js",
-			"js/login_config.js"
-		],
-		"refer": [
-			"im/linkman_contacts.html",
-			"im/chat.html"
-		]
-	},
-	"im/linkman_contacts.html": {
-		"resources": [
-			"css/mui.min.css",
-			"images/im/avatar_1.png",
-			"images/im/create_list.png",
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"images/im/list.png",
-			"images/im/message_list.png",
-			"images/im/avatar_2.png"
-		],
-		"refer": [
-			"im/im_search.html"
-		]
-	},
-	"im/im_search.html": {
-		"resources": [
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"images/im/avatar_1.png",
-			"images/im/message_list.png",
-			"images/im/avatar_2.png",
-			"fonts/mui.ttf"
-		],
-		"refer": []
-	},
-	"login/login.html": {
-		"resources": [
-			"images/login/username.png",
-			"css/mui.min.css",
-			"images/login/password.png",
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"js/ajax.js",
-			"js/config.js",
-			"js/IM/websdk-1.4.13.js",
-			"js/IM/webim.config.js",
-			"js/IM/strophe-1.2.8.min.js",
-			"js/login_config.js"
-		],
-		"refer": [
-			"login/register.html"
-		]
-	},
-	"login/register.html": {
-		"resources": [
-			"fonts/mui.ttf",
-			"css/mui.min.css",
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"js/login_config.js"
-		],
-		"refer": [
-			"login/guide_1.html"
-		]
-	},
-	"main_message/server_list.html": {
-		"resources": [
-			"images/main_server/icon_chongzhi.png",
-			"images/main_server/icon_sktx.png",
-			"images/main_server/icon_ktfk.png",
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"images/main_server/icon_schooltime.png",
-			"css/mui.min.css",
-			"images/main_server/icon_txcg.png",
-			"images/main_server/icon_kcan.png"
-		],
-		"refer": [
-			"main_message/in_class.html",
-			"main_message/pay_success.html",
-			"main_message/Withdrawal_success.html",
-			"main_message/course_remind.html",
-			"main_message/classroom_detail.html",
-			"main_message/course_arrangement.html"
-		]
-	},
-	"pages/calendar.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"pages/more_dynamic.html": {
-		"resources": [
-			"images/teacher_list/pensonnel.png",
-			"js/zoom/flexible.js",
-			"js/mui.min.js",
-			"images/teacher_list/dynamic.png",
-			"css/mui.min.css",
-			"images/index/chat_num.png",
-			"images/teacher_list/teacher_dynamic_head.png"
-		],
-		"refer": []
-	},
-	"pages_balance/balance.html": {
-		"refer": [
-			"pages_balance/touchBalance.html",
-			"pages_balance/recharge.html",
-			"pages_balance/withdraw_deposit.html"
-		]
-	},
-	"pages_setting/setting.html": {
-		"refer": [
-			"pages_setting/feedback.html",
-			"login/changePassword.html",
-			"pages_setting/Invitation_code.html",
-			"login/login.html",
-			"pages_setting/service_agreement.html",
-			"pages_setting/in_regard_to.html"
-		]
-	},
-	"pages_index/server_list.html": {
-		"refer": [
-			"pages_index/in_class.html",
-			"pages_index/classroom_detail.html",
-			"pages_index/pay_success.html",
-			"pages_index/Withdrawal_success.html",
-			"pages_index/course_remind.html",
-			"pages_index/course_arrangement.html",
-			"pages_index/indent_succ.html"
-		]
-	},
-	"pages_index/classroom_detail.html": {
-		"refer": [
-			"pages_index/comment.html"
-		]
-	},
-	"pages_index/class_local.html": {
-		"refer": [
-			"pages_index/localQue.html"
-		]
-	},
-	"mask.html": {
-		"refer": [
-			"pages_index/class_local.html"
-		]
-	},
-	"pages_index/localQue.html": {
-		"refer": [
-			"pages_index/subject_problem.html",
-			"pages_curricula_variable/teacher_list_2.html"
-		]
-	},
-	"pages_index/subject_problem.html": {
-		"refer": [
-			"pages_curricula_variable/teacher_list.html",
-			"im/chat.html"
-		]
-	},
-	"pages_curricula_variable/teacher_list.html": {
-		"refer": [
-			"pages_curricula_variable/teacher_detail.html"
-		]
-	},
-	"pages_curricula_variable/teacher_detail.html": {
-		"refer": [
-			"pages_curricula_variable/teacher_detail_2.html",
-			"pages_curricula_variable/apply.html",
-			"im/chat.html"
-		]
-	},
-	"pages_class_register/class_record.html": {
-		"refer": [
-			"pages_class_register/course_detail.html"
-		]
-	},
-	"pages_class_register/classroom_feedback.html": {
-		"refer": [
-			"pages_index/classroom_detail.html"
-		]
-	},
-	"pages_curricula_variable/apply.html": {
-		"refer": [
-			"pages_curricula_variable/onetoone_sign.html",
-			"pages_curricula_variable/classApply.html"
-		]
-	},
-	"pages_curricula_variable/teacher_list_2.html": {
-		"refer": [
-			"pages_curricula_variable/teacher_detail.html",
-			"pages_curricula_variable/all_class.html"
-		]
-	},
-	"pages_index/dynamic_detail.html": {
-		"refer": [
-			"pages_curricula_variable/teacher_detail.html"
-		]
-	},
-	"pages_indent/my_indent.html": {
-		"refer": [
-			"pages_indent/indent_detail.html"
-		]
-	},
-	"login/guide_1.html": {
-		"refer": [
-			"login/guide_2.html"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "html/tab-webview-subpage-about.html",
+      "fonts/mui.ttf",
+      "fonts/iconfont.ttf",
+      "js/util.js",
+      "html/tab-webview-subpage-chat.html",
+      "images/index/recommand_2.png",
+      "images/index/teacher_head.png",
+      "js/zoom/flexible.js",
+      "images/shuijiao.jpg",
+      "images/index/teacher_picture.png",
+      "images/index/location.png",
+      "images/index/class_feedback_icon.png",
+      "images/index/search_btn.png",
+      "images/yuantiao.jpg",
+      "images/index/recommand_1.png",
+      "html/tab-webview-subpage-me.html",
+      "images/index/receive_infor_btn.png",
+      "images/index/chat_num.png",
+      "images/index/recharge_record_icon.png",
+      "images/index/arrangement.png",
+      "images/index/in_class_icon.png",
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js",
+      "js/IM/webim.config.js"
+    ],
+    "refer": [
+      "html/tab-webview-subpage-setting.html",
+      "html/tab-webview-subpage-chat.html",
+      "html/tab-webview-subpage-contact.html",
+      "html/tab-webview-subpage-about.html",
+      "html/new-webview.html",
+      "html/tab-webview-subpage-me.html",
+      "im/msg_list.html",
+      "login/login.html",
+      "im/im_search.html",
+      "main_message/server_list.html",
+      "pages/calendar.html",
+      "pages/more_dynamic.html",
+      "mask.html",
+      "pages_index/calendar.html",
+      "pages_index/server_list.html",
+      "pages_index/dynamic_detail.html",
+      "pages_index/more_dynamic.html",
+      "pages_index/localtion.html",
+      "pages_index/classroom_detail.html"
+    ]
+  },
+  "launch.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "html/tab-webview-subpage-about.html"
+    ],
+    "refer": [
+      "html/tab-webview-subpage-setting.html",
+      "html/tab-webview-subpage-chat.html",
+      "html/tab-webview-subpage-contact.html",
+      "html/tab-webview-subpage-about.html"
+    ]
+  },
+  "html/tab-webview-subpage-setting.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-about.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/util.js"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-chat.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-contact.html": {
+    "resources": [
+      "images/60x60.gif",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "html/new-webview.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-me.html": {
+    "resources": [
+      "images/60x60.gif",
+      "css/mui.min.css",
+      "images/me/order_form.png",
+      "images/me/self_data.png",
+      "images/me/client_phone.png",
+      "images/me/blance_23.png",
+      "images/me/class_record.png",
+      "images/me/head.png",
+      "images/me/response.png",
+      "images/me/self_bg.png",
+      "images/me/set_some.png",
+      "images/me/next_content.png",
+      "images/me/phone_client.png"
+    ],
+    "refer": [
+      "wallet/balance.html",
+      "main_message/my_indent.html",
+      "main_message/class_record.html",
+      "pages_balance/balance.html",
+      "pages_class_register/classroom_feedback.html",
+      "pages_setting/setting.html",
+      "pages_class_register/class_record.html",
+      "pages_indent/my_indent.html",
+      "pages_setting/selfDetail.html",
+      "pages_setting/platform_list.html",
+      "login/login.html"
+    ]
+  },
+  "im/msg_list.html": {
+    "resources": [
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/im/list.png",
+      "images/im/message_list.png",
+      "images/im/avatar_2.png",
+      "js/util.js",
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/webim.config.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js"
+    ],
+    "refer": [
+      "im/linkman_contacts.html",
+      "im/chat.html"
+    ]
+  },
+  "im/linkman_contacts.html": {
+    "resources": [
+      "css/mui.min.css",
+      "images/im/avatar_1.png",
+      "images/im/create_list.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "images/im/list.png",
+      "images/im/message_list.png",
+      "images/im/avatar_2.png"
+    ],
+    "refer": [
+      "im/im_search.html"
+    ]
+  },
+  "im/im_search.html": {
+    "resources": [
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/im/avatar_1.png",
+      "images/im/message_list.png",
+      "images/im/avatar_2.png",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "login/login.html": {
+    "resources": [
+      "images/login/username.png",
+      "css/mui.min.css",
+      "images/login/password.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "js/ajax.js",
+      "js/config.js",
+      "js/IM/websdk-1.4.13.js",
+      "js/IM/webim.config.js",
+      "js/IM/strophe-1.2.8.min.js",
+      "js/login_config.js"
+    ],
+    "refer": [
+      "login/register.html"
+    ]
+  },
+  "login/register.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "js/login_config.js"
+    ],
+    "refer": [
+      "login/guide_1.html"
+    ]
+  },
+  "main_message/server_list.html": {
+    "resources": [
+      "images/main_server/icon_chongzhi.png",
+      "images/main_server/icon_sktx.png",
+      "images/main_server/icon_ktfk.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "images/main_server/icon_schooltime.png",
+      "css/mui.min.css",
+      "images/main_server/icon_txcg.png",
+      "images/main_server/icon_kcan.png"
+    ],
+    "refer": [
+      "main_message/in_class.html",
+      "main_message/pay_success.html",
+      "main_message/Withdrawal_success.html",
+      "main_message/course_remind.html",
+      "main_message/classroom_detail.html",
+      "main_message/course_arrangement.html"
+    ]
+  },
+  "pages/calendar.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "pages/more_dynamic.html": {
+    "resources": [
+      "images/teacher_list/pensonnel.png",
+      "js/zoom/flexible.js",
+      "js/mui.min.js",
+      "images/teacher_list/dynamic.png",
+      "css/mui.min.css",
+      "images/index/chat_num.png",
+      "images/teacher_list/teacher_dynamic_head.png"
+    ],
+    "refer": []
+  },
+  "pages_balance/balance.html": {
+    "refer": [
+      "pages_balance/touchBalance.html",
+      "pages_balance/recharge.html",
+      "pages_balance/withdraw_deposit.html"
+    ]
+  },
+  "pages_setting/setting.html": {
+    "refer": [
+      "pages_setting/feedback.html",
+      "login/changePassword.html",
+      "pages_setting/Invitation_code.html",
+      "login/login.html",
+      "pages_setting/service_agreement.html",
+      "pages_setting/in_regard_to.html"
+    ]
+  },
+  "pages_index/server_list.html": {
+    "refer": [
+      "pages_index/in_class.html",
+      "pages_index/classroom_detail.html",
+      "pages_index/pay_success.html",
+      "pages_index/Withdrawal_success.html",
+      "pages_index/course_remind.html",
+      "pages_index/course_arrangement.html",
+      "pages_index/indent_succ.html"
+    ]
+  },
+  "pages_index/classroom_detail.html": {
+    "refer": [
+      "pages_index/comment.html"
+    ]
+  },
+  "pages_index/class_local.html": {
+    "refer": [
+      "pages_index/localQue.html"
+    ]
+  },
+  "mask.html": {
+    "refer": [
+      "pages_index/class_local.html"
+    ]
+  },
+  "pages_index/localQue.html": {
+    "refer": [
+      "pages_index/subject_problem.html",
+      "pages_curricula_variable/teacher_list_2.html"
+    ]
+  },
+  "pages_index/subject_problem.html": {
+    "refer": [
+      "pages_curricula_variable/teacher_list.html",
+      "im/chat.html"
+    ]
+  },
+  "pages_curricula_variable/teacher_list.html": {
+    "refer": [
+      "pages_curricula_variable/teacher_detail.html"
+    ]
+  },
+  "pages_curricula_variable/teacher_detail.html": {
+    "refer": [
+      "pages_curricula_variable/teacher_detail_2.html",
+      "pages_curricula_variable/apply.html",
+      "im/chat.html"
+    ]
+  },
+  "pages_class_register/class_record.html": {
+    "refer": [
+      "pages_class_register/course_detail.html"
+    ]
+  },
+  "pages_class_register/classroom_feedback.html": {
+    "refer": [
+      "pages_index/classroom_detail.html"
+    ]
+  },
+  "pages_curricula_variable/apply.html": {
+    "refer": [
+      "pages_curricula_variable/onetoone_sign.html",
+      "pages_curricula_variable/classApply.html"
+    ]
+  },
+  "pages_curricula_variable/teacher_list_2.html": {
+    "refer": [
+      "pages_curricula_variable/teacher_detail.html",
+      "pages_curricula_variable/all_class.html"
+    ]
+  },
+  "pages_index/dynamic_detail.html": {
+    "refer": [
+      "pages_curricula_variable/teacher_detail.html"
+    ]
+  },
+  "pages_indent/my_indent.html": {
+    "refer": [
+      "pages_indent/indent_detail.html"
+    ]
+  },
+  "login/guide_1.html": {
+    "refer": [
+      "login/guide_2.html"
+    ]
+  },
+  "pages_curricula_variable/onetoone_sign.html": {
+    "refer": [
+      "pages_setting/pay_password.html"
+    ]
+  }
 }

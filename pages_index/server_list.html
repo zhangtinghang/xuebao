@@ -78,85 +78,87 @@
 	</head>
 
 	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 		<div id="class_message_box">
-		<div v-for="item in serverList" class="class_message" :data-type="item.type | serverType" :data-typeNew="item.type" :data-id="item.id">
-			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_schooltime.png" /></div>
-				<div class="title_text" v-text="item.desc"></div>
-				<div class="title_time">{{item.time | dateTime}}</div>
+			<div v-for="item in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
+				<div class="message_title">
+					<div class="title_img"><img src="../images/index/icon_ddxx_shouye.png" /></div>
+					<div class="title_text" v-text="item.desc"></div>
+					<div class="title_time">{{item.time | dateTime}}</div>
+				</div>
+				<div class="message_body">
+					<div class="body_choose" v-text="item.message"></div>
+					<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				</div>
 			</div>
-			<div class="message_body">
-				<div class="body_choose" v-text="item.message"></div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
-			</div>
-		</div>
 		<!--<div class="class_message" data-type="2">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_chongzhi.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_chongzhi.png" /></div>
 				<div class="title_text">充值成功</div>
 				<div class="title_time">昨天 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">1000学保币充值成功</div>
-				<div class="body_detail">查看详情 <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情 <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>
 		<div class="class_message" data-type="3">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_ktfk.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_ktfk.png" /></div>
 				<div class="title_text">课堂反馈</div>
 				<div class="title_time">昨天 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">【数学课堂反馈】</div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>
 		<div class="class_message" data-type="4">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_txcg.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_txcg.png" /></div>
 				<div class="title_text">提现成功</div>
 				<div class="title_time">2017-09-10 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">提现成功</div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>
 		<div class="class_message" data-type="5">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_sktx.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_sktx.png" /></div>
 				<div class="title_text">上课提醒</div>
 				<div class="title_time">2017-09-10 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">【语文今天9点开始】</div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>
 		<div class="class_message" data-type="6">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/main_server/icon_kcan.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_kcan.png" /></div>
 				<div class="title_text">课程安排</div>
 				<div class="title_time">昨天 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">【语文】</div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>
 		<div class="class_message" data-type="7">
 			<div class="message_title">
-				<div class="title_img"><img src="../images/index/icon_ddxx_shouye.png" /></div>
+				<div class="title_img"><img src="../images/main/icon_ddxx_shouye.png" /></div>
 				<div class="title_text">订单信息</div>
 				<div class="title_time">昨天 9:40</div>
 			</div>
 			<div class="message_body">
 				<div class="body_choose">接受订单</div>
-				<div class="body_detail">查看详情  <img src="../images/index/look_detail_icon.png"/></div>
+				<div class="body_detail">查看详情  <img src="../images/main/look_detail_icon.png"/></div>
 			</div>
 		</div>-->
 	</div>
+</div>
 		<!--取出加密值-->
 		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
@@ -166,11 +168,27 @@
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
-			mui.init();
-			mui.plusReady(function () {
-				//监听返回
-			    listenReturn();
-			     //获取数据
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle',
+						color:'#4ea9ef',
+						offset: '10px',
+						auto: true,
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			var page = 1;
+			
+			//下拉刷新
+			function pulldownRefresh() {
+				 //获取数据
 			    var ajaxData = {
 					url:'restful1/message/getServiceMessage',
 					data: {
@@ -180,30 +198,67 @@
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log('请求数据',JSON.stringify(data))
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
-							vm.serverList = data.data.list;
+							vm.serverArr = data.data.list; 
+							page = 2;
+							mui('#pullrefresh').pullRefresh().refresh(true);
 						}else{
 							plus.nativeUI.toast('请求超时！');
 						}
-				},true); 
+				},true);
+			}
+			//上拉加载
+			function pullupRefresh() {
+				//获取数据
+			    var ajaxData = {
+					url:'restful1/message/getServiceMessage',
+					data: {
+						pageNum:page,
+						pageSize:'10'
+					},
+					type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.data.lastPage == page){
+						mui("#pullrefresh").pullRefresh().endPullupToRefresh(true);
+					}else{
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+					}			
+					if(data.code == 401){
+						plus.nativeUI.toast('您还未登录哟！');
+					}else if(data.code == 200){
+						vm.serverArr = vm.serverArr.concat(data.data.list); 
+						page++;
+					}else{
+						plus.nativeUI.toast('请求超时！');
+					}
+				},true);
+			}
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
 			    
 				mui('#class_message_box').on('tap','.class_message',function(){
 					var type = this.getAttribute('data-type');
-					var typeNew = this.getAttribute('data-typeNew');
 					var sid = this.getAttribute('data-id');
+					var detailId = this.getAttribute('data-detailId');
+					var typeNew = this.getAttribute('data-typeNew');
 					switch(type)
 						{
 						case '1':
 							openView.nativeView('in_class.html', 'in_class', '上课中',{sid:sid});
+//							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈',{sid:sid,type:'服务列表'});
 							break;
 						case '2':
 							openView.nativeView('pay_success.html', 'pay_success', '充值成功',{sid:sid});
 							break;
 						case '3':
-							openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈详情',{sid:sid});
+							chooseCourse(sid,detailId);
+							
 							break;
 						case '4':
 							openView.nativeView('Withdrawal_success.html', 'Withdrawal_success', '提现成功',{sid:sid});
@@ -212,15 +267,51 @@
 							openView.nativeView('course_remind.html', 'course_remind', '上课提醒',{sid:sid});
 							break;
 						case '6':
+//							plus.nativeUI.toast('此功能尚未开通~');
 							openView.nativeView('course_arrangement.html', 'course_arrangement', '课程安排',{sid:sid});
 							break;
 						case '7':
 							openView.nativeView('indent_succ.html', 'indent_succ', '订单信息',{sid:sid,typeNew:typeNew});
 						break;
-						default:
-						
+						case '8':
+							openView.nativeView('indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
+						break;
+						default:		
 						}
 				});
+				
+				function chooseCourse(sid,detailId){
+					//推送的课堂反馈，需先查到课程id
+				    if(sid){
+				    	var ajaxData = {
+							url:'restful1/message/getServiceMessageById',
+							data: {
+								id:sid,
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+								if(data.code == 200){
+									console.log(JSON.stringify(data))
+									//判断是否填写课堂反馈，如果反馈，查看信息，若未反馈，填写反馈
+									if(data.data.feedback){
+										var courseDetail = data.data;
+										openView.nativeView('classroom_detail.html', 'classroom_detail', '课堂反馈',{courseDetail:courseDetail,courseSection:detailId,type:'服务列表'});
+									}else{
+										plus.nativeUI.toast('出现未知错误~');
+									}							
+								}else{
+									if(data.code){
+										plus.nativeUI.toast(data.msg);
+									}else{
+										plus.nativeUI.toast(data.err);
+									}
+								}
+						},true);
+				    }
+					
+				}
 			})
 			Vue.filter('serverType',function(value){
 				switch (value){
@@ -235,6 +326,9 @@
 						break;
 					case 14:
 						return 6;
+						break;
+					case 15:
+						return 8;
 						break;
 					case 21:
 						return 2;
@@ -263,13 +357,12 @@
 			})
 			Vue.filter('dateTime',function(value){
 				var value = value.replace(/-/g,"/");
-				console.log(value)
 				return dateUtils.format(value)
 			})
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
-					serverList:[]
+					serverArr:[]//教师动态数据
 				}
 			})
 		</script>

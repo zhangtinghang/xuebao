@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>钱包明细转入(订单详情)</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_show{
+				padding-top:0.805555rem;
+				background-color: #FEFEFE;
+			}
+			.remaining_sum{
+				text-align: center;
+				color: #333333;
+				font-size: 0.444444rem;
+			}
+			.money{
+				font-size: 0.666666rem;
+				color: #333333;
+				text-align: center;
+				margin:0.388888rem 0;
+			}
+			.pay_msg{
+				font-size: 0.333333rem;
+				color: #888888;
+				text-align: center;
+				padding-bottom: 0.506666rem;
+			}
+			/*充值列表*/
+			.pay_list_ul li{
+				display: flex;
+				justify-content: space-between;
+				padding:0 0.388888rem;
+				padding-bottom:0.388888rem;
+				background-color: #FEFEFE;
+			}
+			.pay_list_ul li >span{
+				font-size: 0.388888rem;
+				color: #555555;
+			}
+			.pay_list_right{
+				color: #333333 !important;
+			}
+			.create_time{
+				margin-top: 2px;
+			}
+			.create_time li{
+				border: none !important;
+			}
+			.create_time li:first-child{
+				padding-top: 0.388888rem;
+			}
+			
+			.course_detail{
+				border-top:1px solid rgba(220,220,220,.5);
+			}
+			.course_detail li:first-child{
+				padding-top: 0.388888rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content" id="msg-content">
+			<div class="content_show">
+				<div class="remaining_sum"></div>
+				<div class="money">课程结束</div>
+				<div class="pay_msg"></div>
+			</div>
+			<div class="pay_list">
+				<ul class="pay_list_ul">
+					<li><span>收款方式</span><span class="pay_list_right">余额</span></li>
+					<li><span>对方账户</span><span class="pay_list_right" v-text="user.userName"></span></li>
+				</ul>
+			</div>
+			<div class="pay_list course_detail">
+				<ul class="pay_list_ul">
+					<li><span>课程类型</span><span class="pay_list_right" v-text="course.courseTypeName"></span></li>
+					<li><span>课程科目</span><span class="pay_list_right" v-text="course.subjectName"></span></li>
+					<li><span>问题类型</span><span class="pay_list_right" v-text="course.onetoonetype==1?'一对一':'班课'"></span></li>
+					<li><span>课程时长</span><span class="pay_list_right"><span v-text="course.courseDuration"></span>min</span></li>
+				</ul>
+			</div>
+			<div class="pay_list create_time">
+				<ul class="pay_list_ul create_time_ul">
+					<li><span>创建时间</span><span class="pay_list_right" v-text="courseSection.courseStartDate"></span></li>
+					<li><span>订单号</span><span class="pay_list_right" v-text="courseSection.id+teacher.createTime+course.incourse+course.issearch+course.onetoonetype"></span></li>
+				</ul>
+			</div>
+			
+			
+		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+			    //监听返回
+			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var type = self.type;
+			    var sid = self.sid;
+			    if(type){
+			    	if(type == '1'){
+				    	document.getElementById("course_type").innerHTML = '一对一';
+				    	document.getElementById("name_type").innerHTML = '上课走神型';
+				    }else{
+				    	document.getElementById("course_type").innerHTML = '班课';
+				    	document.getElementById("name_type").innerHTML = '基础级';
+				    }
+			    }				    
+			    
+			    if(sid){
+			    	var ajaxData = {
+						url:'restful1/message/getServiceMessageById',
+						data: {
+							id:sid,
+						},
+						type:'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log('课程结束后===',JSON.stringify(data))
+						if(data.code == 200){
+							vm.courseSection = data.data.courseSection;
+							vm.course = data.data.course;
+							vm.teacher = data.data.teacher;
+							vm.user = data.data.user;
+//							courseId = data.data.courseSection.id;
+						}else{
+							plus.nativeUI.toast(data.msg);
+						}
+				},true);
+			    }
+			})
+			
+			var vm = new Vue({
+				el: '#msg-content',
+				data: {
+					courseSection:{},
+					teacher:{},
+					course:{},
+					user:{}
+				}
+			})
+		</script>
+	</body>
+
+</html>

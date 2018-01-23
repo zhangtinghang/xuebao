@@ -172,7 +172,7 @@
 				//获取数据
 				getMoney();
 				function getMoney(){
-						var w=plus.nativeUI.showWaiting("加载中，请等待...",{back:"transmit"});
+					var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
 					var ajaxData = {
 						url:'restful1/account/getAccount',
 						data: {},
@@ -207,24 +207,7 @@
 				
 			   //充值
 			    document.getElementById("Recharge").addEventListener('tap',function(){
-//			    	openView.nativeView('recharge.html', 'recharge', '充值');
-					mui.ajax('https://www.yixuebaochina.com/webapp/test/updateAccountMoney',{
-						data:{
-							number:state.data.mobilephone,
-							money:'1600000000',
-							hidden:'xuebao1234!@'
-						},
-						dataType:'json',//服务器返回json格式数据
-						type:'get',//HTTP请求类型
-						timeout:10000,//超时时间设置为10秒	              
-						success:function(data){
-							plus.nativeUI.toast(data.code)
-						},
-						error:function(xhr,type,errorThrown){
-							//异常处理；
-							console.log(type);
-						}
-					});
+			    	openView.nativeView('recharge.html', 'recharge', '充值');
 			    });
 			    //提现
 			    document.getElementById("Withdraw").addEventListener('tap',function(){

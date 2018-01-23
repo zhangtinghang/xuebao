@@ -92,7 +92,7 @@
 			    var self = plus.webview.currentWebview();
 			    var teacherId = self.teacherId;
 			    var perfect = '2';
-			    var view = ws.getTitleNView();
+			    var view = self.getTitleNView();
 			    var commit_text = document.getElementById("commit_text");
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
@@ -102,6 +102,7 @@
 							data: {
 //								perfect,
 //								commit_text.value
+//								teacherId
 							},
 							type:'post'
 						}

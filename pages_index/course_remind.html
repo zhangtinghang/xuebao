@@ -49,22 +49,22 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
-				<div class="list list_last"><span class="list_left">课程进度</span><span>8/10</span></div>
+				<div class="list"><span class="list_left">课程名</span><span v-text="course.subjectName"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="teacher.name"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="course.courseTypeName"></span></div>
+				<div class="list list_last"><span class="list_left">课程进度</span><span>{{course.peopleLimit}}/{{sections.length}}</span></div>
 			</div>
 			
 			<div class="content_course course_remind">上课信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">上课时间</span><span>今天09:00</span></div>
-				<div class="list"><span class="list_left">安排时长</span><span>120min</span></div>
-				<div class="list"><span class="list_left">上课模式</span><span>教师上门</span></div>
-				<div class="list list_last"><span class="list_left">上课地点</span><span>青城阳光1号楼2楼东户</span></div>
+				<div class="list"><span class="list_left">上课时间</span><span>{{courseSection.courseStartDate | courseTime}}</span></div>
+				<div class="list"><span class="list_left">安排时长</span><span>min</span></div>
+				<div class="list"><span class="list_left">上课模式</span><span v-text="course.issearch==1?'学生上门':'教师上门'"></span></div>
+				<div class="list list_last"><span class="list_left">上课地点</span><span>{{course.organizationId | originid}}</span></div>
 			</div>
 		</div>
 		<!--取出加密值-->
@@ -80,18 +80,26 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
 			    var ajaxData = {
-						url:'restful1/course/getCoursesByType',
+						url:'restful1/message/getServiceMessageById',
 						data: {
-							
+							id:sid,
 						},
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200){
-							
+							console.log(JSON.stringify(data.data))
+							vm.courseSection = data.data.courseSection;
+							vm.teacher = data.data.teacher;
+							vm.course = data.data.course;
+							vm.translaterecord = data.data.translaterecord;
+							console.log(data.data.translaterecord)
+							vm.user = data.data.user;
+							vm.sections = data.data.sections;
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
 						}else{
@@ -99,13 +107,28 @@
 						}
 				},true);
 			})
-			
+			Vue.filter('courseTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}
+				
+			})
+			Vue.filter('originid',function(value){
+				if(value){
+					return originid(value);
+				}
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					teacherList:[],
-					imgUrl:'',
-					teacherTag:[]
+					courseSection:{},
+					teacher:{},
+					course:{},
+					translaterecord:{},
+					user:{},
+					sections:[]
 				}			
 			})
 		</script>
