@@ -90,7 +90,8 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
 			     //获取数据
 			    var ajaxData = {
 					url:'restful1/message/getServiceMessageById',

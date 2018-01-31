@@ -198,7 +198,7 @@
 				<i class="header_box_i"></i>
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img src="../images/status/not_login_head.png" v-if="studentDetail.studentImage" onload="load(this,vm.studentDetail.studentImage)"/>
+						<img src="../images/status/not_login_head.png" v-if="studentDetail" onload="load(this,vm.studentDetail.studentImage)"/>
 					</div>
 					<div class="header_name" v-text="studentDetail.name || '未登录'">
 						<img align="center" :src="studentDetail.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" />
@@ -329,6 +329,9 @@
 							    app.setState(state);			 
 							}else if(data.code == 1){
 								plus.nativeUI.toast('type:1 登录失效！');
+								openView.incView('../login/login.html', 'login', '欢迎登陆');
+							}else if(data.code == 2){
+								plus.nativeUI.toast('type:1 请重新登录！');
 								openView.incView('../login/login.html', 'login', '欢迎登陆');
 							}
 						},true);
