@@ -197,12 +197,13 @@
 				listenNext('明细','touchBalance.html','touchBalance','余额明细');	
 				//余额监听
 				mui('.content_show').on('tap','.balance',function(){
-					openView.nativeView('touchBalance.html','touchBalance','余额明细');
+					openView.nativeView('touchBalance.html','touchBalance','余额明细','','none');
 				});
 				
 				//冻结详情
 				document.getElementById("freeze").addEventListener('tap',function(){
-					openView.nativeView('frozen_capital.html','frozen_capital','冻结明细');
+//					openView.nativeView('frozen_capital.html','frozen_capital','冻结明细');
+					plus.nativeUI.toast('此功能暂未开通~');
 				});
 				
 			   //充值

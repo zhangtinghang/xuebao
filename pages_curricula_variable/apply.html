@@ -60,7 +60,12 @@
 						报名
 					</div>
 				</li>
-				
+				<div v-if="show_not_mess" class="not_message">
+					<div class="not_message_img">
+						<img src="../images/status/icon_jz_wxx.png" />
+					</div>
+					<div class="not_message_text">暂无报名信息~</div>
+				</div>
 				<!--<li>
 					<div class="list_left">
 						<div class="left_title">数学一对一课程</div>
@@ -119,9 +124,15 @@
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log(JSON.stringify(data))
 					if(data.code == 200){
-						vm.dataList = data.data;
+						if(data.data.length==0){
+							//报名信息为空
+							vm.show_not_mess=true;
+						}else{
+							vm.dataList = data.data;
+							vm.show_not_mess=false;
+						}
+						
 					}else{
 						plus.nativeUI.toast('获取课程信息失败！');
 					}
@@ -140,7 +151,8 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					dataList:[]
+					dataList:[],
+					show_not_mess:false
 				}
 			})
 		</script>

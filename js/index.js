@@ -124,3 +124,48 @@ function getServerMess(){
 	},true);
 }
 
+function creatSlider(data) {
+	var len = data.length;
+	// 图片
+	var sliderGroup = document.createElement("div");
+	sliderGroup.className = "mui-slider-group mui-slider-loop";
+	var group = '<div class="mui-slider-item mui-slider-item-duplicate">' +
+		'<a href="javascript:;" data-type="' + ajaxUrl + data[len - 1].carouselUrl + '">' +
+		'<img src="' + ajaxUrl + data[len - 1].carouselImageUrl + '">' +
+		'</a>' +
+		'</div>';
+	for(var i = 0; i < len; i++) {
+		group += '<div class="mui-slider-item">' +
+			'<a href="javascript:;" data-type="' + ajaxUrl + data[i].carouselUrl + '">' +
+			'<img src="' + ajaxUrl + data[i].carouselImageUrl + '">' +
+			'</a>' +
+			'</div>';
+	}
+	group += '<div class="mui-slider-item mui-slider-item-duplicate">' +
+		'<a href="javascript:;" data-type = "' + ajaxUrl + data[0].carouselUrl + '">' +
+		'<img src="' + ajaxUrl + data[0].carouselImageUrl + '">' +
+		'</a>' +
+		'</div>';
+	sliderGroup.innerHTML = group;
+
+	// 圆点
+	var sliderIndicator = document.createElement("div");
+	sliderIndicator.className = "mui-slider-indicator";
+	for(var i = 0; i < len; i++) {
+		var item = document.createElement("div");
+		item.className = "mui-indicator";
+		if(i == 0) {
+			item.classList.add('mui-active');
+		}
+		sliderIndicator.appendChild(item);
+	}
+
+	var slider = document.getElementById('slider');
+	slider.appendChild(sliderGroup);
+	slider.appendChild(sliderIndicator);
+
+	mui("#slider").slider({
+		interval: 5000
+	});
+}
+

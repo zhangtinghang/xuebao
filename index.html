@@ -400,9 +400,9 @@
 			<div class="class_message_box" id="class_message_box">
 				<div v-for="item in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
 					<div class="message_title">
-						<div class="title_img"><img src="images/index/icon_ddxx_shouye.png" /></div>
+						<div class="title_img"><img :src="item.type | itemImg" /></div>
 						<div class="title_text" v-text="item.desc"></div>
-						<div class="title_time">{{item.time | dateTime}}</div>
+						<div class="title_time" v-cloak>{{item.time | dateTime}}</div>
 					</div>
 					<div class="message_body">
 						<div class="body_choose" v-text="item.message"></div>
@@ -713,6 +713,48 @@
 					
 				}
 			});
+			Vue.filter('itemImg',function(value){
+				switch (value){
+					case 11:
+						return '../images/main_server/icon_ktfk.png';
+						break;
+					case 12:
+						return '../images/main_server/icon_sktx.png';
+						break;
+					case 13:
+						return 6;
+						break;
+					case 14:
+						return 6;
+						break;
+					case 15:
+						return 'images/main_server/icon_txcg.png';
+						break;
+					case 21:
+						return 'images/main_server/icon_chongzhi.png';
+						break;
+					case 22:
+						return 2;
+						break;
+					case 3:
+						return 'images/main_server/icon_ktfk.png';
+						break;
+					case 41:
+						return 4;
+						break;
+					case 42:
+						return 4;
+						break;
+					case 51:
+						return 'images/main_server/icon_schooltime.png';
+						break;
+					case 52:
+						return 'images/main_server/icon_schooltime.png';
+						break;
+					default:
+						break;
+				}
+			})
 			Vue.filter('serverType',function(value){
 				switch (value){
 					case 11:
@@ -775,51 +817,6 @@
 					datas: datas
 				});
 			}
-			function creatSlider(data) {
-				var len = data.length;
-				// 图片
-				var sliderGroup = document.createElement("div");
-				sliderGroup.className = "mui-slider-group mui-slider-loop";
-				var group = '<div class="mui-slider-item mui-slider-item-duplicate">' +
-					'<a href="javascript:;" data-type="' + ajaxUrl + data[len - 1].carouselUrl + '">' +
-					'<img src="' + ajaxUrl + data[len - 1].carouselImageUrl + '">' +
-					'</a>' +
-					'</div>';
-				for(var i = 0; i < len; i++) {
-					group += '<div class="mui-slider-item">' +
-						'<a href="javascript:;" data-type="' + ajaxUrl + data[i].carouselUrl + '">' +
-						'<img src="' + ajaxUrl + data[i].carouselImageUrl + '">' +
-						'</a>' +
-						'</div>';
-				}
-				group += '<div class="mui-slider-item mui-slider-item-duplicate">' +
-					'<a href="javascript:;" data-type = "' + ajaxUrl + data[0].carouselUrl + '">' +
-					'<img src="' + ajaxUrl + data[0].carouselImageUrl + '">' +
-					'</a>' +
-					'</div>';
-				sliderGroup.innerHTML = group;
-
-				// 圆点
-				var sliderIndicator = document.createElement("div");
-				sliderIndicator.className = "mui-slider-indicator";
-				for(var i = 0; i < len; i++) {
-					var item = document.createElement("div");
-					item.className = "mui-indicator";
-					if(i == 0) {
-						item.classList.add('mui-active');
-					}
-					sliderIndicator.appendChild(item);
-				}
-
-				var slider = document.getElementById('slider');
-				slider.appendChild(sliderGroup);
-				slider.appendChild(sliderIndicator);
-
-				mui("#slider").slider({
-					interval: 5000
-				});
-			}
 		</script>
 	</body>
-
 </html>

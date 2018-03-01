@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>提现</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.content_body{
+				
+			}
+			.body_title{
+				background-color: #FEFEFE;
+				padding: 2% 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.body_list_ul li{
+				display: flex;
+				justify-content: space-between;
+				background-color: #FEFEFE;
+				align-items: center;
+				padding: 0.388888rem 0;
+				border-bottom:2px solid rgba(220,220,220,.5);
+			}
+			.list_left{
+				width: 50%;
+				padding-left: 5%;
+			}
+			.list_left span{
+				margin-left: 0.388888rem;
+			}
+			.list_left img{
+				width: 0.666666rem;
+				height: 0.666666rem;
+			}
+			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
+				position: relative;
+				top: 0;
+				right: 0;
+			}
+			.agreement{
+				display: flex;
+				align-items: center;
+				margin-top: 0.222222rem;
+				padding-left: 0.388888rem;
+			}
+			.agreement img{
+				width: 0.416666rem;
+			}
+			
+			.agree{
+				right: 0 !important;
+			}
+			#agreement_text{
+				margin-left: 0.222222rem;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
+			
+			.mui-btn{
+				width: 70% !important;
+				margin: 0.388888rem auto !important;
+				border-radius:28px;
+				height: 1.166666rem !important;
+				line-height:1;
+				padding: 0;
+			}
+			.list_right{
+				display: flex;
+				align-items: center;
+				margin-right: 5%;
+			}
+			.list_right img{
+				width: 0.416666rem;
+			}
+			.input_mess_box{
+				background-color: rgba(255,255,255,1);
+			}
+			.input_box{
+				padding:0 5% !important;
+				border-bottom: 2px solid rgba(220,220,220,.5);
+			}
+			.input_box label{
+				width: 15%;
+				padding-right:3%;
+				color: #333333;
+				font-size: 0.444444rem;
+			}
+			.input_box input{
+				width: 82%;
+				margin: 0;
+				border: none;
+				padding: 0 !important;
+				height: 1.388888rem;
+			}
+			.title_account{
+				margin-top: 0.222rem;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="content_body">
+			<div class="body_title">选择账号类型</div>
+			<ul class="body_list_ul">
+				<li data-type = "1">
+					<div class="list_left">
+						<img align="center" src="../images/wallet/icon_wx.png" />
+						<span>微信支付</span>
+					</div>
+					<div class="list_right">
+						<img id="weixin" src="../images/wallet/choose.png" />
+					</div>
+				</li>
+				<li data-type = "2">
+					<div class="list_left">
+						<img align="center" src="../images/wallet/icon_zfb.png"/>
+						<span>支付宝支付</span>
+					</div>
+					<div class="list_right">
+						<img id="zhifubao" src="../images/wallet/no_choose.png" />
+					</div>
+				</li>
+			</ul>
+			<div class="body_title title_account">请输入账号信息</div>
+			<div class="input_mess_box">
+				<div class="input_box">
+					<label>姓名</label>
+					<input type="text" id="monName" value="" placeholder="请输入姓名" />
+				</div>
+				<div class="input_box">
+					<label>账号</label>
+					<input type="number" id="monNum" value="" placeholder="请输入账号" />
+				</div>
+			</div>
+		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				 //监听返回
+			    listenReturn();
+				
+			    //点击事件
+			    var weixin = document.getElementById("weixin");
+			    var zhifubao = document.getElementById("zhifubao");
+			    var type ='1';
+				mui('.body_list_ul').on('tap','li',function(){
+			    	type = this.getAttribute('data-type');
+			    	switch (type){
+			    		case '1':
+			    			weixin.src='../images/wallet/choose.png';
+			    			zhifubao.src='../images/wallet/no_choose.png'
+			    			break;
+			    		case '2':
+			    			weixin.src='../images/wallet/no_choose.png';
+			    			zhifubao.src='../images/wallet/choose.png'
+			    			break;
+			    		default:
+			    			break;
+			    	}
+			    });
+			    
+			    //点击提交
+			    var monNum = document.getElementById("monNum");
+			    var monName = document.getElementById("monName");
+			    var selfDetail = plus.webview.getWebviewById('withdraw_deposit');
+			    listenReturnRight('确认');
+			    var ws = plus.webview.currentWebview();
+				var view = ws.getTitleNView();
+			    view.addEventListener("click", function(e) {
+					if(screen.width - e.clientX <= 60){
+					 	mui.fire(selfDetail,'messChange',{
+					    		type:type,
+					    		monNum:monNum.value,
+					    		monName:monName.value
+					  	});
+					  	
+						//事件逻辑处理
+						mui.back();
+					}
+				}, false);
+			})
+		</script>
+	</body>
+
+</html>

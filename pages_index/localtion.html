@@ -120,10 +120,11 @@
 					}, false);
 			    }else{
 			    	//登录状态检测 
-					if(!state || !state.data || !state.IM_token ) {
+					if(!state || !state.data) {
 						//暂时无相关信息
 						vm.nowCity = '暂无';
 					}else{
+						console.log('哇塞=====',state.data)
 						vm.nowCity = state.data.cityName;
 					}
 			    }

@@ -90,12 +90,12 @@
 				<div id="scroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						
-						<div class="content_list" v-for="orderItem in ordercourse">
+						<div class="content_list" v-for="orderItem in ordercourse.slice(0,5)">
 							<ul class="content_list_ul">
 								<li>
 									<div class="list_left">
 										<div class="list_title" v-text="orderItem.goodsAttr"></div>
-										<div class="list_time" v-text="orderItem.orderDate"></div>
+										<div class="list_time">{{orderItem.orderId | orderTime}}</div>
 									</div>
 									<div class="list_right">-<span v-text="orderItem.shopPrize/100"></span>学币</div>
 								</li>
@@ -123,12 +123,12 @@
 					<div id="scroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						
-						<div class="content_list" v-for="orderItem in orderrecharges">
+						<div class="content_list" v-for="orderItem in orderrecharges.slice(0,5)">
 							<ul class="content_list_ul">
 								<li>
 									<div class="list_left">
 										<div class="list_title" v-text="orderItem.payNote"></div>
-										<div class="list_time" v-text="orderItem.addTime"></div>
+										<div class="list_time">{{orderItem.addTime | orderTime}}</div>
 									</div>
 									<div class="list_right">
 										+<span v-text="orderItem.orderAmount"></span> 学币
@@ -160,7 +160,7 @@
 					<div id="scroll" class="mui-scroll-wrapper">
 					<div class="mui-scroll">
 						
-						<div class="content_list" v-for="drawItem in withdraw">
+						<div class="content_list" v-for="drawItem in withdraw.slice(0,5)">
 							<ul class="content_list_ul">
 								<li>
 									<div class="list_left">
@@ -236,7 +236,17 @@
 						}
 				},true); 
 			})
-			
+			Vue.filter('orderTime',function(value){
+				console.log(value)
+				var date = new Date(value);
+				Y = date.getFullYear() + '-';
+		        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+		        D = date.getDate() + ' ';
+		        h = date.getHours() + ':';
+		        m = date.getMinutes() + ':';
+		        s = date.getSeconds();
+		        return Y+M+D+h+m+s;
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
@@ -252,10 +262,6 @@
 				for(var i=0,len=dom.length; i<len; i++){
 				    dom[i].style.height = ViewHeight-segmentedControl-2+'px';
 				}
-			
-			mui('.mui-scroll-wrapper').scroll({
-				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-			});
 		</script>
 	</body>
 </html>

@@ -195,10 +195,10 @@
 	<body>
 		<div class="content" id="msg-content">
 			<div class="header_box">
-				<i class="header_box_i"></i>
+				<i class="header_box_i"></i> 
 				<div class="avatar_box">
 					<div class="header_avatar">
-						<img src="../images/status/not_login_head.png" v-if="studentDetail" onload="load(this,vm.studentDetail.studentImage)"/>
+						<img src="../images/status/not_login_head.png" v-if="studentDetail.studentImage" onload="load(this,vm.studentDetail.studentImage)"/>
 					</div>
 					<div class="header_name" v-text="studentDetail.name || '未登录'">
 						<img align="center" :src="studentDetail.gender=='男'?'../images/teacher_list/male.png':'../images/teacher_list/female.png'" />
@@ -299,7 +299,7 @@
 						showData();
 					}				
 				function showData(){
-					var ajaxData = {
+					var ajaxData = { 
 						url:'restful1/users/findStudent',
 						data: {},
 						type:'post'
@@ -355,7 +355,7 @@
 		    	openView.nativeView('../pages_class_register/class_record.html', 'class_record', '上课记录','','none');
 		    })
 		    
-		    //课堂反馈
+		    //列表
 		    mui('.function_list_ul').on('tap','.function_list_li',function(){
 		    	if(!studentData){
 		    		 plus.nativeUI.toast('请先登录！');

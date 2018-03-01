@@ -51,6 +51,9 @@
 			.content_list_li{
 				position: relative;
 			}
+			.content_list_li:active{
+				background-color: rgb(220,220,220,1) !important;
+			}
 			.recommend{
 				position: absolute;
 				width: 0.875rem;
@@ -261,7 +264,7 @@
 				<ul class="content_list_ul">
 					
 					<li class="content_list_li" :data-teacherId = "value.teacher.id" v-for="(value, key, index) in oneList" v-if="value.teacher.name">
-						<div class="recommend" v-if="index==0"><img src="../images/teacher_list/recommand_teacher.png" /></div>
+						<div class="recommend" v-if="key==0"><img src="../images/teacher_list/recommand_teacher.png" /></div>
 						<div class="list_header">
 							<!--头像-->
 							<div class="list_avatar">
@@ -404,7 +407,15 @@
 						}
 				},true);
 			    
+			    var class_local = plus.webview.getWebviewById('class_local');
+			    var localQue = plus.webview.getWebviewById('localQue');
+			    var subject_problem = plus.webview.getWebviewById('subject_problem');
 			    mui('.content_list_ul').on('tap','.content_list_li',function(){
+			    	//关闭其他界面
+			    	class_local.close();
+			    	localQue.close();
+			    	subject_problem.close();
+			    	//跳转
 			    	var teacherId = this.getAttribute('data-teacherId');
 			    	openView.nativeView('teacher_detail.html', 'teacher_detail', '教师详情',{teacherId:teacherId,type:'一对一'},'none');
 			    })

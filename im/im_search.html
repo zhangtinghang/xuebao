@@ -96,21 +96,20 @@
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<div class="return-icon mui-action-back"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAbCAYAAAB1NA+iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdENkRFRTdGQjM0MTExRTdBQ0RFQ0FGMEVDREZGMUYxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjdENkRFRTgwQjM0MTExRTdBQ0RFQ0FGMEVDREZGMUYxIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0Q2REVFN0RCMzQxMTFFN0FDREVDQUYwRUNERkYxRjEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0Q2REVFN0VCMzQxMTFFN0FDREVDQUYwRUNERkYxRjEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6UxFOBAAABB0lEQVR42mL8//8/A5mAC4inMoAMIANrAPHl/2Rqjgbiz/+hgBSNHEA88z8quE2sZlUgPo+meTEQ8xGjORSIPyJpBDk/HiaPTyM7EE9Gs/UsEKshq8OlWRGITyNp/AfEE6CGMhAyIACI3yNpfgXEPrhcisxhBeI+qG0wsA+IpfCFEYwhB8THkTT+BuJqIGYiFMgwJ79D0vwQiK2ITR8MaE5eA8QCpCQwBiTNW8lJ2uguWAvEgqQa4A3Eb9DCwJoUA3DFQg0QMxNrAL50IE2sAbhS4msg9iXFAFx5YSKxeQFfbjwHxOrEGoCvPEggxQBcJdJSYkskfGXiHbqWyljrBUZKayaAAAMAzRgYGVr0LLIAAAAASUVORK5CYII=" /></div>
-			<input class="search-input" type="search" placeholder="请输入姓名或手机号" x-webkit-grammar="builtin:search" lang="zh-CN">
-			<div class="search_text">搜索</div>
+			<input class="search-input" type="search" id="search_input" placeholder="请输入姓名或手机号" x-webkit-grammar="builtin:search" lang="zh-CN">
+			<div class="search_text" id="search_text">搜索</div>
 		</header>
 		<div class="mui-content" id="content">	
 			<ul class="content_ul">
-				<li>
+				<li v-for="item in teacherList" :data-teacherId="item.id">
 					<div class="list_avatar">
-						<img src="../images/im/message_list.png" />
+						<img src="../images/status/not_login_head.png" />
 					</div>
 					<div class="list_message">
-						<div class="message_title">王泽</div>
-						<div class="message_add">添加</div>
+						<div class="message_title" v-text="item.name"></div>
 					</div>
 				</li>
-				<li>
+				<!--<li>
 					<div class="list_avatar">
 						<img src="../images/im/avatar_2.png" />
 					</div>
@@ -118,24 +117,78 @@
 						<div class="message_title">张振</div>
 						<div class="message_add">添加</div>
 					</div>
-				</li>
-				<li>
-					<div class="list_avatar">
-						<img src="../images/im/avatar_1.png" />
+				</li>-->
+				<div v-if="show_not_mess" class="not_message">
+					<div class="not_message_img">
+						<img src="../images/status/icon_jz_wxx.png" />
 					</div>
-					<div class="list_message">
-						<div class="message_title">张小华</div>
-						<div class="message_add">添加</div>
-					</div>
-				</li>
+					<div class="not_message_text">暂无搜索信息哟~</div>
+				</div>
 			</ul>
 		</div>
+		<!--取出加密值-->
+			<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
 		<script type="text/javascript">
 			mui.init();
 			mui.plusReady(function () {
+				//搜索教师
+				var search_text = document.getElementById("search_text");
+				var search_input = document.getElementById("search_input");
+				search_text.addEventListener('tap',function(){
+					if(search_input.value ==''){
+						return plus.nativeUI.toast('请输入查询信息');
+					}
+					var ajaxData = {
+							url:'restful1/users/findTeacher',
+							data: {
+								nameOrnumber:search_input.value,
+							},
+							type:'post'
+						}
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+								if(data.code == 200){
+									if(data.data.length==0){
+										//暂无搜索信息
+										vm.show_not_mess = true;
+									}else{
+										vm.show_not_mess = false;
+										vm.teacherList = data.data;							
+									}
+								}else{
+									if(data.code){
+										plus.nativeUI.toast(data.msg);
+									}else{
+										plus.nativeUI.toast(data.err);
+									}
+								}
+						},true);
+				})
 				
+				//点击查看教师详情
+				mui('.content_ul').on('tap','li',function(){
+					var teacherId = this.getAttribute('data-teacherId');
+			    	openView.nativeView('../pages_curricula_variable/teacher_detail.html', 'teacher_detail', '教师详情',{teacherId:teacherId,type:'一对一'},'none');
+				})
+				//点击添加好友
+//				mui('.content_ul').on('tap','.message_add',function(e){
+//					plus.nativeUI.toast('此功能暂未开通~')
+//				})
+			})
+			
+			var vm = new Vue({
+				el: '#content',
+				data: {
+					teacherList:[],
+					show_not_mess:false
+				}			
 			})
 		</script>
 	</body>

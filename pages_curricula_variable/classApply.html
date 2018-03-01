@@ -171,7 +171,7 @@
 			}
 			/*课程介绍*/
 			.course_introduce{
-				padding: 0 5%;
+				padding: 2% 5%;
 				background-color: #FEFEFE;
 			}
 			.course_title{
@@ -278,11 +278,11 @@
 					type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log('13',JSON.stringify(data))
 					if(data.code == 200){
 						console.log(JSON.stringify(data.data.teacher))
 						vm.teacher = data.data.teacher;
 						vm.course = data.data.course;
+						console.log(JSON.stringify(vm.course))
 						vm.imgUrl = ajaxUrl;
 						var priceNum = data.data.course.coursePrice.courseprice*data.data.course.courseDuration;
 						vm.money = priceNum.toFixed(2);
@@ -306,7 +306,7 @@
 					if(durtion > 0){
 						durtion = parseFloat(durtion);
 						console.log(durtion)
-						openView.nativeView('../pages_setting/pay_password.html', 'pay_password', '支付',{durtion:durtion,courseId:courseId});
+						openView.nativeView('../pages_setting/pay_password2.html', 'pay_password2', '支付',{durtion:durtion,courseId:courseId});
 					}else{
 						mui.toast('请先选择课时');
 					}

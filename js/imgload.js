@@ -66,6 +66,7 @@ function teaDeatilCover(obj,arrImg){
  * <img src='默认图片' data-src='网络地址' onload='load(this)'/>
  */
 function load(obj,url) {
+	console.log('传递进来的头像地址',url)
 	if (obj.getAttribute('data-loaded')) return;
 	var image_url = imgUrl + url;
 	

@@ -28,6 +28,7 @@
 			.avatat_box img{
 				width: 100%;
 				height:100%;
+				border-radius: 90px;
 			}
 			.more_text{
 				width: 85%;
@@ -125,14 +126,14 @@
 			<div v-for="item in news" class="dynamic_list">
 				<div class="avatar">
 					<div class="avatat_box">
-						<img v-if="item.teacherImage" src="../images/status/not_login_head.png" onload="indexAvatarArrImg(this,vm.teacherArr)" />
+						<img v-if="item.teacherImage" src="../images/status/not_login_head.png" onload="indexAvatarArrImg(this,vm.news)" />
 					</div>
 				</div>
 				<div class="more_text">
 					<div class="list_name"><span v-text="item.userName"></span><img align="center" src="../images/teacher_list/dynamic.png" /></div>
 					<div class="list_signature" v-text=""></div>
 					<div class="list_cover">
-						<img  v-if="item.images" src="../images/status/failed_chos_place_picture.png" onload="indexCoverArrImg(this,vm.teacherArr)"/>
+						<img  v-if="item.images" src="../images/status/failed_chos_place_picture.png" onload="indexCoverArrImg(this,vm.news)"/>
 					</div>
 					<div class="list_title" v-text="item.title"></div>
 					<div class="list_content mui-ellipsis-1" v-text="item.content"></div>
@@ -209,7 +210,7 @@
 					if(data.code == 401){
 						plus.nativeUI.toast('您还未登录哟！');
 					}else if(data.code == 200){
-						vm.news = data.data.news;
+						vm.newsArr = data.data.news;
 						vm.imgUrl = ajaxUrl;
 					}else{
 						plus.nativeUI.toast('请求超时！');
@@ -228,8 +229,13 @@
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					news:[],//教师动态数据
+					newsArr:[],//教师动态数据
 					imgUrl:''
+				},
+				computed: {
+					news: function () {
+						return this.newsArr.reverse();
+					}
 				}			
 			})
 		</script>

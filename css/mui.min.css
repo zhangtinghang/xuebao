@@ -117,3 +117,7 @@ img[src=""]{
 		opacity: 1;
 	}
 }
+
+[v-cloak]{
+    display: none;
+}

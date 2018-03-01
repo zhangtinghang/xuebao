@@ -13,7 +13,14 @@
 				background-color: #fefefe;
 				padding: 2% 5%;
 				border-bottom:2px solid rgba(220,220,220,.5);
-				font-size: 0.388888rem;
+				font-size: 0.388888rem;		
+			}
+			.change_account{
+				display: flex;
+				justify-content: space-between;
+			}
+			.change_account_number{
+				color: #888888;
 			}
 			.deposit_box{
 				background-color: #FEFEFE;
@@ -58,14 +65,15 @@
 
 	<body>
 		<div class="content">
-			<div class="deposit_title">可提现余额</div>
-			<div class="deposit_box balance"><span id="pay_money"> </span>  (元)</div>
-			<div class="deposit_title deposit">提现余额(最少5元，精确到小数点后两位)</div>
+			<div class="deposit_title change_account"><div>提现账户</div><div class="change_account_number" id="change_account_number">更改账户</div></div>		
+			<div class="deposit_box balance"><span id="monName"></span><span id="monNum"></span></div>
+			
+			<div class="deposit_title deposit">提现金额(可提现金额 <span id="pay_money"> </span> 元)</div>
 			<div class="deposit_box">
 				<input type="number" class="deposit_input" id="money_box" value="" placeholder="请输入金额" />
 			</div>
 			<div class="deposit_explain">
-				提现金额将会在15个工作日左右返回原充值账户
+				提现金额将会在2-7个工作日左右返回原充值账户
 			</div>
 			<button type="button" id="ConfirmButton" class="mui-btn mui-btn-blue mui-btn-block">确认提现</button>
 		</div>
@@ -84,6 +92,25 @@
 			    listenReturn();
 			    var self = plus.webview.currentWebview();
 			    var money = self.money;
+			    var monNameDom = document.getElementById("monName");
+			    var monNumDom = document.getElementById("monNum");
+			    //更改账户
+			    var change_account_number = document.getElementById("change_account_number");
+			    change_account_number.addEventListener('tap',function(){
+			    	openView.nativeView('change_account.html', 'change_account', '账户修改');
+			    });
+			    //监听传回数据
+			    monNameDom.innerHTML='';
+			    monNumDom.innerHTML='';
+			    window.addEventListener('messChange',function(e){
+			    	var type = e.detail.type;
+			    	if(type==1){
+			    		monNameDom.innerHTML='微信';
+			    	}else{
+			    		monNameDom.innerHTML='支付宝';
+			    	}
+			    	monNumDom.innerHTML = '('+e.detail.monNum+')';
+			    })
 			    //提现
 			    var money_box = document.getElementById("money_box");
 			    var pay_money = document.getElementById("pay_money");

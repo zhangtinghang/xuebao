@@ -318,7 +318,7 @@
 					"xxhdpi": "C:/Users/zth10/Desktop/学保tea/易学宝启动页/1080-1882.png"
 				}
 			}
-		}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
 	},
 	"dependencies": {
 		"pages": {

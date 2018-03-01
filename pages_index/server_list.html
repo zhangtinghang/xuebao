@@ -82,9 +82,9 @@
 		<div id="class_message_box">
 			<div v-for="item in serverArr" class="class_message" v-if="item.type!=13 || item.type!=14" :data-type="item.type | serverType" :data-detailId="item.detailId" :data-typeNew="item.type" :data-id="item.id">
 				<div class="message_title">
-					<div class="title_img"><img src="../images/index/icon_ddxx_shouye.png" /></div>
+					<div class="title_img"><img :src="item.type | itemImg" /></div>
 					<div class="title_text" v-text="item.desc"></div>
-					<div class="title_time">{{item.time | dateTime}}</div>
+					<div class="title_time" v-cloak>{{item.time | dateTime}}</div>
 				</div>
 				<div class="message_body">
 					<div class="body_choose" v-text="item.message"></div>
@@ -197,12 +197,12 @@
 					},
 					type:'post'
 				}
-				ajax(ajaxData, function(data) {
+				ajax(ajaxData, function(data) {					
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						if(data.code == 401){
 							plus.nativeUI.toast('您还未登录哟！');
 						}else if(data.code == 200){
-							vm.serverArr = data.data.list; 
+							vm.serverArr = data.data.list;
 							page = 2;
 							mui('#pullrefresh').pullRefresh().refresh(true);
 						}else{
@@ -238,6 +238,7 @@
 					}
 				},true);
 			}
+			
 			mui.plusReady(function () {
 				//监听返回
 			    listenReturn();
@@ -313,6 +314,48 @@
 					
 				}
 			})
+			Vue.filter('itemImg',function(value){
+				switch (value){
+					case 11:
+						return '../images/main_server/icon_ktfk.png';
+						break;
+					case 12:
+						return '../images/main_server/icon_sktx.png';
+						break;
+					case 13:
+						return 6;
+						break;
+					case 14:
+						return 6;
+						break;
+					case 15:
+						return '../images/main_server/icon_txcg.png';
+						break;
+					case 21:
+						return '../images/main_server/icon_chongzhi.png';
+						break;
+					case 22:
+						return 2;
+						break;
+					case 3:
+						return '../images/main_server/icon_ktfk.png';
+						break;
+					case 41:
+						return 4;
+						break;
+					case 42:
+						return 4;
+						break;
+					case 51:
+						return '../images/main_server/icon_schooltime.png';
+						break;
+					case 52:
+						return '../images/main_server/icon_schooltime.png';
+						break;
+					default:
+						break;
+				}
+			})
 			Vue.filter('serverType',function(value){
 				switch (value){
 					case 11:
@@ -359,10 +402,14 @@
 				var value = value.replace(/-/g,"/");
 				return dateUtils.format(value)
 			})
+			Vue.filter('serverImg',function(img){
+				console.log(img)
+			})
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
-					serverArr:[]//教师动态数据
+					serverArr:[],//教师动态数据
+					serverImg:'../images/index/recharge_record_icon.png'
 				}
 			})
 		</script>

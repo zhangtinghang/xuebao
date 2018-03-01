@@ -228,7 +228,7 @@
 				document.getElementById("pay_money").addEventListener('tap',function(){
 					if(durtion>0){
 						console.log('报课时长',durtion)
-						openView.nativeView('../pages_setting/pay_password.html', 'pay_password', '支付',{durtion:durtion,courseId:courseId});
+						openView.nativeView('../pages_setting/pay_password2.html', 'pay_password2', '支付',{durtion:durtion,courseId:courseId});
 					}else{
 						plus.nativeUI.toast('请先选择课时');
 					}
