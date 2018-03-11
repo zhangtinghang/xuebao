@@ -21,6 +21,7 @@
 			}
 			.content{
 				padding-bottom: 0.688888rem;
+				
 			}
 			.content_body{
 				width: 100%;
@@ -58,6 +59,7 @@
 			}
 			.finish{
 				background-color: #bebebe;
+				
 			}
 			/*安排时间表*/
 			.content_course_list{
@@ -103,28 +105,19 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">问题类型</span><span>上课走神型</span></div>
+				<div class="list"><span class="list_left">课程名</span><span v-text="course.subjectName"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="teacher.name"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
+				<div class="list"><span class="list_left">问题类型</span><span v-text="course.courseTypeName"></span></div>
 			</div>
 			<div class="content_course_list">
-				<div class="course_title">课程安排<span>5节</span></div>
+				<div class="course_title">课程安排<span><span>{{sections.length}}</span>节</span></div>
 				<ul class="course_ul">
-					<li><span>1</span><span>10月29日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
-					<li><span>2</span><span>10月30日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
-					<li><span>3</span><span>10月31日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
-					<li><span>4</span><span>11月01日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
-					<li><span>5</span><span>10月02日</span><span class="course_time">09:30-11:30</span><span class="course_place">东软店</span></li>
+					<li v-for="item,index in sections"><span v-text="index+1"></span><span>{{item.courseStartDate | courseDate}}</span><span class="course_time">{{item.courseStartDate | carouseTime}}-{{item.courseEndDate | carouseTime}}</span><span class="course_place">{{course.organizationId | organizationId}}</span></li>
 				</ul>
-			</div>
-			
-			<div class="body_btn">
-				<button type="button" class="mui-btn mui-btn-block">同意课程安排</button>
-				<button type="button" class="mui-btn mui-btn-block finish">不同意课程安排</button>
 			</div>
 		</div>
 		<!--取出加密值-->
@@ -134,7 +127,6 @@
 		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
 		<script type="text/javascript" src="../js/login_config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
-		<script type="text/javascript" src="../js/vue-lazyload.js" ></script>
 		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
@@ -154,21 +146,44 @@
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200){
-							
+							vm.courseStudent = data.data.courseStudent;
+							vm.course = data.data.course;
+							vm.sections = data.data.sections;
+							vm.teacher = data.data.teacher;
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
 						}else{
 							plus.nativeUI.toast(data.msg);
 						}
 				},true);
+				//确认是否同意排课
+				mui('.body_btn').on('tap','.mui-btn-block',function(){
+					var type = this.getAttribute('data-type');
+					console.log(type)
+				})
 			})
 			
+			//返回日期
+			Vue.filter('courseDate',function(value){
+				return courseDate(value);
+			});
+			
+			//返回时间
+			Vue.filter('carouseTime',function(value){
+				return carouseTime(value);
+			})
+			
+			//返回地址
+			Vue.filter('organizationId',function(value){
+				return originid(value);
+			});
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					teacherList:[],
-					imgUrl:'',
-					teacherTag:[]
+					courseStudent:{},
+					course:{},
+					sections:[],
+					teacher:{}
 				}			
 			})
 		</script>

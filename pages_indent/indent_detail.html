@@ -61,38 +61,53 @@
 			.course_detail li:first-child{
 				padding-top: 0.388888rem;
 			}
+			
+			.mui-btn-send{
+				width: 80%;
+				margin: 0 auto;
+				border-radius:42px;
+				background-color: #888888;
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+				margin-top: 0.388888rem;
+			}
 		</style>
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_show">
-				<div class="remaining_sum">张老师</div>
-				<div class="money">-500.00</div>
+				<div class="remaining_sum" v-text="oneList.goodsAttr"></div>
+				<div class="money">-{{oneList.shopPrize/100}}.00</div>
 				<div class="pay_msg">创建成功，资金冻结</div>
 			</div>
 			<div class="pay_list">
 				<ul class="pay_list_ul">
 					<li><span>付款方式</span><span class="pay_list_right">余额</span></li>
-					<li><span>对方账户</span><span class="pay_list_right">张老师</span></li>
+					<li><span>对方账户</span><span class="pay_list_right" v-text="teacher.name"></span></li>
 				</ul>
 			</div>
 			<div class="pay_list course_detail">
 				<ul class="pay_list_ul">
-					<li><span>课程类型</span><span class="pay_list_right">一对一</span></li>
-					<li><span>课程科目</span><span class="pay_list_right">语文</span></li>
-					<li><span>问题类型</span><span class="pay_list_right">上课走神型</span></li>
-					<li><span>购买课程时间</span><span class="pay_list_right">3000min</span></li>
+					<li><span>课程类型</span><span class="pay_list_right" v-text="course.onetoonetype==0?'班课':'一对一'"></span></li>
+					<li><span>课程科目</span><span class="pay_list_right" v-text="course.subjectName"></span></li>
+					<li><span>问题类型</span><span class="pay_list_right" v-cloak>{{course.subjectType | subjectType}}</span></li>
+					<li><span>购买课程时间</span><span class="pay_list_right" v-cloak>{{oneList.duration}}min</span></li>
 				</ul>
 			</div>
 			<div class="pay_list create_time">
 				<ul class="pay_list_ul create_time_ul">
-					<li><span>创建时间</span><span class="pay_list_right">2017-09-21 20:30</span></li>
-					<li><span>订单号</span><span class="pay_list_right">201709211891485159196</span></li>
+					<li><span>创建时间</span><span class="pay_list_right" v-text="course.courseStartTime"></span></li>
+					<li><span>订单号</span><span class="pay_list_right" v-text="course.subjectType+course.courseDuration+oneList.orderId"></span></li>
 				</ul>
 			</div>
 			
-			
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-send mui-btn-block" id="cancel">取消学习本课程</button>
+			</div>
 		</div>
 		<!--取出加密值-->
 		<input type="text" style="visibility:hidden" id="getPassword" value="" />
@@ -107,33 +122,39 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
-			    //请求数据
-			    var ajaxData = {
-						url:'restful1/course/getCoursesByType',
-						data: {
-							
-						},
-						type:'post'
-				}
-				ajax(ajaxData, function(data) {
-					console.log(JSON.stringify(data))
-						if(data.code == 200){
-							
-						}else if(data.data.length==0){
-							plus.nativeUI.toast('获取数据为空！');
-						}else if(success.err){
-							plus.nativeUI.toast(data.err);
+			    var self = plus.webview.currentWebview();
+			    var datas = self.datas;
+			    console.log(JSON.stringify(datas))
+			    vm.oneList = datas;
+			    vm.teacher = datas.teacher;
+			    vm.course = datas.course;
+			    var cancel = document.getElementById("cancel");
+			    cancel.addEventListener('tap',function(){
+			    	var ajaxData = {
+							url:'restful1/order/dropCourse',
+							data: {
+								id:vm.oneList.id
+							},
+							type:'post'
 						}
-				},true);
+						ajax(ajaxData, function(data) {
+							console.log(JSON.stringify(data))
+								plus.nativeUI.toast(data.msg);
+								if(data.code == 200){
+									mui.back();							
+								}
+						},true,true);
+			    })
 			})
-			
+			Vue.filter('subjectType',function(value){
+				return subjectId(value);
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					oneList:[],
-					imgUrl:'',
-					teacherTag:[]
+					oneList:{},
+					teacher:{},
+					course:{}
 				}			
 			})
 		</script>

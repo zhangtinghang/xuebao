@@ -318,6 +318,8 @@
 							var getHour = nowTime.getDate();
 							if(day == getHour){
 								toDo.innerHTML = '今天';
+							}else if(day == null){
+								return false;
 							}else{
 								toDo.innerHTML = day+'号';
 							}

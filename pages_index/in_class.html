@@ -64,18 +64,16 @@
 	</head>
 
 	<body>
-		<div class="content">
+		<div class="content" id="msg-content">
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
-				<div class="list"><span class="list_left">课程名</span><span>语文</span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
-				<div class="list"><span class="list_left">课堂类型</span><span>一对一</span></div>
-				<div class="list"><span class="list_left">分钟单价</span><span>2学币/分钟</span></div>
-				<div class="list list_last"><span class="list_left">开始时间</span><span>09：20</span></div>
+				<div class="list"><span class="list_left">课程名</span><span v-text="course.subjectName"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="teacher.name"></span></div>
+				<div class="list"><span class="list_left">课堂类型</span><span v-text="course.onetoonetype==1?'一对一':'班课'"></span></div>
+				<div class="list list_last"><span class="list_left">开始时间</span><span v-cloak>{{section.courseStartDate | courseTime}}</span></div>
 			</div>
 			<div class="body_btn">
 				<button type="button" id="next_btn" class="mui-btn mui-btn-block">暂停</button>
-				<button type="button" id="return_btn"  class="mui-btn mui-btn-block finish">结束</button>
 			</div>
 		</div>
 		<!--取出加密值-->
@@ -91,18 +89,33 @@
 			mui.plusReady(function () {
 			    //监听返回
 			    listenReturn();
-			    
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
+			    var stop = document.getElementById("next_btn");
 			     var ajaxData = {
-						url:'restful1/course/getCoursesByType',
+						url:'restful1/message/getServiceMessageById',
 						data: {
-							
+							id:sid
 						},
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
-						if(data.code == 200){
-							
+						if(data.code == 200 && data.data.length!=0){
+							vm.stuent = data.data.stuent;
+							vm.section = data.data.section;
+							vm.course = data.data.course;
+							vm.teacher = data.data.teacher;
+							if(vm.section.courseSectionStatus==0){
+								stop.innerHTML = '结束';
+								stop.disabled = true;
+							}else if(vm.section.courseSectionStatus==1){
+								stop.innerHTML = '暂停';
+								stop.disabled = false;
+							}else if(vm.section.courseSectionStatus==2){
+								stop.innerHTML = '开始';
+								stop.disabled = false;
+							}
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
 						}else{
@@ -111,28 +124,42 @@
 				},true);
 				
 				//暂停课程
-				document.getElementById("next_btn").addEventListener('tap',function(){
+				stop.addEventListener('tap',function(){
 					//0 结束 1开始 2暂停
-					courseStaus();
-				})
-				//取消课程
-				document.getElementById("return_btn").addEventListener('tap',function(){
-					
+					var type = null;
+					if(vm.section.courseSectionStatus==0){
+						type = 0;
+						stop.innerHTML = '结束';
+						stop.disabled = true;
+						vm.section.courseSectionStatus=0;
+					}else if(vm.section.courseSectionStatus==1){
+						type = 1;
+						stop.innerHTML = '暂停';
+						stop.disabled = false;
+						vm.section.courseSectionStatus=2;
+					}else if(vm.section.courseSectionStatus==2){
+						type = 2;
+						stop.innerHTML = '开始';
+						stop.disabled = false;
+						vm.section.courseSectionStatus=1;
+					}
+					courseStaus(type);
 				})
 				
 				function courseStaus(status){
 					var ajaxData = {
 						url:'restful1/course/updateStudentCourseStatus',
 						data: {
-							courseId:courseId,
+							id:vm.section.courseId,
 							status:status
 						},
 						type:'post'
 				}
 				ajax(ajaxData, function(data) {
-					console.log(JSON.stringify(data))
+					console.log('更新课程状态',JSON.stringify(data))
 						if(data.code == 200){
-							
+							plus.nativeUI.toast('更新课程状态成功！');
+							mui.back();
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
 						}else{
@@ -142,13 +169,16 @@
 				}
 			})
 			
-			
+			Vue.filter('courseTime',function(value){
+				return courseTime(value);
+			})
 			var vm = new Vue({
 				el: '#msg-content',
 				data: {
-					teacherList:[],
-					imgUrl:'',
-					teacherTag:[]
+					stuent:{},
+					section:{},
+					course:{},
+					teacher:{}
 				}			
 			})
 		</script>

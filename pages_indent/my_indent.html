@@ -39,6 +39,10 @@
 			.list_right_num{
 				font-size: 0.444444rem;
 			}
+			
+			.body_left{
+				width: 60%;
+			}
 		</style>
 	</head>
 
@@ -47,10 +51,10 @@
 			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<ul class="indent_list">
-					<li v-for="orderItem in orderlist.list">
-						<div class="indent_list_title">张老师</div>
-						<div class="indent_list_body"><span><span v-text="orderItem.subjectName"></span>【基础级】班课</span><span>实付：<span class="list_right_num" v-text="orderItem.orderAmount"></span> 学币</span></div>
-						<div class="indent_list_time">2017-09-10 15:30</div>
+					<li v-for="orderItem,index in orderlist" :data-index = "index">
+						<div class="indent_list_title" v-text="orderItem.teacher.name"></div>
+						<div class="indent_list_body"><span class="body_left mui-ellipsis-1"><span v-text="orderItem.course.subjectName"></span>【<span v-text="orderItem.course.courseTypeName"></span>】{{orderItem.course.onetoonetype==0?'班课':'一对一'}}</span><span>实付：<span class="list_right_num" v-text="orderItem.shopPrize/100"></span> 学币</span></div>
+						<div class="indent_list_time" v-text="orderItem.course.courseStartTime"></div>
 					</li>
 					<!--<li>
 						<div class="indent_list_title">张老师</div>
@@ -93,7 +97,9 @@
 			    listenReturn();
 			    
 			    mui('.indent_list').on('tap','li',function(){
-					openView.nativeView('indent_detail.html','indent_detail','订单详情');
+			    	var index = this.getAttribute('data-index');
+			    	var datas = vm.orderlist[index];
+					openView.nativeView('indent_detail.html','indent_detail','订单详情',{datas:datas});
 			    })
 			})
 						/**

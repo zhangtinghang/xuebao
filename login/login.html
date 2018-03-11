@@ -132,7 +132,14 @@
 					});
 					//返回true，继续页面关闭逻辑
 					return true;
-				}
+				},
+				//侧滑关闭
+				swipeBack:false, //Boolean(默认false)启用右滑关闭功能
+				//监听Android手机的back、menu按键
+				keyEventBind: {
+					backbutton: false,  //Boolean(默认true)关闭back按键监听
+					menubutton: false   //Boolean(默认true)关闭menu按键监听
+				},
 			})
 			
 //		mui(document.body).on('tap', '.mui-btn', function(e) {

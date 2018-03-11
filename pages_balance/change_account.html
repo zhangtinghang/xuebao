@@ -107,7 +107,7 @@
 		<div class="content_body">
 			<div class="body_title">选择账号类型</div>
 			<ul class="body_list_ul">
-				<li data-type = "1">
+				<li data-type = "-1">
 					<div class="list_left">
 						<img align="center" src="../images/wallet/icon_wx.png" />
 						<span>微信支付</span>
@@ -116,7 +116,7 @@
 						<img id="weixin" src="../images/wallet/choose.png" />
 					</div>
 				</li>
-				<li data-type = "2">
+				<li data-type = "4">
 					<div class="list_left">
 						<img align="center" src="../images/wallet/icon_zfb.png"/>
 						<span>支付宝支付</span>
@@ -155,15 +155,15 @@
 			    //点击事件
 			    var weixin = document.getElementById("weixin");
 			    var zhifubao = document.getElementById("zhifubao");
-			    var type ='1';
+			    var type ='-1';
 				mui('.body_list_ul').on('tap','li',function(){
 			    	type = this.getAttribute('data-type');
 			    	switch (type){
-			    		case '1':
+			    		case '-1':
 			    			weixin.src='../images/wallet/choose.png';
 			    			zhifubao.src='../images/wallet/no_choose.png'
 			    			break;
-			    		case '2':
+			    		case '4':
 			    			weixin.src='../images/wallet/no_choose.png';
 			    			zhifubao.src='../images/wallet/choose.png'
 			    			break;
@@ -181,14 +181,31 @@
 				var view = ws.getTitleNView();
 			    view.addEventListener("click", function(e) {
 					if(screen.width - e.clientX <= 60){
-					 	mui.fire(selfDetail,'messChange',{
-					    		type:type,
-					    		monNum:monNum.value,
-					    		monName:monName.value
-					  	});
-					  	
-						//事件逻辑处理
-						mui.back();
+					  	var ajaxData = {
+						url:'restful1/account/updateAccountType',
+						data: {
+							type:type,
+				    		number:monNum.value,
+				    		name:monName.value
+						},
+						type:'post'
+					}
+					ajax(ajaxData, function(data) {
+							if(data.code == 401){
+								plus.nativeUI.toast('您还未登录哟！');
+							}else if(data.code == 200){
+									mui.fire(selfDetail,'messChange',{
+							    		type:type,
+							    		monNum:monNum.value,
+							    		monName:monName.value
+							  	});
+								//事件逻辑处理
+								mui.back();
+							}else if(data.code == 201){
+								plus.nativeUI.toast(data.data);
+							}
+					},true); 
+						
 					}
 				}, false);
 			})

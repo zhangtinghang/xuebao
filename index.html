@@ -463,7 +463,7 @@
 		<script type="text/javascript" src="js/index.js" ></script>
 		<script type="text/javascript">
 			mui.init({
-				swipeBack: true //启用右滑关闭功能
+				swipeBack: false //启用右滑关闭功能
 			});
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview(),
@@ -651,8 +651,8 @@
 					switch(type)
 						{
 						case '1':
-//							openView.nativeView('in_class.html', 'in_class', '上课中',{sid:sid});
-							openView.nativeView('pages_index/classroom_detail.html', 'classroom_detail', '课堂反馈',{sid:sid,type:'服务列表'});
+							openView.nativeView('pages_index/in_class.html', 'in_class', '上课中',{sid:sid});
+//							openView.nativeView('pages_index/classroom_detail.html', 'classroom_detail', '课堂反馈',{sid:sid,type:'服务列表'});
 							break;
 						case '2':
 							openView.nativeView('pages_index/pay_success.html', 'pay_success', '充值成功',{sid:sid});
@@ -676,6 +676,9 @@
 						break;
 						case '8':
 							openView.nativeView('pages_index/indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
+						break;
+						case '9':
+							openView.nativeView('pages_index/course_message.html', 'course_message', '调课申请',{sid:sid});
 						break;
 						default:		
 						}
@@ -713,89 +716,13 @@
 					
 				}
 			});
+			//服务消息图片
 			Vue.filter('itemImg',function(value){
-				switch (value){
-					case 11:
-						return '../images/main_server/icon_ktfk.png';
-						break;
-					case 12:
-						return '../images/main_server/icon_sktx.png';
-						break;
-					case 13:
-						return 6;
-						break;
-					case 14:
-						return 6;
-						break;
-					case 15:
-						return 'images/main_server/icon_txcg.png';
-						break;
-					case 21:
-						return 'images/main_server/icon_chongzhi.png';
-						break;
-					case 22:
-						return 2;
-						break;
-					case 3:
-						return 'images/main_server/icon_ktfk.png';
-						break;
-					case 41:
-						return 4;
-						break;
-					case 42:
-						return 4;
-						break;
-					case 51:
-						return 'images/main_server/icon_schooltime.png';
-						break;
-					case 52:
-						return 'images/main_server/icon_schooltime.png';
-						break;
-					default:
-						break;
-				}
+				return serverImg(value);
 			})
+			//服务消息类别
 			Vue.filter('serverType',function(value){
-				switch (value){
-					case 11:
-						return 1;
-						break;
-					case 12:
-						return 5;
-						break;
-					case 13:
-						return 6;
-						break;
-					case 14:
-						return 6;
-						break;
-					case 15:
-						return 8;
-						break;
-					case 21:
-						return 2;
-						break;
-					case 22:
-						return 2;
-						break;
-					case 3:
-						return 3;
-						break;
-					case 41:
-						return 4;
-						break;
-					case 42:
-						return 4;
-						break;
-					case 51:
-						return 7;
-						break;
-					case 52:
-						return 7;
-						break;
-					default:
-						break;
-				}
+				return serverType(value);
 			})
 			var vm = new Vue({
 				el: '#msg-content',

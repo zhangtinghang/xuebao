@@ -78,6 +78,20 @@
 				color: rgb(27,130,209);
 				font-size: 0.333333rem;
 			}
+			
+			.agreement{
+				display: flex;
+				align-items: center;
+				margin-top: 0.222222rem;
+			}
+			.agreement img{
+				width: 0.416666rem;
+			}
+			#agreement_text{
+				margin-left: 0.222222rem;
+				font-size: 0.333333rem;
+				color: #555555;
+			}
 		</style>
 	</head>
 	<body>
@@ -103,7 +117,11 @@
 				<label class="login_img">邀请码</label>
 				<input type="text" class="input_choose" id="Invitation_code" placeholder="请输入邀请码（可选）" />
 			</div>
-			
+			<!--充值协议-->
+		<div class="agreement">
+			<img class="agreement_btn" id="agreement_img" src="../images/wallet/choose.png" />
+			<span id="agreement_text">同意充值协议</span>
+		</div>
 			<button type="button" id="register" class="mui-btn mui-btn-block">注册</button>
 			<div class="login" id="login">已有学保账号？去登陆</div>
 		</div>
@@ -127,6 +145,7 @@
 				register:document.querySelector('#register'),
 				login:document.querySelector('#login')
 			}
+			 var tap = true;
 			//点击发送验证码
 			var countdown = 60;
 			var acquire_code = document.getElementById("acquire_code");
@@ -171,6 +190,9 @@
 			}
 			//点击注册
 			dc.register.addEventListener('tap',function(){
+				if(tap == false){
+					return plus.nativeUI.toast('请先查看充值协议！');
+				}
 				//验证
 				app.reg(dc,function(data){
 					if(data){
@@ -232,6 +254,22 @@
 			dc.login.addEventListener('tap',function(){
 				mui.back();
 			})
+			 //协议
+		  
+		    var agreement_img = document.getElementById("agreement_img");
+		    mui('.agreement').on('tap','.agreement_btn',function(){
+		    	if(tap == false){
+		    		agreement_img.src='../images/wallet/choose.png';
+		    		tap =true;
+		    	}else{
+		    		agreement_img.src='../images/wallet/no_choose.png';
+		    		tap =false;
+		    	}
+		    })
+		    var agreement_text = document.getElementById("agreement_text");
+		    agreement_text.addEventListener('tap',function(){
+		    	openView.nativeView('../pages_setting/service_agreement.html','service_agreement','用户注册服务协议','','none');
+		    })
 		})
 			
 		</script>

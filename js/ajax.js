@@ -124,9 +124,8 @@ var dateUtils = {
 	}
 };
 
-// 地点转化
+// 科目转化
 var subjectId = function(value){
-	console.log(value)
 	switch (value){
 		case 1:
 			value='国学';
@@ -208,6 +207,143 @@ var originid = function(value){
 	}
 	return value;
 }
+
+//服务类别转化
+var serverType = function(value){
+	switch (value){
+		case 11:
+			return 1;
+			break;
+		case 12:
+			return 5;
+			break;
+		case 13:
+			return 6;
+			break;
+		case 14:
+			return 6;
+			break;
+		case 15:
+			return 8;
+			break;
+		case 21:
+			return 2;
+			break;
+		case 22:
+			return 2;
+			break;
+		case 3:
+			return 3;
+			break;
+		case 41:
+			return 4;
+			break;
+		case 42:
+			return 4;
+			break;
+		case 51:
+			return 7;
+			break;
+		case 52:
+			return 7;
+			break;
+		case 60:
+			return 9;
+			break;
+		case 61:
+			return 9;
+			break;
+		case 62:
+			return 9;
+			break;
+		default:
+			break;
+	}
+	return value;
+}
+
+//服务消息图片类别
+var serverImg = function(value){	
+switch (value){
+		case 11:
+			return 'images/main_server/icon_schooltime.png';
+			break;
+		case 12:
+			return 'images/main_server/icon_sktx.png';
+			break;
+		case 13:
+			return 'images/main_server/icon_kcan.png';
+			break;
+		case 14:
+			return 'images/main_server/icon_kcan.png';
+			break;
+		case 15:
+			return 'images/main_server/icon_schooltime.png';
+			break;
+		case 21:
+			return 'images/main_server/icon_chongzhi.png';
+			break;
+		case 22:
+			return 'images/main_server/icon_chongzhi.png';
+			break;
+		case 3:
+			return 'images/main_server/icon_ktfk.png';
+			break;
+		case 41:
+			return 'images/main_server/icon_txcg.png';
+			break;
+		case 42:
+			return 'images/main_server/icon_txcg.png';
+			break;
+		case 51:
+			return 'images/main_server/icon_dingdanxinxi.png'; //订单接收？
+			break;
+		case 52:
+			return 'images/main_server/icon_dingdanxinxi.png';//订单接收？
+			break;
+		case 60:
+			return 'images/main_server/icon_tuikecheng.png';
+			break;
+		case 61:
+			return 'images/main_server/icon_tuikecheng.png';
+			break;
+		case 62:
+			return 'images/main_server/icon_tuikecheng.png';
+			break;
+		default:
+			break;
+	}
+	return value;
+}
+
+//日期转化
+var courseDate = function(value){
+	if(value){
+		var time = value.replace(/-/g,"/");
+		time = new Date(time);
+		var getMonth = time.getMonth()+1;
+		var getHour = time.getDate();
+		return getMonth +'月'+getHour+'日';
+	}
+}
+
+//时间转化
+var carouseTime = function(value){
+	if(value){
+		var value = value.split(" ");
+		var time = value[1].split(":");
+		return time[0]+':'+time[1];
+	}
+}
+
+var courseTime = function(value){
+	if(value){
+		var value = value.split(" ");
+		var time = value[1].split(":");
+		return time[0]+':'+time[1];
+	}
+}
+
 //var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
 //<div class="not_message">
 //	<div class="not_message_img">

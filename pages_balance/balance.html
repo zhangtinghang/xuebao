@@ -213,7 +213,8 @@
 			    //提现
 			    document.getElementById("Withdraw").addEventListener('tap',function(){
 			    	var money = this.getAttribute('data-money');
-			    	openView.nativeView('withdraw_deposit.html', 'withdraw_deposit', '提现',{money:money});
+			    	var account = vm.CourseByStudentId;
+			    	openView.nativeView('withdraw_deposit.html', 'withdraw_deposit', '提现',{money:money,account:account});
 			    });
 			    
 			    document.getElementById("come_popover").addEventListener('tap',function(){

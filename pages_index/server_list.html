@@ -277,6 +277,9 @@
 						case '8':
 							openView.nativeView('indent_detail.html', 'indent_detail', '订单详情',{sid:sid});
 						break;
+						case '9':
+							openView.nativeView('course_message.html', 'course_message', '调课申请',{sid:sid});
+						break;
 						default:		
 						}
 				});
@@ -314,102 +317,23 @@
 					
 				}
 			})
+			//服务消息图片
 			Vue.filter('itemImg',function(value){
-				switch (value){
-					case 11:
-						return '../images/main_server/icon_ktfk.png';
-						break;
-					case 12:
-						return '../images/main_server/icon_sktx.png';
-						break;
-					case 13:
-						return 6;
-						break;
-					case 14:
-						return 6;
-						break;
-					case 15:
-						return '../images/main_server/icon_txcg.png';
-						break;
-					case 21:
-						return '../images/main_server/icon_chongzhi.png';
-						break;
-					case 22:
-						return 2;
-						break;
-					case 3:
-						return '../images/main_server/icon_ktfk.png';
-						break;
-					case 41:
-						return 4;
-						break;
-					case 42:
-						return 4;
-						break;
-					case 51:
-						return '../images/main_server/icon_schooltime.png';
-						break;
-					case 52:
-						return '../images/main_server/icon_schooltime.png';
-						break;
-					default:
-						break;
-				}
+				return '../'+serverImg(value);
 			})
+			//服务消息类别
 			Vue.filter('serverType',function(value){
-				switch (value){
-					case 11:
-						return 1;
-						break;
-					case 12:
-						return 5;
-						break;
-					case 13:
-						return 6;
-						break;
-					case 14:
-						return 6;
-						break;
-					case 15:
-						return 8;
-						break;
-					case 21:
-						return 2;
-						break;
-					case 22:
-						return 2;
-						break;
-					case 3:
-						return 3;
-						break;
-					case 41:
-						return 4;
-						break;
-					case 42:
-						return 4;
-						break;
-					case 51:
-						return 7;
-						break;
-					case 52:
-						return 7;
-						break;
-					default:
-						break;
-				}
+				return serverType(value)
 			})
+			//时间转化
 			Vue.filter('dateTime',function(value){
 				var value = value.replace(/-/g,"/");
 				return dateUtils.format(value)
 			})
-			Vue.filter('serverImg',function(img){
-				console.log(img)
-			})
 			var vm = new Vue({
 				el: '#class_message_box',
 				data: {
-					serverArr:[],//教师动态数据
-					serverImg:'../images/index/recharge_record_icon.png'
+					serverArr:[]//教师动态数据
 				}
 			})
 		</script>

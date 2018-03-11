@@ -69,10 +69,12 @@
 				background-color: #1b82d1;
 				color: #FEFEFE;
 			}
+			.commit{
+				padding-top: 0.222222rem;
+			}
 			.commit_ul{
 				padding: 0 5%;
 				background-color: #FEFEFE;
-				padding-top: 0.222222rem;
 			}
 			.commit_ul li{
 				padding-bottom: 0.222222rem;
@@ -117,7 +119,7 @@
 			</div>
 			<div class="evaluate">
 				对本节课老师做个评价
-				<span id="comment_btn" :data-teacherId="feedDetail.teacherId" class="evaluate_btn">评价</span>
+				<span id="comment_btn" :data-teacherId="feedDetail.teacherId" :data-courseSection="feedDetail.courseSection" :data-courseId="feedDetail.courseId" class="evaluate_btn">评价</span>
 			<!--<span class="evaluate_btn">已评价</span> #bebebe-->
 			</div>
 			<div class="commit" v-if="feedDetail.comments">
@@ -175,25 +177,18 @@
 							}
 					},true);
 			    }
-//				 function getServerDetail(sid){
-//				 		var w=plus.nativeUI.showWaiting("", {style:"black",background:"rgba(0,0,0,0)",loading:{display:"inline"},back:"transmit"});
-//			    		var ajaxData = {
-//							url:'restful1/message/getServiceMessageById',
-//							data: {
-//								id:sid,
-//							},
-//							type:'post'
-//						}
-//						ajax(ajaxData, function(data) {
-//							w.close();
-//							vm.feedDetail = data.data;
-//						},true);
-//			    }
 			    document.getElementById("comment_btn").addEventListener('tap',function(){
 			    	//传参
 			    	var teacherId = this.getAttribute('data-teacherId');
-//			    	openView.nativeView('comment.html', 'comment', '发表评论',{teacherId:teacherId});
-					plus.nativeUI.toast('暂未开通~');
+			    	var courseSection = this.getAttribute('data-courseSection');
+			    	var courseId = this.getAttribute('data-courseId');
+			    	if(vm.feedDetail.comments.length==0){
+			    		openView.nativeView('comment.html', 'comment', '发表评论',{teacherId:teacherId,courseId:courseId,courseSection:courseSection});
+			    	}else{
+			    		openView.nativeView('comment_2.html', 'comment2', '发表评论',{teacherId:teacherId,courseId:courseId,courseSection:courseSection});
+			    	}
+			    	
+//					plus.nativeUI.toast('暂未开通~');
 			    })
 			})
 			Vue.filter('subjectName',function(value){

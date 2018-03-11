@@ -91,9 +91,10 @@
 			    var self  = plus.webview.currentWebview();
 			    var teacherId = self.teacherId;
 			    var ajaxData = {
-					url:'restful1/course/getAllClassCoursesByTeacherId',
+					url:'restful1/course/getAllCoursesByTeacherId',
 					data: {
-						teacherId:teacherId
+						teacherId:teacherId,
+						classNum:-1
 					},
 					type:'post'
 				}

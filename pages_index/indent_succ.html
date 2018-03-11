@@ -76,7 +76,7 @@
 			<div class="content_course">课程信息</div>
 			<div class="content_body">
 				<div class="list"><span class="list_left">课程名</span><span v-text="listDetail.subjectName"></span></div>
-				<div class="list"><span class="list_left">老师</span><span>王老师</span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="teacher.name"></span></div>
 				<div class="list"><span class="list_left">课堂类型</span><span v-text="listDetail.onetoonetype==1?'一对一':'班课'"></span></div>
 				<div class="list"><span class="list_left">学生问题</span><span v-text="listDetail.courseTypeName"></span></div>
 				<div class="list"><span class="list_left">订单时长</span><span><span v-text="ordercourse.duration"></span>min</span></div>
@@ -122,6 +122,7 @@
 					}else if(data.code == 200){
 						vm.listDetail = data.data.course;
 						vm.ordercourse = data.data.ordercourse;
+						vm.teacher = data.data.teacher;
 					}else{
 						plus.nativeUI.toast('请求超时！');
 					}
@@ -133,6 +134,7 @@
 				data: {
 					listDetail:{},//教师动态数据
 					title:'',
+					teacher:{},
 					ordercourse:{}
 				}			
 			})

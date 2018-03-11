@@ -89,19 +89,38 @@
 			mui.init();
 			mui.plusReady(function () {
 			    //监听返回
-			    listenReturn();
-			    var self = plus.webview.currentWebview();
-			    var money = self.money;
+			     //监听传回数据
 			    var monNameDom = document.getElementById("monName");
 			    var monNumDom = document.getElementById("monNum");
+			    monNameDom.innerHTML='';
+			    monNumDom.innerHTML='';
+			    listenReturn();
+			    var self = plus.webview.currentWebview();
+			    var money = self.money/100;
+			    var account = self.account;
+			    if(!account || !account.type || !account.number || !account.name){
+			    	var btnArray = ['确定'];
+			    	mui.confirm('请先完成收款账户绑定！', '注意', btnArray, function(e) {
+						if (e.index == 0) {
+							openView.nativeView('change_account.html', 'change_account', '账户修改');
+						}
+					});
+			    }else{
+			    	var type = account.type;
+			    	if(type==1){
+			    		monNameDom.innerHTML='微信';
+			    	}else{
+			    		monNameDom.innerHTML='支付宝';
+			    	}
+			    	monNumDom.innerHTML = '('+account.number+')';
+			    }
+			   
 			    //更改账户
 			    var change_account_number = document.getElementById("change_account_number");
 			    change_account_number.addEventListener('tap',function(){
 			    	openView.nativeView('change_account.html', 'change_account', '账户修改');
 			    });
-			    //监听传回数据
-			    monNameDom.innerHTML='';
-			    monNumDom.innerHTML='';
+			   
 			    window.addEventListener('messChange',function(e){
 			    	var type = e.detail.type;
 			    	if(type==1){

@@ -62,7 +62,7 @@
 			<div class="content_course course_remind">上课信息</div>
 			<div class="content_body">
 				<div class="list"><span class="list_left">上课时间</span><span>{{courseSection.courseStartDate | courseTime}}</span></div>
-				<div class="list"><span class="list_left">安排时长</span><span>min</span></div>
+				<div class="list"><span class="list_left">安排时长</span><span>{{durtion}}min</span></div>
 				<div class="list"><span class="list_left">上课模式</span><span v-text="course.issearch==1?'学生上门':'教师上门'"></span></div>
 				<div class="list list_last"><span class="list_left">上课地点</span><span>{{course.organizationId | originid}}</span></div>
 			</div>
@@ -92,20 +92,26 @@
 				ajax(ajaxData, function(data) {
 					console.log(JSON.stringify(data))
 						if(data.code == 200){
-							console.log(JSON.stringify(data.data))
 							vm.courseSection = data.data.courseSection;
 							vm.teacher = data.data.teacher;
 							vm.course = data.data.course;
 							vm.translaterecord = data.data.translaterecord;
-							console.log(data.data.translaterecord)
 							vm.user = data.data.user;
 							vm.sections = data.data.sections;
+							var timer = conversionTime(data.data.courseSection.courseEndDate) - conversionTime(data.data.courseSection.courseStartDate);
+							vm.durtion = timer/1000/60;
 						}else if(data.data.length==0){
 							plus.nativeUI.toast('获取数据为空！');
 						}else{
 							plus.nativeUI.toast(data.msg);
 						}
 				},true);
+				
+				function conversionTime(value){
+					console.log(value)
+					var time = value.replace(/-/g,"/");
+					return new Date(time).getTime();
+				}
 			})
 			Vue.filter('courseTime',function(value){
 				if(value){
@@ -128,7 +134,8 @@
 					course:{},
 					translaterecord:{},
 					user:{},
-					sections:[]
+					sections:[],
+					durtion:0
 				}			
 			})
 		</script>

@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>课程详情</title>
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.content_course{
+				padding:0 5%;
+				border-bottom:2px solid rgba(220,220,220,.5);
+				font-size: 0.416666rem;
+				color: #555555;
+				background-color: #FEFEFE;
+				height: 1.063888rem;
+				display: flex;
+				align-items: center;
+			}
+			.content_body{
+				padding-top: 0.388888rem !important;
+				width: 100%;
+				margin: 0;
+				padding: 0 5%;
+				background-color: #fefefe;
+			}
+			.content_body_ul{
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				background-color: #fefefe;
+			}
+			.list{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.388888rem;
+			}
+			
+			.list span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			.list_left{
+				font-size: 0.416666rem !important;
+				color: #333333 !important;
+				width: 60%;
+			}
+			.list_li{
+				display: flex;
+				padding: 0 5%;
+				align-items: center;
+				height: 1.277777rem;
+				border-bottom: 2px solid rgb(240,240,240);
+			}
+
+			.list_li span{
+				font-size: 0.388888rem;
+				color: #888888;
+			}
+			
+			/*上课信息*/
+			.course_remind{
+				margin-top: 0.222222rem;
+			}
+			
+			.right_icon{
+				display: block;
+				width: 50%;
+			}
+			.course_message{
+				color: rgb(27,130,209) !important;
+				margin-left: 15%;	
+			}
+			.course_message_del{
+				text-decoration:line-through !important;
+				color: #888888 !important;
+			}
+			.message_time{
+				border: 2px solid rgb(27,130,209);
+				padding: 0 0.138888rem;
+				border-radius:18px;
+			}
+			
+			.mui-btn-send{
+				width: 80%;
+				margin: 0 auto;
+				border-radius:42px;
+				background-color: rgb(27,130,209);
+				color: #FEFEFE;
+				font-size: 0.5rem;
+				height: 1.166666rem !important;
+				line-height: 0.5;
+				border: none;
+				margin-top: 0.388888rem;
+			}
+			/*picker*/
+			.mui-btn-picker {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+				border: none;
+			}
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+			.mui-poppicker{
+				background-color: #FFFFFF;
+			}
+			.mui-poppicker-body{
+				background-color: #FFFFFF;
+				border-top: none;
+			}
+			.mui-picker{
+				background-color: #FFFFFF;
+			}
+			.mui-pciker-rule-ft{
+				width: 70%;
+				margin-left: 15%;
+				border-top: 2px solid #bebebe;
+				border-bottom: 2px solid #bebebe;
+				height: 1.583333rem;
+			}
+			.mui-pciker-list li{
+				color: #88888;
+				font-size: 0.444444rem;
+			}
+			.mui-pciker-list{
+				height: 1.583333rem;
+				line-height:1.583333rem;
+			}
+			.mui-poppicker{
+				box-shadow:none;
+			}
+			.mui-poppicker-header{
+				padding: 0.208888rem 0.138888rem;
+			}
+			.mui-poppicker-btn-cancel{
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok{
+				background-color: #FFFFFF;
+				color: rgb(27,130,209);
+				font-size: 0.444444rem !important;
+			}
+			.mui-poppicker-btn-ok:active{
+				background-color: rgb(27,130,209) !important;	
+			}
+			.not_yes{
+				background-color: #929292;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content" id="msg-content">
+			<div class="content_course">课程信息</div>
+			<div class="content_body">
+				<div class="list"><span class="list_left">年级</span><span v-text="course.className"></span></div>
+				<div class="list"><span class="list_left">老师</span><span v-text="student.name"></span></div>
+				<div class="list"><span class="list_left">课程类型</span><span v-text="course.courseTypeName || '一对一'"></span></div>
+			</div>
+			
+			<div class="content_course course_remind">时间信息</div>
+			<ul class="content_body_ul" v-if="organizationId">
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message course_message_del course_message_after" v-cloak>{{course.courseStartDate | dateTime}}</span></span><span class="right_icon"><span class="course_message" v-cloak>{{changeTime.courseStartDate | dateTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message course_message_del message_time" v-cloak>{{course.courseStartDate | courseTime}}-{{course.courseEndDate | courseTime}}</span></span><span class="right_icon"><span class="course_message message_time" v-cloak>{{changeTime.courseStartDate | courseTime}}-{{changeTime.courseEndDate | courseTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message course_message_del"  v-cloak>{{organizationId | origaniztion}}</span></span><span class="right_icon"><span class="course_message" v-cloak>{{course.organizationId | origaniztion}}</span></span></li>
+			</ul>
+			<ul class="content_body_ul" v-else>
+				<li class="list_li"><span class="list_left">上课日期<span class="course_message course_message_del " v-cloak>{{coursesection.courseStartDate | dateTime}}</span></span><span class="right_icon"><span class="course_message" v-cloak>{{changeTime.courseStartDate | dateTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课时间<span class="course_message course_message_del message_time" v-cloak>{{coursesection.courseStartDate | courseTime}}-{{coursesection.courseEndDate | courseTime}}</span></span><span class="right_icon"><span class="course_message message_time" v-cloak>{{changeTime.courseStartDate | courseTime}}-{{changeTime.courseEndDate | courseTime}}</span></span></li>
+				<li class="list_li"><span class="list_left">上课地点<span class="course_message course_message_del" v-cloak>{{course.organizationId | origaniztion}}</span></span><span class="right_icon"><span class="course_message" v-cloak>{{course.organizationId | origaniztion}}</span></span></li>
+			</ul>
+			<div class="body_btn">
+				<button type="button" class="mui-btn mui-btn-send mui-btn-block" data-type="1">同意调课申请</button>
+				<button type="button" class="mui-btn mui-btn-send not_yes mui-btn-block" data-type="0">不同意调课申请</button>
+			</div>
+		</div>
+		<!--取出加密值-->
+        <input type="text" style="visibility:hidden" id="getPassword" value="" />
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/config.js" ></script>
+		<script type="text/javascript" src="../js/login_config.js" ></script>
+		<script type="text/javascript" src="../js/vue.min.js" ></script>
+		<script type="text/javascript" src="../js/hmac-sha1.js" ></script>
+		<script type="text/javascript" src="../js/city.data-3.js" ></script>
+		<script type="text/javascript" src="../js/timeData.js" ></script>
+		<script type="text/javascript" src="../js/mui.picker.js"></script>
+		<script type="text/javascript" src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/upCourseData.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				//监听返回
+			    listenReturn();
+			    //获取参数
+			    var self = plus.webview.currentWebview();
+			    var sid = self.sid;
+			    
+			    //获取推送信息
+		    	var ajaxData = {
+                    url:'restful1/message/getServiceMessageById',
+                    data: {
+                    	id:sid
+                    },
+                    type:'post'
+                }
+                ajax(ajaxData, function(data){ 
+                	console.log('调课====',JSON.stringify(data))
+                	if(data.code==200){
+                		vm.student = data.data.teacher;
+                		vm.course = data.data.course;
+                		vm.changeTime = data.data.courseadjust;
+                		vm.coursesection = data.data.coursesection;
+                	}
+                },true,true);
+	              
+			    //判断是否同意调课
+			    var state = app.getState();
+			    mui('.content').on('tap','.mui-btn-send',function(){
+			    	if(vm.changeTime.status == 0 || vm.changeTime.status == 1){
+			    		return plus.nativeUI.toast('调课已完成，请勿重复！');
+			    	}
+			    	var type = this.getAttribute('data-type');
+			    	//获取推送信息
+			    	var ajaxData = {
+	                    url:'restful1/course/updateCourseAdjust',
+	                    data: {
+	                    	adjustId:vm.changeTime.adjustId,
+	                    	courseStudent:state.data.id,
+	                    	teacher:vm.student.id,
+	                    	status:type,
+	                    	type:'student'
+	                    },
+	                    type:'post'
+	                }
+	                ajax(ajaxData, function(data){
+	                	plus.nativeUI.toast(data.msg)
+	                	if(data.code==200){
+	                		mui.back();
+	                	}
+	                },true,true);
+			    })
+			})
+			//时间
+			Vue.filter('courseTime',function(value){
+				if(value){
+					var value = value.split(" ");
+					var time = value[1].split(":");
+					return time[0]+':'+time[1];
+				}	
+			})
+			//日期
+			Vue.filter('dateTime',function(value){
+				if(value){
+					var time = value.replace(/-/g,"/");
+					time = new Date(time);
+					var getMonth = time.getMonth()+1;
+					var getHour = time.getDate();
+					return getMonth +'月'+getHour+'日';
+				}
+			})
+			//地点
+			Vue.filter('origaniztion',function(origin){
+				return originid(origin);
+			})
+			var vm = new Vue({
+                el: '#msg-content',
+                data: {
+                    student:{},
+                    course:{},
+                    changeTime:{},
+                    coursesection:{},
+                    organizationId:'',
+                    courseTypeName:''
+                }           
+           })
+		</script>
+	</body>
+
+</html>

@@ -77,6 +77,8 @@
 				<textarea class="content_textarea" id="commit_text" placeholder="对老师做出文字评论，该评论会显示在老师详情页。"></textarea>
 			</div>
 		</div>
+		<!--取出加密值-->
+		<input type="text" style="visibility:hidden" id="getPassword" value="" />
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript" src="../js/config.js" ></script>
 		<script type="text/javascript" src="../js/vue.min.js" ></script>
@@ -92,28 +94,38 @@
 			    var self = plus.webview.currentWebview();
 			    var teacherId = self.teacherId;
 			    var perfect = '2';
+			    var state = app.getState();
+			   
+			    var selfId = state.data.id;
+			     console.log(teacherId)
+			    var courseId = self.courseId;
+			    var courseSection = self.courseSection;
 			    var view = self.getTitleNView();
 			    var commit_text = document.getElementById("commit_text");
 			    view.addEventListener("click", function(e) {
 				if(screen.width - e.clientX <= 60){
+					if(commit_text.value==null||commit_text.value==''){
+						console.log(perfect,teacherId,selfId,courseId,courseSection)
+						return plus.nativeUI.toast('请输入评论内容！');
+					}
 						//事件逻辑处理
 						var ajaxData = {
-							url:'restful1/course/getCourseFeedbackByStudentId',
+							url:'restful1/course/addComment',
 							data: {
-//								perfect,
-//								commit_text.value
-//								teacherId
+								commentRank:perfect,
+								commentContent:commit_text.value,
+								commentTargetId:teacherId,
+								commentSourceId:selfId,
+								courseId:courseId,
+								courseSection:courseSection
 							},
 							type:'post'
 						}
 						ajax(ajaxData, function(data) {
 							console.log('请求数据',JSON.stringify(data))
-								if(data.code == 401){
-									plus.nativeUI.toast('您还未登录哟！');
-								}else if(data.code == 200){
-									vm.feedDetail = data.data;
-								}else{
-									plus.nativeUI.toast('请求超时！');
+								plus.nativeUI.toast(data.msg);
+								if(data.code == 200){
+									mui.back();
 								}
 						},true);
 					}
